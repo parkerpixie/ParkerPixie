@@ -1,24 +1,150 @@
-<!DOCTYPE html>
+---
+/* Any Astro frontmatter logic goes here (leave empty if not used) */
+---
+
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
-  <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨" />
-  <link rel="icon" href="./assets/CapyGoldIcon.png" />
-  <style>
-    :root{
-      --brand:#8a5dff;          /* Parker purple */
-      --brand-deep:#4b2fb5;     /* deeper accent */
-      --gold:#D8AA3B;           /* warm gold */
-      --ink:#1f1b24;            /* text */
-      --bg:#0f0b14;             /* page bg (very deep) */
-      --card:#171220;           /* cards */
-      --muted:#bdb5d9;
-      --ring: 0 0 0 3px rgba(138,93,255,.25);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:linear-gradient(180deg,#0f0b14,#130e1f 40%,#100b1a);color:#f7f3ff;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;height:a
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
+    <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨" />
+    <link rel="icon" href="/assets/CapyGoldIcon.png" />
+    <style>
+      *{box-sizing:border-box}
+      html,body{
+        margin:0;
+        padding:0;
+        background:linear-gradient(180deg,#0f0b14,#130e1f 40%,#100b1a);
+        color:#f7f3ff;
+        font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+      }
+      a{color:inherit;text-decoration:none}
+      img{max-width:100%;height:auto;display:block}
+      .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
+
+      /* Header */
+      header{
+        position:sticky;top:0;z-index:50;
+        background:rgba(15,11,20,.7);
+        backdrop-filter:blur(10px);
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
+      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
+      .brand span{font-size:18px}
+      .links{display:flex;gap:16px}
+      .links a{padding:8px 12px;border-radius:12px;transition:.2s ease}
+      .links a:hover{background:rgba(255,255,255,.07)}
+      .links a.cta{background:linear-gradient(135deg,#8a5dff,#4b2fb5);box-shadow:0 8px 30px rgba(138,93,255,.35)}
+      .links a.cta:hover{transform:translateY(-1px)}
+
+      /* Hero */
+      .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;margin-top:28px}
+      @media (max-width:900px){.hero{grid-template-columns:1fr;gap:20px}}
+      .hero-card{background:radial-gradient(1200px 400px at -10% -10%, rgba(216,170,59,.08), transparent),#171220;
+        border:1px solid rgba(255,255,255,.06);
+        border-radius:18px;
+        padding:22px;
+        box-shadow:0 20px 60px rgba(0,0,0,.35);
+      }
+      .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#bdb5d9;letter-spacing:.25px}
+      .eyebrow::before{content:"✨";filter:drop-shadow(0 0 4px rgba(255,255,255,.45))}
+      h1{margin:.35rem 0 .6rem;font-size:clamp(28px,4.5vw,44px);line-height:1.05}
+      p.lede{font-size:clamp(15px,2.4vw,18px);color:#e8e2ff;opacity:.95}
+      .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+      .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:#1b1527;transition:.2s;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+      .btn:hover{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(138,93,255,.25)}
+      .btn.primary{background:linear-gradient(135deg,#8a5dff,#4b2fb5);border:none}
+      .caption{margin-top:10px;font-size:13px;color:#bdb5d9}
+      .hero img{border-radius:16px;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+
+      /* Triple cards */
+      .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+      @media (max-width:900px){.grid{grid-template-columns:1fr}}
+      .tile{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(180deg,#1c152d,#181126);
+        border:1px solid rgba(255,255,255,.08);
+        padding:20px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;isolation:isolate;
+      }
+      .tile h3{margin:0;font-size:22px;letter-spacing:.2px}
+      .tile p{margin:0;color:#bdb5d9;font-size:14px}
+      .chip{position:absolute;top:14px;right:14px;font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:6px 10px;border-radius:999px}
+      .tile::after{content:"";position:absolute;inset:auto -20%  -20% auto;width:240px;height:240px;background:radial-gradient(closest-side, rgba(138,93,255,.28), transparent 70%);transform:translate(10%,10%);z-index:-1;filter:blur(6px)}
+      .tile.paws::after{background:radial-gradient(closest-side, rgba(216,170,59,.35), transparent 70%)}
+      .tile.pop::after{background:radial-gradient(closest-side, rgba(255,105,180,.28), transparent 70%)}
+      .tile.pixel::after{background:radial-gradient(closest-side, rgba(80,200,255,.28), transparent 70%)}
+
+      footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/assets/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="links">
+          <a href="/about">About</a>
+          <a class="cta" href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-card">
+          <span class="eyebrow">Sass · Shimmer · Sparkle</span>
+          <h1>Cozy craft queen, gamer, and pixel tinkerer.</h1>
+          <p class="lede">
+            I stitch joy into amigurumi 🧶, decorate digital worlds, and build
+            playful systems that make life feel a little more magical.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="/about" aria-label="Who is ParkerPixie">
+              <span>Who is ParkerPixie</span>
+            </a>
+            <a class="btn" href="/blog" aria-label="Read the blog">
+              <span>Blog</span>
+            </a>
+          </div>
+          <p class="caption">“Sass, Shimmer, Sparkle”—and a whole lot of heart.</p>
+        </div>
+
+        <figure>
+          <img src="/assets/hero.jpg" alt="Parker by the lake crocheting a tiny capybara" />
+        </figure>
+      </section>
+
+      <!-- TILES: Paws, Pop, Pixel -->
+      <section class="grid" aria-label="Explore ParkerPixie worlds">
+        <a class="tile paws" href="/paws">
+          <span class="chip">Paws</span>
+          <h3>ParkerPixiePaws</h3>
+          <p>Amigurumi, capybaras, care guides, commissions, and cozy drops.</p>
+        </a>
+
+        <a class="tile pop" href="/pop">
+          <span class="chip">Pop</span>
+          <h3>ParkerPixiePop</h3>
+          <p>Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p>
+        </a>
+
+        <a class="tile pixel" href="/pixel">
+          <span class="chip">Pixel</span>
+          <h3>ParkerPixiePixel</h3>
+          <p>Design experiments, printables, and tiny tools that make life easier.</p>
+        </a>
+      </section>
+
+      <footer>
+        © <span id="y"></span> ParkerPixie · Made with ✨ and caffeine-free sparkle.
+      </footer>
+    </main>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
