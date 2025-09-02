@@ -1,1 +1,50 @@
+---
+const { title, date, description, cover, insight } = Astro.props;
+function fmt(d){ try { return new Date(d).toLocaleDateString(); } catch { return d || ""; } }
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title ? `${title} • ParkerPixie` : "Post • ParkerPixie"}</title>
+    <style>
+      :root{ --brand:#8a5dff; --gold:#f4d06f; --bg1:#0c0619; --bg2:#1a0f2e; }
+      body{ margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial; 
+            background:linear-gradient(180deg,var(--bg1),var(--bg2)); color:#eae6ff; }
+      .wrap{ max-width:860px; margin:0 auto; padding:2rem 1rem 4rem; }
+      h1{ color:#fff; margin:0 0 .25rem; line-height:1.1; }
+      .meta{ opacity:.8; margin:0 0 1rem; }
+      .insight{ background:rgba(138,93,255,.18); border:1px solid rgba(138,93,255,.35);
+                padding:1rem; border-radius:12px; color:#fff; box-shadow:0 8px 24px rgba(0,0,0,.25); }
+      .badge{ display:inline-block; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+              background:linear-gradient(90deg,var(--brand),#bdb4ff); color:#0b0b12;
+              padding:.32rem .6rem; border-radius:999px; margin-bottom:.5rem; font-weight:700; }
+      .hero{ margin:1rem 0 0; border-radius:14px; overflow:hidden; box-shadow:0 16px 40px rgba(0,0,0,.35); }
+      .hero img{ width:100%; display:block; height:auto; }
+      a{ color:var(--gold); }
+      blockquote{ background:rgba(255,255,255,.07); border-left:4px solid var(--gold); padding:1rem 1.25rem; border-radius:10px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>{title}</h1>
+        {(date || description) && <p class="meta">{fmt(date)} {description && `• ${description}`}</p>}
+        {cover && <figure class="hero"><img src={cover} alt="" loading="eager" /></figure>}
+        {insight && (
+          <aside class="insight">
+            <div class="badge">Clementine’s Insight</div>
+            <p>{insight}</p>
+          </aside>
+        )}
+      </header>
+
+      <main>
+        <article>
+          <slot />
+        </article>
+      </main>
+    </div>
+  </body>
+</html>
 
