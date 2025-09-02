@@ -1,40 +1,13 @@
 ---
-/* Blog index — modern magazine grid, dark theme to match site */
-
-const posts = await Astro.glob('./*.md'); // finds /blog/*.md posts next to this file
-posts.sort((a, b) => {
-  const da = new Date(a.frontmatter?.date ?? 0);
-  const db = new Date(b.frontmatter?.date ?? 0);
-  return db.getTime() - da.getTime();
-});
 ---
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ParkerPixie · Blog</title>
-    <meta name="description" content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
-    <link rel="icon" href="/CapyGoldIcon.png" />
-    <style>
-      :root{
-        --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
-        --ink:#f7f3ff; --muted:#bdb5d9;
-        --bg1:#0f0b14; --bg2:#130e1f; --bg3:#100b1a;
-        --card:#171220; --radius:18px;
-      }
-      *{box-sizing:border-box}
-      html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg1),var(--bg2) 40%,var(--bg3));color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-      a{color:inherit;text-decoration:none}
-      img{max-width:100%;height:auto;display:block}
-      .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
-
-      /* Header (matches site) */
-      header{position:sticky;top:0;z-index:50;background:rgba(15,11,20,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
-      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
-      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
+  <head><meta charset="utf-8" /><title>Blog test</title></head>
+  <body style="background:#0f0b14;color:#f7f3ff;font-family:system-ui;padding:24px">
+    <h1>Blog is wired ✅</h1>
+    <p>If you can see this at /blog, the route works. Next we’ll add the magazine grid.</p>
+  </body>
+</html>      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
       .brand span{font-size:18px}
       .links{display:flex;gap:16px}
       .links a{padding:8px 12px;border-radius:12px;transition:.2s ease}
