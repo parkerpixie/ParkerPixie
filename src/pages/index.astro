@@ -1,262 +1,65 @@
+================================================== -->
+
+
 <!-- =============================
-  File: index.html (Homepage)
-  Purpose: Pull ParkerPixiePaws into the umbrella brand with an "About the Artist" teaser,
-           recent works gallery, and a clear CTA to the new Paws area.
-  Notes:
-  - Replace image src paths with your actual asset paths.
-  - Paste your finalized “About the Artist” bio where indicated (short teaser here, full on paws.html).
-  - Uses a tiny bit of vanilla JS (no frameworks) and modern, responsive CSS. 
+1) index.html
 ============================= -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ParkerPixie — Home</title>
-  <meta name="description" content="ParkerPixie — fashion, cozy design, and ParkerPixiePaws amigurumi art. Art as healing, glitter as a lifestyle." />
-
-  <!-- Open Graph for link sharing -->
-  <meta property="og:title" content="ParkerPixie" />
-  <meta property="og:description" content="ParkerPixie — fashion, cozy design, and ParkerPixiePaws amigurumi art." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/assets/og/og-umbrella.jpg" />
-  <meta property="og:url" content="https://your-domain.example/" />
-
-  <!-- Simple fonts (safe system stack) -->
-  <style>
-    :root{
-      --bg:#0b0a10;/* cosmic charcoal */
-      --ink:#f6f3ff;/* near-white */
-      --sub:#c7bbff;/* lilac */
-      --accent:#ffd166;/* golden shimmer */
-      --muted:#8a86a3;
-      --card:#141225;
-      --glow: 0 0 40px rgba(199,187,255,.35);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand img{height:42px;width:auto}
-    nav a{margin-left:16px;opacity:.9}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:24px 0}
-    .hero h1{font-size:clamp(28px,5vw,54px);line-height:1.05;margin:0}
-    .tag{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,var(--sub),#9ee8ff);color:#0a0a12;font-weight:700}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--glow)}
-    .cta{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#1e1b2e;font-weight:700}
-    .cta svg{width:18px;height:18px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-    .tile{position:relative;overflow:hidden;border-radius:14px}
-    .tile img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .4s ease}
-    .tile:hover img{transform:scale(1.03)}
-    .tile .cap{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.7));font-weight:600}
-    .section{margin:42px 0}
-    .h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 12px}
-    .muted{color:var(--muted)}
-    .about-teaser{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
-    .about-teaser .pic{min-height:260px;background:url('/assets/paws/atelier.jpg') center/cover;border-radius:var(--radius)}
-    .about-teaser .copy{padding:18px}
-    .quote{padding:18px;border-left:4px solid var(--sub);background:rgba(255,255,255,.03);border-radius:12px}
-    footer{opacity:.75;padding:24px 0 48px}
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr}
-      .about-teaser{grid-template-columns:1fr}
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ParkerPixie — Sass • Shimmer • Sparkle</title>
+<meta name="description" content="ParkerPixie: umbrella brand for cozy design, gaming, and ParkerPixiePaws amigurumi." />
+<link rel="preload" href="/assets/brand/capy-gold.svg" as="image" type="image/svg+xml">
+<style>
+:root{--bg:#0b0a10;--ink:#f6f3ff;--sub:#c7bbff;--accent:#ffd166;--muted:#9c96b8;--card:#141225;--radius:18px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:28px;height:28px}
+nav{display:flex;gap:18px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:24px 0}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#201a33;font-weight:700}
+.btn.secondary{background:#2a2640;color:#f6f3ff;border:1px solid rgba(255,255,255,.12)}
+.h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 12px}
+.muted{color:var(--muted)}
+.section{margin:42px 0}
+.grid-logos{display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:16px}
+.logo-card{display:flex;align-items:center;justify-content:center;padding:22px;background:var(--card);border-radius:16px;border:1px solid rgba(255,255,255,.08)}
+.logo-card img{max-width:180px;max-height:64px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.grid-logos{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <img src="/assets/brand/ParkerPixieDust-Logo.png" alt="ParkerPixie logo" />
-        <strong>ParkerPixie</strong>
-      </div>
-      <nav>
-        <a href="#recent">Recent Works</a>
-        <a href="#about">About</a>
-        <a href="/paws.html">ParkerPixiePaws</a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <div>
-        <h1>Design. Cozy vibes. <span style="color:var(--sub)">Healing through art.</span></h1>
-        <span class="tag">Umbrella brand: ParkerPixie • Sub‑brand: ParkerPixiePaws</span>
-        <p class="muted">From Disney Dreamlight Valley couture to amigurumi with a heartbeat — welcome to my glitter‑kissed corner of the internet. ✨</p>
-        <a class="cta" href="/paws.html" aria-label="Explore ParkerPixiePaws">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 5l7 7-7 7" stroke="#1e1b2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5 12h14" stroke="#1e1b2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          Explore ParkerPixiePaws
-        </a>
-      </div>
-      <div class="card" style="overflow:hidden">
-        <img src="/assets/paws/hero-grid.jpg" alt="Amigurumi collage" style="width:100%;height:100%;object-fit:cover;display:block"/>
-      </div>
-    </section>
-
-    <section id="recent" class="section">
-      <h2 class="h2">Recently Finished Pieces</h2>
-      <p class="muted">A quick gallery of what came off my hook. Tap for details on the Paws page.</p>
-      <div class="grid" role="list">
-        <a class="tile card" role="listitem" href="/paws.html#gallery-bejeweled">
-          <img src="/assets/paws/peacock.jpg" alt="Bejeweled the Peacock — jeweled tail amigurumi" />
-          <div class="cap">Bejeweled (Peacock)</div>
-        </a>
-        <a class="tile card" role="listitem" href="/paws.html#gallery-aurora">
-          <img src
-
-    <section id="about" class="section">
-      <div class="about-teaser card">
-        <div class="pic" aria-hidden="true"></div>
-        <div class="copy">
-          <h2 class="h2">About the Artist</h2>
-          <p class="muted"><!-- Paste a 2–4 sentence teaser from your full bio here. Keep punchy. -->
-            Raised fierce and independent in the 80s, I learned to turn chaos into craft — from farm life to
-            Parisian‑boutique dreams. Today I stitch stories of recovery, glitter, and gentleness into every piece.
-          </p>
-          <div class="quote">“Art didn’t save me in one big moment — it saves me in a thousand tiny stitches.”</div>
-          <p><a href="/paws.html#about">Read the full bio on ParkerPixiePaws →</a></p>
-        </div>
-      </div>
-    </section>
-
-    <footer class="wrap">
-      <div class="muted">© <span id="yr"></span> ParkerPixie • Peace, glitter, and good thread.</div>
-    </footer>
-  </div>
-  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
-</body>
-</html>
+<div class="wrap">
+<header>
+<div class="brand">
+<!-- gold capybara silhouette icon -->
+<img src="/assets/brand/capy-gold.svg" alt="ParkerPixie capybara icon"/>
+<strong>ParkerPixie</strong>
+</div>
+<nav>
+<a href="#about">About</a>
+<a href="/contact.html">Contact</a>
+</nav>
+</header>
 
 
-<!-- =============================
-  File: paws.html (ParkerPixiePaws area)
-  Purpose: Dedicated landing for your amigurumi brand with full bio, gallery, and quotes.
-  Notes:
-  - Add/replace images & captions.
-  - Keep IDs stable so homepage tiles can deep‑link (#gallery-...)
-============================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ParkerPixiePaws — Amigurumi by ParkerPixie</title>
-  <meta name="description" content="ParkerPixiePaws — handcrafted amigurumi with celestial vibes. Art, healing, and lots of sparkle." />
-  <meta property="og:title" content="ParkerPixiePaws" />
-  <meta property="og:description" content="Handcrafted amigurumi with celestial vibes — Clementine the Capybara, Bejeweled the Peacock, and friends." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/assets/og/og-paws.jpg" />
-  <meta property="og:url" content="https://your-domain.example/paws.html" />
-  <style>
-    :root{--bg:#0b0a10;--ink:#f6f3ff;--sub:#c7bbff;--accent:#ffd166;--muted:#8a86a3;--card:#141225;--glow:0 0 40px rgba(199,187,255,.35);--radius:18px}
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:radial-gradient(1200px 600px at 20% -10%,rgba(199,187,255,.08),transparent),var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-    a{color:var(--accent)}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-    nav a{margin-left:16px;opacity:.9}
-    .hero{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
-    .hero .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--glow);overflow:hidden}
-    .hero img{width:100%;height:100%;object-fit:cover}
-    h1{font-size:clamp(28px,5vw,50px);line-height:1.05;margin:0}
-    .tag{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,var(--sub),#9ee8ff);color:#0a0a12;font-weight:700}
-    .section{margin:42px 0}
-    .h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 12px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-    .tile{position:relative;overflow:hidden;border-radius:14px}
-    .tile img{width:100%;height:280px;object-fit:cover;display:block;transition:transform .4s ease}
-    .tile:hover img{transform:scale(1.04)}
-    .tile .cap{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.7));font-weight:600}
-    .quote{padding:18px;border-left:4px solid var(--sub);background:rgba(255,255,255,.04);border-radius:12px}
-    .quote small{display:block;color:var(--muted);margin-top:6px}
-    .kicker{color:var(--muted)}
-    footer{opacity:.75;padding:24px 0 48px}
-    @media (max-width:900px){.hero{grid-template-columns:1fr}}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <div style="display:flex;align-items:center;gap:10px">
-        <a href="/" aria-label="Back to homepage" title="Back to homepage">← Home</a>
-        <strong>ParkerPixiePaws</strong>
-      </div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#quotes">Quotes</a>
-      </nav>
-    </header>
-
-    <section class="hero section">
-      <div>
-        <h1>Stitched with love, crowned with stardust.</h1>
-        <span class="tag">Amigurumi • Celestial Cozy • Healing Art</span>
-        <p class="kicker">Handcrafted plushies like Clementine the Capybara and Bejeweled the Peacock — each a tiny altar to gentleness, recovery, and joy.</p>
-      </div>
-      <div class="card">
-        <img src="/assets/paws/hero-paws.jpg" alt="A collage of ParkerPixiePaws creations"/>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <h2 class="h2">About the Artist</h2>
-      <!-- Paste your full “About the Artist” bio below -->
-      <p>
-        Raised in the early 80s with a love for independence, I learned to turn messy life chapters into art that makes room for breath.
-        A beef farm childhood taught me tenderness and grit (steers, goats, llamas — the whole barnyard). Music found me early thanks to my big brother; recovery found me later and saved my life. Today I stitch stories into yarn — each piece a soft place to land for anyone walking through the storm.
-      </p>
-      <p class="kicker">Madison‑based • Sober & sparkling • Making cozy things for complicated hearts.</p>
-    </section>
-
-    <section id="gallery" class="section">
-      <h2 class="h2">Gallery</h2>
-      <p class="kicker">Click a piece to open the full image (right‑click to save for socials).</p>
-      <div class="grid">
-        <a id="gallery-peacock" class="tile" href="/assets/paws/peacock.jpg" target="_blank" rel="noopener">
-          <img src="/assets/paws/peacock.jpg" alt="Bejeweled the Peacock — jeweled tail amigurumi" />
-          <div class="cap">Bejeweled the Peacock</div>
-        </a>
-        <a id="gallery-capybara" class="tile" href="/assets/paws/capybara.jpg" target="_blank" rel="noopener">
-          <img src="/assets/paws/capybara.jpg" alt="Clementine the Capybara with floral crown" />
-          <div class="cap">Clementine the Capybara</div>
-        </a>
-        <a id="gallery-chicken" class="tile" href="/assets/paws/chicken.jpg" target="_blank" rel="noopener">
-          <img src="/assets/paws/chicken.jpg" alt="Bonnie the Chicken — rainbow plumage" />
-          <div class="cap">Bonnie the Chicken</div>
-        </a>
-        <a id="gallery-pelican" class="tile" href="/assets/paws/pelican.jpg" target="_blank" rel="noopener">
-          <img src="/assets/paws/pelican.jpg" alt="Percy the Pelican — plush with big bill" />
-          <div class="cap">Percy the Pelican</div>
-        </a>
-        <a id="gallery-bison" class="tile" href="/assets/paws/bison.jpg" target="_blank" rel="noopener">
-          <img src="/assets/paws/bison.jpg" alt="Bison plush — rustic neutrals" />
-          <div class="cap">Bison (work in progress)</div>
-        </a>
-        <a id="gallery-cupcake" class="tile" href="/assets/paws/cupcake.jpg" target="_blank" rel="noopener">
-          <img src="/assets/paws/cupcake.jpg" alt="Cupcake plush — pastel sprinkles" />
-          <div class="cap">Cupcake Plush</div>
-        </a>
-      </div>
-    </section>
-
-    <section id="quotes" class="section">
-      <h2 class="h2">Quotes I Live & Stitch By</h2>
-      <div class="quote">“The opposite of addiction isn’t sobriety — it’s connection.” <small>Johann Hari</small></div>
-      <div class="quote" style="margin-top:12px">“Still I rise.” <small>Maya Angelou</small></div>
-      <div class="quote" style="margin-top:12px">“Practice, not perfection.” <small>Recovery mantra</small></div>
-      <div class="quote" style="margin-top:12px">“Art is how we decorate space; music is how we decorate time.” <small>Jean‑Michel Basquiat (attributed)</small></div>
-      <div class="quote" style="margin-top:12px">“Gentle is not weak.” <small>ParkerPixie</small></div>
-    </section>
-
-    <footer class="wrap">
-      <div class="kicker">© <span id="yr"></span> ParkerPixiePaws • Handcrafted in Madison, WI.</div>
-    </footer>
-  </div>
-  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
-</body>
+<section class="hero">
+<div>
+<h1>Sass. Shimmer. Sparkle.</h1>
+<p class="muted">Cozy design, glitter-core vibes, and the ParkerPixie universe: Paws • Pop • Pixel.</p>
+<div class="cta-row">
+<a class="btn" href="#about">Who is ParkerPixie</a>
+<a class="btn secondary" href="/blog.html">Read the Blog</a>
+<a class="btn secondary" href="/links.html">Helpful Links</a>
+</div>
+</div>
 </html>
