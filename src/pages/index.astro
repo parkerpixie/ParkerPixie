@@ -1,65 +1,269 @@
+<!-- =============================================
+ParkerPixie Site — Regrouped Structure (index unchanged vibe)
+Files included in this single doc for easy copy:
+1) index.html (umbrella homepage) — small capybara icon, About anchor, new buttons, brand tiles Paws/Pop/Pixel
+2) contact.html — contact page with form fallback + social blocks
+3) blog.html — placeholder
+4) links.html — helpful resources hub
+5) paws.html — brand landing; we will paste artist bio & gallery items later
+6) pop.html — brand landing placeholder
+7) pixel.html — brand landing placeholder
 ================================================== -->
 
-
 <!-- =============================
-1) index.html
+  1) index.html
 ============================= -->
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ParkerPixie — Sass • Shimmer • Sparkle</title>
-<meta name="description" content="ParkerPixie: umbrella brand for cozy design, gaming, and ParkerPixiePaws amigurumi." />
-<link rel="preload" href="/assets/brand/capy-gold.svg" as="image" type="image/svg+xml">
-<style>
-:root{--bg:#0b0a10;--ink:#f6f3ff;--sub:#c7bbff;--accent:#ffd166;--muted:#9c96b8;--card:#141225;--radius:18px}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:1100px;margin:0 auto;padding:24px}
-header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-.brand{display:flex;align-items:center;gap:10px}
-.brand img{width:28px;height:28px}
-nav{display:flex;gap:18px}
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:24px 0}
-.card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius)}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#201a33;font-weight:700}
-.btn.secondary{background:#2a2640;color:#f6f3ff;border:1px solid rgba(255,255,255,.12)}
-.h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 12px}
-.muted{color:var(--muted)}
-.section{margin:42px 0}
-.grid-logos{display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:16px}
-.logo-card{display:flex;align-items:center;justify-content:center;padding:22px;background:var(--card);border-radius:16px;border:1px solid rgba(255,255,255,.08)}
-.logo-card img{max-width:180px;max-height:64px}
-@media (max-width:900px){.hero{grid-template-columns:1fr}.grid-logos{grid-template-columns:1fr}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ParkerPixie — Sass • Shimmer • Sparkle</title>
+  <meta name="description" content="ParkerPixie: umbrella brand for cozy design, gaming, and ParkerPixiePaws amigurumi." />
+  <link rel="preload" href="/assets/brand/capy-gold.svg" as="image" type="image/svg+xml">
+  <style>
+    :root{--bg:#0b0a10;--ink:#f6f3ff;--sub:#c7bbff;--accent:#ffd166;--muted:#9c96b8;--card:#141225;--radius:18px}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{width:28px;height:28px}
+    nav{display:flex;gap:18px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:24px 0}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius)}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#201a33;font-weight:700}
+    .btn.secondary{background:#2a2640;color:#f6f3ff;border:1px solid rgba(255,255,255,.12)}
+    .h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 12px}
+    .muted{color:var(--muted)}
+    .section{margin:42px 0}
+    .grid-logos{display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:16px}
+    .logo-card{display:flex;align-items:center;justify-content:center;padding:22px;background:var(--card);border-radius:16px;border:1px solid rgba(255,255,255,.08)}
+    .logo-card img{max-width:180px;max-height:64px}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid-logos{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-<div class="brand">
-<!-- gold capybara silhouette icon -->
-<img src="/assets/brand/capy-gold.svg" alt="ParkerPixie capybara icon"/>
-<strong>ParkerPixie</strong>
-</div>
-<nav>
-<a href="#about">About</a>
-<a href="/contact.html">Contact</a>
-</nav>
-</header>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <!-- gold capybara silhouette icon -->
+        <img src="/assets/brand/capy-gold.svg" alt="ParkerPixie capybara icon"/>
+        <strong>ParkerPixie</strong>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>Sass. Shimmer. Sparkle.</h1>
+        <p class="muted">Cozy design, glitter-core vibes, and the ParkerPixie universe: Paws • Pop • Pixel.</p>
+        <div class="cta-row">
+          <a class="btn" href="#about">Who is ParkerPixie</a>
+          <a class="btn secondary" href="/blog.html">Read the Blog</a>
+          <a class="btn secondary" href="/links.html">Helpful Links</a>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <img src="/assets/hero/umbrella-hero.jpg" alt="ParkerPixie banner collage" style="width:100%;height:100%;object-fit:cover;display:block"/>
+      </div>
+    </section>
+
+    <!-- Brand tiles: Paws / Pop / Pixel -->
+    <section class="section" aria-labelledby="brands">
+      <h2 id="brands" class="h2">Explore the ParkerPixie Universe</h2>
+      <p class="muted">Three vibes, one umbrella — each with its own playground.</p>
+      <div class="grid-logos">
+        <a class="logo-card" href="/paws.html" aria-label="ParkerPixiePaws">
+          <img src="/assets/brand/paws-logo.png" alt="ParkerPixiePaws"/>
+        </a>
+        <a class="logo-card" href="/pop.html" aria-label="ParkerPixiePop">
+          <img src="/assets/brand/pop-logo.png" alt="ParkerPixiePop"/>
+        </a>
+        <a class="logo-card" href="/pixel.html" aria-label="ParkerPixiePixel">
+          <img src="/assets/brand/pixel-logo.png" alt="ParkerPixiePixel"/>
+        </a>
+      </div>
+    </section>
+
+    <!-- About anchor -->
+    <section id="about" class="section">
+      <h2 class="h2">About</h2>
+      <p class="muted">Scroll-bio lives here. Keep your existing copy; no changes made. This anchor is for the header link.</p>
+    </section>
+
+    <footer class="wrap">
+      <div class="muted">© <span id="yr"></span> ParkerPixie • Peace, glitter, and good thread.</div>
+    </footer>
+  </div>
+  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+</body>
+</html>
 
 
-<section class="hero">
-<div>
-<h1>Sass. Shimmer. Sparkle.</h1>
-<p class="muted">Cozy design, glitter-core vibes, and the ParkerPixie universe: Paws • Pop • Pixel.</p>
-<div class="cta-row">
-<a class="btn" href="#about">Who is ParkerPixie</a>
-<a class="btn secondary" href="/blog.html">Read the Blog</a>
-<a class="btn secondary" href="/links.html">Helpful Links</a>
-</div>
-</div>
+<!-- =============================
+  2) contact.html (form + socials)
+============================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Contact • ParkerPixie</title>
+  <style>
+    :root{--bg:#0b0a10;--ink:#f6f3ff;--accent:#ffd166;--muted:#9c96b8;--card:#141225;--radius:18px}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    .wrap{max-width:900px;margin:0 auto;padding:24px}
+    a{color:var(--accent)}
+    .card{background:var(--card);padding:18px;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08)}
+    form{display:grid;gap:12px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0f0e18;color:var(--ink)}
+    button{padding:12px 16px;border-radius:12px;border:none;background:var(--accent);font-weight:700;color:#1e1b2e}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width:800px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Contact Me</h1>
+    <div class="grid">
+      <div class="card">
+        <!-- Replace action with Netlify Forms or Formspree endpoint when ready -->
+        <form name="contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact">
+          <label>Name<input required name="name"/></label>
+          <label>Email<input required type="email" name="email"/></label>
+          <label>Message<textarea rows="6" name="message" required></textarea></label>
+          <button type="submit">Send</button>
+        </form>
+        <p class="muted">No form backend yet? Flip on <strong>Netlify Forms</strong> by leaving the attributes above, or swap to Formspree later.</p>
+      </div>
+      <div class="card">
+        <h2>Find me online</h2>
+        <ul>
+          <li>Email: <a href="mailto:hello@parkerpixie.com">hello@parkerpixie.com</a></li>
+          <li>Facebook: <a href="#" aria-label="Facebook">(add link)</a></li>
+          <li>Discord: <a href="#" aria-label="Discord">(add link)</a></li>
+          <li>Steam: <a href="#" aria-label="Steam">(add link)</a></li>
+          <li>Instagram: <a href="#" aria-label="Instagram">(add link)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p><a href="/">← Back to Home</a></p>
+  </div>
+</body>
+</html>
+
+
+<!-- =============================
+  3) blog.html (placeholder)
+============================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blog • ParkerPixie</title>
+  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px}</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Blog</h1>
+    <p>Coming soon. This is where updates, behind‑the‑scenes, and release notes will live.</p>
+    <p><a href="/">← Back to Home</a></p>
+  </div>
+</body>
+</html>
+
+
+<!-- =============================
+  4) links.html (helpful resources)
+============================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Helpful Links • ParkerPixie</title>
+  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px} .card{background:#141225;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px;margin:12px 0}</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Helpful Links</h1>
+    <div class="card"><h3>Amigurumi</h3><ul><li><a href="#">(add link)</a></li></ul></div>
+    <div class="card"><h3>Gaming</h3><ul><li><a href="#">(add link)</a></li></ul></div>
+    <div class="card"><h3>Meal Planning / Life</h3><ul><li><a href="#">(add link)</a></li></ul></div>
+    <p><a href="/">← Back to Home</a></p>
+  </div>
+</body>
+</html>
+
+
+<!-- =============================
+  5) paws.html (brand landing — to be filled with artist bio + gallery)
+============================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ParkerPixiePaws</title>
+  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:1100px;margin:0 auto;padding:24px} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px} .card{background:#141225;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px}</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ParkerPixiePaws</h1>
+    <p>Hand‑crafted amigurumi with celestial cozy vibes.</p>
+    <h2 id="about">About the Artist</h2>
+    <p><!-- Paste bio excerpt sourced from your Showcase entry. --></p>
+    <h2 id="gallery">Gallery</h2>
+    <div class="grid">
+      <!-- Add Bejeweled, Aurora, Jade, Gilligan, Bonnie here as cards with images and captions. -->
+    </div>
+    <p><a href="/">← Back to Home</a></p>
+  </div>
+</body>
+</html>
+
+
+<!-- =============================
+  6) pop.html (placeholder)
+============================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ParkerPixiePop</title>
+  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px}</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ParkerPixiePop</h1>
+    <p>Streaming + anime vibes. Coming soon.</p>
+    <p><a href="/">← Back to Home</a></p>
+  </div>
+</body>
+</html>
+
+
+<!-- =============================
+  7) pixel.html (placeholder)
+============================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ParkerPixiePixel</title>
+  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px}</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ParkerPixiePixel</h1>
+    <p>Design studio & resources. Coming soon.</p>
+    <p><a href="/">← Back to Home</a></p>
+  </div>
+</body>
 </html>
