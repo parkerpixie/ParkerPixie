@@ -1,0 +1,130 @@
+---
+/* Blog index — magazine grid, single-file route at /blog */
+
+const posts = await Astro.glob('./blog/*.md'); // finds src/pages/blog/*.md
+posts.sort((a, b) => {
+  const da = new Date(a.frontmatter?.date ?? 0);
+  const db = new Date(b.frontmatter?.date ?? 0);
+  return db.getTime() - da.getTime();
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ParkerPixie · Blog</title>
+    <meta name="description" content="Cozy crafts, capybara lore, gaming, and glittery life updates." />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+    <style>
+      :root{
+        --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
+        --ink:#f7f3ff; --muted:#bdb5d9;
+        --bg1:#0f0b14; --bg2:#130e1f; --bg3:#100b1a;
+        --card:#171220; --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg1),var(--bg2) 40%,var(--bg3));color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+      a{color:inherit;text-decoration:none}
+      img{max-width:100%;height:auto;display:block}
+      .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
+
+      header{position:sticky;top:0;z-index:50;background:rgba(15,11,20,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
+      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
+      .brand span{font-size:18px}
+      .links{display:flex;gap:16px}
+      .links a{padding:8px 12px;border-radius:12px;transition:.2s ease}
+      .links a:hover{background:rgba(255,255,255,.07)}
+      .links a.cta{background:linear-gradient(135deg,var(--brand),var(--brand-deep));box-shadow:0 8px 30px rgba(138,93,255,.35)}
+      .links a.cta:hover{transform:translateY(-1px)}
+
+      .hero{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+      .hero h1{font-size:clamp(28px,5vw,44px);margin:0}
+      .hero p{color:var(--muted);margin:8px 0 0}
+
+      .grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+      @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
+      @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+
+      .card{display:flex;flex-direction:column;overflow:hidden;border-radius:var(--radius);
+        background:linear-gradient(180deg,#1c152d,#181126);border:1px solid rgba(255,255,255,.08);
+        box-shadow:0 20px 60px rgba(0,0,0,.35);min-height:280px}
+      .thumb{aspect-ratio:16/9;background:#120d1b;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
+      .thumb img{width:100%;height:100%;object-fit:cover;opacity:.95;transition:transform .25s ease}
+      .card:hover .thumb img{transform:scale(1.03)}
+      .body{padding:16px}
+      .title{margin:0 0 6px;font-size:18px;line-height:1.25}
+      .meta{color:var(--muted);font-size:13px;margin:0 0 8px}
+      .excerpt{color:#eae6ff;font-size:14px;margin:0}
+      .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+      .tag{font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:4px 8px;border-radius:999px}
+
+      footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+      .empty{opacity:.75;color:var(--muted);padding:24px;border:1px dashed rgba(255,255,255,.12);border-radius:12px;background:#1b1527}
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="links">
+          <a href="/about">About</a>
+          <a class="cta" href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="hero">
+        <div>
+          <h1>Blog</h1>
+          <p>Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
+        </div>
+      </div>
+
+      {posts.length === 0 && (
+        <p class="empty">No posts yet—add a Markdown file at <code>src/pages/blog/hello-world.md</code>.</p>
+      )}
+
+      <section class="grid" aria-label="Magazine posts">
+        {posts.map(({ url, frontmatter }) => {
+          const cover = frontmatter?.cover ?? '/hero.jpg';
+          const title = frontmatter?.title ?? 'Untitled';
+          const date = frontmatter?.date ? new Date(frontmatter.date).toLocaleDateString() : '';
+          const desc = frontmatter?.description ?? '';
+          const tags = frontmatter?.tags ?? [];
+          return (
+            <a class="card" href={url}>
+              <div class="thumb"><img src={cover} alt="" loading="lazy" /></div>
+              <div class="body">
+                <h2 class="title">{title}</h2>
+                {date && <p class="meta">{date}</p>}
+                {desc && <p class="excerpt">{desc}</p>}
+                {tags.length > 0 && (
+                  <div class="tags">
+                    {tags.map((t) => <span class="tag">{t}</span>)}
+                  </div>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </section>
+
+      <footer>
+        © <span id="y"></span> ParkerPixie · Made with ✨ glitter ✨, 💃 sass 💃, and 💖 love 💖 from Madison, WI
+      </footer>
+    </main>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
