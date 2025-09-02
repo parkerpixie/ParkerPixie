@@ -1,1 +1,176 @@
-<html><body><h1>About ParkerPixie</h1><p>Designer, Amigurumi artisan, cozy gamer.</p></body></html>
+---
+/* Who is ParkerPixie — timeline layout with hero banner */
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Who is ParkerPixie?</title>
+  <meta name="description" content="ParkerPixie — a gloriously chaotic, sparkly human: farm roots, music, love, motherhood, community, recovery, and creativity." />
+  <style>
+    :root{
+      --brand:#8a5dff;        /* Parker purple */
+      --brand-deep:#4026a6;   /* deep purple */
+      --gold:#F0C419;         /* sparkle gold */
+      --ink:#1f2937;          /* text */
+      --muted:#6b7280;        /* secondary text */
+      --bg:#ffffff;
+      --soft:#faf7ff;         /* soft lavender */
+      --card:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:var(--ink); background:var(--bg)}
+    a{color:var(--brand); text-decoration:none}
+    a:hover{opacity:.9}
+    .wrap{max-width:980px;margin:0 auto;padding:20px}
+    /* ===== HERO (code-only banner with shimmer + optional image) ===== */
+    .hero{
+      position:relative; border-radius:24px; overflow:hidden; margin:20px 0 28px; min-height:320px; border:1px solid #eee;
+      background:
+        radial-gradient(1200px 500px at -10% -20%, rgba(240,196,25,.18), transparent 40%),
+        radial-gradient(1000px 600px at 110% 10%, rgba(138,93,255,.20), transparent 35%),
+        linear-gradient(180deg, #fff, #faf7ff);
+      box-shadow:0 12px 34px rgba(64,38,166,.12);
+    }
+    /* optional hero image overlay — only shows if present */
+    .hero img{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.18; display:none; /* toggled on by onload */
+    }
+    .hero::after{ /* animated shimmer veil */
+      content:""; position:absolute; inset:0;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.0) 0%, rgba(255,255,255,.25) 15%, rgba(255,255,255,.0) 30%) 0 0 / 220% 100% no-repeat;
+      animation: shimmer 4s infinite linear;
+      pointer-events:none;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    .hero-inner{position:relative; z-index:2; padding:42px 28px; display:grid; gap:12px}
+    .eyebrow{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:#f6f3ff; color:#4b3aa6; font-weight:600; font-size:14px; width:max-content}
+    .sparkle{display:inline-block; width:10px; height:10px; border-radius:2px; background:linear-gradient(135deg,var(--gold),#ffe483)}
+    .hero h1{font-size:clamp(28px,5vw,52px); margin:8px 0 4px}
+    .sub{color:var(--muted); font-size:clamp(15px,2.2vw,18px); max-width:60ch}
+
+    /* ===== TIMELINE ===== */
+    .timeline{position:relative; margin:32px 0 16px; padding-left:26px}
+    .timeline::before{
+      content:""; position:absolute; left:12px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--brand) 0%, var(--brand-deep) 100%); opacity:.25;
+    }
+    .step{position:relative; margin:20px 0; padding:18px; border:1px solid #eee; background:var(--card); border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.05)}
+    .step::before{
+      content:""; position:absolute; left:-22px; top:20px; width:14px; height:14px; border-radius:50%;
+      background:linear-gradient(135deg, var(--brand), var(--brand-deep)); box-shadow:0 0 0 3px #fff;
+    }
+    .step h3{margin:0 0 6px; font-size:20px}
+    .meta{color:var(--muted); font-size:14px; margin-bottom:8px}
+    .step p{margin:10px 0; line-height:1.6}
+    .quote{margin:12px 0; padding:14px 16px; border-left:4px solid var(--brand); background:var(--soft); border-radius:8px}
+    .divider{display:flex; align-items:center; gap:10px; color:var(--muted); font-size:14px; margin:20px 0}
+    .divider .dot{width:8px; height:8px; border-radius:50%; background:var(--gold)}
+    .cta{
+      margin:28px 0 40px; padding:18px; border:1px dashed var(--brand); border-radius:16px; background:#fff;
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-block; padding:12px 16px; border-radius:10px; color:#fff; background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+      box-shadow:0 6px 18px rgba(64,38,166,.25); font-weight:600;
+    }
+    @media (prefers-color-scheme: dark){
+      body{background:#0b0b10; color:#f6f6f8}
+      .step{background:#141420; border-color:#25253a}
+      .hero{border-color:#25253a}
+      .timeline::before{opacity:.35}
+      .sub{color:#c9c9d4}
+      .quote{background:rgba(138,93,255,.12)}
+      .cta{background:rgba(20,20,32,.6); border-color:#4a3eee}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <!-- Optional image overlay: put /public/about-hero.jpg in your repo. This will auto-show if it loads. -->
+      <img src="/about-hero.jpg" alt="" onload="this.style.display='block';" onerror="this.remove();" />
+      <div class="hero-inner">
+        <span class="eyebrow"><span class="sparkle"></span> Who is ParkerPixie?</span>
+        <h1>A gloriously chaotic mess wrapped in shimmer and soft fluff.</h1>
+        <p class="sub">Farm roots, music kid energy, love & motherhood, community builder, survivor in recovery, and the creative behind amigurumi, design, and cozy gaming.</p>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline">
+      <!-- Early roots -->
+      <article class="step">
+        <h3>🌱 Early Roots</h3>
+        <p>I was raised in the early 80s, learning independence the hard way while trying to figure out who I was. My childhood was a mixed bag: a half-brother 10 years older first sparked my love of music by blasting the good stuff from the late 80s and early 90s.</p>
+        <p>After my parents divorced and I lost contact with my dad and brother, I moved to a beef farm with my mom and stepdad. Life there was full of animals — steers, calves, pigs, goats, even llamas — and I loved every second of it. I showed steers at the county fair, and those memories still make me smile.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Music years -->
+      <article class="step">
+        <h3>🎶 Music Years</h3>
+        <p>In high school, music became everything. I was determined, stubborn, and hungry for piccolo rights (so I fought my way to first chair flute as a freshman — even if only for a week). I learned every woodwind, played tenor sax in jazz band, spun in color guard, and even filled in on percussion when needed.</p>
+        <p>Choir was my heartbeat: honors choir, swing choir, the Dorian Vocal Festival. I went on to win both the <em>National School Choral Award</em> and the <em>John Philip Sousa Award</em> — the top honors in band and choir — sweeping them as one determined girl.</p>
+        <div class="quote">“I grew up stifled by perfection and rules that changed on a whim — but the wonder was always there, waiting.”</div>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- College + ADHD -->
+      <article class="step">
+        <h3>🎓 Finding My Way (and ADHD)</h3>
+        <p>College at River Falls was messy but formative. I bounced through five majors before finally graduating with a B.A. in Psychology and a self-made minor in Broad Field Social Studies — proof of my endless curiosity. I didn’t know it then, but ADHD was driving that restlessness. I wasn’t diagnosed until age 42, and looking back, I’m proud that I made it through anyway.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Love & family -->
+      <article class="step">
+        <h3>💜 Love & Family</h3>
+        <p>I met Blake in college through a friend who grew up with him. After our first date, I told my resident (RA): “I’m gonna marry this guy.” And I did — in 2006. Almost 20 years later, he’s still my biggest cheerleader: the one who gets me, accepts the chaos, helps me navigate family drama, and teaches me new ways to communicate and live with more grace.</p>
+        <p>In 2010, Porter arrived and I went full mom-mode. None of my friends were in the same stage, so I turned to a brand-new platform: YouTube. Back then it was all community, no algorithms, and I found my people in the TTC and mommy groups.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- YouTube era -->
+      <article class="step">
+        <h3>📹 The YouTube Era</h3>
+        <p>I became <strong>InformationMommy</strong>, sharing fact-based, sassy, no-nonsense videos on everything from cloth diapering to vaccine research to day-in-the-life chaos. Over 1,000 subscribers later, I had built a little community that turned into real friendships — women I met up with, confided in, and leaned on.</p>
+        <p>That community showed me the power of connection: finding people who are walking through the same season as you. It was also the first time I started uncovering <em>me</em> — not just the daughter of a narcissist, not just a wife or mom, not just an employee, but Parker.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Struggle & recovery -->
+      <article class="step">
+        <h3>🍷 Struggle & Recovery</h3>
+        <p>Life got hard. Jobs with endless travel blurred into work-from-home life, and alcohol became my coping tool — a mask over anxiety, ADHD, and PTSD. By the time my skin was jaundiced and I was diagnosed with liver disease, I had nearly lost it all. Twice I almost died.</p>
+        <p>But that wasn’t my ending — it was my beginning. I chose recovery and healing. I dug into my past, forgave myself, comforted the little girl who never had what she needed, and built a new toolkit for when life inevitably gets messy again.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Becoming ParkerPixie -->
+      <article class="step">
+        <h3>✨ Becoming ParkerPixie</h3>
+        <p>Now I share the nuggets that help me — the tools, the aha moments, the sparkle that keeps me going. I crochet, I design, I game, I parent, I heal, I connect. I’m still evolving, gloriously chaotic and wrapped in shimmer and soft fluff, committed to living life all the way.</p>
+      </article>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div>
+        <strong>Come hang out.</strong>
+        <div class="sub" style="margin-top:4px">Catch me crocheting, gaming, or sprinkling sparkle across socials — or say hi and tell me your story.</div>
+      </div>
+      <a href="/contact" class="btn">Contact ParkerPixie</a>
+    </section>
+  </div>
+</body>
+</html>
