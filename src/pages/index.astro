@@ -1,27 +1,23 @@
 ---
-/* Import assets from src so Astro fingerprints & serves them correctly */
-import logo from "../assets/CapyGoldIcon.png";
-import heroImg from "../assets/hero.jpg";
+/* No frontmatter needed */
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
     <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨" />
-    <link rel="icon" href={logo} />
+    <!-- favicon served from /public -->
+    <link rel="icon" href="/CapyGoldIcon.png" />
     <style>
       :root{
         --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
+        --ink:#f7f3ff; --bg:#0f0b14; --card:#171220; --muted:#bdb5d9;
       }
       *{box-sizing:border-box}
-      html,body{
-        margin:0;padding:0;
-        background:linear-gradient(180deg,#0f0b14,#130e1f 40%,#100b1a);
-        color:#f7f3ff;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
-      }
+      html,body{margin:0;padding:0;background:linear-gradient(180deg,#0f0b14,#130e1f 40%,#100b1a);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
       a{color:inherit;text-decoration:none}
       img{max-width:100%;height:auto;display:block}
       .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
@@ -41,8 +37,8 @@ import heroImg from "../assets/hero.jpg";
       /* Hero */
       .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;margin-top:28px}
       @media (max-width:900px){.hero{grid-template-columns:1fr;gap:20px}}
-      .hero-card{background:radial-gradient(1200px 400px at -10% -10%, rgba(216,170,59,.08), transparent),#171220;border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
-      .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#bdb5d9;letter-spacing:.25px}
+      .hero-card{background:radial-gradient(1200px 400px at -10% -10%, rgba(216,170,59,.08), transparent),var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+      .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);letter-spacing:.25px}
       .eyebrow::before{content:"✨";filter:drop-shadow(0 0 4px rgba(255,255,255,.45))}
       h1{margin:.35rem 0 .6rem;font-size:clamp(28px,4.5vw,44px);line-height:1.05}
       p.lede{font-size:clamp(15px,2.4vw,18px);color:#e8e2ff;opacity:.95}
@@ -50,17 +46,17 @@ import heroImg from "../assets/hero.jpg";
       .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:#1b1527;transition:.2s;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
       .btn:hover{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(138,93,255,.25)}
       .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-deep));border:none}
-      .caption{margin-top:10px;font-size:13px;color:#bdb5d9}
+      .caption{margin-top:10px;font-size:13px;color:var(--muted)}
       .hero img{border-radius:16px;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.45)}
 
-      /* Triple cards */
+      /* Tiles */
       .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
       @media (max-width:900px){.grid{grid-template-columns:1fr}}
       .tile{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(180deg,#1c152d,#181126);border:1px solid rgba(255,255,255,.08);padding:20px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;isolation:isolate}
       .tile h3{margin:0;font-size:22px;letter-spacing:.2px}
-      .tile p{margin:0;color:#bdb5d9;font-size:14px}
+      .tile p{margin:0;color:var(--muted);font-size:14px}
       .chip{position:absolute;top:14px;right:14px;font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:6px 10px;border-radius:999px}
-      .tile::after{content:"";position:absolute;inset:auto -20%  -20% auto;width:240px;height:240px;background:radial-gradient(closest-side, rgba(138,93,255,.28), transparent 70%);transform:translate(10%,10%);z-index:-1;filter:blur(6px)}
+      .tile::after{content:"";position:absolute;inset:auto -20% -20% auto;width:240px;height:240px;background:radial-gradient(closest-side, rgba(138,93,255,.28), transparent 70%);transform:translate(10%,10%);z-index:-1;filter:blur(6px)}
       .tile.paws::after{background:radial-gradient(closest-side, rgba(216,170,59,.35), transparent 70%)}
       .tile.pop::after{background:radial-gradient(closest-side, rgba(255,105,180,.28), transparent 70%)}
       .tile.pixel::after{background:radial-gradient(closest-side, rgba(80,200,255,.28), transparent 70%)}
@@ -105,6 +101,7 @@ import heroImg from "../assets/hero.jpg";
         </div>
 
         <figure>
+          <!-- hero image served from /public -->
           <img src="/hero.jpg" alt="Parker by the lake crocheting a tiny capybara" />
         </figure>
       </section>
