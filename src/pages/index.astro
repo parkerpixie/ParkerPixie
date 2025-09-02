@@ -1,269 +1,177 @@
-<!-- =============================================
-ParkerPixie Site — Regrouped Structure (index unchanged vibe)
-Files included in this single doc for easy copy:
-1) index.html (umbrella homepage) — small capybara icon, About anchor, new buttons, brand tiles Paws/Pop/Pixel
-2) contact.html — contact page with form fallback + social blocks
-3) blog.html — placeholder
-4) links.html — helpful resources hub
-5) paws.html — brand landing; we will paste artist bio & gallery items later
-6) pop.html — brand landing placeholder
-7) pixel.html — brand landing placeholder
-================================================== -->
-
-<!-- =============================
-  1) index.html
-============================= -->
-<!doctype html>
+---
+/* Who is ParkerPixie — timeline layout with hero banner */
+---
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ParkerPixie — Sass • Shimmer • Sparkle</title>
-  <meta name="description" content="ParkerPixie: umbrella brand for cozy design, gaming, and ParkerPixiePaws amigurumi." />
-  <link rel="preload" href="/assets/brand/capy-gold.svg" as="image" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Who is ParkerPixie?</title>
+  <meta name="description" content="ParkerPixie — a gloriously chaotic, sparkly human: farm roots, music, love, motherhood, community, recovery, and creativity." />
   <style>
-    :root{--bg:#0b0a10;--ink:#f6f3ff;--sub:#c7bbff;--accent:#ffd166;--muted:#9c96b8;--card:#141225;--radius:18px}
+    :root{
+      --brand:#8a5dff;        /* Parker purple */
+      --brand-deep:#4026a6;   /* deep purple */
+      --gold:#F0C419;         /* sparkle gold */
+      --ink:#1f2937;          /* text */
+      --muted:#6b7280;        /* secondary text */
+      --bg:#ffffff;
+      --soft:#faf7ff;         /* soft lavender */
+      --card:#ffffff;
+    }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:28px;height:28px}
-    nav{display:flex;gap:18px}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:24px 0}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius)}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#201a33;font-weight:700}
-    .btn.secondary{background:#2a2640;color:#f6f3ff;border:1px solid rgba(255,255,255,.12)}
-    .h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 12px}
-    .muted{color:var(--muted)}
-    .section{margin:42px 0}
-    .grid-logos{display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:16px}
-    .logo-card{display:flex;align-items:center;justify-content:center;padding:22px;background:var(--card);border-radius:16px;border:1px solid rgba(255,255,255,.08)}
-    .logo-card img{max-width:180px;max-height:64px}
-    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid-logos{grid-template-columns:1fr}}
+    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:var(--ink); background:var(--bg)}
+    a{color:var(--brand); text-decoration:none}
+    a:hover{opacity:.9}
+    .wrap{max-width:980px;margin:0 auto;padding:20px}
+    /* ===== HERO (code-only banner with shimmer + optional image) ===== */
+    .hero{
+      position:relative; border-radius:24px; overflow:hidden; margin:20px 0 28px; min-height:320px; border:1px solid #eee;
+      background:
+        radial-gradient(1200px 500px at -10% -20%, rgba(240,196,25,.18), transparent 40%),
+        radial-gradient(1000px 600px at 110% 10%, rgba(138,93,255,.20), transparent 35%),
+        linear-gradient(180deg, #fff, #faf7ff);
+      box-shadow:0 12px 34px rgba(64,38,166,.12);
+    }
+    /* optional hero image overlay — only shows if present */
+    .hero img{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.18; display:none; /* toggled on by onload */
+    }
+    .hero::after{ /* animated shimmer veil */
+      content:""; position:absolute; inset:0;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.0) 0%, rgba(255,255,255,.25) 15%, rgba(255,255,255,.0) 30%) 0 0 / 220% 100% no-repeat;
+      animation: shimmer 4s infinite linear;
+      pointer-events:none;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    .hero-inner{position:relative; z-index:2; padding:42px 28px; display:grid; gap:12px}
+    .eyebrow{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:#f6f3ff; color:#4b3aa6; font-weight:600; font-size:14px; width:max-content}
+    .sparkle{display:inline-block; width:10px; height:10px; border-radius:2px; background:linear-gradient(135deg,var(--gold),#ffe483)}
+    .hero h1{font-size:clamp(28px,5vw,52px); margin:8px 0 4px}
+    .sub{color:var(--muted); font-size:clamp(15px,2.2vw,18px); max-width:60ch}
+
+    /* ===== TIMELINE ===== */
+    .timeline{position:relative; margin:32px 0 16px; padding-left:26px}
+    .timeline::before{
+      content:""; position:absolute; left:12px; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--brand) 0%, var(--brand-deep) 100%); opacity:.25;
+    }
+    .step{position:relative; margin:20px 0; padding:18px; border:1px solid #eee; background:var(--card); border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.05)}
+    .step::before{
+      content:""; position:absolute; left:-22px; top:20px; width:14px; height:14px; border-radius:50%;
+      background:linear-gradient(135deg, var(--brand), var(--brand-deep)); box-shadow:0 0 0 3px #fff;
+    }
+    .step h3{margin:0 0 6px; font-size:20px}
+    .meta{color:var(--muted); font-size:14px; margin-bottom:8px}
+    .step p{margin:10px 0; line-height:1.6}
+    .quote{margin:12px 0; padding:14px 16px; border-left:4px solid var(--brand); background:var(--soft); border-radius:8px}
+    .divider{display:flex; align-items:center; gap:10px; color:var(--muted); font-size:14px; margin:20px 0}
+    .divider .dot{width:8px; height:8px; border-radius:50%; background:var(--gold)}
+    .cta{
+      margin:28px 0 40px; padding:18px; border:1px dashed var(--brand); border-radius:16px; background:#fff;
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-block; padding:12px 16px; border-radius:10px; color:#fff; background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+      box-shadow:0 6px 18px rgba(64,38,166,.25); font-weight:600;
+    }
+    @media (prefers-color-scheme: dark){
+      body{background:#0b0b10; color:#f6f6f8}
+      .step{background:#141420; border-color:#25253a}
+      .hero{border-color:#25253a}
+      .timeline::before{opacity:.35}
+      .sub{color:#c9c9d4}
+      .quote{background:rgba(138,93,255,.12)}
+      .cta{background:rgba(20,20,32,.6); border-color:#4a3eee}
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <!-- gold capybara silhouette icon -->
-        <img src="/assets/brand/capy-gold.svg" alt="ParkerPixie capybara icon"/>
-        <strong>ParkerPixie</strong>
-      </div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="/contact.html">Contact</a>
-      </nav>
-    </header>
-
+    <!-- HERO -->
     <section class="hero">
+      <!-- Optional image overlay: put /public/about-hero.jpg in your repo. This will auto-show if it loads. -->
+      <img src="/about-hero.jpg" alt="" onload="this.style.display='block';" onerror="this.remove();" />
+      <div class="hero-inner">
+        <span class="eyebrow"><span class="sparkle"></span> Who is ParkerPixie?</span>
+        <h1>A gloriously chaotic mess wrapped in shimmer and soft fluff.</h1>
+        <p class="sub">Farm roots, music kid energy, love & motherhood, community builder, survivor in recovery, and the creative behind amigurumi, design, and cozy gaming.</p>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline">
+      <!-- Early roots -->
+      <article class="step">
+        <h3>🌱 Early Roots</h3>
+        <p>I was raised in the early 80s, learning independence the hard way while trying to figure out who I was. My childhood was a mixed bag: a half-brother 10 years older first sparked my love of music by blasting the good stuff from the late 80s and early 90s.</p>
+        <p>After my parents divorced and I lost contact with my dad and brother, I moved to a beef farm with my mom and stepdad. Life there was full of animals — steers, calves, pigs, goats, even llamas — and I loved every second of it. I showed steers at the county fair, and those memories still make me smile.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Music years -->
+      <article class="step">
+        <h3>🎶 Music Years</h3>
+        <p>In high school, music became everything. I was determined, stubborn, and hungry for piccolo rights (so I fought my way to first chair flute as a freshman — even if only for a week). I learned every woodwind, played tenor sax in jazz band, spun in color guard, and even filled in on percussion when needed.</p>
+        <p>Choir was my heartbeat: honors choir, swing choir, the Dorian Vocal Festival. I went on to win both the <em>National School Choral Award</em> and the <em>John Philip Sousa Award</em> — the top honors in band and choir — sweeping them as one determined girl.</p>
+        <div class="quote">“I grew up stifled by perfection and rules that changed on a whim — but the wonder was always there, waiting.”</div>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- College + ADHD -->
+      <article class="step">
+        <h3>🎓 Finding My Way (and ADHD)</h3>
+        <p>College at River Falls was messy but formative. I bounced through five majors before finally graduating with a B.A. in Psychology and a self-made minor in Broad Field Social Studies — proof of my endless curiosity. I didn’t know it then, but ADHD was driving that restlessness. I wasn’t diagnosed until age 42, and looking back, I’m proud that I made it through anyway.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Love & family -->
+      <article class="step">
+        <h3>💜 Love & Family</h3>
+        <p>I met Blake in college through a friend who grew up with him. After our first date, I told my resident (RA): “I’m gonna marry this guy.” And I did — in 2006. Almost 20 years later, he’s still my biggest cheerleader: the one who gets me, accepts the chaos, helps me navigate family drama, and teaches me new ways to communicate and live with more grace.</p>
+        <p>In 2010, Porter arrived and I went full mom-mode. None of my friends were in the same stage, so I turned to a brand-new platform: YouTube. Back then it was all community, no algorithms, and I found my people in the TTC and mommy groups.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- YouTube era -->
+      <article class="step">
+        <h3>📹 The YouTube Era</h3>
+        <p>I became <strong>InformationMommy</strong>, sharing fact-based, sassy, no-nonsense videos on everything from cloth diapering to vaccine research to day-in-the-life chaos. Over 1,000 subscribers later, I had built a little community that turned into real friendships — women I met up with, confided in, and leaned on.</p>
+        <p>That community showed me the power of connection: finding people who are walking through the same season as you. It was also the first time I started uncovering <em>me</em> — not just the daughter of a narcissist, not just a wife or mom, not just an employee, but Parker.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Struggle & recovery -->
+      <article class="step">
+        <h3>🍷 Struggle & Recovery</h3>
+        <p>Life got hard. Jobs with endless travel blurred into work-from-home life, and alcohol became my coping tool — a mask over anxiety, ADHD, and PTSD. By the time my skin was jaundiced and I was diagnosed with liver disease, I had nearly lost it all. Twice I almost died.</p>
+        <p>But that wasn’t my ending — it was my beginning. I chose recovery and healing. I dug into my past, forgave myself, comforted the little girl who never had what she needed, and built a new toolkit for when life inevitably gets messy again.</p>
+      </article>
+
+      <div class="divider"><span class="dot"></span> sparkle break <span class="dot"></span></div>
+
+      <!-- Becoming ParkerPixie -->
+      <article class="step">
+        <h3>✨ Becoming ParkerPixie</h3>
+        <p>Now I share the nuggets that help me — the tools, the aha moments, the sparkle that keeps me going. I crochet, I design, I game, I parent, I heal, I connect. I’m still evolving, gloriously chaotic and wrapped in shimmer and soft fluff, committed to living life all the way.</p>
+      </article>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
       <div>
-        <h1>Sass. Shimmer. Sparkle.</h1>
-        <p class="muted">Cozy design, glitter-core vibes, and the ParkerPixie universe: Paws • Pop • Pixel.</p>
-        <div class="cta-row">
-          <a class="btn" href="#about">Who is ParkerPixie</a>
-          <a class="btn secondary" href="/blog.html">Read the Blog</a>
-          <a class="btn secondary" href="/links.html">Helpful Links</a>
-        </div>
+        <strong>Come hang out.</strong>
+        <div class="sub" style="margin-top:4px">Catch me crocheting, gaming, or sprinkling sparkle across socials — or say hi and tell me your story.</div>
       </div>
-      <div class="card" style="overflow:hidden">
-        <img src="/assets/hero/umbrella-hero.jpg" alt="ParkerPixie banner collage" style="width:100%;height:100%;object-fit:cover;display:block"/>
-      </div>
+      <a href="/contact" class="btn">Contact ParkerPixie</a>
     </section>
-
-    <!-- Brand tiles: Paws / Pop / Pixel -->
-    <section class="section" aria-labelledby="brands">
-      <h2 id="brands" class="h2">Explore the ParkerPixie Universe</h2>
-      <p class="muted">Three vibes, one umbrella — each with its own playground.</p>
-      <div class="grid-logos">
-        <a class="logo-card" href="/paws.html" aria-label="ParkerPixiePaws">
-          <img src="/assets/brand/paws-logo.png" alt="ParkerPixiePaws"/>
-        </a>
-        <a class="logo-card" href="/pop.html" aria-label="ParkerPixiePop">
-          <img src="/assets/brand/pop-logo.png" alt="ParkerPixiePop"/>
-        </a>
-        <a class="logo-card" href="/pixel.html" aria-label="ParkerPixiePixel">
-          <img src="/assets/brand/pixel-logo.png" alt="ParkerPixiePixel"/>
-        </a>
-      </div>
-    </section>
-
-    <!-- About anchor -->
-    <section id="about" class="section">
-      <h2 class="h2">About</h2>
-      <p class="muted">Scroll-bio lives here. Keep your existing copy; no changes made. This anchor is for the header link.</p>
-    </section>
-
-    <footer class="wrap">
-      <div class="muted">© <span id="yr"></span> ParkerPixie • Peace, glitter, and good thread.</div>
-    </footer>
-  </div>
-  <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
-</body>
-</html>
-
-
-<!-- =============================
-  2) contact.html (form + socials)
-============================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Contact • ParkerPixie</title>
-  <style>
-    :root{--bg:#0b0a10;--ink:#f6f3ff;--accent:#ffd166;--muted:#9c96b8;--card:#141225;--radius:18px}
-    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-    .wrap{max-width:900px;margin:0 auto;padding:24px}
-    a{color:var(--accent)}
-    .card{background:var(--card);padding:18px;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08)}
-    form{display:grid;gap:12px}
-    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#0f0e18;color:var(--ink)}
-    button{padding:12px 16px;border-radius:12px;border:none;background:var(--accent);font-weight:700;color:#1e1b2e}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    @media (max-width:800px){.grid{grid-template-columns:1fr}}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>Contact Me</h1>
-    <div class="grid">
-      <div class="card">
-        <!-- Replace action with Netlify Forms or Formspree endpoint when ready -->
-        <form name="contact" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="contact">
-          <label>Name<input required name="name"/></label>
-          <label>Email<input required type="email" name="email"/></label>
-          <label>Message<textarea rows="6" name="message" required></textarea></label>
-          <button type="submit">Send</button>
-        </form>
-        <p class="muted">No form backend yet? Flip on <strong>Netlify Forms</strong> by leaving the attributes above, or swap to Formspree later.</p>
-      </div>
-      <div class="card">
-        <h2>Find me online</h2>
-        <ul>
-          <li>Email: <a href="mailto:hello@parkerpixie.com">hello@parkerpixie.com</a></li>
-          <li>Facebook: <a href="#" aria-label="Facebook">(add link)</a></li>
-          <li>Discord: <a href="#" aria-label="Discord">(add link)</a></li>
-          <li>Steam: <a href="#" aria-label="Steam">(add link)</a></li>
-          <li>Instagram: <a href="#" aria-label="Instagram">(add link)</a></li>
-        </ul>
-      </div>
-    </div>
-    <p><a href="/">← Back to Home</a></p>
   </div>
 </body>
 </html>
 
-
-<!-- =============================
-  3) blog.html (placeholder)
-============================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Blog • ParkerPixie</title>
-  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px}</style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>Blog</h1>
-    <p>Coming soon. This is where updates, behind‑the‑scenes, and release notes will live.</p>
-    <p><a href="/">← Back to Home</a></p>
-  </div>
-</body>
-</html>
-
-
-<!-- =============================
-  4) links.html (helpful resources)
-============================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Helpful Links • ParkerPixie</title>
-  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px} .card{background:#141225;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px;margin:12px 0}</style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>Helpful Links</h1>
-    <div class="card"><h3>Amigurumi</h3><ul><li><a href="#">(add link)</a></li></ul></div>
-    <div class="card"><h3>Gaming</h3><ul><li><a href="#">(add link)</a></li></ul></div>
-    <div class="card"><h3>Meal Planning / Life</h3><ul><li><a href="#">(add link)</a></li></ul></div>
-    <p><a href="/">← Back to Home</a></p>
-  </div>
-</body>
-</html>
-
-
-<!-- =============================
-  5) paws.html (brand landing — to be filled with artist bio + gallery)
-============================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ParkerPixiePaws</title>
-  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:1100px;margin:0 auto;padding:24px} .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px} .card{background:#141225;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px}</style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>ParkerPixiePaws</h1>
-    <p>Hand‑crafted amigurumi with celestial cozy vibes.</p>
-    <h2 id="about">About the Artist</h2>
-    <p><!-- Paste bio excerpt sourced from your Showcase entry. --></p>
-    <h2 id="gallery">Gallery</h2>
-    <div class="grid">
-      <!-- Add Bejeweled, Aurora, Jade, Gilligan, Bonnie here as cards with images and captions. -->
-    </div>
-    <p><a href="/">← Back to Home</a></p>
-  </div>
-</body>
-</html>
-
-
-<!-- =============================
-  6) pop.html (placeholder)
-============================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ParkerPixiePop</title>
-  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px}</style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>ParkerPixiePop</h1>
-    <p>Streaming + anime vibes. Coming soon.</p>
-    <p><a href="/">← Back to Home</a></p>
-  </div>
-</body>
-</html>
-
-
-<!-- =============================
-  7) pixel.html (placeholder)
-============================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ParkerPixiePixel</title>
-  <style>body{margin:0;background:#0b0a10;color:#f6f3ff;font:16px/1.5 system-ui} .wrap{max-width:900px;margin:0 auto;padding:24px}</style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>ParkerPixiePixel</h1>
-    <p>Design studio & resources. Coming soon.</p>
-    <p><a href="/">← Back to Home</a></p>
-  </div>
-</body>
-</html>
