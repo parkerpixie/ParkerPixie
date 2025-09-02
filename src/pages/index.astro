@@ -1,117 +1,63 @@
----
-/* index.astro — ParkerPixie homepage */
----
-<!DOCTYPE html>
+<!-- =============================
+File: index.html (Homepage)
+Purpose: Pull ParkerPixiePaws into the umbrella brand with an "About the Artist" teaser,
+recent works gallery, and a clear CTA to the new Paws area.
+Notes:
+- Replace image src paths with your actual asset paths.
+- Paste your finalized “About the Artist” bio where indicated (short teaser here, full on paws.html).
+- Uses a tiny bit of vanilla JS (no frameworks) and modern, responsive CSS.
+============================= -->
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ParkerPixie — Sass, Shimmer & Sparkle</title>
-  <meta name="description" content="Amigurumi • Graphic Design • Cozy Gaming • Blog" />
-  <style>
-    :root{
-      --brand:#8a5dff;         /* Parker purple */
-      --brand-deep:#4026a6;    /* Deep purple */
-      --gold:#F0C419;          /* Sparkle gold */
-      --ink:#1f2937;           /* neutral text */
-      --bg:#ffffff;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:var(--ink); background:var(--bg);
-    }
-    a{color:var(--brand); text-decoration:none}
-    a:hover{opacity:.9}
-    .wrap{max-width:1100px;margin:0 auto;padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
-    nav a{margin-left:16px}
-    .btn{
-      display:inline-block;padding:12px 16px;border-radius:10px;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-deep));
-      box-shadow:0 6px 18px rgba(64,38,166,.25); font-weight:600;
-    }
-    .btn--ghost{background:transparent;color:var(--brand);border:2px solid var(--brand);box-shadow:none}
-    .hero{
-      position:relative; overflow:hidden; border:1px solid #eee; border-radius:20px; padding:38px 28px; margin:10px 0 24px;
-      background:
-        radial-gradient(1200px 500px at -10% -20%, rgba(240,196,25,.15), transparent 40%),
-        radial-gradient(1000px 600px at 110% 10%, rgba(138,93,255,.18), transparent 35%),
-        linear-gradient(180deg, #fff, #faf7ff);
-    }
-    .hero h1{font-size:clamp(32px,5vw,56px);margin:0 0 10px}
-    .hero p{font-size:clamp(16px,2.2vw,20px);opacity:.9;margin:0 0 18px}
-    .hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-    .grid{display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0}
-    @media (min-width:800px){ .grid{grid-template-columns:repeat(3,1fr);} }
-    .card{
-      border:1px solid #eee;border-radius:16px;padding:16px;background:#fff;
-      box-shadow:0 6px 20px rgba(0,0,0,.05);
-      transition:transform .18s ease, box-shadow .18s ease;
-    }
-    .card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.08)}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#f6f3ff;color:#4b3aa6;font-weight:600;font-size:14px}
-    footer{border-top:1px solid #eee;margin-top:28px;padding:20px 0;color:#6b7280;font-size:14px}
-    .sparkle{display:inline-block;width:10px;height:10px;border-radius:2px;background:linear-gradient(135deg,var(--gold),#ffe483);}
-    .hero-img{
-      width:100%; max-height:360px; object-fit:cover; border-radius:14px; border:1px solid #eee;
-      box-shadow:0 8px 26px rgba(64,38,166,.15)
-    }
-    .two-col{display:grid;grid-template-columns:1fr;gap:18px}
-    @media (min-width:900px){ .two-col{grid-template-columns:1.1fr .9fr;} }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <div style="display:flex;align-items:center;gap:10px">
-        <span class="sparkle"></span>
-        <strong>ParkerPixie</strong>
-      </div>
-      <nav>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </nav>
-    </header>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ParkerPixie — Home</title>
+<meta name="description" content="ParkerPixie — fashion, cozy design, and ParkerPixiePaws amigurumi art. Art as healing, glitter as a lifestyle." />
 
-    <section class="hero">
-      <div class="two-col">
-        <div>
-          <div class="pill"><span class="sparkle"></span> Sass • Shimmer • Sparkle</div>
-          <h1>Amigurumi. Design. Cozy Gaming.</h1>
-          <p>I’m Parker — the glitter behind ParkerPixie. Explore plush friends, brand glow-ups, and comfy content — all tied together with recovery, kindness, and a dash of chaos.</p>
-          <div class="hero-cta">
-            <a class="btn" href="/contact">Commission an Amigurumi</a>
-            <a class="btn btn--ghost" href="/about">Who is ParkerPixie?</a>
-          </div>
-        </div>
-        <div>
-          <!-- Replace hero.jpg with a Canva export placed in /public -->
-          <img class="hero-img" src="/hero.jpg" alt="ParkerPixie brand hero image">
-          <div style="font-size:12px;color:#6b7280;margin-top:6px;">✨ “This is my happy place — our family cabin on the lake. I’m either crocheting with my capy crew, sneaking in some SteamDeck time, or playing with graphic design between kayaking, swimming, tubing, and boating. It’s where the sass, shimmer, and sparkle refill my soul.</div>
-        </div>
-      </div>
-    </section>
 
-    <section class="grid">
-      <a class="card" href="/about">
-        <h3>🧶 Amigurumi Gallery</h3>
-        <p>Whimsical capybaras, puffins, peacocks, and friends. Soft, cozy, and full of heart.</p>
-      </a>
-      <a class="card" href="/about">
-        <h3>🎨 Graphic Design</h3>
-        <p>Before/after glow-ups, social sets, and brand kits that shimmer in the feed.</p>
-      </a>
-      <a class="card" href="/about">
-        <h3>🎮 Gaming</h3>
-        <p>Cozy streams, guides, and builds inspired by Infinity Nikki & Dreamlight vibes.</p>
-      </a>
-    </section>
+<!-- Open Graph for link sharing -->
+<meta property="og:title" content="ParkerPixie" />
+<meta property="og:description" content="ParkerPixie — fashion, cozy design, and ParkerPixiePaws amigurumi art." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="/assets/og/og-umbrella.jpg" />
+<meta property="og:url" content="https://your-domain.example/" />
 
-    <footer>
-      <div class="wrap" style="padding:0">
-        © <script>document.write(new Date().getFullYear())</script> ParkerPixie · Made with glitter & love
-      </div>
-    </footer>
-  </div>
-</body>
+
+<!-- Simple fonts (safe system stack) -->
+<style>
+:root{
+--bg:#0b0a10;/* cosmic charcoal */
+--ink:#f6f3ff;/* near-white */
+--sub:#c7bbff;/* lilac */
+--accent:#ffd166;/* golden shimmer */
+--muted:#8a86a3;
+--card:#141225;
+--glow: 0 0 40px rgba(199,187,255,.35);
+--radius:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:42px;width:auto}
+nav a{margin-left:16px;opacity:.9}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:24px 0}
+.hero h1{font-size:clamp(28px,5vw,54px);line-height:1.05;margin:0}
+.tag{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:999px;background:linear-gradient(135deg,var(--sub),#9ee8ff);color:#0a0a12;font-weight:700}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--glow)}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:12px 16px;border-radius:12px;background:var(--accent);color:#1e1b2e;font-weight:700}
+.cta svg{width:18px;height:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.tile{position:relative;overflow:hidden;border-radius:14px}
+.tile img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .4s ease}
+.tile:hover img{transform:scale(1.03)}
+.tile .cap{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.7));font-weight:600}
+.section{margin:42px 0}
+.h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 12px}
+.muted{color:var(--muted)}
+.about-teaser{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
 </html>
