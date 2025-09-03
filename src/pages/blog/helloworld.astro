@@ -1,25 +1,81 @@
 ---
-// src/pages/blog/helloworld.astro
 const title = "Open Doors, Quiet Halls";
 const subtitle = "Expectations, boundaries, and the echo that follows.";
 const date = "September 3, 2025";
 const tags = ["healing", "boundaries", "family", "recovery"];
-// If you have a cover image, put it in /public and set its filename here:
-const cover = null; // e.g., "/images/clementine-stars.jpg"
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>{title} • ParkerPixie Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Parker writes about opening the door to her mother, the silence that followed, and choosing boundaries that glitter with self-respect." />
-    <style>
-      :root{
-        --brand:#8a5dff;         /* Parker purple */
-        --brand-deep:#5a39d9;    /* deeper purple */
-        --ink:#1b102b;           /* text */
-        --muted:#756a86;         /* muted text */
-        --bg:#0e0a16;            /* page background */
-        --card:#151025;
+<style>
+  /* keep styles tiny & safe to avoid PostCSS hiccups */
+  .shell{max-width:820px;margin:32px auto 80px;padding:0 20px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#efe9ff;background:#0e0a16;}
+  .card{background:#151025;border:1px solid rgba(255,255,255,.12);border-radius:18px;box-shadow:0 0 30px rgba(138,93,255,.35);padding:24px;}
+  .kicker{color:#9a8fc0;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;margin:0}
+  h1{color:#f6f1ff;margin:.25rem 0 .2rem;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.12}
+  .sub{color:#d9cffc;margin:.2rem 0 1rem}
+  .meta{display:flex;gap:10px;align-items:center;color:#9a8fc0;font-size:.92rem;flex-wrap:wrap}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+  .tag{background:rgba(242,201,139,.12);border:1px solid rgba(242,201,139,.35);color:#fbe7c7;padding:4px 10px;border-radius:999px;font-size:.78rem}
+  .content{margin-top:18px;padding:22px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:18px}
+  .pull{font-size:clamp(1.05rem,2.2vw,1.25rem);color:#efe8ff;background:rgba(138,93,255,.10);border-left:3px solid #8a5dff;padding:14px 16px;border-radius:12px;margin:20px 0}
+  .hr{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);margin:22px 0}
+  .mantra{display:flex;gap:10px;align-items:center;color:#f1eaff;font-weight:600;background:#1c1530;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;margin-top:18px}
+  .dot{width:9px;height:9px;border-radius:99px;background:#f2c98b;box-shadow:0 0 10px rgba(242,201,139,.9)}
+  a.btn{display:inline-block;padding:7px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#1b132e;color:#f3ecff;font-size:.85rem;text-decoration:none}
+  a.btn:hover{border-color:rgba(242,201,139,.6)}
+  .foot{color:#9a8fc0;font-size:.9rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px}
+</style>
 
+<main class="shell">
+  <header class="card">
+    <p class="kicker">ParkerPixie Blog</p>
+    <h1>{title} ✨</h1>
+    <p class="sub">{subtitle}</p>
+    <div class="meta">
+      <span>{date}</span>
+      <div class="tags">
+        {tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+    </div>
+  </header>
+
+  <article class="content">
+    <section aria-label="Clementine’s Insight" style="display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;background:linear-gradient(180deg,rgba(242,201,139,.12),rgba(138,93,255,.08));border:1px dashed rgba(242,201,139,.45);padding:14px 16px;border-radius:14px;margin:8px 0 22px;">
+      <div style="width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:#2a2141;color:#ffe8bd;font-weight:700;font-size:.68rem;text-align:center;line-height:1.1;border:1px solid rgba(255,255,255,.12);">Clem’s<br/>Insight</div>
+      <p style="margin:0;">Rest isn’t quitting; it’s healing on purpose. Boundaries are glitter fences—you build them to protect the garden you’re growing.</p>
+    </section>
+
+    <p>Today’s entry is raw. I opened the door to my mother—wide, with welcome and with clear boundaries. And then… nothing. No steps. No effort. Just the kind of silence that hums like a fluorescent light you can’t shut off.</p>
+
+    <div class="pull">I can hold grief for what I needed, pride for who I’ve become, and a hard line for what I will no longer carry.</div>
+
+    <h2>Expectation vs. Reality</h2>
+    <p>I pictured conversation, curiosity, maybe even a <em>“tell me more.”</em> What I got was the familiar dodge: minimizing, deflecting, and pretending the past is a rumor I made up. That’s not reconciliation—that’s costume jewelry trying to pass as heirloom.</p>
+
+    <h2>What I’m Keeping</h2>
+    <ul>
+      <li>My peace. I earned it in daylight and in midnight hours.</li>
+      <li>My story. It’s true even when it’s inconvenient for someone else.</li>
+      <li>My boundaries. They’re not punishments; they’re permissions—for me to heal.</li>
+    </ul>
+
+    <h2>What I’m Letting Go</h2>
+    <ul>
+      <li>The hope that she’ll suddenly become the mother I deserved.</li>
+      <li>The urge to over-explain my hurt to people committed to misunderstanding it.</li>
+      <li>The job of carrying the family’s denial on my back.</li>
+    </ul>
+
+    <div class="hr"></div>
+
+    <p>Opening the door was an act of courage. Watching no one walk through is an answer. And sometimes the kindest thing I can do for the little kid in me is lock the door, hang a glittery <strong>“Do Not Disturb—Healing In Progress”</strong> sign, and go make something beautiful.</p>
+
+    <p class="mantra"><span class="dot" aria-hidden="true"></span> <span><strong>Mantra:</strong> I don’t chase; I choose. I don’t beg; I bloom.</span></p>
+
+    <footer class="foot">
+      <div>— Parker</div>
+      <nav aria-label="Share" style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="btn" href="/blog">Back to Blog</a>
+      </nav>
+    </footer>
+  </article>
+</main>
