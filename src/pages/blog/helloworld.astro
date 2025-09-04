@@ -156,12 +156,18 @@ const cover = null; // e.g., "/images/clementine-stars.jpg"
         </p>
 
         <footer class="foot">
-          <div>— Parker</div>
-          <nav class="share" aria-label="Share">
-            <a class="btn" href="https://twitter.com/intent/tweet?text=Open%20Doors%2C%20Quiet%20Halls%20by%20ParkerPixie&url=https%3A%2F%2Fparkerpixie.netlify.app%2Fblog%2Fhelloworld%2F" rel="noopener">Share</a>
-            <a class="btn" href="/blog">Back to Blog</a>
-          </nav>
-        </footer>
+  <div>— Parker</div>
+  <nav class="share" aria-label="Share this post">
+    <button class="btn" id="copyLinkBtn" type="button">Copy Link</button>
+    <a class="btn" id="fbShare" href="#" rel="noopener">Share on Facebook</a>
+    <button class="btn" id="nativeShareBtn" type="button" hidden>Share…</button>
+    <a class="btn" href="/blog">Back to Blog</a>
+  </nav>
+</footer>
+
+<!-- tiny toast for copy feedback -->
+<div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
+
       </article>
     </main>
   </body>
