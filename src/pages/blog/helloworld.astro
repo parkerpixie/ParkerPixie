@@ -1,21 +1,34 @@
 ---
-/* v3 — standalone page, no MD, no external CSS */
+// src/pages/blog/helloworld.astro
+// Standalone page — no Markdown, no external CSS
 const title = "Open Doors, Quiet Halls";
 const subtitle = "Expectations, boundaries, and the echo that follows.";
 const date = "September 3, 2025";
 const tags = ["healing", "boundaries", "family", "recovery"];
 const cover = null; // e.g., "/images/clementine-stars.jpg"
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>{title} • ParkerPixie Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-      content="Parker writes about opening the door to her mother, the silence that followed, and choosing boundaries that glitter with self-respect." />
+    <meta
+      name="description"
+      content="Parker writes about opening the door to her mother, the silence that followed, and choosing boundaries that glitter with self-respect."
+    />
     <link rel="icon" href="/CapyGoldIcon.png" />
-    <meta name="x-debug" content="helloworld-astro-v3" />
+    <meta name="x-debug" content="helloworld-astro-v4" />
+
+    <!-- Social preview (optional but nice) -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={`${title} • ParkerPixie Blog`} />
+    <meta property="og:description" content="Expectations, boundaries, and the echo that follows." />
+    <meta property="og:url" content="https://parkerpixie.netlify.app/blog/helloworld/" />
+    <meta property="og:image" content="/CapyGoldIcon.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <style>
       :root{
         --brand:#8a5dff; --brand-deep:#5a39d9;
@@ -93,10 +106,25 @@ const cover = null; // e.g., "/images/clementine-stars.jpg"
       .mantra .dot{ width:9px; height:9px; border-radius:99px; background:var(--gold); box-shadow:0 0 10px rgba(242,201,139,.9) }
       .foot{ color:var(--muted); font-size:.9rem; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:18px }
       .share{ display:flex; gap:10px; flex-wrap:wrap }
-      .btn{ padding:7px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
-            background:#1b132e; color:#f3ecff; font-size:.85rem }
+      .btn{
+        padding:7px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+        background:#1b132e; color:#f3ecff; font-size:.85rem; cursor:pointer;
+        transition: transform .06s ease, border-color .18s ease;
+      }
       .btn:hover{ border-color:rgba(242,201,139,.6) }
+      .btn:active{ transform: translateY(1px); }
       .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+
+      /* Toast for copy feedback */
+      #toast{
+        position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+        background: rgba(28, 21, 48, .95);
+        color: #f6f1ff; border: 1px solid rgba(255,255,255,.18);
+        padding: 10px 14px; border-radius: 999px; opacity: 0; pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease; box-shadow: 0 10px 30px #0007;
+        font-size: .92rem;
+      }
+      #toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
   </head>
   <body>
@@ -156,19 +184,68 @@ const cover = null; // e.g., "/images/clementine-stars.jpg"
         </p>
 
         <footer class="foot">
-  <div>— Parker</div>
-  <nav class="share" aria-label="Share this post">
-    <button class="btn" id="copyLinkBtn" type="button">Copy Link</button>
-    <a class="btn" id="fbShare" href="#" rel="noopener">Share on Facebook</a>
-    <button class="btn" id="nativeShareBtn" type="button" hidden>Share…</button>
-    <a class="btn" href="/blog">Back to Blog</a>
-  </nav>
-</footer>
-
-<!-- tiny toast for copy feedback -->
-<div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
-
+          <div>— Parker</div>
+          <nav class="share" aria-label="Share this post">
+            <button class="btn" id="copyLinkBtn" type="button">Copy Link</button>
+            <a class="btn" id="fbShare" href="#" rel="noopener">Share on Facebook</a>
+            <button class="btn" id="nativeShareBtn" type="button" hidden>Share…</button>
+            <a class="btn" href="/blog">Back to Blog</a>
+          </nav>
+        </footer>
       </article>
     </main>
+
+    <!-- Copy/Share logic + toast -->
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
+
+    <script type="module">
+      const url = new URL(window.location.href);
+      const title = document.title || "ParkerPixie Blog";
+
+      const copyBtn = document.getElementById("copyLinkBtn");
+      const fbA = document.getElementById("fbShare");
+      const nativeBtn = document.getElementById("nativeShareBtn");
+      const toast = document.getElementById("toast");
+
+      // Facebook share link
+      const fbShareUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+      fbShareUrl.searchParams.set("u", url.href);
+      fbA.href = fbShareUrl.toString();
+
+      // Copy link behavior (with fallback)
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url.href);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = url.href;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          showToast();
+        } catch {
+          window.prompt("Copy this URL:", url.href);
+        }
+      });
+
+      // Web Share API (mobile / supported browsers)
+      if (navigator.share) {
+        nativeBtn.hidden = false;
+        nativeBtn.addEventListener("click", () => {
+          navigator.share({ title, url: url.href }).catch(() => {});
+        });
+      }
+
+      // Cute toast
+      let toastTimer;
+      function showToast() {
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+    </script>
   </body>
 </html>
