@@ -1,11 +1,11 @@
 ---
-// src/pages/blog/helloworld.astro  (v5)
+// src/pages/blog/helloworld.astro  (v6)
 // Standalone page — no Markdown, no external CSS
 const title = "Open Doors, Quiet Halls";
 const subtitle = "Expectations, boundaries, and the echo that follows.";
 const date = "September 3, 2025";
 const tags = ["healing", "boundaries", "family", "recovery"];
-const cover = null; // e.g., "/images/clementine-stars.jpg"
+const cover = "/images/helloworld-cover.jpg"; // make sure this file exists in /public/images
 ---
 
 <!doctype html>
@@ -19,15 +19,18 @@ const cover = null; // e.g., "/images/clementine-stars.jpg"
       content="Parker writes about opening the door to her mother, the silence that followed, and choosing boundaries that glitter with self-respect."
     />
     <link rel="icon" href="/CapyGoldIcon.png" />
-    <meta name="x-debug" content="helloworld-astro-v5" />
+    <meta name="x-debug" content="helloworld-astro-v6" />
 
     <!-- Social preview -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content={title + " • ParkerPixie Blog"} />
-    <meta property="og:description" content="Expectations, boundaries, and the echo that follows." />
+    <meta property="og:description" content={subtitle} />
     <meta property="og:url" content="https://parkerpixie.netlify.app/blog/helloworld/" />
-    <meta property="og:image" content="/CapyGoldIcon.png" />
+    <meta property="og:image" content={cover} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={subtitle} />
+    <meta name="twitter:image" content={cover} />
 
     <style>
       :root{
@@ -40,7 +43,7 @@ const cover = null; // e.g., "/images/clementine-stars.jpg"
       *{box-sizing:border-box}
       html,body{
         margin:0; padding:0; line-height:1.6; color:var(--ink);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
         background:
           radial-gradient(1200px 800px at 10% -10%, rgba(138,93,255,.16), transparent 60%),
           radial-gradient(900px 600px at 90% 0%, rgba(255,214,232,.14), transparent 58%),
