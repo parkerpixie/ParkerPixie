@@ -1,4 +1,11 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 
-export default defineConfig({site: 'https://example.com', integrations:[tailwind()]});
+export default defineConfig({
+  output: 'static',          // we’re shipping a static site to Netlify
+  trailingSlash: 'ignore',   // keep URLs simple
+  vite: {
+    build: {
+      sourcemap: false
+    }
+  }
+});
