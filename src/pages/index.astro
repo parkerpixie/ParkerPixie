@@ -1,171 +1,154 @@
 ---
-// src/pages/blog/index.astro
-// Magazine-style blog index with graceful fallbacks
+/* Blog index — magazine grid, dark theme; safe when no posts exist */
 
-// Grab posts next to this file, including subfolders:
-const posts = await Astro.glob('./**/*.{md,mdx,astro}');
+// Use import.meta.glob (doesn't throw on no matches)
+const modules = import.meta.glob('./*.md', { eager: true });
 
-// Filter out this index file just in case, and anything without a URL
-const entries = posts
-  .filter(p => 'url' in p && p.url && !p.url.endsWith('/blog/'))
-  .map(p => ({
-    url: p.url,
-    // Frontmatter with fallbacks
-    title: p.frontmatter?.title ?? 'Untitled Post',
-    date: p.frontmatter?.date ? new Date(p.frontmatter.date) : null,
-    cover: p.frontmatter?.image ?? p.frontmatter?.cover ?? null,
-    excerpt:
-      p.frontmatter?.excerpt ??
-      p.frontmatter?.description ??
-      '',
-    tags: Array.isArray(p.frontmatter?.tags) ? p.frontmatter.tags : [],
-  }))
-  // newest first
-  .sort((a, b) => (b.date?.getTime?.() ?? 0) - (a.date?.getTime?.() ?? 0));
+// Normalize into an array of page modules with url + frontmatter
+type PostMod = { url?: string; frontmatter?: Record<string, any> };
+const posts: PostMod[] = Object.values(modules);
+
+// Sort newest first by frontmatter.date
+posts.sort((a, b) => {
+  const da = new Date(a.frontmatter?.date ?? 0).getTime();
+  const db = new Date(b.frontmatter?.date ?? 0).getTime();
+  return db - da;
+});
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>ParkerPixie · Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Cozy crafts, capybara lore, gaming, life & sparkle ✨"
-    />
+    <title>ParkerPixie · Blog</title>
+    <meta name="description" content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
+    <link rel="icon" href="/CapyGoldIcon.png" />
     <style>
       :root{
-        --brand:#8a5dff;
-        --brand-deep:#4b2bb8;
-        --ink:#1b1326;
-        --muted:#6e6280;
-        --card:#ffffff;
-        --bg: radial-gradient(1000px 600px at 10% -10%, #efe9ff 0%, #faf7ff 35%, #fff 60%),
-              radial-gradient(800px 500px at 110% 20%, #ffe9f5 0%, #fff 60%);
-        --ring: 0 0 0 2px rgba(138,93,255,.15), 0 10px 30px rgba(138,93,255,.15);
+        --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
+        --ink:#f7f3ff; --muted:#bdb5d9;
+        --bg1:#0f0b14; --bg2:#130e1f; --bg3:#100b1a;
+        --card:#171220; --radius:18px;
       }
       *{box-sizing:border-box}
-      body{
-        margin:0;
-        color:var(--ink);
-        font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-        background: var(--bg);
-      }
-      header{
-        padding: clamp(24px, 4vw, 48px) 20px 8px;
-        text-align:center;
-      }
-      .title{
-        margin:0;
-        font-weight:800;
-        letter-spacing:.3px;
-        font-size:clamp(28px, 4.2vw, 44px);
-        color:var(--brand-deep);
-      }
-      .tagline{
-        margin:.4rem 0 0;
-        color:var(--muted);
-        font-size:clamp(14px, 2.2vw, 18px);
-      }
+      html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg1),var(--bg2) 40%,var(--bg3));color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+      a{color:inherit;text-decoration:none}
+      img{max-width:100%;height:auto;display:block}
+      .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
 
+      /* Header (matches site) */
+      header{position:sticky;top:0;z-index:50;background:rgba(15,11,20,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
+      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
+      .brand span{font-size:18px}
+      .links{display:flex;gap:16px}
+      .links a{padding:8px 12px;border-radius:12px;transition:.2s ease}
+      .links a:hover{background:rgba(255,255,255,.07)}
+      .links a.cta{background:linear-gradient(135deg,var(--brand),var(--brand-deep));box-shadow:0 8px 30px rgba(138,93,255,.35)}
+      .links a.cta:hover{transform:translateY(-1px)}
+
+      /* Page header */
+      .hero{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+      .hero h1{font-size:clamp(28px,5vw,44px);margin:0}
+      .hero p{color:var(--muted);margin:8px 0 0}
+
+      /* Magazine grid */
       .grid{
+        margin-top:22px;
         display:grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: clamp(16px, 3vw, 28px);
-        padding: clamp(16px, 4vw, 40px);
-        max-width: 1200px;
-        margin: 0 auto;
+        grid-template-columns:repeat(3,1fr);
+        gap:16px;
       }
+      @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
+      @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+
       .card{
-        background:var(--card);
-        border-radius:20px;
-        overflow:hidden;
-        border:1px solid rgba(75,43,184,.08);
-        box-shadow: 0 6px 18px rgba(27,19,38,.06);
-        display:flex;
-        flex-direction:column;
-        transition: transform .18s ease, box-shadow .18s ease;
+        display:flex;flex-direction:column;overflow:hidden;
+        border-radius:var(--radius);
+        background:linear-gradient(180deg,#1c152d,#181126);
+        border:1px solid rgba(255,255,255,.08);
+        box-shadow:0 20px 60px rgba(0,0,0,.35);
+        min-height:280px;
       }
-      .card:hover{
-        transform: translateY(-2px);
-        box-shadow: var(--ring);
+      .thumb{
+        aspect-ratio:16/9; background:#120d1b; position:relative; overflow:hidden;
+        border-bottom:1px solid rgba(255,255,255,.06);
       }
-      .cover{
-        aspect-ratio: 16/9;
-        width:100%;
-        object-fit:cover;
-        background:
-          radial-gradient(200px 120px at 20% 10%, rgba(138,93,255,.18), transparent 60%),
-          linear-gradient(180deg, #f6f1ff 0%, #fefcff 100%);
-      }
-      .content{ padding:18px; display:flex; flex-direction:column; gap:10px; }
-      .post-title{
-        margin:0;
-        font-size:1.05rem;
-        line-height:1.25;
-      }
-      .post-title a{
-        color:inherit; text-decoration:none;
-      }
-      .post-title a:hover{ text-decoration:underline; text-decoration-thickness:2px; }
-      .meta{
-        font-size:.85rem; color:var(--muted); display:flex; gap:8px; flex-wrap:wrap;
-      }
-      .tags{ display:flex; gap:6px; flex-wrap:wrap; }
-      .tag{
-        font-size:.72rem;
-        padding:3px 8px;
-        border-radius:999px;
-        background:rgba(138,93,255,.10);
-        color:var(--brand-deep);
-        border:1px solid rgba(138,93,255,.18);
-      }
-      .excerpt{ color:#3d344b; font-size:.95rem; }
-      .empty{
-        max-width:720px; margin:24px auto 64px; padding:0 20px; color:var(--muted); text-align:center;
-      }
-      footer{
-        padding:32px 20px; text-align:center; color:var(--muted);
-      }
+      .thumb img{width:100%;height:100%;object-fit:cover;opacity:.95;transition:transform .25s ease}
+      .card:hover .thumb img{transform:scale(1.03)}
+      .body{padding:16px}
+      .title{margin:0 0 6px;font-size:18px;line-height:1.25}
+      .meta{color:var(--muted);font-size:13px;margin:0 0 8px}
+      .excerpt{color:#eae6ff;font-size:14px;margin:0}
+      .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+      .tag{font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:4px 8px;border-radius:999px}
+
+      footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+      .empty{opacity:.75;color:var(--muted);padding:24px;border:1px dashed rgba(255,255,255,.12);border-radius:12px;background:#1b1527}
     </style>
   </head>
+
   <body>
     <header>
-      <h1 class="title">Blog</h1>
-      <p class="tagline">Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="links">
+          <a href="/about">About</a>
+          <a class="cta" href="/contact">Contact</a>
+        </nav>
+      </div>
     </header>
 
-    {entries.length === 0 ? (
-      <div class="empty">
-        <p>No posts yet. Add a Markdown file like <code>src/pages/blog/hello-world.md</code> with frontmatter.</p>
+    <main class="wrap">
+      <div class="hero">
+        <div>
+          <h1>Blog</h1>
+          <p>Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
+        </div>
       </div>
-    ) : (
-      <main class="grid">
-        {entries.map(post => (
-          <article class="card">
-            {post.cover
-              ? <img class="cover" src={post.cover} alt="" loading="lazy" />
-              : <div class="cover" aria-hidden="true"></div>}
-            <div class="content">
-              <h2 class="post-title"><a href={post.url}>{post.title}</a></h2>
-              <div class="meta">
-                {post.date && <time datetime={post.date.toISOString()}>
-                  {post.date.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'})}
-                </time>}
-                {post.tags?.length > 0 && (
-                  <span class="tags">
-                    {post.tags.slice(0,4).map(t => <span class="tag">{t}</span>)}
-                  </span>
-                )}
-              </div>
-              {post.excerpt && <p class="excerpt">{post.excerpt}</p>}
-            </div>
-          </article>
-        ))}
-      </main>
-    )}
 
-    <footer>© ParkerPixie · Made with ✨ glitter ✨, sass, and love from Madison, WI</footer>
+      {posts.length === 0 ? (
+        <p class="empty">No posts yet — add a Markdown file here: <code>src/pages/blog/hello-world.md</code>.</p>
+      ) : (
+        <section class="grid" aria-label="Magazine posts">
+          {posts.map((mod: any) => {
+            const url = mod.url ?? '#';
+            const fm = mod.frontmatter ?? {};
+            const cover = fm.cover ?? '/hero.jpg';
+            const title = fm.title ?? 'Untitled';
+            const date = fm.date ? new Date(fm.date).toLocaleDateString() : '';
+            const desc = fm.description ?? '';
+            const tags = Array.isArray(fm.tags) ? fm.tags : [];
+            return (
+              <a class="card" href={url}>
+                <div class="thumb"><img src={cover} alt="" loading="lazy" /></div>
+                <div class="body">
+                  <h2 class="title">{title}</h2>
+                  {date && <p class="meta">{date}</p>}
+                  {desc && <p class="excerpt">{desc}</p>}
+                  {tags.length > 0 && (
+                    <div class="tags">
+                      {tags.map((t: string) => <span class="tag">{t}</span>)}
+                    </div>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </section>
+      )}
+      <footer>
+        © <span id="y"></span> ParkerPixie · Made with ✨ glitter ✨, 💃 sass 💃, and 💖 love 💖 from Madison, WI
+      </footer>
+    </main>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
-
