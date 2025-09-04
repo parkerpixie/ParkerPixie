@@ -1,140 +1,171 @@
 ---
-/* No frontmatter needed */
+// src/pages/blog/index.astro
+// Magazine-style blog index with graceful fallbacks
+
+// Grab posts next to this file, including subfolders:
+const posts = await Astro.glob('./**/*.{md,mdx,astro}');
+
+// Filter out this index file just in case, and anything without a URL
+const entries = posts
+  .filter(p => 'url' in p && p.url && !p.url.endsWith('/blog/'))
+  .map(p => ({
+    url: p.url,
+    // Frontmatter with fallbacks
+    title: p.frontmatter?.title ?? 'Untitled Post',
+    date: p.frontmatter?.date ? new Date(p.frontmatter.date) : null,
+    cover: p.frontmatter?.image ?? p.frontmatter?.cover ?? null,
+    excerpt:
+      p.frontmatter?.excerpt ??
+      p.frontmatter?.description ??
+      '',
+    tags: Array.isArray(p.frontmatter?.tags) ? p.frontmatter.tags : [],
+  }))
+  // newest first
+  .sort((a, b) => (b.date?.getTime?.() ?? 0) - (a.date?.getTime?.() ?? 0));
 ---
 
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <title>ParkerPixie · Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
-    <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨" />
-    <link rel="icon" href="/CapyGoldIcon.png" />
+    <meta
+      name="description"
+      content="Cozy crafts, capybara lore, gaming, life & sparkle ✨"
+    />
     <style>
       :root{
-        --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
-        --ink:#f7f3ff; --bg:#0f0b14; --card:#171220; --muted:#bdb5d9;
+        --brand:#8a5dff;
+        --brand-deep:#4b2bb8;
+        --ink:#1b1326;
+        --muted:#6e6280;
+        --card:#ffffff;
+        --bg: radial-gradient(1000px 600px at 10% -10%, #efe9ff 0%, #faf7ff 35%, #fff 60%),
+              radial-gradient(800px 500px at 110% 20%, #ffe9f5 0%, #fff 60%);
+        --ring: 0 0 0 2px rgba(138,93,255,.15), 0 10px 30px rgba(138,93,255,.15);
       }
       *{box-sizing:border-box}
-      html,body{margin:0;padding:0;background:linear-gradient(180deg,#0f0b14,#130e1f 40%,#100b1a);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-      a{color:inherit;text-decoration:none}
-      img{max-width:100%;height:auto;display:block}
-      .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
+      body{
+        margin:0;
+        color:var(--ink);
+        font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+        background: var(--bg);
+      }
+      header{
+        padding: clamp(24px, 4vw, 48px) 20px 8px;
+        text-align:center;
+      }
+      .title{
+        margin:0;
+        font-weight:800;
+        letter-spacing:.3px;
+        font-size:clamp(28px, 4.2vw, 44px);
+        color:var(--brand-deep);
+      }
+      .tagline{
+        margin:.4rem 0 0;
+        color:var(--muted);
+        font-size:clamp(14px, 2.2vw, 18px);
+      }
 
-      /* Header */
-      header{position:sticky;top:0;z-index:50;background:rgba(15,11,20,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
-      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
-      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
-      .brand span{font-size:18px}
-      .links{display:flex;gap:16px}
-      .links a{padding:8px 12px;border-radius:12px;transition:.2s ease}
-      .links a:hover{background:rgba(255,255,255,.07)}
-      .links a.cta{background:linear-gradient(135deg,var(--brand),var(--brand-deep));box-shadow:0 8px 30px rgba(138,93,255,.35)}
-      .links a.cta:hover{transform:translateY(-1px)}
-
-      /* Hero */
-      .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;margin-top:28px}
-      @media (max-width:900px){.hero{grid-template-columns:1fr;gap:20px}}
-      .hero-card{background:radial-gradient(1200px 400px at -10% -10%, rgba(216,170,59,.08), transparent),var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
-      .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);letter-spacing:.25px}
-      .eyebrow::before{content:"✨";filter:drop-shadow(0 0 4px rgba(255,255,255,.45))}
-      h1{margin:.35rem 0 .6rem;font-size:clamp(28px,4.5vw,44px);line-height:1.05}
-      p.lede{font-size:clamp(15px,2.4vw,18px);color:#e8e2ff;opacity:.95}
-      .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-      .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:#1b1527;transition:.2s;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
-      .btn:hover{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(138,93,255,.25)}
-      .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-deep));border:none}
-      .caption{margin-top:10px;font-size:13px;color:var(--muted)}
-      .hero img{border-radius:16px;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.45)}
-
-      /* Tiles */
-      .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
-      @media (max-width:900px){.grid{grid-template-columns:1fr}}
-      .tile{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(180deg,#1c152d,#181126);border:1px solid rgba(255,255,255,.08);padding:20px;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;isolation:isolate}
-      .tile h3{margin:0;font-size:22px;letter-spacing:.2px}
-      .tile p{margin:0;color:var(--muted);font-size:14px}
-      .chip{position:absolute;top:14px;right:14px;font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:6px 10px;border-radius:999px}
-      .tile::after{content:"";position:absolute;inset:auto -20% -20% auto;width:240px;height:240px;background:radial-gradient(closest-side, rgba(138,93,255,.28), transparent 70%);transform:translate(10%,10%);z-index:-1;filter:blur(6px)}
-      .tile.paws::after{background:radial-gradient(closest-side, rgba(216,170,59,.35), transparent 70%)}
-      .tile.pop::after{background:radial-gradient(closest-side, rgba(255,105,180,.28), transparent 70%)}
-      .tile.pixel::after{background:radial-gradient(closest-side, rgba(80,200,255,.28), transparent 70%)}
-
-      footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: clamp(16px, 3vw, 28px);
+        padding: clamp(16px, 4vw, 40px);
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .card{
+        background:var(--card);
+        border-radius:20px;
+        overflow:hidden;
+        border:1px solid rgba(75,43,184,.08);
+        box-shadow: 0 6px 18px rgba(27,19,38,.06);
+        display:flex;
+        flex-direction:column;
+        transition: transform .18s ease, box-shadow .18s ease;
+      }
+      .card:hover{
+        transform: translateY(-2px);
+        box-shadow: var(--ring);
+      }
+      .cover{
+        aspect-ratio: 16/9;
+        width:100%;
+        object-fit:cover;
+        background:
+          radial-gradient(200px 120px at 20% 10%, rgba(138,93,255,.18), transparent 60%),
+          linear-gradient(180deg, #f6f1ff 0%, #fefcff 100%);
+      }
+      .content{ padding:18px; display:flex; flex-direction:column; gap:10px; }
+      .post-title{
+        margin:0;
+        font-size:1.05rem;
+        line-height:1.25;
+      }
+      .post-title a{
+        color:inherit; text-decoration:none;
+      }
+      .post-title a:hover{ text-decoration:underline; text-decoration-thickness:2px; }
+      .meta{
+        font-size:.85rem; color:var(--muted); display:flex; gap:8px; flex-wrap:wrap;
+      }
+      .tags{ display:flex; gap:6px; flex-wrap:wrap; }
+      .tag{
+        font-size:.72rem;
+        padding:3px 8px;
+        border-radius:999px;
+        background:rgba(138,93,255,.10);
+        color:var(--brand-deep);
+        border:1px solid rgba(138,93,255,.18);
+      }
+      .excerpt{ color:#3d344b; font-size:.95rem; }
+      .empty{
+        max-width:720px; margin:24px auto 64px; padding:0 20px; color:var(--muted); text-align:center;
+      }
+      footer{
+        padding:32px 20px; text-align:center; color:var(--muted);
+      }
     </style>
   </head>
-
   <body>
     <header>
-      <div class="wrap nav">
-        <a class="brand" href="/">
-          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
-          <span>ParkerPixie</span>
-        </a>
-        <nav class="links">
-          <a href="/about">About</a>
-          <a class="cta" href="/contact">Contact</a>
-        </nav>
-      </div>
+      <h1 class="title">Blog</h1>
+      <p class="tagline">Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
     </header>
 
-    <main class="wrap">
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-card">
-          <span class="eyebrow">Sass · Shimmer · Sparkle</span>
-          <h1>Cozy craft queen, gamer, and pixel tinkerer.</h1>
-          <p class="lede">
-            I stitch joy into amigurumi 🧶, decorate digital worlds, and build
-            playful systems that make life feel a little more magical.
-          </p>
-          <div class="cta-row">
-            <a class="btn primary" href="/about" aria-label="Who is ParkerPixie">
-              <span>Who is ParkerPixie</span>
-            </a>
-            <a class="btn" href="/blog" aria-label="Read the blog">
-              <span>Blog</span>
-            </a>
-            <a class="btn" href="/capybara" aria-label="What’s with the Capybara">
-              <span>What’s with the Capybara?</span>
-            </a>
-          </div>
-          <p class="caption">“Sass, Shimmer, Sparkle”—and a whole lot of heart.</p>
-        </div>
+    {entries.length === 0 ? (
+      <div class="empty">
+        <p>No posts yet. Add a Markdown file like <code>src/pages/blog/hello-world.md</code> with frontmatter.</p>
+      </div>
+    ) : (
+      <main class="grid">
+        {entries.map(post => (
+          <article class="card">
+            {post.cover
+              ? <img class="cover" src={post.cover} alt="" loading="lazy" />
+              : <div class="cover" aria-hidden="true"></div>}
+            <div class="content">
+              <h2 class="post-title"><a href={post.url}>{post.title}</a></h2>
+              <div class="meta">
+                {post.date && <time datetime={post.date.toISOString()}>
+                  {post.date.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'2-digit'})}
+                </time>}
+                {post.tags?.length > 0 && (
+                  <span class="tags">
+                    {post.tags.slice(0,4).map(t => <span class="tag">{t}</span>)}
+                  </span>
+                )}
+              </div>
+              {post.excerpt && <p class="excerpt">{post.excerpt}</p>}
+            </div>
+          </article>
+        ))}
+      </main>
+    )}
 
-        <figure>
-          <img src="/hero.jpg" alt="Parker by the lake crocheting a tiny capybara" />
-        </figure>
-      </section>
-
-      <!-- TILES: Paws, Pop, Pixel -->
-      <section class="grid" aria-label="Explore ParkerPixie worlds">
-        <a class="tile paws" href="/paws">
-          <span class="chip">Paws</span>
-          <h3>ParkerPixiePaws</h3>
-          <p>Amigurumi, capybaras, care guides, commissions, and cozy drops.</p>
-        </a>
-
-        <a class="tile pop" href="/pop">
-          <span class="chip">Pop</span>
-          <h3>ParkerPixiePop</h3>
-          <p>Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p>
-        </a>
-
-        <a class="tile pixel" href="/pixel">
-          <span class="chip">Pixel</span>
-          <h3>ParkerPixiePixel</h3>
-          <p>Design experiments, printables, and tiny tools that make life easier.</p>
-        </a>
-      </section>
-
-      <footer>
-        © <span id="y"></span> ParkerPixie · Made with ✨ Sparkle, 💃 Sass, and 💖Love from Madison, WI
-      </footer>
-    </main>
-
-    <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
-    </script>
+    <footer>© ParkerPixie · Made with ✨ glitter ✨, sass, and love from Madison, WI</footer>
   </body>
 </html>
+
