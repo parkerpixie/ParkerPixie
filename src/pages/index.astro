@@ -1,3 +1,6 @@
+---
+const year = new Date().getFullYear();
+---
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,55 +10,47 @@
     <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨" />
     <link rel="icon" href="/CapyGoldIcon.png" />
 
+    <!-- Page-scoped styles (safe + stable) -->
     <style>
-      /* === Dark theme (black background) === */
       :root{
-        --bg:#000;            /* page background */
-        --ink:#fff;           /* main text */
-        --muted:#cbbde7;      /* secondary text */
-        --brand:#8a5dff;      /* Parker purple */
-        --tile:#0f0f13;       /* tile bg */
-        --line:rgba(255,255,255,.16);
+        --ink:#0b0b12; --bg:#07060b; --brand:#8a5dff; --brand-deep:#4026a6; --gold:#f1d27a;
       }
       *{box-sizing:border-box}
-      html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-        font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
-
-      .wrap{max-width:1100px;margin:auto;padding:24px}
-      header .nav{display:flex;align-items:center;justify-content:space-between}
-      .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink);font-weight:700}
-      .brand img{height:32px;width:auto;display:block;filter:drop-shadow(0 0 6px rgba(255,255,255,.1))}
-      nav.links a{margin-left:16px;text-decoration:none;color:var(--ink);opacity:.9}
-      nav .cta{padding:.45rem .8rem;border-radius:999px;background:var(--brand);color:#fff}
-
-      .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin-top:20px}
-      @media (max-width:900px){.hero{grid-template-columns:1fr}}
-      .eyebrow{letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-size:.8rem}
-      h1{margin:.3rem 0 0;line-height:1.1}
-      .lede{color:#e7e0ffcc;margin:.6rem 0 1rem}
-
-      .cta-row{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
-      .btn{border:1px solid var(--line);padding:.6rem .9rem;border-radius:10px;text-decoration:none;color:var(--ink);background:transparent}
-      .btn.primary{background:var(--brand);color:#fff;border-color:transparent}
-      .caption{color:var(--muted);font-size:.9rem}
-
-      figure{margin:0}
-      figure img{width:100%;height:auto;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
-
-      .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:34px 0}
-      @media (max-width:900px){.grid{grid-template-columns:1fr}}
-      .tile{display:block;padding:18px;border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--ink);background:var(--tile)}
-      .tile h3{margin:.2rem 0 .2rem}
-      .chip{display:inline-block;font-size:.75rem;color:#dacfff;background:#1a1233;padding:.25rem .5rem;border-radius:999px;margin-bottom:.4rem}
-
-      footer{margin:28px 0;color:var(--muted);text-align:center;font-size:.95rem}
+      html,body{height:100%}
+      body{
+        margin:0; color:#fff; background: radial-gradient(1200px 700px at 10% -10%, #1a1240, transparent),
+                               radial-gradient(900px 600px at 110% 10%, #1a0f25, transparent),
+                               var(--bg);
+        font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+      a{color:inherit; text-decoration:none}
+      .wrap{max-width:1080px; margin:auto; padding:20px}
+      header{border-bottom:1px solid rgba(255,255,255,.08); position:sticky; top:0; backdrop-filter:blur(6px)}
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:20px}
+      .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px}
+      .brand img{width:40px; height:40px; object-fit:contain}
+      .links{display:flex; gap:12px}
+      .cta{padding:.6rem .9rem; border:1px solid rgba(255,255,255,.2); border-radius:999px}
+      .cta:hover{border-color:#fff}
+      .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; padding-block:48px}
+      .hero-card .eyebrow{font-size:.85rem; opacity:.8}
+      h1{margin:.2rem 0 0; font-size:clamp(1.8rem, 2.8vw, 2.6rem)}
+      .lede{opacity:.9; max-width:50ch}
+      .cta-row{display:flex; gap:10px; margin:18px 0}
+      .btn{padding:.7rem 1rem; border:1px solid rgba(255,255,255,.25); border-radius:12px}
+      .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-deep)); border:none}
+      figure{margin:0; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.4)}
+      figure img{display:block; width:100%; height:auto}
+      .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; padding-block:28px}
+      .tile{padding:18px; border:1px solid rgba(255,255,255,.12); border-radius:16px; background:rgba(255,255,255,.03)}
+      .tile:hover{border-color:rgba(255,255,255,.4)}
+      .chip{font-size:.75rem; opacity:.8}
+      footer{opacity:.8; padding:40px 0}
+      @media (max-width:900px){
+        .hero{grid-template-columns:1fr}
+        .grid{grid-template-columns:1fr}
+      }
     </style>
-
-    <script type="module">
-      window.addEventListener('DOMContentLoaded',()=>{
-        const y=document.getElementById('y'); if(y) y.textContent=new Date().getFullYear();
-      });
-    </script>
   </head>
 
   <body>
@@ -84,9 +79,9 @@
           </p>
 
           <div class="cta-row">
-            <a class="btn primary" href="/about" aria-label="Who is ParkerPixie"><span>Who is ParkerPixie</span></a>
-            <a class="btn" href="/blog" aria-label="Read the blog"><span>Blog</span></a>
-            <a class="btn" href="/capybara/" aria-label="What’s with the Capybara"><span>What’s with the Capybara?</span></a>
+            <a class="btn primary" href="/about" aria-label="Who is ParkerPixie">Who is ParkerPixie</a>
+            <a class="btn" href="/blog" aria-label="Read the blog">Blog</a>
+            <a class="btn" href="/capybara" aria-label="What’s with the Capybara?">What’s with the Capybara?</a>
           </div>
 
           <p class="caption">“Sass, Shimmer, Sparkle”—and a whole lot of heart.</p>
@@ -97,30 +92,14 @@
         </figure>
       </section>
 
-      <!-- TILES: Paws, Pop, Pixel -->
+      <!-- TILES -->
       <section class="grid" aria-label="Explore ParkerPixie worlds">
-        <a class="tile paws" href="/paws">
-          <span class="chip">Paws</span>
-          <h3>ParkerPixiePaws</h3>
-          <p>Amigurumi, capybaras, care guides, commissions, and cozy drops.</p>
-        </a>
-
-        <a class="tile pop" href="/pop">
-          <span class="chip">Pop</span>
-          <h3>ParkerPixiePop</h3>
-          <p>Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p>
-        </a>
-
-        <a class="tile pixel" href="/pixel">
-          <span class="chip">Pixel</span>
-          <h3>ParkerPixiePixel</h3>
-          <p>Design experiments, printables, and tiny tools that make life easier.</p>
-        </a>
+        <a class="tile paws" href="/paws"><span class="chip">Paws</span><h3>ParkerPixiePaws</h3><p>Amigurumi, capybaras, care guides, commissions, and cozy drops.</p></a>
+        <a class="tile pop" href="/pop"><span class="chip">Pop</span><h3>ParkerPixiePop</h3><p>Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p></a>
+        <a class="tile pixel" href="/pixel"><span class="chip">Pixel</span><h3>ParkerPixiePixel</h3><p>Design experiments, printables, and tiny tools that make life easier.</p></a>
       </section>
 
-      <footer>
-        © <span id="y"></span> ParkerPixie · Made with ✨ Sparkle, 💃 Sass, and 💖 Love from Madison, WI
-      </footer>
+      <footer>© {year} ParkerPixie · Made with ✨ Sparkle, 💃 Sass, and 💖 Love from Madison, WI</footer>
     </main>
   </body>
 </html>
