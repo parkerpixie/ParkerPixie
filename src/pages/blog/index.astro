@@ -1,29 +1,16 @@
 ---
-/* Blog index — magazine grid, dark theme; safe when no posts exist */
+/* Blog index — modern magazine grid, dark theme to match site */
 
-// Use import.meta.glob (doesn't throw on no matches)
-const modules = import.meta.glob('./*.md', { eager: true });
-
-// Normalize into an array of page modules with url + frontmatter
-type PostMod = { url?: string; frontmatter?: Record<string, any> };
-const posts: PostMod[] = Object.values(modules);
-
-// Sort newest first by frontmatter.date
+const posts = await Astro.glob('./*.md'); // finds /blog/*.md posts next to this file
 posts.sort((a, b) => {
-  const da = new Date(a.frontmatter?.date ?? 0).getTime();
-  const db = new Date(b.frontmatter?.date ?? 0).getTime();
-  return db - da;
+  const da = new Date(a.frontmatter?.date ?? 0);
+  const db = new Date(b.frontmatter?.date ?? 0);
+  return db.getTime() - da.getTime();
 });
 ---
 
 <!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8" /><title>Blog test</title></head>
-  <body style="background:#0f0b14;color:#f7f3ff;font-family:system-ui;padding:24px">
-    <h1>Blog is wired ✅</h1>
-    <p>If you can see this at /blog, the route works. Next we’ll add the magazine grid.</p>
-  </body>
-</html>        border:1px solid rgba(255,255,255,.08);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,41 +65,48 @@ posts.sort((a, b) => {
         box-shadow:0 20px 60px rgba(0,0,0,.35);
         min-height:280px;
       }
-@@ -51,35 +112,36 @@
+      .thumb{
+        aspect-ratio:16/9; background:#120d1b; position:relative; overflow:hidden;
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+      .thumb img{width:100%;height:100%;object-fit:cover;opacity:.95;transition:transform .25s ease}
+      .card:hover .thumb img{transform:scale(1.03)}
+      .body{padding:16px}
+      .title{margin:0 0 6px;font-size:18px;line-height:1.25}
+      .meta{color:var(--muted);font-size:13px;margin:0 0 8px}
+      .excerpt{color:#eae6ff;font-size:14px;margin:0}
+      .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+      .tag{font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:4px 8px;border-radius:999px}
+
+      footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+      .empty{opacity:.75;color:var(--muted);padding:24px;border:1px dashed rgba(255,255,255,.12);border-radius:12px;background:#1b1527}
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="links">
+          <a href="/about">About</a>
+          <a class="cta" href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="hero">
+        <div>
+          <h1>Blog</h1>
+          <p>Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
         </div>
       </div>
 
       {posts.length === 0 && (
         <p class="empty">No posts yet—add a Markdown file next to this page (e.g. <code>src/pages/blog/hello-world.md</code>).</p>
-      {posts.length === 0 ? (
-        <p class="empty">No posts yet — add a Markdown file here: <code>src/pages/blog/hello-world.md</code>.</p>
-      ) : (
-        <section class="grid" aria-label="Magazine posts">
-          {posts.map((mod: any) => {
-            const url = mod.url ?? '#';
-            const fm = mod.frontmatter ?? {};
-            const cover = fm.cover ?? '/hero.jpg';
-            const title = fm.title ?? 'Untitled';
-            const date = fm.date ? new Date(fm.date).toLocaleDateString() : '';
-            const desc = fm.description ?? '';
-            const tags = Array.isArray(fm.tags) ? fm.tags : [];
-            return (
-              <a class="card" href={url}>
-                <div class="thumb"><img src={cover} alt="" loading="lazy" /></div>
-                <div class="body">
-                  <h2 class="title">{title}</h2>
-                  {date && <p class="meta">{date}</p>}
-                  {desc && <p class="excerpt">{desc}</p>}
-                  {tags.length > 0 && (
-                    <div class="tags">
-                      {tags.map((t: string) => <span class="tag">{t}</span>)}
-                    </div>
-                  )}
-                </div>
-              </a>
-            );
-          })}
-        </section>
       )}
 
       <section class="grid" aria-label="Magazine posts">
@@ -143,7 +137,10 @@ posts.sort((a, b) => {
       <footer>
         © <span id="y"></span> ParkerPixie · Made with ✨ glitter ✨, 💃 sass 💃, and 💖 love 💖 from Madison, WI
       </footer>
-@@ -90,4 +152,3 @@
+    </main>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
