@@ -87,23 +87,23 @@
 
   <!-- Gallery -->
   <section class="card stack" aria-labelledby="sec-gallery">
-  <h2 id="sec-gallery">Meet Clementine &amp; Bejeweled</h2>
-  <div class="gallery">
-    <figure>
-      <img src="/img/clementine-the-capybara.png"
-           alt="Clementine the crocheted capybara with gentle, grounded vibes."
-           loading="lazy" />
-      <figcaption><span class="caption-emoji">🐹</span><strong>Clementine the Capybara</strong> — my grounding side.</figcaption>
-    </figure>
+    <h2 id="sec-gallery">Meet Clementine &amp; Bejeweled</h2>
+    <div class="gallery">
+      <figure>
+        <img src="/img/clementine-the-capybara.png"
+             alt="Clementine the crocheted capybara with gentle, grounded vibes."
+             loading="lazy" />
+        <figcaption><span class="caption-emoji">🐹</span><strong>Clementine the Capybara</strong> — my grounding side.</figcaption>
+      </figure>
 
-    <figure>
-      <img src="/img/bejeweled-the-peacock.png"
-           alt="Bejeweled the crocheted peacock, glittering and unapologetic."
-           loading="lazy" />
-      <figcaption><span class="caption-emoji">🦚</span><strong>Bejeweled the Peacock</strong> — my unapologetic sparkle.</figcaption>
-    </figure>
-  </div>
-</section>
+      <figure>
+        <img src="/img/bejeweled-the-peacock.png"
+             alt="Bejeweled the crocheted peacock, glittering and unapologetic."
+             loading="lazy" />
+        <figcaption><span class="caption-emoji">🦚</span><strong>Bejeweled the Peacock</strong> — my unapologetic sparkle.</figcaption>
+      </figure>
+    </div>
+  </section>
 </main>
 
 <style>
@@ -118,7 +118,6 @@
     --ring:rgba(138,93,255,0.35);
   }
 
-  /* Apply background to the real document body from inside an .astro file */
   :global(body){
     margin:0;
     color: var(--ink);
@@ -236,8 +235,10 @@
     overflow: hidden;
     border: 1px solid rgba(255,255,255,.12);
     box-shadow: 0 8px 20px rgba(0,0,0,.5);
+    transition: border-color 240ms ease, box-shadow 240ms ease;
+    position: relative;
   }
-  picture, img{ display:block; width:100%; height:auto; }
+  img{ display:block; width:100%; height:auto; transform: scale(1); transition: transform 380ms cubic-bezier(.2,.6,.2,1), filter 380ms ease; will-change: transform; }
   figcaption{
     padding: 10px 12px 12px;
     font-size: .95rem;
@@ -250,4 +251,30 @@
     opacity: .85;
   }
   .source a{ color: var(--brand-deep); text-decoration: underline; }
+
+  /* ✨ Hover effects */
+  .gallery figure:hover img{
+    transform: scale(1.03);
+    filter: saturate(1.06);
+  }
+  .gallery figure:hover{
+    border-color: rgba(255,255,255,.22);
+    box-shadow:
+      0 14px 34px rgba(0,0,0,.55),
+      0 0 24px rgba(138,93,255,.22);
+  }
+  .gallery figure::after{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(60% 40% at 70% -10%, rgba(240,200,102,.18), transparent 60%);
+    opacity: 0;
+    transition: opacity 380ms ease;
+    pointer-events:none;
+  }
+  .gallery figure:hover::after{ opacity: .9; }
+
+  @media (prefers-reduced-motion: reduce){
+    img, .gallery figure, .gallery figure::after{ transition: none !important; }
+  }
 </style>
+
