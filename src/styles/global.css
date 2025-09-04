@@ -1,0 +1,14 @@
+:root {
+  --bg: #000;
+  --ink: #fff;
+  --muted: #cbbde7;
+  --brand: #8a5dff;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+}
+a { color: var(--brand); }
