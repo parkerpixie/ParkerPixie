@@ -1,88 +1,105 @@
+---
+const year = new Date().getFullYear();
+---
 <!DOCTYPE html>
-<html lang="en" data-astro-cid-j7pv25f6>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
-    <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨">
-    <link rel="icon" href="/CapyGoldIcon.png">
-    <link rel="stylesheet" href="/_astro/about.BmAVGTu2.css">
-    <link rel="stylesheet" href="/_astro/index.n5awn7C6.css">
-    <script type="module">
-      document.getElementById("y").textContent = new Date().getFullYear();
-    </script>
+    <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨" />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- Page-scoped styles (safe + stable) -->
+    <style>
+      :root{
+        --ink:#0b0b12; --bg:#07060b; --brand:#8a5dff; --brand-deep:#4026a6; --gold:#f1d27a;
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0; color:#fff; background: radial-gradient(1200px 700px at 10% -10%, #1a1240, transparent),
+                               radial-gradient(900px 600px at 110% 10%, #1a0f25, transparent),
+                               var(--bg);
+        font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+      a{color:inherit; text-decoration:none}
+      .wrap{max-width:1080px; margin:auto; padding:20px}
+      header{border-bottom:1px solid rgba(255,255,255,.08); position:sticky; top:0; backdrop-filter:blur(6px)}
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:20px}
+      .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px}
+      .brand img{width:40px; height:40px; object-fit:contain}
+      .links{display:flex; gap:12px}
+      .cta{padding:.6rem .9rem; border:1px solid rgba(255,255,255,.2); border-radius:999px}
+      .cta:hover{border-color:#fff}
+      .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; padding-block:48px}
+      .hero-card .eyebrow{font-size:.85rem; opacity:.8}
+      h1{margin:.2rem 0 0; font-size:clamp(1.8rem, 2.8vw, 2.6rem)}
+      .lede{opacity:.9; max-width:50ch}
+      .cta-row{display:flex; gap:10px; margin:18px 0}
+      .btn{padding:.7rem 1rem; border:1px solid rgba(255,255,255,.25); border-radius:12px}
+      .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-deep)); border:none}
+      figure{margin:0; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.4)}
+      figure img{display:block; width:100%; height:auto}
+      .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; padding-block:28px}
+      .tile{padding:18px; border:1px solid rgba(255,255,255,.12); border-radius:16px; background:rgba(255,255,255,.03)}
+      .tile:hover{border-color:rgba(255,255,255,.4)}
+      .chip{font-size:.75rem; opacity:.8}
+      footer{opacity:.8; padding:40px 0}
+      @media (max-width:900px){
+        .hero{grid-template-columns:1fr}
+        .grid{grid-template-columns:1fr}
+      }
+    </style>
   </head>
 
-  <body data-astro-cid-j7pv25f6>
-    <header data-astro-cid-j7pv25f6>
-      <div class="wrap nav" data-astro-cid-j7pv25f6>
-        <a class="brand" href="/" data-astro-cid-j7pv25f6>
-          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" data-astro-cid-j7pv25f6>
-          <span data-astro-cid-j7pv25f6>ParkerPixie</span>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
         </a>
-        <nav class="links" data-astro-cid-j7pv25f6>
-          <a href="/about" data-astro-cid-j7pv25f6>About</a>
-          <a class="cta" href="/contact" data-astro-cid-j7pv25f6>Contact</a>
+        <nav class="links">
+          <a href="/about">About</a>
+          <a class="cta" href="/contact">Contact</a>
         </nav>
       </div>
     </header>
 
-    <main class="wrap" data-astro-cid-j7pv25f6>
+    <main class="wrap">
       <!-- HERO -->
-      <section class="hero" data-astro-cid-j7pv25f6>
-        <div class="hero-card" data-astro-cid-j7pv25f6>
-          <span class="eyebrow" data-astro-cid-j7pv25f6>Sass · Shimmer · Sparkle</span>
-          <h1 data-astro-cid-j7pv25f6>Cozy craft queen, gamer, and pixel tinkerer.</h1>
-          <p class="lede" data-astro-cid-j7pv25f6>
+      <section class="hero">
+        <div class="hero-card">
+          <span class="eyebrow">Sass · Shimmer · Sparkle</span>
+          <h1>Cozy craft queen, gamer, and pixel tinkerer.</h1>
+          <p class="lede">
             I stitch joy into amigurumi 🧶, decorate digital worlds, and build
             playful systems that make life feel a little more magical.
           </p>
 
-          <div class="cta-row" data-astro-cid-j7pv25f6>
-            <a class="btn primary" href="/about" aria-label="Who is ParkerPixie" data-astro-cid-j7pv25f6>
-              <span data-astro-cid-j7pv25f6>Who is ParkerPixie</span>
-            </a>
-            <a class="btn" href="/blog" aria-label="Read the blog" data-astro-cid-j7pv25f6>
-              <span data-astro-cid-j7pv25f6>Blog</span>
-            </a>
-            <!-- Capybara link -->
-            <a class="btn" href="/capybara/" aria-label="What’s with the Capybara" data-astro-cid-j7pv25f6>
-              <span data-astro-cid-j7pv25f6>What’s with the Capybara?</span>
-            </a>
+          <div class="cta-row">
+            <a class="btn primary" href="/about" aria-label="Who is ParkerPixie">Who is ParkerPixie</a>
+            <a class="btn" href="/blog" aria-label="Read the blog">Blog</a>
+            <a class="btn" href="/capybara" aria-label="What’s with the Capybara?">What’s with the Capybara?</a>
           </div>
 
-          <p class="caption" data-astro-cid-j7pv25f6>“Sass, Shimmer, Sparkle”—and a whole lot of heart.</p>
+          <p class="caption">“Sass, Shimmer, Sparkle”—and a whole lot of heart.</p>
         </div>
 
-        <figure data-astro-cid-j7pv25f6>
-          <img src="/hero.jpg" alt="Parker by the lake crocheting a tiny capybara" data-astro-cid-j7pv25f6>
+        <figure>
+          <img src="/hero.jpg" alt="Parker by the lake crocheting a tiny capybara" />
         </figure>
       </section>
 
-      <!-- TILES: Paws, Pop, Pixel -->
-      <section class="grid" aria-label="Explore ParkerPixie worlds" data-astro-cid-j7pv25f6>
-        <a class="tile paws" href="/paws" data-astro-cid-j7pv25f6>
-          <span class="chip" data-astro-cid-j7pv25f6>Paws</span>
-          <h3 data-astro-cid-j7pv25f6>ParkerPixiePaws</h3>
-          <p data-astro-cid-j7pv25f6>Amigurumi, capybaras, care guides, commissions, and cozy drops.</p>
-        </a>
-
-        <a class="tile pop" href="/pop" data-astro-cid-j7pv25f6>
-          <span class="chip" data-astro-cid-j7pv25f6>Pop</span>
-          <h3 data-astro-cid-j7pv25f6>ParkerPixiePop</h3>
-          <p data-astro-cid-j7pv25f6>Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p>
-        </a>
-
-        <a class="tile pixel" href="/pixel" data-astro-cid-j7pv25f6>
-          <span class="chip" data-astro-cid-j7pv25f6>Pixel</span>
-          <h3 data-astro-cid-j7pv25f6>ParkerPixiePixel</h3>
-          <p data-astro-cid-j7pv25f6>Design experiments, printables, and tiny tools that make life easier.</p>
-        </a>
+      <!-- TILES -->
+      <section class="grid" aria-label="Explore ParkerPixie worlds">
+        <a class="tile paws" href="/paws"><span class="chip">Paws</span><h3>ParkerPixiePaws</h3><p>Amigurumi, capybaras, care guides, commissions, and cozy drops.</p></a>
+        <a class="tile pop" href="/pop"><span class="chip">Pop</span><h3>ParkerPixiePop</h3><p>Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p></a>
+        <a class="tile pixel" href="/pixel"><span class="chip">Pixel</span><h3>ParkerPixiePixel</h3><p>Design experiments, printables, and tiny tools that make life easier.</p></a>
       </section>
 
-      <footer data-astro-cid-j7pv25f6>
-        © <span id="y" data-astro-cid-j7pv25f6></span> ParkerPixie · Made with ✨ Sparkle, 💃 Sass, and 💖Love from Madison, WI
-      </footer>
+      <footer>© {year} ParkerPixie · Made with ✨ Sparkle, 💃 Sass, and 💖 Love from Madison, WI</footer>
     </main>
   </body>
 </html>
