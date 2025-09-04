@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Hello, Sparkle World</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{background:#fff;margin:0}
+    .page{color:#111;font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:720px;margin:40px auto;padding:24px}
+    .pp-insight{margin:16px 0 24px;padding:12px 14px;border-radius:16px;background:#fff7e3;border:1px solid #f2d99c}
+    .pp-badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#f7d588;font-weight:700;color:#401f6b}
+    h1{margin-top:.2rem;font-size:1.85rem;line-height:1.25}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <aside class="pp-insight">
+      <div class="pp-badge">Clementine’s Insight</div>
+      <p>Rest isn’t quitting; it’s healing on purpose.</p>
+    </aside>
+    <h1>Hello, Sparkle World</h1>
+    <p>Static fallback page — replace with Astro when ready.</p>
+  </main>
+</body>
+</html>
