@@ -1,22 +1,21 @@
 ---
 // src/pages/blog/helloworld.astro
-import Post from "../../layouts/Post.astro";
-
-// Define page meta here (prevents "title is not defined")
+// No layout import (avoids the failing path)
 const page = {
   title: "Hello, Sparkle World",
   description: "A soft launch of Clementine’s Insight and the blog plumbing.",
 };
+
+export const prerender = true;
 ---
-
-<Post title={page.title} description={page.description}>
-  <article>
-    <aside class="pp-insight">
-      <div class="pp-badge">Clementine’s Insight</div>
-      <p>Rest isn’t quitting; it’s healing on purpose.</p>
-    </aside>
-
-    <h1>{page.title}</h1>
-    <p>First post vibes. Testing the layout, the grid, and the sparkle.</p>
-  </article>
-</Post>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{page.title}</title>
+    <meta name="description" content={page.description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <main class="post">
+      <aside class="pp-insight">
+        <div class="pp-badge">Clementine’s Insight
