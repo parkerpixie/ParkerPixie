@@ -1,21 +1,56 @@
 ---
 // src/pages/blog/helloworld.astro
-// No layout import (avoids the failing path)
-const page = {
-  title: "Hello, Sparkle World",
-  description: "A soft launch of Clementine’s Insight and the blog plumbing.",
-};
-
+// No imports. No layouts. Nothing that can 404.
+// Just a guaranteed-visible page.
 export const prerender = true;
+
+const title = "Hello, Sparkle World";
+const description = "A soft launch of Clementine’s Insight and the blog plumbing.";
 ---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{page.title}</title>
-    <meta name="description" content={page.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* FORCE visibility regardless of site CSS */
+      :root { color-scheme: light only; }
+      body { background: #ffffff; margin: 0; }
+      .page {
+        color: #111;
+        font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        padding: 24px;
+        max-width: 720px;
+        margin: 40px auto;
+      }
+      .pp-insight{
+        margin: 16px 0 24px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: #fff7e3;
+        border: 1px solid #f2d99c;
+      }
+      .pp-badge{
+        display:inline-block;
+        padding:6px 10px;
+        border-radius:999px;
+        background:#f7d588;
+        font-weight:700;
+        color:#401f6b;
+      }
+      h1 { margin-top: .2rem; font-size: 1.85rem; line-height: 1.25; }
+    </style>
   </head>
   <body>
-    <main class="post">
+    <main class="page">
       <aside class="pp-insight">
-        <div class="pp-badge">Clementine’s Insight
+        <div class="pp-badge">Clementine’s Insight</div>
+        <p>Rest isn’t quitting; it’s healing on purpose.</p>
+      </aside>
+
+      <h1>{title}</h1>
+      <p>First post vibes. Testing the layout, the grid, and the sparkle.</p>
+    </main>
+  </body>
+</html>
