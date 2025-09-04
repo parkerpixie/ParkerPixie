@@ -1,50 +1,87 @@
 ---
-import Layout from "../layouts/Layout.astro";
 ---
-
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact · ParkerPixie</title>
-  <meta name="description" content="Email, socials, Discord, and Steam friend code." />
-  <style>
-    :root{--brand:#8a5dff;--ink:#1b1333}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:var(--ink)}
-    header,footer{padding:20px 24px;border-bottom:1px solid #eee}
-    footer{border-top:1px solid #eee;border-bottom:0;color:#6a6383;text-align:center}
-    nav a{margin-left:16px;font-weight:600;color:var(--ink)}
-    main{max-width:900px;margin:32px auto;padding:0 20px}
-    h1{font-size:clamp(28px,4.5vw,44px);margin:8px 0 18px}
-    .list{line-height:1.9}
-    .bigbtn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:14px;background:var(--brand);color:#fff;font-weight:800}
-  </style>
-</head>
-<body>
-<header>
-  <a href="/" style="font-weight:800;color:var(--ink);">ParkerPixie</a>
-  <nav><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
-</header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact ParkerPixie</title>
+    <link rel="icon" href="/CapyGoldIcon.png" />
 
-<main>
-  <h1>Contact ParkerPixie</h1>
-  <p>I’m friendly, cozy, and very reachable. Pick your favorite vibe:</p>
+    <style>
+      :root {
+        --bg: #000;
+        --ink: #fff;
+        --muted: #cbbde7;
+        --brand: #8a5dff;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: system-ui, sans-serif;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: auto;
+        padding: 2rem;
+      }
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 2rem 0;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      }
+      a {
+        color: var(--brand);
+        text-decoration: none;
+      }
+      footer {
+        margin-top: 3rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
 
-  <div class="list">
-    ✉️ <strong>Email</strong> — <a href="mailto:ParkerPixieDust@gmail.com">ParkerPixieDust@gmail.com</a> (best for commissions) ·
-    <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a> ·
-    <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a> ·
-    <a href="https://www.twitch.tv" target="_blank" rel="noopener">Twitch</a> ·
-    <a href="https://discord.gg" target="_blank" rel="noopener">Discord (cozy chat)</a>
-  </div>
+  <body>
+    <main class="wrap">
+      <h1>Contact ParkerPixie</h1>
+      <p>
+        Thanks for stopping by! 💖 Whether you want to chat about cozy crochet, 
+        collab on gaming streams, or just say hi, I’d love to hear from you.
+      </p>
 
-  <p>Steam friend code <code>119555934</code> — <button onclick="navigator.clipboard.writeText('119555934')">Copy</button></p>
+      <img src="/ParkerPawsPic" alt="Amigurumi ParkerPixie creation" />
 
-  <p><a class="bigbtn" href="mailto:ParkerPixieDust@gmail.com">Email ParkerPixie</a></p>
-</main>
+      <p>
+        You can reach me by email at 
+        <a href="mailto:your@email.com">your@email.com</a>, 
+        or connect with me on socials.
+      </p>
 
-<footer>© ParkerPixie · Made with ✨ glitter ✨, sass, and love from Madison, WI</footer>
-</body>
+      <footer>
+        © <span id="y"></span> ParkerPixie · Sass · Shimmer · Sparkle
+      </footer>
+    </main>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
