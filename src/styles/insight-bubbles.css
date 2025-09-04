@@ -1,0 +1,73 @@
+:root{
+  --pp-gold-1: #f7e7b4;
+  --pp-gold-2: #f1c86d;
+  --pp-gold-3: #e8a83b;
+  --pp-deep: #2a1b4b;
+}
+
+/* the wrapper */
+.pp-insight{
+  margin: 1.25rem 0 1.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.35));
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.45);
+  box-shadow: 0 8px 22px rgba(42, 27, 75, .15);
+}
+
+.pp-insight p{
+  margin: .55rem 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--pp-deep);
+}
+
+/* the “bubble” pill */
+.pp-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .42rem .8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-size: .85rem;
+  color: #1f1536;
+  border: 1px solid rgba(255,255,255,.65);
+  background:
+    radial-gradient(80% 120% at 10% 10%, rgba(255,255,255,.9), rgba(255,255,255,.35) 60%, transparent 70%),
+    linear-gradient(90deg, var(--pp-gold-1), var(--pp-gold-2), var(--pp-gold-3));
+  background-size: 200% 100%;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  animation: pp-gold-sheen 5s ease-in-out infinite;
+}
+
+/* tiny sparkle highlights */
+.pp-badge::after{
+  content:"";
+  position:absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background:
+    radial-gradient(8px 8px at 18% 40%, rgba(255,255,255,.9), rgba(255,255,255,0)),
+    radial-gradient(6px 6px at 78% 30%, rgba(255,255,255,.8), rgba(255,255,255,0)),
+    radial-gradient(10px 10px at 65% 70%, rgba(255,255,255,.6), rgba(255,255,255,0));
+}
+
+@keyframes pp-gold-sheen{
+  0%,100%{ background-position: 0% 0; }
+  50%{    background-position: 100% 0; }
+}
+
+/* Optional: circular link chip you mentioned */
+.pp-bubble-link{
+  --sz: 44px;
+  display:inline-grid; place-items:center;
+  width:var(--sz); height:var(--sz);
+  border-radius:999px;
+  background: linear-gradient(135deg, var(--pp-gold-2), var(--pp-gold-3));
+  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+  color:#1f1536; font-weight:700;
+  border:1px solid rgba(255,255,255,.7);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.pp-bubble-link:hover{ transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 26px rgba(0,0,0,.16); }
