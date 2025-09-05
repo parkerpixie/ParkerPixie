@@ -1,61 +1,204 @@
 ---
+// Standalone Astro page for "Why the Capybara?"
+// No external CSS or hashed asset links; all styles are inline.
+// Assumes images live in /public/img/* and icon at /CapyGoldIcon.png
 const year = new Date().getFullYear();
 ---
 
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ParkerPixiePaws — Amigurumi & Care Guides</title>
-  <meta name="description" content="Custom amigurumi commissions, care guides, and cozy WIPs." />
-  <link rel="icon" href="/CapyGoldIcon.png" />
-  <style>
-    :root{--bg:#0b0b10;--card:#111119;--ink:#f7f7fb;--muted:#bcb9cd;--accent:#d6b36b;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03)}
-    *{box-sizing:border-box} body{margin:0;color:var(--ink);background:
-      radial-gradient(1200px 600px at 10% -10%, rgba(180,121,255,.12), transparent 60%),
-      radial-gradient(1000px 500px at 90% 10%, rgba(214,179,107,.10), transparent 60%),
-      radial-gradient(800px 800px at 50% 120%, rgba(180,121,255,.08), transparent 60%),var(--bg);
-      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    .wrap{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
-    header.site{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0 6px}
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
-    .brand img{width:40px;height:40px;border-radius:10px;filter:drop-shadow(0 4px 12px rgba(214,179,107,.35))}
-    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
-    nav a{color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px;border:1px solid transparent}
-    nav a:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08)}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header class="site">
-      <a class="brand" href="/"><img src="/CapyGoldIcon.png" alt="Gold capybara icon" /><div><div style="font-weight:800;letter-spacing:.4px">ParkerPixie</div><small style="color:#cfcde0">Sass · Shimmer · Sparkle</small></div></a>
-      <nav><ul>
-        <li><a href="/about/">Who is ParkerPixie</a></li>
-        <li><a href="/blog/">Blog</a></li>
-        <li><a href="/capybara/">What’s with the Capybara</a></li>
-      </ul></nav>
-    </header>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why the Capybara? — ParkerPixie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Why the capybara is my grounding spirit animal, and how Bejeweled the Peacock embodies my glittery, unapologetic side."
+    />
+    <link rel="icon" href="/CapyGoldIcon.png" />
 
-    <main class="card">
-      <h1 style="margin-top:0">ParkerPixiePaws</h1>
-      <p>Amigurumi commissions, care guides, and behind-the-scenes WIPs. Soft, celestial, capy-coded.</p>
+    <!-- Inline page styles (black background + card styling) -->
+    <style>
+      :root{
+        --bg:#0b0b10; --ink:#f6f6fb; --muted:#c1bed2;
+        --card:#111119; --ring:rgba(214,179,107,.45);
+        --accent:#d6b36b; --lilac:#b479ff; --radius:18px;
+        --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+      }
+      *{box-sizing:border-box} html,body{height:100%}
+      body{
+        margin:0; color:var(--ink);
+        background:
+          radial-gradient(1200px 600px at 10% -10%, rgba(180,121,255,.12), transparent 60%),
+          radial-gradient(1000px 500px at 90% 10%, rgba(214,179,107,.10), transparent 60%),
+          radial-gradient(800px 800px at 50% 120%, rgba(180,121,255,.08), transparent 60%),
+          var(--bg);
+        font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap{max-width:1100px; margin:0 auto; padding:28px 20px 80px}
 
-      <h2>Commissions</h2>
-      <p>Email <a href="mailto:parker@parkerpixie.com">parker@parkerpixie.com</a> with your idea, budget, and deadline.</p>
+      /* Header (site-wide) */
+      header.site{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0 6px}
+      .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--ink)}
+      .brand img{width:40px; height:40px; object-fit:contain; border-radius:10px; filter:drop-shadow(0 4px 12px rgba(214,179,107,.35))}
+      .brand .name{font-weight:800; letter-spacing:.4px}
+      nav ul{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
+      nav a{color:var(--ink); text-decoration:none; padding:8px 12px; border-radius:999px; border:1px solid transparent}
+      nav a:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08)}
 
-      <h2>Care Guides</h2>
-      <ul>
-        <li><a href="/paws/care/cuddles">Cuddles & storage</a></li>
-        <li><a href="/paws/care/wash">Spot-clean & wash tips</a></li>
-        <li><a href="/paws/care/repairs">Repairs & refresh</a></li>
-      </ul>
-    </main>
+      /* Page-specific */
+      .why-capybara{margin-top:16px}
+      .hero{margin-bottom:10px}
+      .eyebrow{color:var(--lilac); font-weight:700; text-transform:uppercase; letter-spacing:.2px; font-size:12px}
+      h1{margin:.25rem 0 0; font-size:clamp(28px,4.2vw,48px); line-height:1.1}
+      .subtitle{color:var(--muted)}
 
-    <footer style="margin-top:18px;color:#d0cee1">
-      © {year} ParkerPixie • Made with capybara calm &amp; bejeweled sparkle
-    </footer>
-  </div>
-</body>
+      .card{
+        background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:var(--radius);
+        box-shadow:var(--shadow);
+        padding:26px;
+      }
+      .stack{margin-top:18px}
+      .callout{
+        margin:14px 0;
+        padding:14px 16px;
+        border-radius:14px;
+        background:linear-gradient(180deg, rgba(214,179,107,.18), rgba(214,179,107,.08));
+        border:1px solid var(--ring);
+        color:#fff2ce;
+      }
+      .source{color:#d9d7ea}
+
+      .yin-yang{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+      @media (max-width:800px){ .yin-yang{grid-template-columns:1fr} }
+
+      .gallery{
+        display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start;
+      }
+      @media (max-width:800px){ .gallery{grid-template-columns:1fr} }
+      .gallery figure{margin:0}
+      .gallery img{width:100%; height:auto; border-radius:14px; display:block}
+      .caption-emoji{margin-right:.4em}
+      footer{margin-top:24px; color:#d0cee1; opacity:.85; font-size:12px}
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <!-- Header -->
+      <header class="site" role="banner" aria-label="Site header">
+        <a class="brand" href="/" aria-label="ParkerPixie Home">
+          <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
+          <div>
+            <div class="name">ParkerPixie</div>
+            <small style="color:#cfcde0">Sass · Shimmer · Sparkle</small>
+          </div>
+        </a>
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="/about/">Who is ParkerPixie</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/capybara/">What’s with the Capybara</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Your original content, untouched -->
+      <main class="why-capybara" role="main">
+        <!-- HERO -->
+        <header class="hero">
+          <div class="eyebrow">Spirit Animals, Sparkle &amp; Healing</div>
+          <h1>Why the Capybara?</h1>
+          <p class="subtitle">
+            The short answer: she found me. The longer answer: I’m equal parts calm capybara and glittering peacock—grounded and unapologetic—guiding my creativity, recovery, and community.
+          </p>
+        </header>
+
+        <!-- Lifelong love -->
+        <section class="card stack" aria-labelledby="sec-animals">
+          <h2 id="sec-animals">A Lifelong Love of Animals</h2>
+          <p>
+            As an animal lover, I’ve been surrounded by creatures my whole life—from dogs and cats to guinea pigs and birds, and farm friends like steers, goats, pigs, and even llamas. Capybaras always cracked me up because, let’s be real, they’re just <em>giant guinea pigs</em>—and that joy stuck.
+          </p>
+        </section>
+
+        <!-- Therapy beach -->
+        <section class="card stack" aria-labelledby="sec-beach">
+          <h2 id="sec-beach">Moonlight, Waves, and a Little Star</h2>
+          <p>
+            In therapy, during a guided meditation, I found myself on a moonlit beach listening to the waves. A capybara with a tiny flower crown appeared—probably inspired by a little companion I first saw in Disney Dreamlight Valley—and she brought me a small, glowing star.
+          </p>
+          <p>
+            That’s when I knew: the capybara is my spirit animal. Maybe not the one the internet assigns me, but the one I assign to myself—my choice, my grounding.
+          </p>
+          <div class="callout">
+            “Capybara symbolism lets you know that your social circle will rapidly expand, and new friendships will form... this spirit animal urges you to come out and enjoy yourself.”
+          </div>
+          <p class="source">
+            Source: <a href="https://www.spirit-animals.com/capybara-symbolism/" target="_blank" rel="noopener">spirit-animals.com/capybara-symbolism</a>
+          </p>
+          <p>
+            If you know me, you know I’m a communal creature—I need my people to thrive. The capybara reminds me to pause, slow down, ground myself, and accept the gift of rest to heal.
+          </p>
+        </section>
+
+        <!-- Bejeweled -->
+        <section class="card stack" aria-labelledby="sec-peacock">
+          <h2 id="sec-peacock">Enter Bejeweled the Peacock</h2>
+          <p>
+            But I’m not just the Capybara. As I crocheted a piece for a Multicultural Art Showcase, another side of me came to life:
+            <strong>Bejeweled the Peacock</strong>—a nod to Taylor and a reflection of my glittery, chaotic, unapologetic heart.
+          </p>
+          <div class="callout">
+            People who associate with a peacock come from a place of honor and integrity. They stand up for their beliefs and live by them. Flamboyant and true to themselves, they show their colors, walk their talk, and are entirely trustworthy and self-confident.
+          </div>
+          <p>Bejeweled is my reminder to shine without apology, speak my truth, and make art that sparkles.</p>
+        </section>
+
+        <!-- Yin & Yang -->
+        <section class="card stack" aria-labelledby="sec-yinyang">
+          <h2 id="sec-yinyang">My Yin &amp; Yang</h2>
+          <div class="yin-yang">
+            <div class="yy">
+              <h3>🧘‍♀️ Capybara — The Grounding</h3>
+              <ul>
+                <li>Calm, communal, gentle presence</li>
+                <li>Rest as a healing practice</li>
+                <li>Soft focus, deep connection</li>
+              </ul>
+            </div>
+            <div class="yy">
+              <h3>🦚 Peacock — The Sparkle</h3>
+              <ul>
+                <li>Glitter, color, and bold truth</li>
+                <li>Honor, integrity, and confidence</li>
+                <li>Unapologetically me</li>
+              </ul>
+            </div>
+          </div>
+          <p>Together, the capybara and the peacock are my balance. You’ll see capybaras pop up across my world—and sometimes you’ll meet my peacock when I show off my feathers.</p>
+        </section>
+
+        <!-- Gallery -->
+        <section class="card stack" aria-labelledby="sec-gallery">
+          <h2 id="sec-gallery">Meet Clementine &amp; Bejeweled</h2>
+          <div class="gallery">
+            <figure>
+              <img src="/img/clementine-the-capybara.png" alt="Clementine the crocheted capybara with gentle, grounded vibes." loading="lazy" />
+              <figcaption><span class="caption-emoji">🐹</span><strong>Clementine the Capybara</strong> — my grounding side.</figcaption>
+            </figure>
+            <figure>
+              <img src="/img/bejeweled-the-peacock.png" alt="Bejeweled the crocheted peacock, glittering and unapologetic." loading="lazy" />
+              <figcaption><span class="caption-emoji">🦚</span><strong>Bejeweled the Peacock</strong> — my unapologetic sparkle.</figcaption>
+            </figure>
+          </div>
+        </section>
+      </main>
+
+      <footer>© {year} ParkerPixie • Made with capybara calm &amp; bejeweled sparkle</footer>
+    </div>
+  </body>
 </html>
