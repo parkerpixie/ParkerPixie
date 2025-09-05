@@ -1,22 +1,24 @@
 ---
 /*
-  InfinityNikki.astro — clean restart
-  - Page-scoped styles only (scoped by .nikki wrapper)
-  - Background image path: /public/img/InfinityNikki.jpg  ->  /img/InfinityNikki.jpg
-  - Drop gallery images in /public/img/nikki/ and list them in `gallery` below
+  InfinityNikki.astro — v2 tweaks
+  - Strong background mute via ::before overlay + blur
+  - 2-column large cards (1-col on mobile)
+  - Higher text contrast + legible font stack
+  - NOTE: Netlify is case-sensitive. Filenames must match exactly.
 */
 
 const pageTitle = "Infinity Nikki — ParkerPixie";
-const pageDesc  = "My Infinity Nikki gallery — cozy glam, celestial shimmer, all the looks I love.";
+const pageDesc  = "A living gallery of shimmer looks. Ethereal, glam, and unapologetically Parker.";
 
 const gallery = [
-  // Replace these with your real Steam shots. Filenames are examples.
+  // 🔊 Replace with your real files from /public/img/nikki/
+  // Make sure the names & extensions match EXACTLY (case-sensitive).
   { src: "/img/nikki/look-01.jpg", alt: "Celestial gown with star-kissed veil" },
   { src: "/img/nikki/look-02.jpg", alt: "Iridescent cape with pearl boots" },
-  { src: "/img/nikki/look-03.jpg", alt: "Goth-luxe corset with glimmer skirt" },
-  { src: "/img/nikki/look-04.jpg", alt: "Pastel streetwear and charm bag" },
-  { src: "/img/nikki/look-05.jpg", alt: "Opal armor with chiffon sleeves" },
-  { src: "/img/nikki/look-06.jpg", alt: "Rose quartz set with ribbon heels" },
+  { src: "/img/nikki/look-03.jpg", alt: "Goth-luxe corset, glimmer skirt" },
+  { src: "/img/nikki/look-04.jpg", alt: "Pastel streetwear with charm bag" },
+  { src: "/img/nikki/look-05.jpg", alt: "Opal armor, chiffon sleeves" },
+  { src: "/img/nikki/look-06.jpg", alt: "Rose quartz set, ribbon heels" },
 ];
 ---
 
@@ -30,224 +32,102 @@ const gallery = [
     <link rel="icon" href="/CapyGoldIcon.png" />
 
     <style>
-      /* =========================
-         Page-scoped styling (.nikki)
-         ========================= */
-      :root {
-        --ink: #e7e4ff;          /* soft moonlit text */
-        --muted: #bdb6ff;        /* lilac-muted text */
-        --bg: #000000;           /* pure black base */
-        --accent: #f2c14e;       /* capy gold */
-        --chip: #1a152a;         /* card bg */
-        --chip-2: #0e0b18;       /* deeper card */
-        --ring: #7a5cff;         /* violet ring */
+      /* ========== Page-scoped only ========== */
+      :root{
+        --ink:#f3f2ff;       /* brighter text */
+        --muted:#c9c4ff;     /* softer secondary */
+        --bg:#000;           /* base */
+        --accent:#f2c14e;    /* capy gold */
+        --chip:#1a152a;
+        --chip-2:#0e0b18;
+        --ring:#7a5cff;
       }
+      html,body{margin:0;padding:0}
+      body{background:var(--bg)}
 
-      .nikki {
-        min-height: 100svh;
-        color: var(--ink);
+      .nikki{
+        position:relative;
+        min-height:100svh;
+        color:var(--ink);
+        display:grid;
+        grid-template-rows:auto 1fr auto;
+        font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      }
+      /* Muted background: image + heavy overlay + slight blur */
+      .nikki::before{
+        content:"";
+        position:fixed;
+        inset:0;
         background:
-          radial-gradient(1200px 600px at 50% -10%, rgba(122,92,255,0.18), rgba(122,92,255,0) 60%),
-          radial-gradient(800px 400px at 10% 0%, rgba(242,193,78,0.20), rgba(242,193,78,0) 50%),
-          url("/img/InfinityNikki.jpg") center / cover fixed no-repeat,
-          var(--bg);
-        display: grid;
-        grid-template-rows: auto 1fr auto;
+          /* dark veil */
+          linear-gradient(180deg, rgba(0,0,0,.70), rgba(10,0,30,.78)),
+          /* soft glow accents */
+          radial-gradient(1200px 600px at 50% -10%, rgba(122,92,255,.18), rgba(122,92,255,0) 60%),
+          radial-gradient(800px 400px at 10% 0%, rgba(242,193,78,.20), rgba(242,193,78,0) 50%),
+          /* actual image */
+          url("/img/InfinityNikki.jpg") center / cover no-repeat;
+        filter: blur(2px) saturate(.9);
+        z-index:-1;
       }
 
       /* Header */
-      .site-header {
-        position: sticky;
-        top: 0;
+      .site-header{
+        position:sticky; top:0; z-index:5;
         backdrop-filter: blur(8px);
-        background: color-mix(in oklab, #000 70%, transparent);
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        z-index: 5;
+        background: rgba(0,0,0,.45);
+        border-bottom:1px solid rgba(255,255,255,.08);
       }
-      .nav {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 12px 20px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        color: var(--ink);
-        font-weight: 700;
-        letter-spacing: 0.3px;
-      }
-      .brand img {
-        width: 28px;
-        height: 28px;
-        border-radius: 999px;
-        box-shadow: 0 0 10px rgba(242,193,78,0.35);
-      }
-      .nav-links {
-        margin-left: auto;
-        display: flex;
-        gap: 16px;
-        align-items: center;
-      }
-      .nav-links a {
-        color: var(--muted);
-        text-decoration: none;
-        padding: 8px 10px;
-        border-radius: 10px;
-      }
-      .nav-links a.active,
-      .nav-links a:hover {
-        color: var(--ink);
-        background: rgba(255,255,255,0.06);
-        outline: 1px solid rgba(255,255,255,0.08);
-      }
+      .nav{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
+      .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;letter-spacing:.2px}
+      .brand img{width:28px;height:28px;border-radius:999px;box-shadow:0 0 10px rgba(242,193,78,.35)}
+      .nav-links{margin-left:auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+      .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
+      .nav-links a.active,.nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.06);outline:1px solid rgba(255,255,255,.08)}
 
       /* Hero */
-      .hero {
-        max-width: 1100px;
-        margin: 36px auto 8px;
-        padding: 24px 20px 8px;
-      }
-      .eyebrow {
-        color: var(--muted);
-        font-size: 0.9rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-      }
-      h1 {
-        margin: 6px 0 12px;
-        font-size: clamp(2rem, 4vw, 3rem);
-        line-height: 1.1;
-        text-shadow: 0 0 18px rgba(122,92,255,0.45);
-      }
-      .lead {
-        max-width: 70ch;
-        color: color-mix(in oklab, var(--ink) 85%, #d1ccff);
-        font-size: 1.05rem;
-      }
+      .hero{max-width:1100px;margin:34px auto 4px;padding:24px 20px 8px}
+      .eyebrow{color:var(--muted);font-size:.9rem;letter-spacing:.18em;text-transform:uppercase}
+      h1{margin:8px 0 12px;font-size:clamp(2rem,4vw,3rem);line-height:1.1;text-shadow:0 0 10px rgba(0,0,0,.45)}
+      .lead{max-width:70ch;color:color-mix(in oklab, var(--ink) 90%, #d1ccff);font-size:1.1rem}
+      .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+      .chip{background:linear-gradient(180deg,var(--chip),var(--chip-2));border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:8px 12px;font-size:.9rem;color:var(--muted)}
 
-      /* Chips row */
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 16px;
-      }
-      .chip {
-        background: linear-gradient(180deg, var(--chip), var(--chip-2));
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 999px;
-        padding: 8px 12px;
-        font-size: 0.9rem;
-        color: var(--muted);
-      }
+      /* Gallery — BIGGER: 1-col mobile → 2-col >= 720px */
+      .gallery-wrap{max-width:1100px;margin:18px auto 44px;padding:0 20px 44px}
+      .grid{display:grid;gap:14px;grid-template-columns:1fr}
+      @media (min-width:720px){ .grid{grid-template-columns:1fr 1fr} }
 
-      /* Gallery */
-      .gallery-wrap {
-        max-width: 1100px;
-        margin: 18px auto 40px;
-        padding: 0 20px 40px;
+      .card{position:relative;overflow:clip;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08)}
+      .card a{display:block;line-height:0;text-decoration:none;color:inherit}
+      .card img{
+        width:100%;height:auto;display:block;
+        aspect-ratio: 4/5; object-fit: cover;
+        filter: saturate(1.02) contrast(1.03);
+        /* improve perceived sharpness on dark bg */
+        image-rendering:-webkit-optimize-contrast;
       }
-      .grid {
-        display: grid;
-        gap: 12px;
-        grid-template-columns: repeat(2, 1fr);
-      }
-      @media (min-width: 900px) {
-        .grid { grid-template-columns: repeat(3, 1fr); }
-      }
-      .card {
-        position: relative;
-        overflow: clip;
-        border-radius: 14px;
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.08);
-      }
-      .card a {
-        display: block;
-        line-height: 0;
-        text-decoration: none;
-        color: inherit;
-      }
-      .card img {
-        width: 100%;
-        height: 100%;
-        aspect-ratio: 4 / 5;
-        object-fit: cover;
-        display: block;
-        filter: saturate(1.05) contrast(1.02);
-      }
-      .card:hover::after {
-        content: "";
-        position: absolute; inset: 0;
+      .card:hover::after{
+        content:"";position:absolute;inset:0;border-radius:16px;
         box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ring) 55%, transparent);
-        border-radius: 14px;
       }
 
-      /* Lightbox (<dialog>) */
-      dialog#lb {
-        width: min(92vw, 1100px);
-        border: none;
-        padding: 0;
-        background: color-mix(in oklab, #000 85%, #1c1238);
-        border-radius: 12px;
-        overflow: clip;
-      }
-      dialog::backdrop {
-        background: rgba(0,0,0,0.7);
-        backdrop-filter: blur(3px);
-      }
-      .lb-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 12px;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-      }
-      .lb-title {
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-      .lb-close {
-        appearance: none;
-        background: rgba(255,255,255,0.06);
-        color: var(--ink);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 10px;
-        padding: 6px 10px;
-        cursor: pointer;
-      }
-      .lb-media {
-        line-height: 0;
-        display: grid;
-        place-items: center;
-        max-height: 86svh;
-      }
-      .lb-media img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
+      /* Lightbox */
+      dialog#lb{width:min(92vw,1100px);border:none;padding:0;background:rgba(8,6,16,.96);border-radius:12px;overflow:clip}
+      dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(3px)}
+      .lb-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+      .lb-title{color:var(--muted);font-size:.95rem}
+      .lb-close{appearance:none;background:rgba(255,255,255,.08);color:var(--ink);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;cursor:pointer;font-weight:600}
+      .lb-media{line-height:0;display:grid;place-items:center;max-height:86svh}
+      .lb-media img{width:100%;height:auto;display:block}
 
       /* Footer */
-      .site-footer {
-        border-top: 1px solid rgba(255,255,255,0.08);
-        color: var(--muted);
-        font-size: 0.9rem;
-        padding: 16px 20px 30px;
-        text-align: center;
-      }
-      .site-footer a { color: var(--ink); text-decoration: none; }
+      .site-footer{border-top:1px solid rgba(255,255,255,.08);color:var(--muted);font-size:.95rem;padding:16px 20px 30px;text-align:center}
+      .site-footer a{color:var(--ink);text-decoration:none}
     </style>
   </head>
 
   <body>
     <div class="nikki">
-      <!-- Header -->
       <header class="site-header" role="banner">
         <nav class="nav" aria-label="Primary">
           <a class="brand" href="/">
@@ -265,23 +145,15 @@ const gallery = [
         </nav>
       </header>
 
-      <!-- Hero -->
       <header class="hero">
         <div class="eyebrow">Cozy glam · Celestial couture</div>
         <h1>Infinity Nikki</h1>
-        <p class="lead">
-          A living gallery of my favorite looks — shimmering fabrics, dreamy palettes,
-          and the whimsical chaos that feels very <em>ParkerPixie</em>.
-        </p>
+        <p class="lead">Muted cosmos, high-contrast sparkle. Big images. Clear text. Let’s glow.</p>
         <div class="chips" aria-label="Tags">
-          <span class="chip">Ethereal</span>
-          <span class="chip">Glitter-core</span>
-          <span class="chip">Pastel goth</span>
-          <span class="chip">Dreamy tech</span>
+          <span class="chip">Ethereal</span><span class="chip">Glitter-core</span><span class="chip">Pastel goth</span><span class="chip">Dreamy tech</span>
         </div>
       </header>
 
-      <!-- Gallery -->
       <main class="gallery-wrap" role="main">
         <section aria-label="Gallery">
           <div class="grid">
@@ -296,28 +168,21 @@ const gallery = [
         </section>
       </main>
 
-      <!-- Lightbox dialog -->
       <dialog id="lb" aria-label="Image viewer">
         <div class="lb-bar">
           <div class="lb-title" id="lb-caption">Infinity Nikki</div>
           <button class="lb-close" type="button" id="lb-close">Close</button>
         </div>
-        <div class="lb-media">
-          <img id="lb-img" alt="" />
-        </div>
+        <div class="lb-media"><img id="lb-img" alt="" /></div>
       </dialog>
 
-      <!-- Footer -->
       <footer class="site-footer">
-        <p>
-          Back to <a href="/parkerpixiepop/">ParkerPixiePop</a> ·
-          © {new Date().getFullYear()} ParkerPixie · Sass · Shimmer · Sparkle
-        </p>
+        <p>Back to <a href="/parkerpixiepop/">ParkerPixiePop</a> · © {new Date().getFullYear()} ParkerPixie · Sass · Shimmer · Sparkle</p>
       </footer>
     </div>
 
     <script is:inline>
-      // Lightweight lightbox
+      // Lightbox behavior
       const dlg = document.getElementById('lb');
       const lbImg = document.getElementById('lb-img');
       const lbCap = document.getElementById('lb-caption');
@@ -332,19 +197,13 @@ const gallery = [
         lbCap.textContent = a.dataset.alt || "Infinity Nikki";
         dlg.showModal();
       });
-
       btnClose?.addEventListener('click', () => dlg.close());
       dlg?.addEventListener('click', (e) => {
-        // click backdrop to close
-        const rect = dlg.getBoundingClientRect();
-        const inDialog =
-          e.clientX >= rect.left && e.clientX <= rect.right &&
-          e.clientY >= rect.top  && e.clientY <= rect.bottom;
-        if (!inDialog) dlg.close();
+        const r = dlg.getBoundingClientRect();
+        const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+        if (!inside) dlg.close();
       });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && dlg.open) dlg.close();
-      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dlg.open) dlg.close(); });
     </script>
   </body>
 </html>
