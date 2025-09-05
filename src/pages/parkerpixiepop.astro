@@ -1,0 +1,137 @@
+---
+/* ParkerPixiePop pillar — standalone Astro page */
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ParkerPixiePop — Streams · Community · Cozy Chaos</title>
+    <meta name="description" content="ParkerPixiePop — links to Discord, Facebook, and Twitch plus featured games: Disney Dreamlight Valley, Infinity Nikki, and Hogwarts Legacy." />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- Page-scoped styles -->
+    <style>
+      :root{
+        --bg:#0a0b0f;           /* deep space */
+        --card:#121522;         /* panels */
+        --muted:#a5a9c6;
+        --text:#eef0ff;
+        --accent:#b792ff;       /* lilac */
+        --accent-2:#6ed0ff;     /* aqua */
+        --accent-3:#ff7fd1;     /* pink */
+        --ring: 0 0 0 2px rgba(255,255,255,.06);
+        --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
+      a{color:inherit;text-decoration:none}
+      .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+      /* Header (inline to avoid global bleed) */
+      header.site{
+        position:sticky;top:0;z-index:50;
+        backdrop-filter:saturate(140%) blur(8px);
+        background:rgba(10,11,15,.6);
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+      .site .row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
+      .brand img{width:28px;height:28px}
+      nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0}
+      nav a{padding:10px 14px;border-radius:999px;color:var(--muted)}
+      nav a.active, nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+
+      .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-weight:700}
+
+      /* Hero */
+      .hero{
+        background:
+          radial-gradient(1600px 600px at 10% -10%, rgba(183,146,255,.35), transparent 60%),
+          radial-gradient(1600px 600px at 110% -10%, rgba(110,208,255,.35), transparent 60%),
+          linear-gradient(180deg, #1b1e2c, #0a0b0f 60%);
+        padding:68px 0 36px;
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .hero h1{font-size:clamp(32px,7vw,64px);margin:12px 0 8px}
+      .eyebrow{font-size:.9rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+      .lead{max-width:760px;color:#cdd1ee;line-height:1.55}
+
+      /* Social links */
+      .social{
+        display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0 4px;
+      }
+      .chip{
+        display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;
+        background:var(--card);box-shadow:var(--ring);
+        transition:transform .15s ease, box-shadow .15s ease;
+      }
+      .chip:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.35), var(--ring)}
+      .chip svg{width:20px;height:20px;opacity:.9}
+
+      /* Featured games */
+      .section{padding:54px 0}
+      .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+      .card{
+        background:linear-gradient(180deg,#171a27,#10131c);
+        border:1px solid rgba(255,255,255,.06);
+        border-radius:var(--radius);
+        overflow:hidden;
+        box-shadow:0 12px 50px rgba(0,0,0,.35);
+        display:flex;flex-direction:column;
+      }
+      .card img{width:100%;aspect-ratio:16/9;object-fit:cover}
+      .card .body{padding:16px}
+      .card h3{margin:0 0 8px}
+      .pill{
+        display:inline-flex;align-items:center;gap:8px;
+        padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.06);margin-top:8px
+      }
+      .pill:hover{background:rgba(255,255,255,.1)}
+      .meta{color:var(--muted);font-size:.95rem}
+
+      /* Footer */
+      footer{border-top:1px solid rgba(255,255,255,.08);color:var(--muted);padding:24px 0 56px}
+
+      /* Responsive */
+      @media (max-width:960px){ .grid3{grid-template-columns:1fr 1fr} .social{grid-template-columns:1fr 1fr 1fr} }
+      @media (max-width:640px){ nav ul{gap:8px} .grid3{grid-template-columns:1fr} .social{grid-template-columns:1fr} }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="site">
+      <div class="wrap row">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav aria-label="Main">
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/ParkerPixiePaws/">Paws</a></li>
+            <li><a class="active" href="/ParkerPixiePop/">Pop</a></li>
+          </ul>
+        </nav>
+        <a class="cta" href="/contact/">Say Hi</a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">ParkerPixiePop</div>
+        <h1>Streams • Community • Cozy Chaos</h1>
+        <p class="lead">
+          Welcome to the gaming pillar of my universe—snuggly vibes, sparkly fits, and pixel-perfect tinkering.
+          Catch me live, join the Discord, and dive into my current obsessions below.
+        </p>
+
+        <!-- Social chips (replace hrefs with your exact handles if needed) -->
+        <div class="social" aria-label="Social links">
+          <a class="chip" href="https://discord.gg/your-invite" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.37A19 19 0 0 0 15.98 3l-.2.4a13.7 13.7 0 0 1 2.93.96c-3.06-1.47-6.44-1.47-9.5 0a13.7 13.7 0 0 1 2.93-.96l-.2-.4A19 19 0 0 0 3.7 4.37C1.85 7.12 1.2 9.98 1.35 12.81c2.55 3.03 6.32 3.13 6.32 3.13l.8-1.05c-1.53-.52-2.4-1.5-2.4-1.5s.15.1.42.25c3.25 1.63 7 1.63 10.25 0 .27-.15.42-.25.42-.25s-.86.98-2.4 1.5l.8 1.05s3.77-.1 6.32-3.13c.15-2.83-.5-5.6
