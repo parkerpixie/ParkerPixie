@@ -1,1 +1,265 @@
+---
+/* src/pages/Nikki/index.astro (v1)
+   Standalone page — no external libs. Accessible, swipeable carousel. */
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nikki Gallery — ParkerPixiePop</title>
+    <meta name="description" content="Infinity Nikki photo carousel — outfits, photo ops, and glitter-goddess energy." />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <style>
+      :root{
+        --bg:#0a0b0f; --text:#eef0ff; --muted:#a5a9c6;
+        --card:#121522; --ring: 0 0 0 2px rgba(255,255,255,.06);
+        --lilac:#b792ff; --aqua:#6ed0ff; --pink:#ff7fd1; --gold:#f2c98b;
+        --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+      a{color:inherit;text-decoration:none}
+      img{max-width:100%;display:block;height:auto}
+      .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+      /* Header (matches Pop) */
+      header.site{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(8px);background:rgba(10,11,15,.6);border-bottom:1px solid rgba(255,255,255,.06)}
+      .row{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
+      .brand img{width:28px;height:28px}
+      nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0}
+      nav a{padding:10px 14px;border-radius:999px;color:var(--muted)}
+      nav a.active, nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+
+      /* Hero with Nikki background */
+      .hero{position:relative;border-bottom:1px solid rgba(255,255,255,.08)}
+      .hero::before{
+        content:"";position:fixed;inset:0;z-index:-2;
+        background:
+          linear-gradient(180deg, rgba(10,11,15,.35), rgba(10,11,15,.65) 55%, rgba(10,11,15,.85)),
+          url('/img/nikki/Nikkibackground.webp') center / cover no-repeat fixed;
+        filter:saturate(105%) blur(0.2px);
+      }
+      .hero .wrap{padding:64px 20px 30px}
+      .eyebrow{font-size:.9rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+      .title{font-size:clamp(32px,7vw,60px);margin:10px 0 6px}
+      .lead{max-width:760px;color:#cdd1ee}
+
+      /* Carousel */
+      .carousel{position:relative;margin:24px 0 10px}
+      .viewport{position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg,#171a27,#10131c);box-shadow:0 12px 50px rgba(0,0,0,.35)}
+      .track{display:flex;scroll-behavior:smooth;transition:transform .35s ease}
+      .slide{min-width:100%;user-select:none}
+      .slide img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+
+      /* Controls */
+      .controls{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
+      .btn{pointer-events:auto;border:none;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);color:#fff;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;cursor:pointer;outline:none}
+      .btn:hover{background:rgba(0,0,0,.5)}
+
+      /* Dots */
+      .dots{display:flex;gap:8px;justify-content:center;margin:10px 0 0}
+      .dot{width:10px;height:10px;border-radius:99px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.38);cursor:pointer}
+      .dot[aria-current="true"]{background:linear-gradient(135deg,var(--lilac),var(--aqua));box-shadow:0 0 0 2px rgba(183,146,255,.25)}
+
+      /* Thumb strip */
+      .thumbs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(110px,1fr);gap:10px;overflow:auto;padding:10px 2px 2px;margin-top:10px;scroll-snap-type:x mandatory}
+      .thumb{scroll-snap-align:start;border-radius:10px;overflow:hidden;border:2px solid transparent;opacity:.8;cursor:pointer}
+      .thumb img{width:100%;height:70px;object-fit:cover}
+      .thumb[aria-current="true"]{border-color:var(--lilac);opacity:1}
+
+      /* Info bar */
+      .info{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;color:var(--muted)}
+      .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+
+      /* Lightbox */
+      #lightbox{position:fixed;inset:0;background:rgba(10,11,15,.92);display:none;align-items:center;justify-content:center;z-index:90}
+      #lightbox.open{display:flex}
+      #lightbox img{max-width:92vw;max-height:86vh;border-radius:12px;box-shadow:0 20px 80px #000a}
+      #lightbox .close, #lightbox .nav{position:absolute;top:18px}
+      #lightbox .close{right:18px}
+      #lightbox .nav{top:50%;transform:translateY(-50%)}
+      #lightbox .prev{left:18px}
+      #lightbox .next{right:18px}
+      #lightbox button{border:none;background:rgba(255,255,255,.08);color:#fff;width:42px;height:42px;border-radius:999px;cursor:pointer}
+
+      footer{border-top:1px solid rgba(255,255,255,.08);color:var(--muted);padding:28px 0 56px;margin-top:26px}
+
+      @media (max-width:720px){ .thumb img{height:60px} }
+    </style>
+  </head>
+
+  <body>
+    <header class="site">
+      <div class="wrap row">
+        <a class="brand" href="/"><img src="/CapyGoldIcon.png" alt="ParkerPixie capy icon" /><span>ParkerPixie</span></a>
+        <nav aria-label="Main">
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/ParkerPixiePaws/">Paws</a></li>
+            <li><a href="/ParkerPixiePop/">Pop</a></li>
+            <li><a class="active" href="/Nikki/">Nikki</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">ParkerPixiePop</div>
+        <h1 class="title">Infinity Nikki — Gallery</h1>
+        <p class="lead">A glitter-dusted carousel of outfits and photo ops. Swipe, click, or use your keyboard arrows. Thumbs jump to a slide. Auto-play optional ✨</p>
+      </div>
+    </section>
+
+    <main class="wrap">
+      <div class="carousel" role="region" aria-label="Infinity Nikki photo carousel">
+        <div class="viewport" id="vp">
+          <div class="track" id="track">
+            <!-- Replace these paths with your real images in /public/img/nikki/ -->
+            <figure class="slide"><img src="/img/nikki/Nikki01.JPG" alt="Nikki photo 1" loading="eager" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki02.JPG" alt="Nikki photo 2" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki03.JPG" alt="Nikki photo 3" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki04.jpeg" alt="Nikki photo 4" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki05.JPG" alt="Nikki photo 5" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki06.JPG" alt="Nikki photo 6" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki07.JPG" alt="Nikki photo 7" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki08.JPG" alt="Nikki photo 8" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki09.JPG" alt="Nikki photo 9" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki10.JPG" alt="Nikki photo 10" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki11.JPG" alt="Nikki photo 11" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki12.JPG" alt="Nikki photo 12" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki13.JPG" alt="Nikki photo 13" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki14.JPG" alt="Nikki photo 14" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki15.JPG" alt="Nikki photo 15" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+            <figure class="slide"><img src="/img/nikki/Nikki16.JPG" alt="Nikki photo 16" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 1180px"></figure>
+          </div>
+          <div class="controls" aria-hidden="false">
+            <button class="btn" id="prev" aria-label="Previous slide" type="button">❮</button>
+            <button class="btn" id="next" aria-label="Next slide" type="button">❯</button>
+          </div>
+        </div>
+        <div class="dots" id="dots" role="tablist" aria-label="Slide navigation"></div>
+        <div class="thumbs" id="thumbs" aria-label="Thumbnails"></div>
+        <div class="info">
+          <span id="counter">1 / 5</span>
+          <div>
+            <button id="play" class="pill" type="button" aria-pressed="false">▶︎ Auto-play</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Lightbox overlay -->
+    <div id="lightbox" aria-modal="true" role="dialog" aria-label="Image viewer" hidden>
+      <button class="close" aria-label="Close" type="button">✕</button>
+      <button class="nav prev" aria-label="Previous" type="button">❮</button>
+      <img src="" alt="" />
+      <button class="nav next" aria-label="Next" type="button">❯</button>
+    </div>
+
+    <footer><div class="wrap">© {year} ParkerPixie · Sass · Shimmer · Sparkle</div></footer>
+
+    <script>
+      // Basic, dependency-free carousel
+      const track = document.getElementById('track');
+      const slides = Array.from(track.children);
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const dots = document.getElementById('dots');
+      const thumbs = document.getElementById('thumbs');
+      const counter = document.getElementById('counter');
+      const playBtn = document.getElementById('play');
+
+      let i = 0, timer = null, playing = false;
+
+      function update(){
+        track.style.transform = `translateX(${-i * 100}%)`;
+        [...dots.children].forEach((d,idx)=>d.setAttribute('aria-current', idx===i));
+        [...thumbs.children].forEach((t,idx)=>t.setAttribute('aria-current', idx===i));
+        counter.textContent = `${i+1} / ${slides.length}`;
+      }
+
+      // Build dots and thumbs
+      slides.forEach((s,idx)=>{
+        const d = document.createElement('button');
+        d.className = 'dot'; d.type = 'button'; d.setAttribute('aria-label', `Go to slide ${idx+1}`);
+        d.addEventListener('click', ()=>{ i = idx; update(); });
+        dots.appendChild(d);
+
+        const t = document.createElement('button');
+        t.className = 'thumb'; t.type = 'button';
+        const img = s.querySelector('img').cloneNode(); img.setAttribute('alt',''); img.setAttribute('loading','lazy');
+        t.appendChild(img);
+        t.addEventListener('click', ()=>{ i = idx; update(); });
+        thumbs.appendChild(t);
+      });
+
+      function nextSlide(){ i = (i+1) % slides.length; update(); }
+      function prevSlide(){ i = (i-1+slides.length) % slides.length; update(); }
+
+      next.addEventListener('click', nextSlide);
+      prev.addEventListener('click', prevSlide);
+
+      // Keyboard support
+      document.addEventListener('keydown', (e)=>{
+        if(e.key==='ArrowRight') nextSlide();
+        if(e.key==='ArrowLeft') prevSlide();
+        if(e.key==='Escape') closeLightbox();
+      });
+
+      // Drag/swipe support
+      let startX = 0, dx = 0, dragging = false;
+      track.addEventListener('pointerdown', (e)=>{ dragging=true; startX=e.clientX; track.setPointerCapture(e.pointerId);});
+      track.addEventListener('pointermove', (e)=>{ if(!dragging) return; dx = e.clientX-startX; track.style.transform = `translateX(${dx/innerWidth*100 - i*100}%)`; });
+      track.addEventListener('pointerup', ()=>{ if(!dragging) return; dragging=false; if(Math.abs(dx) > innerWidth*0.12){ dx>0?prevSlide():nextSlide(); } else { update(); } dx=0; });
+
+      // Auto-play
+      function togglePlay(){
+        playing = !playing;
+        playBtn.setAttribute('aria-pressed', playing);
+        playBtn.textContent = playing ? '❚❚ Pause' : '▶︎ Auto-play';
+        clearInterval(timer);
+        if(playing){ timer = setInterval(nextSlide, 3500); }
+      }
+      playBtn.addEventListener('click', togglePlay);
+
+      // LIGHTBOX
+      const lb = document.getElementById('lightbox');
+      const lbImg = lb.querySelector('img');
+      const lbClose = lb.querySelector('.close');
+      const lbPrev = lb.querySelector('.prev');
+      const lbNext = lb.querySelector('.next');
+
+      function openLightbox(idx){
+        i = idx; update();
+        const src = slides[i].querySelector('img').getAttribute('src');
+        lbImg.src = src; lb.classList.add('open'); lb.removeAttribute('hidden');
+        document.body.style.overflow='hidden';
+      }
+      function closeLightbox(){
+        lb.classList.remove('open'); lb.setAttribute('hidden','');
+        document.body.style.overflow='';
+      }
+      function lbNextFn(){ nextSlide(); lbImg.src = slides[i].querySelector('img').getAttribute('src'); }
+      function lbPrevFn(){ prevSlide(); lbImg.src = slides[i].querySelector('img').getAttribute('src'); }
+
+      slides.forEach((s,idx)=>{
+        s.addEventListener('click', ()=> openLightbox(idx));
+      });
+      lbClose.addEventListener('click', closeLightbox);
+      lbNext.addEventListener('click', lbNextFn);
+      lbPrev.addEventListener('click', lbPrevFn);
+
+      // click outside image closes
+      lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+
+      update();
+    </script>
+  </body>
+</html>
+</html>
 
