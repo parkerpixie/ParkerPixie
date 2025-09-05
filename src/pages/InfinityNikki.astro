@@ -1,23 +1,22 @@
 ---
-/* src/pages/infinitynikki.astro — v3 */
-const year = new Date().getFullYear();
-const shots = [
-  "/img/Nikki01.JPG",
-  "/img/Nikki02.JPG",
-  "/img/Nikki03.JPG",
-  "/img/Nikki04.jpeg", // note: lower-case .jpeg (your file)
-  "/img/Nikki05.JPG",
-  "/img/Nikki06.JPG",
-  "/img/Nikki07.JPG",
-  "/img/Nikki08.JPG",
-  "/img/Nikki09.JPG",
-  "/img/Nikki10.JPG",
-  "/img/Nikki11.JPG",
-  "/img/Nikki12.JPG",
-  "/img/Nikki13.JPG",
-  "/img/Nikki14.JPG",
-  "/img/Nikki15.JPG",
-  "/img/Nikki16.JPG",
+/*
+  InfinityNikki.astro — clean restart
+  - Page-scoped styles only (scoped by .nikki wrapper)
+  - Background image path: /public/img/InfinityNikki.jpg  ->  /img/InfinityNikki.jpg
+  - Drop gallery images in /public/img/nikki/ and list them in `gallery` below
+*/
+
+const pageTitle = "Infinity Nikki — ParkerPixie";
+const pageDesc  = "My Infinity Nikki gallery — cozy glam, celestial shimmer, all the looks I love.";
+
+const gallery = [
+  // Replace these with your real Steam shots. Filenames are examples.
+  { src: "/img/nikki/look-01.jpg", alt: "Celestial gown with star-kissed veil" },
+  { src: "/img/nikki/look-02.jpg", alt: "Iridescent cape with pearl boots" },
+  { src: "/img/nikki/look-03.jpg", alt: "Goth-luxe corset with glimmer skirt" },
+  { src: "/img/nikki/look-04.jpg", alt: "Pastel streetwear and charm bag" },
+  { src: "/img/nikki/look-05.jpg", alt: "Opal armor with chiffon sleeves" },
+  { src: "/img/nikki/look-06.jpg", alt: "Rose quartz set with ribbon heels" },
 ];
 ---
 
@@ -25,254 +24,326 @@ const shots = [
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Infinity Nikki — ParkerPixiePop</title>
+    <title>{pageTitle}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Infinity Nikki gallery — outfits, photo ops, and glitter-goddess energy."
-    />
+    <meta name="description" content={pageDesc} />
     <link rel="icon" href="/CapyGoldIcon.png" />
 
     <style>
-      :root{
-        --bg:#0a0b0f;
-        --card:#121522;
-        --muted:#a5a9c6;
-        --text:#eef0ff;
-        --accent:#b792ff;
-        --accent-2:#6ed0ff;
-        --radius:18px;
+      /* =========================
+         Page-scoped styling (.nikki)
+         ========================= */
+      :root {
+        --ink: #e7e4ff;          /* soft moonlit text */
+        --muted: #bdb6ff;        /* lilac-muted text */
+        --bg: #000000;           /* pure black base */
+        --accent: #f2c14e;       /* capy gold */
+        --chip: #1a152a;         /* card bg */
+        --chip-2: #0e0b18;       /* deeper card */
+        --ring: #7a5cff;         /* violet ring */
       }
-      *{box-sizing:border-box}
-      html,body{margin:0;height:100%;color:var(--text);background:var(--bg);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;}
-      a{color:inherit;text-decoration:none}
-      .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
-      /* Page background image */
-      .page{
-        position:relative; min-height:100dvh; overflow-x:clip;
-      }
-      .page::before{
-        content:""; position:fixed; inset:0; z-index:-2;
+      .nikki {
+        min-height: 100svh;
+        color: var(--ink);
         background:
-          linear-gradient(180deg, rgba(10,11,15,.25), rgba(10,11,15,.85) 70%),
-          url("/img/InfinityNikki.jpg") center/cover no-repeat fixed; /* <- your file */
-        filter:saturate(105%) brightness(.92);
+          radial-gradient(1200px 600px at 50% -10%, rgba(122,92,255,0.18), rgba(122,92,255,0) 60%),
+          radial-gradient(800px 400px at 10% 0%, rgba(242,193,78,0.20), rgba(242,193,78,0) 50%),
+          url("/img/InfinityNikki.jpg") center / cover fixed no-repeat,
+          var(--bg);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
       }
 
-      /* Header (same vibe as Pop) */
-      header.site{
-        position:sticky;top:0;z-index:50;
-        backdrop-filter:saturate(140%) blur(8px);
-        background:rgba(10,11,15,.6);
-        border-bottom:1px solid rgba(255,255,255,.06);
+      /* Header */
+      .site-header {
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(8px);
+        background: color-mix(in oklab, #000 70%, transparent);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        z-index: 5;
       }
-      .site .row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
-      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
-      .brand img{width:28px;height:28px}
-      nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0}
-      nav a{padding:10px 14px;border-radius:999px;color:var(--muted)}
-      nav a.active, nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
-      .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-weight:700}
+      .nav {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .brand img {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        box-shadow: 0 0 10px rgba(242,193,78,0.35);
+      }
+      .nav-links {
+        margin-left: auto;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: 10px;
+      }
+      .nav-links a.active,
+      .nav-links a:hover {
+        color: var(--ink);
+        background: rgba(255,255,255,0.06);
+        outline: 1px solid rgba(255,255,255,0.08);
+      }
 
       /* Hero */
-      .hero{padding:56px 0 10px}
-      .eyebrow{font-size:.9rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
-      h1{font-size:clamp(32px,7vw,64px);margin:8px 0}
-      .lead{max-width:760px;color:#cdd1ee;line-height:1.55}
+      .hero {
+        max-width: 1100px;
+        margin: 36px auto 8px;
+        padding: 24px 20px 8px;
+      }
+      .eyebrow {
+        color: var(--muted);
+        font-size: 0.9rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 6px 0 12px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.1;
+        text-shadow: 0 0 18px rgba(122,92,255,0.45);
+      }
+      .lead {
+        max-width: 70ch;
+        color: color-mix(in oklab, var(--ink) 85%, #d1ccff);
+        font-size: 1.05rem;
+      }
 
-      /* Carousel rail */
-      .rail-wrap{position:relative;margin:22px 0 10px}
-      .rail{
-        display:flex; gap:14px; overflow-x:auto; padding-bottom:10px;
-        scroll-snap-type:x mandatory; scroll-padding:20px;
-        -webkit-overflow-scrolling:touch;
+      /* Chips row */
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
       }
-      .rail::-webkit-scrollbar{height:10px}
-      .rail::-webkit-scrollbar-thumb{background:#ffffff22;border-radius:6px}
-      .card{
-        flex:0 0 auto; width:min(90vw, 520px);
-        background:linear-gradient(180deg,#171a27,#10131c);
-        border:1px solid rgba(255,255,255,.08);
-        border-radius:var(--radius); overflow:hidden;
-        box-shadow:0 12px 40px rgba(0,0,0,.35);
-        scroll-snap-align:center;
+      .chip {
+        background: linear-gradient(180deg, var(--chip), var(--chip-2));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        color: var(--muted);
       }
-      .frame{
-        position:relative; aspect-ratio:16/9; background:#0c0f17;
-      }
-      .frame img{
-        position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-        display:block;
-      }
-      .meta{display:flex;justify-content:space-between;align-items:center;
-        padding:10px 12px;color:var(--muted);font-size:.95rem}
-      .open{padding:6px 10px;border-radius:10px;background:#ffffff10;border:1px solid #ffffff22}
-      .open:hover{background:#ffffff18}
 
-      /* Arrow buttons */
-      .arrow{
-        position:absolute; top:40%; translate:0 -50%; z-index:5;
-        width:42px; height:42px; border-radius:50%; border:1px solid #ffffff33;
-        background:#0b0d16bf; display:grid; place-items:center; cursor:pointer;
-        backdrop-filter:blur(4px);
+      /* Gallery */
+      .gallery-wrap {
+        max-width: 1100px;
+        margin: 18px auto 40px;
+        padding: 0 20px 40px;
       }
-      .arrow:hover{background:#0b0d16}
-      .prev{left:-6px} .next{right:-6px}
+      .grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (min-width: 900px) {
+        .grid { grid-template-columns: repeat(3, 1fr); }
+      }
+      .card {
+        position: relative;
+        overflow: clip;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .card a {
+        display: block;
+        line-height: 0;
+        text-decoration: none;
+        color: inherit;
+      }
+      .card img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        display: block;
+        filter: saturate(1.05) contrast(1.02);
+      }
+      .card:hover::after {
+        content: "";
+        position: absolute; inset: 0;
+        box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ring) 55%, transparent);
+        border-radius: 14px;
+      }
 
-      /* Lightbox */
-      .lightbox{
-        position: fixed; inset:0; z-index:100; display:none;
-        background: rgba(6,7,10,.86); backdrop-filter: blur(4px);
+      /* Lightbox (<dialog>) */
+      dialog#lb {
+        width: min(92vw, 1100px);
+        border: none;
+        padding: 0;
+        background: color-mix(in oklab, #000 85%, #1c1238);
+        border-radius: 12px;
+        overflow: clip;
       }
-      .lightbox.show{display:grid; place-items:center}
-      .lb-inner{position:relative; max-width:min(92vw,1200px); max-height:88dvh}
-      .lb-img{max-width:100%; max-height:88dvh; display:block; border-radius:14px; border:1px solid #ffffff22; box-shadow:0 20px 60px #0009}
-      .lb-close, .lb-left, .lb-right{
-        position:absolute; top:50%; translate:0 -50%;
-        width:48px; height:48px; border-radius:50%; border:1px solid #ffffff33;
-        background:#0b0d16cc; display:grid; place-items:center; cursor:pointer;
+      dialog::backdrop {
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(3px);
       }
-      .lb-close{top:-20px; right:-20px; translate:0; background:#0b0d16cc}
-      .lb-left{left:-64px} .lb-right{right:-64px}
-      @media (max-width:780px){ .lb-left{left:-10px} .lb-right{right:-10px} .lb-close{right:10px; top:10px} }
+      .lb-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      .lb-title {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .lb-close {
+        appearance: none;
+        background: rgba(255,255,255,0.06);
+        color: var(--ink);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 10px;
+        padding: 6px 10px;
+        cursor: pointer;
+      }
+      .lb-media {
+        line-height: 0;
+        display: grid;
+        place-items: center;
+        max-height: 86svh;
+      }
+      .lb-media img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
 
-      footer{border-top:1px solid rgba(255,255,255,.08);color:var(--muted);padding:28px 0 56px;margin-top:26px}
+      /* Footer */
+      .site-footer {
+        border-top: 1px solid rgba(255,255,255,0.08);
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding: 16px 20px 30px;
+        text-align: center;
+      }
+      .site-footer a { color: var(--ink); text-decoration: none; }
     </style>
   </head>
 
   <body>
-    <div class="page">
+    <div class="nikki">
       <!-- Header -->
-      <header class="site">
-        <div class="wrap row">
+      <header class="site-header" role="banner">
+        <nav class="nav" aria-label="Primary">
           <a class="brand" href="/">
-            <img src="/CapyGoldIcon.png" alt="ParkerPixie capybara icon" />
+            <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara" />
             <span>ParkerPixie</span>
           </a>
-          <nav aria-label="Main">
-            <ul>
-              <li><a href="/about/">About</a></li>
-              <li><a href="/contact/">Contact</a></li>
-              <li><a href="/ParkerPixiePaws/">Paws</a></li>
-              <li><a class="active" href="/ParkerPixiePop/">Pop</a></li>
-            </ul>
-          </nav>
-          <a class="cta" href="/contact/">Say Hi</a>
+          <div class="nav-links">
+            <a href="/parkerpixiepop/">Pop</a>
+            <a href="/parkerpixiepaws/">Paws</a>
+            <a href="/blog/">Blog</a>
+            <a class="active" href="/infinitynikki/">Infinity Nikki</a>
+            <a href="/about/">About</a>
+            <a href="/contact/">Contact</a>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Hero -->
+      <header class="hero">
+        <div class="eyebrow">Cozy glam · Celestial couture</div>
+        <h1>Infinity Nikki</h1>
+        <p class="lead">
+          A living gallery of my favorite looks — shimmering fabrics, dreamy palettes,
+          and the whimsical chaos that feels very <em>ParkerPixie</em>.
+        </p>
+        <div class="chips" aria-label="Tags">
+          <span class="chip">Ethereal</span>
+          <span class="chip">Glitter-core</span>
+          <span class="chip">Pastel goth</span>
+          <span class="chip">Dreamy tech</span>
         </div>
       </header>
 
-      <main class="wrap">
-        <section class="hero">
-          <div class="eyebrow">Infinity Nikki</div>
-          <h1>Outfits, photo ops, and glitter-goddess energy.</h1>
-          <p class="lead">Tap any shot to open it large. Drag/scroll the carousel, or use the arrows.</p>
-        </section>
-
-        <!-- Carousel -->
-        <section class="rail-wrap" aria-label="Infinity Nikki gallery">
-          <button class="arrow prev" type="button" aria-label="Previous">‹</button>
-          <div class="rail" id="rail">
-            {
-              shots.map((src, i) => (
-                <figure class="card">
-                  <a class="frame open" href={src} data-idx={i}>
-                    <img
-                      src={src}
-                      alt={`Infinity Nikki screenshot ${i+1}`}
-                      loading="lazy"
-                      decoding="async"
-                      sizes="(max-width: 600px) 90vw, 520px"
-                    />
-                  </a>
-                  <figcaption class="meta">
-                    <span>Shot {i+1} / {shots.length}</span>
-                    <span>Click to open</span>
-                  </figcaption>
-                </figure>
-              ))
-            }
+      <!-- Gallery -->
+      <main class="gallery-wrap" role="main">
+        <section aria-label="Gallery">
+          <div class="grid">
+            {gallery.map((g) => (
+              <figure class="card">
+                <a href={g.src} data-alt={g.alt} class="thumb">
+                  <img loading="lazy" decoding="async" src={g.src} alt={g.alt} />
+                </a>
+              </figure>
+            ))}
           </div>
-          <button class="arrow next" type="button" aria-label="Next">›</button>
         </section>
       </main>
 
-      <!-- Lightbox -->
-      <div class="lightbox" id="lb" aria-modal="true" role="dialog">
-        <div class="lb-inner">
-          <img id="lbImg" class="lb-img" alt="">
-          <button class="lb-left" id="lbLeft" aria-label="Previous">‹</button>
-          <button class="lb-right" id="lbRight" aria-label="Next">›</button>
-          <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+      <!-- Lightbox dialog -->
+      <dialog id="lb" aria-label="Image viewer">
+        <div class="lb-bar">
+          <div class="lb-title" id="lb-caption">Infinity Nikki</div>
+          <button class="lb-close" type="button" id="lb-close">Close</button>
         </div>
-      </div>
+        <div class="lb-media">
+          <img id="lb-img" alt="" />
+        </div>
+      </dialog>
 
-      <footer><div class="wrap">© {year} ParkerPixie · Sass · Shimmer · Sparkle</div></footer>
+      <!-- Footer -->
+      <footer class="site-footer">
+        <p>
+          Back to <a href="/parkerpixiepop/">ParkerPixiePop</a> ·
+          © {new Date().getFullYear()} ParkerPixie · Sass · Shimmer · Sparkle
+        </p>
+      </footer>
     </div>
 
-    <script type="module">
-      const rail = document.getElementById('rail');
-      const prevBtn = document.querySelector('.prev');
-      const nextBtn = document.querySelector('.next');
+    <script is:inline>
+      // Lightweight lightbox
+      const dlg = document.getElementById('lb');
+      const lbImg = document.getElementById('lb-img');
+      const lbCap = document.getElementById('lb-caption');
+      const btnClose = document.getElementById('lb-close');
 
-      // Arrow scroll
-      const scrollByOne = (dir) => {
-        const card = rail.querySelector('.card');
-        const step = card ? card.clientWidth + 14 : 540;
-        rail.scrollBy({left: dir * step, behavior:'smooth'});
-      };
-      prevBtn.addEventListener('click', () => scrollByOne(-1));
-      nextBtn.addEventListener('click', () => scrollByOne(1));
-
-      // Lightbox
-      const lb = document.getElementById('lb');
-      const lbImg = document.getElementById('lbImg');
-      const left = document.getElementById('lbLeft');
-      const right = document.getElementById('lbRight');
-      const close = document.getElementById('lbClose');
-
-      const sources = Array.from(document.querySelectorAll('.frame')).map(a => a.getAttribute('href'));
-      let idx = 0;
-
-      function show(i){
-        idx = (i + sources.length) % sources.length;
-        const src = sources[idx];
-        lbImg.src = src;
-        lbImg.alt = "Infinity Nikki screenshot " + (idx+1);
-
-        // Preload neighbors (helps with big Steam JPGs)
-        [idx-1, idx+1].forEach(n=>{
-          const j=(n+sources.length)%sources.length;
-          const im=new Image(); im.src=sources[j];
-        });
-
-        lb.classList.add('show');
-        document.body.style.overflow='hidden';
-      }
-      function hide(){
-        lb.classList.remove('show');
-        document.body.style.overflow='';
-        lbImg.src = "";
-      }
-
-      document.querySelectorAll('.frame').forEach(a=>{
-        a.addEventListener('click', e=>{
-          e.preventDefault();
-          show(parseInt(a.dataset.idx,10));
-        });
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a.thumb');
+        if (!a) return;
+        e.preventDefault();
+        lbImg.src = a.getAttribute('href');
+        lbImg.alt = a.dataset.alt || "";
+        lbCap.textContent = a.dataset.alt || "Infinity Nikki";
+        dlg.showModal();
       });
 
-      left.addEventListener('click', ()=> show(idx-1));
-      right.addEventListener('click', ()=> show(idx+1));
-      close.addEventListener('click', hide);
-      lb.addEventListener('click', (e)=>{ if(e.target===lb) hide(); });
-
-      window.addEventListener('keydown', (e)=>{
-        if(!lb.classList.contains('show')) return;
-        if(e.key==='Escape') hide();
-        if(e.key==='ArrowLeft') show(idx-1);
-        if(e.key==='ArrowRight') show(idx+1);
+      btnClose?.addEventListener('click', () => dlg.close());
+      dlg?.addEventListener('click', (e) => {
+        // click backdrop to close
+        const rect = dlg.getBoundingClientRect();
+        const inDialog =
+          e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top  && e.clientY <= rect.bottom;
+        if (!inDialog) dlg.close();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dlg.open) dlg.close();
       });
     </script>
   </body>
