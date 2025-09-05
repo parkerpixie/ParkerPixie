@@ -15,30 +15,29 @@ const year = new Date().getFullYear();
     <style>
       :root{
         --bg:#0b0b10;
-        --ink:#f2f2fa;
+        --ink:#f5f4fb;
         --muted:#c7c5d6;
         --card:#111119;
-        --chip:#262337;
         --chip-text:#e8ddff;
         --lilac:#7d5cff;
-        --radius:20px;
+        --gold:#d6b36b;
+        --radius:22px;
       }
       *{box-sizing:border-box}
       html,body{height:100%}
       body{
         margin:0; color:var(--ink);
         background:
-          radial-gradient(1200px 600px at 10% -10%, rgba(155,125,255,.15), transparent 60%),
+          radial-gradient(1200px 600px at 10% -10%, rgba(155,125,255,.16), transparent 60%),
           radial-gradient(900px 600px at 95% 0%, rgba(214,179,107,.12), transparent 60%),
           radial-gradient(900px 900px at 50% 120%, rgba(140,120,255,.10), transparent 60%),
           var(--bg);
         font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
         -webkit-font-smoothing:antialiased;
       }
-
       .wrap{max-width:1200px; margin:0 auto; padding:22px 20px 80px}
 
-      /* Header */
+      /* Header --------------------------------------------------------- */
       header.site{
         display:flex; align-items:center; justify-content:space-between; gap:16px;
         padding:10px 0 6px;
@@ -46,7 +45,6 @@ const year = new Date().getFullYear();
       .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink)}
       .brand img{width:34px; height:34px; object-fit:contain; border-radius:10px; filter:drop-shadow(0 3px 10px rgba(214,179,107,.35))}
       .brand .name{font-weight:800; letter-spacing:.3px}
-
       nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; align-items:center}
       nav a{color:#e9e7f7; text-decoration:none}
       nav a:hover{opacity:.85}
@@ -57,56 +55,60 @@ const year = new Date().getFullYear();
         color:#fff2cf; box-shadow:0 0 0 2px rgba(214,179,107,.08);
       }
 
-      /* Hero */
+      /* Hero ----------------------------------------------------------- */
       .hero{
-        margin-top:12px;
-        display:grid; grid-template-columns: 1.05fr .95fr; gap:28px; align-items:start;
+        margin-top:18px;
+        display:grid; grid-template-columns: 1.04fr .96fr; gap:36px; align-items:center;
       }
-      @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+      @media (max-width:980px){ .hero{grid-template-columns:1fr; gap:22px} }
 
-      /* Calmer headline */
-      .lead{max-width: 720px;} /* keeps line length comfy */
-      .headline{
-        margin:0 0 12px;
-        font-weight:700;                   /* lighter than 800 */
-        font-size:clamp(22px, 3.8vw, 32px);/* smaller ceiling */
-        line-height:1.3;                   /* gentler rhythm */
+      .eyebrow{color:#b9b6d1; letter-spacing:.18em; text-transform:uppercase; font-size:.9rem; margin-bottom:10px}
+      .title{
+        margin:0 0 14px;
+        font-weight:800;
+        font-size:clamp(32px, 6vw, 64px); /* big & friendly like your screenshot */
+        line-height:1.12;
         letter-spacing:.2px;
-        color:#eae8fb;                     /* slightly softer */
-        text-wrap:balance;                 /* nicer wrapping on modern browsers */
+        text-wrap:balance;
       }
-      .br{display:none}
-      @media (min-width:900px){ .br{display:block} } /* optional break on wide screens */
+      .subline{
+        margin:6px 0 16px;
+        color:#dddaf0;
+        font-size:clamp(16px, 2.2vw, 20px);
+        line-height:1.55;
+        max-width: 760px;
+      }
 
-      .chips{display:flex; gap:14px; flex-wrap:wrap; margin:12px 0 16px}
+      .chips{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0 8px}
       .chip{
-        display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
+        display:inline-flex; align-items:center; gap:8px; padding:12px 16px;
         border-radius:14px; text-decoration:none; color:var(--chip-text);
-        background:radial-gradient(120% 120% at 0% 0%, rgba(125,92,255,.30), rgba(125,92,255,.14) 60%),
-                   linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-        border:1px solid rgba(123,99,255,.35);
-        box-shadow:0 0 0 2px rgba(123,99,255,.10), inset 0 1px 0 rgba(255,255,255,.04);
+        background:
+          radial-gradient(120% 120% at 0% 0%, rgba(125,92,255,.34), rgba(125,92,255,.18) 60%),
+          linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        border:1px solid rgba(123,99,255,.40);
+        box-shadow:0 0 0 2px rgba(123,99,255,.10), inset 0 1px 0 rgba(255,255,255,.05);
       }
-      .tagline{margin:6px 0 8px; color:#d5d2ea; font-style:italic; font-size:.95rem}
+
+      .tagline{margin:8px 0 0; color:#cfcde3; font-style:italic; font-size:.95rem}
 
       .heroimg{
         background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
         border:1px solid rgba(255,255,255,.08);
-        border-radius:22px; padding:10px; box-shadow:0 10px 30px rgba(0,0,0,.35);
+        border-radius:22px; padding:10px; box-shadow:0 12px 34px rgba(0,0,0,.38);
       }
       .heroimg img{width:100%; height:auto; display:block; border-radius:16px}
 
-      /* Cards */
-      .lanes{margin-top:28px; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+      /* Lanes ---------------------------------------------------------- */
+      .lanes{margin-top:36px; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
       @media (max-width:1100px){ .lanes{grid-template-columns:1fr} }
-
       .card{
         background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
         border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:22px;
         box-shadow:0 10px 28px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.04);
       }
-      .eyebrow{color:#a9a5c6; text-transform:uppercase; letter-spacing:.2px; font-size:12px; margin-bottom:6px}
-      .title{font-size:20px; font-weight:800; margin:0 0 6px}
+      .eyebrow-small{color:#a9a5c6; text-transform:uppercase; letter-spacing:.2px; font-size:12px; margin-bottom:6px}
+      .title-small{font-size:20px; font-weight:800; margin:0 0 6px}
       .desc{color:#cfcde3; margin:0 0 14px}
       .btn{
         display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
@@ -115,8 +117,8 @@ const year = new Date().getFullYear();
         border:1px solid rgba(125,92,255,.38); box-shadow:0 0 0 2px rgba(125,92,255,.10);
       }
 
-      /* Footer */
-      footer{margin-top:34px; color:#bdbad4; font-size:12px}
+      /* Footer --------------------------------------------------------- */
+      footer{margin-top:40px; color:#bdbad4; font-size:12px}
     </style>
   </head>
 
@@ -137,14 +139,20 @@ const year = new Date().getFullYear();
         </nav>
       </header>
 
-      <!-- Hero -->
+      <!-- Hero (restored look) -->
       <section class="hero" aria-label="Intro">
-        <div class="lead">
-          <h1 class="headline">
-            I stitch joy into amigurumi 🧶, decorate digital worlds, and build
-            <span class="br"></span>
-            playful systems that make life feel a little more magical.
+        <div>
+          <div class="eyebrow">Sass · Shimmer · Sparkle</div>
+
+          <h1 class="title">
+            Cozy craft queen, gamer,<br/>
+            and pixel tinkerer.
           </h1>
+
+          <p class="subline">
+            I stitch joy into amigurumi 🧶, decorate digital worlds, and build
+            playful systems that make life feel a little more magical.
+          </p>
 
           <div class="chips" role="navigation" aria-label="Quick links">
             <a class="chip" href="/about/">Who is ParkerPixie</a>
@@ -156,6 +164,7 @@ const year = new Date().getFullYear();
         </div>
 
         <div class="heroimg" aria-label="Hero image">
+          <!-- EXACT repo path/filename -->
           <img src="/hero.jpg" alt="Parker knitting with laptop and Steam Deck by the lake" />
         </div>
       </section>
@@ -164,24 +173,24 @@ const year = new Date().getFullYear();
       <section class="lanes" aria-label="ParkerPixie lanes">
         <!-- Paws -->
         <article class="card">
-          <div class="eyebrow">Paws</div>
-          <h2 class="title">ParkerPixiePaws</h2>
+          <div class="eyebrow-small">Paws</div>
+          <h2 class="title-small">ParkerPixiePaws</h2>
           <p class="desc">Amigurumi, capybaras, care guides, commissions, and cozy drops.</p>
           <p><a class="btn" href="/parkerpixiepaws/">Enter the Paws Studio →</a></p>
         </article>
 
         <!-- Pop -->
         <article class="card">
-          <div class="eyebrow">Pop</div>
-          <h2 class="title">ParkerPixiePop</h2>
+          <div class="eyebrow-small">Pop</div>
+          <h2 class="title-small">ParkerPixiePop</h2>
           <p class="desc">Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p>
           <p><a class="btn" href="/parkerpixiepop/">See Pop Projects →</a></p>
         </article>
 
         <!-- Pixel -->
         <article class="card">
-          <div class="eyebrow">Pixel</div>
-          <h2 class="title">ParkerPixiePixel</h2>
+          <div class="eyebrow-small">Pixel</div>
+          <h2 class="title-small">ParkerPixiePixel</h2>
           <p class="desc">Design experiments, printables, and tiny tools that make life easier.</p>
           <p><a class="btn" href="/pixel/">Peek at Pixels →</a></p>
         </article>
