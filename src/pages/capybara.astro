@@ -1,163 +1,61 @@
-<!DOCTYPE html>
+---
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Why the Capybara? — ParkerPixie</title>
-  <meta name="description" content="Why the capybara is my grounding spirit animal, and how Bejeweled the Peacock embodies my glittery, unapologetic side." />
-
-  <!-- Page-scoped styles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ParkerPixiePaws — Amigurumi & Care Guides</title>
+  <meta name="description" content="Custom amigurumi commissions, care guides, and cozy WIPs." />
+  <link rel="icon" href="/CapyGoldIcon.png" />
   <style>
-    /* Force the cotton-candy background */
-    body {
-      background: url("/bg/cotton-candy.jpg") no-repeat center center fixed;
-      background-size: cover;
-      background-attachment: fixed;
-      margin: 0;
-      min-height: 100vh;
-    }
-
-    :root{
-      --brand:#8a5dff;           /* Parker purple */
-      --brand-deep:#4026a6;      /* deep purple */
-      --gold:#f0c866;            /* soft gold */
-      --ink:#1b1335;             /* deep text */
-      --ink-soft:#3a3160;
-      --card:rgba(255,255,255,0.78);
-      --card-blur:10px;
-      --ring:rgba(138,93,255,0.35);
-    }
-
-    .why-capybara{
-      color:var(--ink);
-      padding: clamp(16px, 3vw, 32px);
-      max-width: 1080px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    .why-capybara .hero{
-      display:grid;
-      gap: 8px;
-      margin: clamp(8px, 2vw, 16px) 0 24px;
-    }
-    .why-capybara .eyebrow{
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      font-size: .8rem;
-      color: var(--brand);
-      font-weight: 700;
-    }
-    .why-capybara h1{
-      margin: 0;
-      font-size: clamp(2rem, 4.2vw, 3.25rem);
-      line-height: 1.15;
-      letter-spacing: .5px;
-      color: var(--ink);
-      text-shadow: 0 1px 0 rgba(255,255,255,.35);
-    }
-    .why-capybara .subtitle{
-      color: var(--ink-soft);
-      font-size: clamp(1rem, 2.2vw, 1.15rem);
-      max-width: 65ch;
-    }
-
-    .why-capybara .card{
-      background: var(--card);
-      backdrop-filter: blur(var(--card-blur));
-      border-radius: 18px;
-      padding: clamp(16px, 2.5vw, 28px);
-      border: 1px solid rgba(255,255,255,.6);
-      box-shadow:
-        0 10px 30px rgba(27,19,53,.08),
-        inset 0 0 0 1px rgba(255,255,255,.25);
-      margin: 16px 0;
-    }
-
-    .why-capybara h2{
-      font-size: clamp(1.35rem, 2.8vw, 1.8rem);
-      margin: 0 0 10px;
-      color: var(--brand-deep);
-    }
-
-    .stack{ display:grid; gap: 14px; }
-
-    .callout{
-      border-left: 4px solid var(--gold);
-      background: rgba(240, 200, 102, 0.12);
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-style: italic;
-    }
-
-    .yin-yang{
-      display:grid; gap:14px;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 800px){
-      .yin-yang{ grid-template-columns: 1fr 1fr; }
-    }
-    .yy{
-      border: 1px dashed var(--ring);
-      border-radius: 16px;
-      padding: 14px;
-      background: rgba(255,255,255,.65);
-    }
-    .yy h3{
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-      color: var(--brand);
-      letter-spacing: .3px;
-    }
-    .yy ul{ margin: 0; padding-left: 18px; }
-
-    .gallery{
-      display:grid;
-      gap: 18px;
-      grid-template-columns: 1fr;
-      margin-top: 4px;
-    }
-    @media (min-width: 720px){
-      .gallery{ grid-template-columns: 1fr 1fr; }
-    }
-    figure{
-      margin: 0;
-      background: rgba(255,255,255,.7);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.55);
-      box-shadow: 0 8px 20px rgba(0,0,0,.05);
-    }
-    picture, img{
-      display:block; width:100%; height:auto;
-    }
-    figcaption{
-      padding: 10px 12px 12px;
-      font-size: .95rem;
-      color: var(--ink-soft);
-    }
-    .caption-emoji{ font-size: 1.05rem; margin-right: 6px; }
-
-    .source{
-      font-size: .9rem;
-      opacity: .8;
-    }
-    .source a{ color: var(--brand-deep); text-decoration: underline; }
+    :root{--bg:#0b0b10;--card:#111119;--ink:#f7f7fb;--muted:#bcb9cd;--accent:#d6b36b;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03)}
+    *{box-sizing:border-box} body{margin:0;color:var(--ink);background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(180,121,255,.12), transparent 60%),
+      radial-gradient(1000px 500px at 90% 10%, rgba(214,179,107,.10), transparent 60%),
+      radial-gradient(800px 800px at 50% 120%, rgba(180,121,255,.08), transparent 60%),var(--bg);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
+    header.site{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0 6px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+    .brand img{width:40px;height:40px;border-radius:10px;filter:drop-shadow(0 4px 12px rgba(214,179,107,.35))}
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    nav a{color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px;border:1px solid transparent}
+    nav a:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08)}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
   </style>
 </head>
 <body>
-  <main class="why-capybara" role="main">
-    <!-- HERO -->
-    <header class="hero">
-      <div class="eyebrow">Spirit Animals, Sparkle & Healing</div>
-      <h1>Why the Capybara?</h1>
-      <p class="subtitle">
-        The short answer: she found me. The longer answer: I’m equal parts calm capybara and glittering peacock—grounded and unapologetic—guiding my creativity, recovery, and community.
-      </p>
+  <div class="wrap">
+    <header class="site">
+      <a class="brand" href="/"><img src="/CapyGoldIcon.png" alt="Gold capybara icon" /><div><div style="font-weight:800;letter-spacing:.4px">ParkerPixie</div><small style="color:#cfcde0">Sass · Shimmer · Sparkle</small></div></a>
+      <nav><ul>
+        <li><a href="/about/">Who is ParkerPixie</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/capybara/">What’s with the Capybara</a></li>
+      </ul></nav>
     </header>
 
-    <!-- ... rest of your content stays exactly the same ... -->
+    <main class="card">
+      <h1 style="margin-top:0">ParkerPixiePaws</h1>
+      <p>Amigurumi commissions, care guides, and behind-the-scenes WIPs. Soft, celestial, capy-coded.</p>
 
-  </main>
+      <h2>Commissions</h2>
+      <p>Email <a href="mailto:parker@parkerpixie.com">parker@parkerpixie.com</a> with your idea, budget, and deadline.</p>
+
+      <h2>Care Guides</h2>
+      <ul>
+        <li><a href="/paws/care/cuddles">Cuddles & storage</a></li>
+        <li><a href="/paws/care/wash">Spot-clean & wash tips</a></li>
+        <li><a href="/paws/care/repairs">Repairs & refresh</a></li>
+      </ul>
+    </main>
+
+    <footer style="margin-top:18px;color:#d0cee1">
+      © {year} ParkerPixie • Made with capybara calm &amp; bejeweled sparkle
+    </footer>
+  </div>
 </body>
 </html>
