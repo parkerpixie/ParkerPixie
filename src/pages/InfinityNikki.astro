@@ -1,37 +1,67 @@
 ---
-/* Infinity Nikki gallery — standalone Astro page (no external CSS/JS)
-   Background: /public/img/InfinityNikki.jpg (case-sensitive on Netlify)
-   Images (exact filenames):
-   Nikki01.JPG, Nikki02.JPG, Nikki03.JPG, Nikki04.jpeg,
-   Nikki05.JPG, Nikki06.JPG, Nikki07.JPG, Nikki08.JPG,
-   Nikki09.JPG, Nikki10.JPG, Nikki11.JPG, Nikki12.JPG,
-   Nikki13.JPG, Nikki14.JPG, Nikki15.JPG, Nikki16.JPG
-*/
+/* src/pages/infinitynikki.astro — v3 */
 const year = new Date().getFullYear();
+const shots = [
+  "/img/Nikki01.JPG",
+  "/img/Nikki02.JPG",
+  "/img/Nikki03.JPG",
+  "/img/Nikki04.jpeg", // note: lower-case .jpeg (your file)
+  "/img/Nikki05.JPG",
+  "/img/Nikki06.JPG",
+  "/img/Nikki07.JPG",
+  "/img/Nikki08.JPG",
+  "/img/Nikki09.JPG",
+  "/img/Nikki10.JPG",
+  "/img/Nikki11.JPG",
+  "/img/Nikki12.JPG",
+  "/img/Nikki13.JPG",
+  "/img/Nikki14.JPG",
+  "/img/Nikki15.JPG",
+  "/img/Nikki16.JPG",
+];
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Infinity Nikki — Gallery • ParkerPixie</title>
+    <title>Infinity Nikki — ParkerPixiePop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Infinity Nikki — a glitter-dusted carousel of outfits and photo ops. Click to view full-screen." />
+    <meta
+      name="description"
+      content="Infinity Nikki gallery — outfits, photo ops, and glitter-goddess energy."
+    />
     <link rel="icon" href="/CapyGoldIcon.png" />
-    <link rel="preload" as="image" href="/img/InfinityNikki.jpg" />
 
     <style>
       :root{
-        --bg:#0a0b0f; --card:#121522; --muted:#a5a9c6; --text:#eef0ff;
-        --accent:#b792ff; --accent-2:#6ed0ff; --radius:18px;
+        --bg:#0a0b0f;
+        --card:#121522;
+        --muted:#a5a9c6;
+        --text:#eef0ff;
+        --accent:#b792ff;
+        --accent-2:#6ed0ff;
+        --radius:18px;
       }
       *{box-sizing:border-box}
-      html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
+      html,body{margin:0;height:100%;color:var(--text);background:var(--bg);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;}
       a{color:inherit;text-decoration:none}
       .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
-      /* Header (matches ParkerPixiePop) */
+      /* Page background image */
+      .page{
+        position:relative; min-height:100dvh; overflow-x:clip;
+      }
+      .page::before{
+        content:""; position:fixed; inset:0; z-index:-2;
+        background:
+          linear-gradient(180deg, rgba(10,11,15,.25), rgba(10,11,15,.85) 70%),
+          url("/img/InfinityNikki.jpg") center/cover no-repeat fixed; /* <- your file */
+        filter:saturate(105%) brightness(.92);
+      }
+
+      /* Header (same vibe as Pop) */
       header.site{
         position:sticky;top:0;z-index:50;
         backdrop-filter:saturate(140%) blur(8px);
@@ -43,269 +73,207 @@ const year = new Date().getFullYear();
       .brand img{width:28px;height:28px}
       nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0}
       nav a{padding:10px 14px;border-radius:999px;color:var(--muted)}
-      nav a.active, nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+      nav a.active, nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
       .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-weight:700}
 
       /* Hero */
-      .hero{
-        position:relative;
-        padding:60px 0 28px;
-        border-bottom:1px solid rgba(255,255,255,.08);
-        background:
-          radial-gradient(1600px 600px at 10% -10%, rgba(183,146,255,.35), transparent 60%),
-          radial-gradient(1600px 600px at 110% -10%, rgba(110,208,255,.35), transparent 60%),
-          linear-gradient(180deg, #1b1e2c, #0a0b0f 60%);
-      }
-      .hero-bg{
-        position:absolute; inset:0; width:100%; height:100%;
-        object-fit:cover; opacity:.22; filter:saturate(110%) contrast(105%);
-        pointer-events:none; user-select:none; z-index:0;
-      }
-      .hero .inner{position:relative; z-index:1}
+      .hero{padding:56px 0 10px}
       .eyebrow{font-size:.9rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
-      .hero h1{font-size:clamp(32px,7vw,64px);margin:10px 0 6px}
-      .lead{max-width:760px;color:#cdd1ee;line-height:1.55;margin:0}
+      h1{font-size:clamp(32px,7vw,64px);margin:8px 0}
+      .lead{max-width:760px;color:#cdd1ee;line-height:1.55}
 
-      /* Carousel */
-      .stage{
-        margin:22px auto 10px;
-        background:linear-gradient(180deg,#171a27,#0f121a);
+      /* Carousel rail */
+      .rail-wrap{position:relative;margin:22px 0 10px}
+      .rail{
+        display:flex; gap:14px; overflow-x:auto; padding-bottom:10px;
+        scroll-snap-type:x mandatory; scroll-padding:20px;
+        -webkit-overflow-scrolling:touch;
+      }
+      .rail::-webkit-scrollbar{height:10px}
+      .rail::-webkit-scrollbar-thumb{background:#ffffff22;border-radius:6px}
+      .card{
+        flex:0 0 auto; width:min(90vw, 520px);
+        background:linear-gradient(180deg,#171a27,#10131c);
         border:1px solid rgba(255,255,255,.08);
-        border-radius:var(--radius);
-        box-shadow:0 12px 50px rgba(0,0,0,.35);
-        overflow:hidden;
+        border-radius:var(--radius); overflow:hidden;
+        box-shadow:0 12px 40px rgba(0,0,0,.35);
+        scroll-snap-align:center;
       }
-      .viewport{position:relative}
-      .track{
-        display:flex; scroll-behavior:smooth; overflow:hidden;
-        will-change:transform;
+      .frame{
+        position:relative; aspect-ratio:16/9; background:#0c0f17;
       }
-      .slide{
-        min-width:100%; display:grid; place-items:center; background:#0c0f15;
+      .frame img{
+        position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+        display:block;
       }
-      .slide img{
-        width:100%; height:auto; max-height:78vh; object-fit:contain; display:block;
-        background:#0c0f15;
-      }
-      .navbtn{
-        position:absolute; top:50%; transform:translateY(-50%);
-        padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
-        background:rgba(18,21,34,.8); color:#fff; cursor:pointer;
-        box-shadow:0 10px 30px rgba(0,0,0,.45);
-      }
-      .prev{left:10px} .next{right:10px}
+      .meta{display:flex;justify-content:space-between;align-items:center;
+        padding:10px 12px;color:var(--muted);font-size:.95rem}
+      .open{padding:6px 10px;border-radius:10px;background:#ffffff10;border:1px solid #ffffff22}
+      .open:hover{background:#ffffff18}
 
-      /* Thumbnails */
-      .thumbbar{
-        display:flex; gap:10px; overflow:auto; padding:12px; scroll-snap-type:x mandatory;
-        background:linear-gradient(180deg,#121522,#0d0f16); border-top:1px solid rgba(255,255,255,.06);
+      /* Arrow buttons */
+      .arrow{
+        position:absolute; top:40%; translate:0 -50%; z-index:5;
+        width:42px; height:42px; border-radius:50%; border:1px solid #ffffff33;
+        background:#0b0d16bf; display:grid; place-items:center; cursor:pointer;
+        backdrop-filter:blur(4px);
       }
-      .thumb{
-        width:120px; height:72px; flex:0 0 auto; border-radius:10px; overflow:hidden;
-        border:1px solid rgba(255,255,255,.12); scroll-snap-align:center; opacity:.8; cursor:pointer;
-      }
-      .thumb[aria-current="true"]{outline:2px solid var(--accent); opacity:1}
-      .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+      .arrow:hover{background:#0b0d16}
+      .prev{left:-6px} .next{right:-6px}
 
       /* Lightbox */
       .lightbox{
-        position:fixed; inset:0; z-index:70; display:none; align-items:center; justify-content:center;
-        background:rgba(5,6,9,.9);
+        position: fixed; inset:0; z-index:100; display:none;
+        background: rgba(6,7,10,.86); backdrop-filter: blur(4px);
       }
-      .lightbox.open{display:flex}
-      .lb-img{max-width:96vw; max-height:92vh; object-fit:contain; box-shadow:0 10px 50px #000;}
-      .lb-close, .lb-prev, .lb-next{
-        position:fixed; top:16px; background:#1b2030cc; color:#fff; border:1px solid rgba(255,255,255,.18);
-        padding:10px 12px; border-radius:10px; cursor:pointer;
+      .lightbox.show{display:grid; place-items:center}
+      .lb-inner{position:relative; max-width:min(92vw,1200px); max-height:88dvh}
+      .lb-img{max-width:100%; max-height:88dvh; display:block; border-radius:14px; border:1px solid #ffffff22; box-shadow:0 20px 60px #0009}
+      .lb-close, .lb-left, .lb-right{
+        position:absolute; top:50%; translate:0 -50%;
+        width:48px; height:48px; border-radius:50%; border:1px solid #ffffff33;
+        background:#0b0d16cc; display:grid; place-items:center; cursor:pointer;
       }
-      .lb-close{right:16px}
-      .lb-prev{left:16px; top:50%; transform:translateY(-50%)}
-      .lb-next{right:16px; top:50%; transform:translateY(-50%)}
+      .lb-close{top:-20px; right:-20px; translate:0; background:#0b0d16cc}
+      .lb-left{left:-64px} .lb-right{right:-64px}
+      @media (max-width:780px){ .lb-left{left:-10px} .lb-right{right:-10px} .lb-close{right:10px; top:10px} }
 
-      footer{border-top:1px solid rgba(255,255,255,.08);color:var(--muted);padding:28px 0 56px;margin-top:24px}
-
-      @media (max-width:640px){
-        .thumb{width:92px;height:56px}
-      }
+      footer{border-top:1px solid rgba(255,255,255,.08);color:var(--muted);padding:28px 0 56px;margin-top:26px}
     </style>
   </head>
 
   <body>
-    <!-- Header -->
-    <header class="site">
-      <div class="wrap row">
-        <a class="brand" href="/">
-          <img src="/CapyGoldIcon.png" alt="ParkerPixie capybara icon" />
-          <span>ParkerPixie</span>
-        </a>
-        <nav aria-label="Main">
-          <ul>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/contact/">Contact</a></li>
-            <li><a href="/ParkerPixiePaws/">Paws</a></li>
-            <li><a href="/ParkerPixiePop/">Pop</a></li>
-          </ul>
-        </nav>
-        <a class="cta" href="/contact/">Say Hi</a>
-      </div>
-    </header>
-
-    <!-- Hero with visible image layer -->
-    <section class="hero">
-      <img class="hero-bg" src="/img/InfinityNikki.jpg" alt="" loading="eager" />
-      <div class="wrap inner">
-        <div class="eyebrow">Infinity Nikki</div>
-        <h1>Gallery</h1>
-        <p class="lead">Swipe or use arrows. Click any image to open full-screen.</p>
-      </div>
-    </section>
-
-    <!-- Carousel -->
-    <main class="wrap" style="margin-top:18px">
-      <div class="stage">
-        <div class="viewport">
-          <button class="navbtn prev" aria-label="Previous">◀</button>
-          <button class="navbtn next" aria-label="Next">▶</button>
-
-          <div id="track" class="track">
-            <!-- Slides injected by script; noscript fallback below -->
-          </div>
+    <div class="page">
+      <!-- Header -->
+      <header class="site">
+        <div class="wrap row">
+          <a class="brand" href="/">
+            <img src="/CapyGoldIcon.png" alt="ParkerPixie capybara icon" />
+            <span>ParkerPixie</span>
+          </a>
+          <nav aria-label="Main">
+            <ul>
+              <li><a href="/about/">About</a></li>
+              <li><a href="/contact/">Contact</a></li>
+              <li><a href="/ParkerPixiePaws/">Paws</a></li>
+              <li><a class="active" href="/ParkerPixiePop/">Pop</a></li>
+            </ul>
+          </nav>
+          <a class="cta" href="/contact/">Say Hi</a>
         </div>
-        <div id="thumbs" class="thumbbar" aria-label="Thumbnails"></div>
-      </div>
-    </main>
+      </header>
 
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-      <img id="lbimg" class="lb-img" alt="" />
-      <button id="lbClose" class="lb-close" aria-label="Close">Close ✕</button>
-      <button id="lbPrev" class="lb-prev" aria-label="Previous">◀</button>
-      <button id="lbNext" class="lb-next" aria-label="Next">▶</button>
+      <main class="wrap">
+        <section class="hero">
+          <div class="eyebrow">Infinity Nikki</div>
+          <h1>Outfits, photo ops, and glitter-goddess energy.</h1>
+          <p class="lead">Tap any shot to open it large. Drag/scroll the carousel, or use the arrows.</p>
+        </section>
+
+        <!-- Carousel -->
+        <section class="rail-wrap" aria-label="Infinity Nikki gallery">
+          <button class="arrow prev" type="button" aria-label="Previous">‹</button>
+          <div class="rail" id="rail">
+            {
+              shots.map((src, i) => (
+                <figure class="card">
+                  <a class="frame open" href={src} data-idx={i}>
+                    <img
+                      src={src}
+                      alt={`Infinity Nikki screenshot ${i+1}`}
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 600px) 90vw, 520px"
+                    />
+                  </a>
+                  <figcaption class="meta">
+                    <span>Shot {i+1} / {shots.length}</span>
+                    <span>Click to open</span>
+                  </figcaption>
+                </figure>
+              ))
+            }
+          </div>
+          <button class="arrow next" type="button" aria-label="Next">›</button>
+        </section>
+      </main>
+
+      <!-- Lightbox -->
+      <div class="lightbox" id="lb" aria-modal="true" role="dialog">
+        <div class="lb-inner">
+          <img id="lbImg" class="lb-img" alt="">
+          <button class="lb-left" id="lbLeft" aria-label="Previous">‹</button>
+          <button class="lb-right" id="lbRight" aria-label="Next">›</button>
+          <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+        </div>
+      </div>
+
+      <footer><div class="wrap">© {year} ParkerPixie · Sass · Shimmer · Sparkle</div></footer>
     </div>
 
-    <footer>
-      <div class="wrap">© {year} ParkerPixie · Sass · Shimmer · Sparkle</div>
-    </footer>
-
-    <!-- Build slides & wire interactions -->
     <script type="module">
-      // Exact filenames (case-sensitive)
-      const files = [
-        "Nikki01.JPG","Nikki02.JPG","Nikki03.JPG","Nikki04.jpeg",
-        "Nikki05.JPG","Nikki06.JPG","Nikki07.JPG","Nikki08.JPG",
-        "Nikki09.JPG","Nikki10.JPG","Nikki11.JPG","Nikki12.JPG",
-        "Nikki13.JPG","Nikki14.JPG","Nikki15.JPG","Nikki16.JPG",
-      ];
-      const base = "/img/"; // all images live under /public/img
+      const rail = document.getElementById('rail');
+      const prevBtn = document.querySelector('.prev');
+      const nextBtn = document.querySelector('.next');
 
-      const track = document.getElementById("track");
-      const thumbs = document.getElementById("thumbs");
-
-      // Build slides & thumbs
-      files.forEach((name, i) => {
-        const slide = document.createElement("figure");
-        slide.className = "slide";
-        slide.innerHTML = `<img src="${base}${name}" alt="Infinity Nikki ${i+1}" loading="${i<2?"eager":"lazy"}" decoding="async">`;
-        track.appendChild(slide);
-
-        const t = document.createElement("button");
-        t.className = "thumb";
-        t.setAttribute("type","button");
-        t.setAttribute("aria-label", `Go to image ${i+1}`);
-        t.innerHTML = `<img src="${base}${name}" alt="" loading="lazy" decoding="async">`;
-        t.addEventListener("click", () => go(i, true));
-        thumbs.appendChild(t);
-      });
-
-      const prevBtn = document.querySelector(".prev");
-      const nextBtn = document.querySelector(".next");
-
-      let idx = 0;
-      const total = files.length;
-
-      function updateThumbs(){
-        [...thumbs.children].forEach((el, i) => {
-          if(i===idx) el.setAttribute("aria-current","true");
-          else el.removeAttribute("aria-current");
-        });
-      }
-
-      function go(n, smooth=true){
-        idx = (n+total)%total;
-        track.style.scrollBehavior = smooth ? "smooth" : "auto";
-        track.scrollTo({ left: track.clientWidth * idx });
-        updateThumbs();
-      }
-
-      function next(){ go(idx+1); }
-      function prev(){ go(idx-1); }
-
-      nextBtn.addEventListener("click", next);
-      prevBtn.addEventListener("click", prev);
-      window.addEventListener("resize", () => go(idx, false));
-
-      // Keyboard
-      window.addEventListener("keydown", (e) => {
-        if (lb.open) {
-          if (e.key==="Escape") closeLb();
-          if (e.key==="ArrowRight") lbNext();
-          if (e.key==="ArrowLeft") lbPrev();
-          return;
-        }
-        if (e.key==="ArrowRight") next();
-        if (e.key==="ArrowLeft") prev();
-      });
-
-      // Drag / swipe
-      let startX=0, dragging=false;
-      track.addEventListener("pointerdown", (e)=>{ dragging=true; startX=e.clientX; track.setPointerCapture(e.pointerId); });
-      track.addEventListener("pointerup", (e)=>{
-        if(!dragging) return; dragging=false;
-        const dx = e.clientX - startX;
-        if (Math.abs(dx) > 40) (dx<0 ? next() : prev());
-      });
+      // Arrow scroll
+      const scrollByOne = (dir) => {
+        const card = rail.querySelector('.card');
+        const step = card ? card.clientWidth + 14 : 540;
+        rail.scrollBy({left: dir * step, behavior:'smooth'});
+      };
+      prevBtn.addEventListener('click', () => scrollByOne(-1));
+      nextBtn.addEventListener('click', () => scrollByOne(1));
 
       // Lightbox
-      const lb = {
-        el: document.getElementById("lightbox"),
-        img: document.getElementById("lbimg"),
-        open:false
-      };
-      function openLb(i){
-        idx = i;
-        lb.img.src = base + files[idx];
-        lb.el.classList.add("open");
-        lb.open = true;
-        updateThumbs();
-      }
-      function closeLb(){
-        lb.el.classList.remove("open");
-        lb.open = false;
-      }
-      function lbNext(){ idx=(idx+1)%total; lb.img.src = base + files[idx]; updateThumbs(); }
-      function lbPrev(){ idx=(idx-1+total)%total; lb.img.src = base + files[idx]; updateThumbs(); }
+      const lb = document.getElementById('lb');
+      const lbImg = document.getElementById('lbImg');
+      const left = document.getElementById('lbLeft');
+      const right = document.getElementById('lbRight');
+      const close = document.getElementById('lbClose');
 
-      document.getElementById("lbClose").addEventListener("click", closeLb);
-      document.getElementById("lbNext").addEventListener("click", lbNext);
-      document.getElementById("lbPrev").addEventListener("click", lbPrev);
-      document.getElementById("lightbox").addEventListener("click", (e)=>{ if(e.target.id==="lightbox") closeLb(); });
+      const sources = Array.from(document.querySelectorAll('.frame')).map(a => a.getAttribute('href'));
+      let idx = 0;
 
-      // Click to open lightbox
-      [...track.querySelectorAll("img")].forEach((img, i) => {
-        img.style.cursor = "zoom-in";
-        img.addEventListener("click", () => openLb(i));
+      function show(i){
+        idx = (i + sources.length) % sources.length;
+        const src = sources[idx];
+        lbImg.src = src;
+        lbImg.alt = "Infinity Nikki screenshot " + (idx+1);
+
+        // Preload neighbors (helps with big Steam JPGs)
+        [idx-1, idx+1].forEach(n=>{
+          const j=(n+sources.length)%sources.length;
+          const im=new Image(); im.src=sources[j];
+        });
+
+        lb.classList.add('show');
+        document.body.style.overflow='hidden';
+      }
+      function hide(){
+        lb.classList.remove('show');
+        document.body.style.overflow='';
+        lbImg.src = "";
+      }
+
+      document.querySelectorAll('.frame').forEach(a=>{
+        a.addEventListener('click', e=>{
+          e.preventDefault();
+          show(parseInt(a.dataset.idx,10));
+        });
       });
 
-      // Initialize
-      go(0, false);
-    </script>
+      left.addEventListener('click', ()=> show(idx-1));
+      right.addEventListener('click', ()=> show(idx+1));
+      close.addEventListener('click', hide);
+      lb.addEventListener('click', (e)=>{ if(e.target===lb) hide(); });
 
-    <!-- Noscript fallback (first image) -->
-    <noscript>
-      <style>.track,.thumbbar,.navbtn{display:none}</style>
-      <div class="wrap" style="margin-top:16px">
-        <img src="/img/Nikki01.JPG" alt="Infinity Nikki 1" style="width:100%;height:auto;display:block;border:1px solid rgba(255,255,255,.08);border-radius:18px" />
-      </div>
-    </noscript>
+      window.addEventListener('keydown', (e)=>{
+        if(!lb.classList.contains('show')) return;
+        if(e.key==='Escape') hide();
+        if(e.key==='ArrowLeft') show(idx-1);
+        if(e.key==='ArrowRight') show(idx+1);
+      });
+    </script>
   </body>
 </html>
