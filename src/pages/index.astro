@@ -1,7 +1,5 @@
 ---
-// src/pages/index.astro  (v5)
-// Standalone page — no imports, no Astro.glob, no layouts.
-// Safe: all CSS inline; assets loaded from /public
+// src/pages/index.astro
 const year = new Date().getFullYear();
 ---
 
@@ -11,135 +9,173 @@ const year = new Date().getFullYear();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
-    <meta
-      name="description"
-      content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨"
-    />
+    <meta name="description" content="I stitch joy into amigurumi, decorate digital worlds, and build playful systems that make life feel a little more magical." />
     <link rel="icon" href="/CapyGoldIcon.png" />
 
     <style>
-      :root{--bg:#0b0b10;--card:#111119;--ink:#f7f7fb;--muted:#bcb9cd;--accent:#d6b36b;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03)}
-      *{box-sizing:border-box} html,body{height:100%}
-      body{
-        margin:0;color:var(--ink);
-        background:
-          radial-gradient(1200px 600px at 10% -10%, rgba(180,121,255,.12), transparent 60%),
-          radial-gradient(1000px 500px at 90% 10%, rgba(214,179,107,.10), transparent 60%),
-          radial-gradient(800px 800px at 50% 120%, rgba(180,121,255,.08), transparent 60%),var(--bg);
-        font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial
+      :root{
+        --bg:#0b0b10;
+        --ink:#f6f6fb;
+        --muted:#c7c5d6;
+        --card:#111119;
+        --chip:#262337;
+        --chip-ring:#6b4cff;
+        --chip-text:#e8ddff;
+        --gold:#d6b36b;
+        --lilac:#7d5cff;
+        --lilac-2:#9b7dff;
+        --radius:20px;
       }
-      .wrap{max-width:1100px;margin:0 auto;padding:28px 20px 80px}
-      /* Header */
-      header.site{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0 6px}
-      .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
-      .brand img{width:40px;height:40px;object-fit:contain;border-radius:10px;filter:drop-shadow(0 4px 12px rgba(214,179,107,.35))}
-      .brand .name{font-weight:800;letter-spacing:.4px}
-      nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
-      nav a{color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px;border:1px solid transparent}
-      nav a:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08)}
-      /* Hero */
-      .hero{margin-top:18px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
-      @media (max-width:900px){.hero{grid-template-columns:1fr}}
-      .card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}
-      h1{margin:.2rem 0 0;font-size:clamp(28px,4.2vw,48px);line-height:1.1}
-      .lede{color:var(--muted);margin:12px 0 20px}
-      .actions{display:flex;gap:12px;flex-wrap:wrap}
-      .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);text-decoration:none;color:var(--ink);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
-      .btn.primary{background:linear-gradient(180deg,rgba(180,121,255,.25),rgba(180,121,255,.10));border-color:rgba(180,121,255,.4);color:#f7ecff;box-shadow:0 0 0 2px rgba(180,121,255,.12)}
-      /* Grid (4 cards: About, Blog, Capybara, Paws) */
-      .grid{margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-      @media (max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
-      @media (max-width:650px){.grid{grid-template-columns:1fr}}
-      .pill .hd{font-weight:800;font-size:20px;margin:0 0 6px}
-      .pill p{color:var(--muted);margin:0 0 14px}
-      .chip{display:inline-block;background:#1a1a24;border:1px solid rgba(255,255,255,.08);padding:6px 10px;border-radius:999px;font-size:12px;color:#d7d5e6;margin-right:6px;margin-bottom:6px}
-      footer{margin-top:32px;color:#d0cee1;opacity:.85}
-      .mini{font-size:12px;color:#a9a8bb}
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0; color:var(--ink);
+        background:
+          radial-gradient(1200px 600px at 10% -10%, rgba(155,125,255,.15), transparent 60%),
+          radial-gradient(900px 600px at 95% 0%, rgba(214,179,107,.12), transparent 60%),
+          radial-gradient(900px 900px at 50% 120%, rgba(140,120,255,.10), transparent 60%),
+          var(--bg);
+        font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        -webkit-font-smoothing:antialiased;
+      }
+
+      .wrap{max-width:1200px; margin:0 auto; padding:22px 20px 80px}
+
+      /* Header --------------------------------------------------------- */
+      header.site{
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+        padding:10px 0 6px;
+      }
+      .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink)}
+      .brand img{width:34px; height:34px; object-fit:contain; border-radius:10px; filter:drop-shadow(0 3px 10px rgba(214,179,107,.35))}
+      .brand .name{font-weight:800; letter-spacing:.3px}
+
+      nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; align-items:center}
+      nav a{color:#e9e7f7; text-decoration:none}
+      nav a:hover{opacity:.85}
+      .contact{
+        display:inline-flex; align-items:center; padding:8px 16px; border-radius:999px;
+        background:linear-gradient(180deg, rgba(214,179,107,.18), rgba(214,179,107,.08));
+        border:1px solid rgba(214,179,107,.45);
+        color:#fff2cf; box-shadow:0 0 0 2px rgba(214,179,107,.08);
+      }
+
+      /* Hero ----------------------------------------------------------- */
+      .hero{
+        margin-top:12px;
+        display:grid; grid-template-columns: 1.05fr .95fr; gap:28px; align-items:start;
+      }
+      @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+
+      .lead h1{margin:0 0 10px; font-size:clamp(22px, 3.2vw, 28px); font-weight:600; color:#efeefe}
+      .big{font-size:clamp(28px, 5vw, 36px); font-weight:700; margin:.2rem 0 1.1rem}
+      .chips{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0 16px}
+      .chip{
+        display:inline-flex; align-items:center; gap:8px; padding:12px 16px;
+        border-radius:14px; text-decoration:none; color:var(--chip-text);
+        background:radial-gradient(120% 120% at 0% 0%, rgba(125,92,255,.35), rgba(125,92,255,.2) 40%, rgba(125,92,255,.12) 70%, rgba(125,92,255,.08) 100%),
+                   linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        border:1px solid rgba(123,99,255,.45);
+        box-shadow:0 0 0 2px rgba(123,99,255,.12), inset 0 1px 0 rgba(255,255,255,.05);
+      }
+      .tagline{margin:10px 0 8px; color:#dddaf0; font-style:italic}
+      .heroimg{
+        background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:22px; padding:10px; box-shadow:0 10px 30px rgba(0,0,0,.35);
+      }
+      .heroimg img{width:100%; height:auto; display:block; border-radius:16px}
+
+      /* Cards ---------------------------------------------------------- */
+      .lanes{margin-top:28px; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+      @media (max-width:1100px){ .lanes{grid-template-columns:1fr} }
+
+      .card{
+        background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+        border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:22px;
+        box-shadow:0 10px 28px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.04);
+      }
+      .eyebrow{color:#a9a5c6; text-transform:uppercase; letter-spacing:.2px; font-size:12px; margin-bottom:6px}
+      .title{font-size:20px; font-weight:800; margin:0 0 6px}
+      .desc{color:#cfcde3; margin:0 0 14px}
+      .btn{
+        display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
+        text-decoration:none; color:#f5edff;
+        background:linear-gradient(180deg, rgba(125,92,255,.28), rgba(125,92,255,.12));
+        border:1px solid rgba(125,92,255,.45); box-shadow:0 0 0 2px rgba(125,92,255,.12);
+      }
+
+      /* Footer --------------------------------------------------------- */
+      footer{margin-top:34px; color:#bdbad4; font-size:12px}
     </style>
   </head>
 
   <body>
     <div class="wrap">
-      <!-- Header: keep your original nav -->
-      <header class="site" role="banner" aria-label="Site header">
+      <!-- Header -->
+      <header class="site" role="banner">
         <a class="brand" href="/" aria-label="ParkerPixie Home">
           <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
-          <div>
-            <div class="name">ParkerPixie</div>
-            <small style="color:#cfcde0">Sass · Shimmer · Sparkle</small>
-          </div>
+          <span class="name">ParkerPixie</span>
         </a>
-        <nav aria-label="Primary">
+        <nav aria-label="Main">
           <ul>
-            <li><a href="/about/">Who is ParkerPixie</a></li>
+            <li><a href="/about/">About</a></li>
             <li><a href="/blog/">Blog</a></li>
-            <li><a href="/capybara/">What’s with the Capybara</a></li>
+            <li><a class="contact" href="/contact/">Contact</a></li>
           </ul>
         </nav>
       </header>
 
       <!-- Hero -->
-      <section class="hero" role="region" aria-label="Intro">
-        <div class="card">
-          <h1>ParkerPixie</h1>
-          <p class="lede">Sass · Shimmer · Sparkle — a cozy blend of design, streaming, and capybara calm.</p>
-          <div class="actions">
-            <a class="btn primary" href="/blog/">Read the Blog</a>
-            <a class="btn" href="/about/">Meet ParkerPixie</a>
-            <a class="btn" href="/capybara/">Why Capybaras?</a>
+      <section class="hero" aria-label="Intro">
+        <div class="lead">
+          <h1>I stitch joy into amigurumi 🧶, decorate digital worlds, and build</h1>
+          <div class="big">playful systems that make life feel a little more magical.</div>
+
+          <div class="chips" role="navigation" aria-label="Quick links">
+            <a class="chip" href="/about/">Who is ParkerPixie</a>
+            <a class="chip" href="/blog/">Blog</a>
+            <a class="chip" href="/capybara/">What’s with the Capybara?</a>
           </div>
+
+          <div class="tagline">“Sass, Shimmer, Sparkle”—and a whole lot of heart.</div>
         </div>
 
-        <div class="card" aria-label="Hero image card">
-          <!-- exact filename you showed in repo -->
-          <img
-            src="/hero.jpg"
-            alt="ParkerPixie hero image"
-            style="width:100%;height:auto;border-radius:14px;display:block;"
-          />
-          <p class="mini" style="margin-top:10px">Welcome in—make yourself cozy.</p>
+        <div class="heroimg" aria-label="Hero image">
+          <!-- EXACT file per your repo -->
+          <img src="/hero.jpg" alt="Parker knitting with laptop and Steam Deck by the lake" />
         </div>
       </section>
 
-      <!-- Cards -->
-      <section class="grid" role="region" aria-label="Site sections">
-        <article class="card pill">
-          <h2 class="hd">Who is ParkerPixie</h2>
-          <p>Backstory, ethos, and the glittery why behind the vibe.</p>
-          <p><a class="btn" href="/about/">Learn more →</a></p>
+      <!-- Three lanes -->
+      <section class="lanes" aria-label="ParkerPixie lanes">
+        <!-- Paws -->
+        <article class="card">
+          <div class="eyebrow">Paws</div>
+          <h2 class="title">ParkerPixiePaws</h2>
+          <p class="desc">Amigurumi, capybaras, care guides, commissions, and cozy drops.</p>
+          <p><a class="btn" href="/parkerpixiepaws/">Enter the Paws Studio →</a></p>
         </article>
 
-        <article class="card pill">
-          <h2 class="hd">Blog</h2>
-          <p>Essays, updates, and sparkly notes from the road.</p>
-          <p><a class="btn" href="/blog/">Go to blog →</a></p>
+        <!-- Pop -->
+        <article class="card">
+          <div class="eyebrow">Pop</div>
+          <h2 class="title">ParkerPixiePop</h2>
+          <p class="desc">Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p>
+          <p><a class="btn" href="/pop/">See Pop Projects →</a></p>
         </article>
 
-        <article class="card pill">
-          <h2 class="hd">What’s with the Capybara</h2>
-          <p>Spirit animal, grounding energy, and the Bejeweled alter-ego.</p>
-          <p><a class="btn" href="/capybara/">Read the story →</a></p>
-        </article>
-
-        <!-- Paws (keep the card you already have) -->
-        <article class="card pill">
-          <h2 class="hd">Paws</h2>
-          <p>Amigurumi commissions, care guides, and WIPs—soft, celestial, capy-coded.</p>
-          <div>
-            <span class="chip">Amigurumi</span>
-            <span class="chip">Care Cards</span>
-            <span class="chip">Commissions</span>
-          </div>
-          <p style="margin-top:12px">
-            <a class="btn" href="/parkerpixiepaws/">Enter the Paws Studio →</a>
-          </p>
+        <!-- Pixel -->
+        <article class="card">
+          <div class="eyebrow">Pixel</div>
+          <h2 class="title">ParkerPixiePixel</h2>
+          <p class="desc">Design experiments, printables, and tiny tools that make life easier.</p>
+          <p><a class="btn" href="/pixel/">Peek at Pixels →</a></p>
         </article>
       </section>
 
-      <footer role="contentinfo" style="margin-top:18px">
-        <div class="mini">© {year} ParkerPixie • Made with capybara calm &amp; bejeweled sparkle</div>
-      </footer>
+      <footer>© {year} ParkerPixie — Made with capybara calm & bejeweled sparkle</footer>
     </div>
   </body>
 </html>
-
