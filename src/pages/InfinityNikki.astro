@@ -1,9 +1,8 @@
 ---
 /*
-  InfinityNikki.astro — full file
-  CHANGES IN THIS VERSION:
-   • gallery src paths now use /img/ (no /nikki/ subfolder)
-   • Nikki11 has a double dot in filename, matched exactly
+  InfinityNikki.astro — your version + two fixes
+  FIX 1: card images use natural aspect ratio (no cropping)
+  FIX 2: lightbox click works; fallback opens image in a new tab if <dialog> isn't supported
 */
 
 const pageTitle = "Infinity Nikki — ParkerPixie";
@@ -103,12 +102,17 @@ const gallery = [
 
       .card{position:relative;overflow:clip;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08)}
       .card a{display:block;line-height:0;text-decoration:none;color:inherit}
+
+      /* FIX 1: natural aspect ratio (remove forced crop) */
       .card img{
-        width:100%;height:auto;display:block;
-        aspect-ratio: 4/5; object-fit: cover;
+        width:100%;
+        height:auto;           /* keep original height ratio */
+        display:block;
+        /* removed: aspect-ratio and object-fit */
         filter: saturate(1.02) contrast(1.03);
         image-rendering:-webkit-optimize-contrast;
       }
+
       .card:hover::after{
         content:"";position:absolute;inset:0;border-radius:16px;
         box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ring) 55%, transparent);
@@ -188,22 +192,35 @@ const gallery = [
       const lbCap = document.getElementById('lb-caption');
       const btnClose = document.getElementById('lb-close');
 
+      // FIX 2: click opens large; fallback to new tab if <dialog> unsupported
       document.addEventListener('click', (e) => {
         const a = e.target.closest('a.thumb');
         if (!a) return;
         e.preventDefault();
-        lbImg.src = a.getAttribute('href');
-        lbImg.alt = a.dataset.alt || "";
-        lbCap.textContent = a.dataset.alt || "Infinity Nikki";
-        dlg.showModal();
+
+        const href = a.getAttribute('href');
+        const caption = a.dataset.alt || "Infinity Nikki";
+
+        if (dlg && typeof dlg.showModal === 'function') {
+          lbImg.src = href;
+          lbImg.alt = caption;
+          lbCap.textContent = caption;
+          dlg.showModal();
+        } else {
+          // fallback (older Safari, etc.)
+          window.open(href, '_blank');
+        }
       });
+
       btnClose?.addEventListener('click', () => dlg.close());
       dlg?.addEventListener('click', (e) => {
         const r = dlg.getBoundingClientRect();
         const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
         if (!inside) dlg.close();
       });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dlg.open) dlg.close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dlg?.open) dlg.close();
+      });
     </script>
   </body>
 </html>
