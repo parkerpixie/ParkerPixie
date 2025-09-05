@@ -1,7 +1,6 @@
 ---
 /* No frontmatter needed */
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,27 +21,42 @@
       img{max-width:100%;height:auto;display:block}
       .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
 
-      /* Header (matches index) */
-      header{position:sticky;top:0;z-index:50;background:rgba(15,11,20,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+      /* HEADER — matches index/about */
+      header{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter:blur(10px);
+        background:linear-gradient(to bottom, rgba(15,11,20,.85), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
       .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
       .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
       .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
-      .brand span{font-size:18px}
-      .links{display:flex;gap:16px}
-      .links a{padding:8px 12px;border-radius:12px;transition:.2s ease}
-      .links a:hover{background:rgba(255,255,255,.07)}
-      .links a.cta{background:linear-gradient(135deg,var(--brand),var(--brand-deep));box-shadow:0 8px 30px rgba(138,93,255,.35)}
-      .links a.cta:hover{transform:translateY(-1px)}
+      .brand span{font-size:18px;color:var(--gold)}
+      .nav-right{display:flex;align-items:center;gap:14px}
+      .nav-link{
+        padding:.55rem .2rem; border-radius:8px; opacity:.92;
+        transition:opacity .15s ease,color .15s ease,background .15s ease;
+      }
+      .nav-link:hover{opacity:1;color:var(--gold)}
+      .nav-btn{
+        padding:.6rem .9rem; border-radius:999px; font-weight:600;
+        border:1px solid rgba(255,255,255,.18);
+        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+        box-shadow:0 8px 24px rgba(75,47,181,.35);
+      }
+      .nav-btn:hover{filter:brightness(1.06)}
 
       /* Layout */
       .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:stretch;margin-top:28px}
       @media (max-width:900px){.hero{grid-template-columns:1fr;gap:20px}}
-      .card{background:radial-gradient(1000px 360px at -10% -10%, rgba(216,170,59,.08), transparent),var(--card);
-        border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+      .card{
+        background:radial-gradient(1000px 360px at -10% -10%, rgba(216,170,59,.08), transparent),var(--card);
+        border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35)
+      }
       h1{margin:.35rem 0 .6rem;font-size:clamp(28px,4.5vw,44px);line-height:1.05}
       p.lede{font-size:clamp(15px,2.4vw,18px);color:#e8e2ff;opacity:.95;margin:8px 0 18px}
       .list{display:flex;flex-direction:column;gap:10px;margin:18px 0}
-      .item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#1b1527}
+      .item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:#1b1527}
       .item:hover{box-shadow:0 0 0 3px rgba(138,93,255,.25)}
       .tag{font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:4px 8px;border-radius:999px}
       .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--brand),var(--brand-deep));box-shadow:0 8px 30px rgba(138,93,255,.35);cursor:pointer}
@@ -63,9 +77,10 @@
           <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
           <span>ParkerPixie</span>
         </a>
-        <nav class="links">
-          <a href="/about">About</a>
-          <a class="cta" href="/contact">Contact</a>
+        <nav class="nav-right" aria-label="Primary">
+          <a class="nav-link" href="/about/">About</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-btn" href="/contact/">Contact</a>
         </nav>
       </div>
     </header>
@@ -106,14 +121,15 @@
           </div>
 
           <p style="margin-top:14px">
-            Prefer email? Click this big friendly button → 
+            Prefer email? Click this big friendly button →
             <a class="btn" href="mailto:ParkerPixieDust@gmail.com">Email ParkerPixie</a>
           </p>
         </div>
 
         <!-- Right: image -->
         <figure>
-          <img src="/ParkerPaws.jpg" alt="ParkerPixie with amigurumi creations" />
+          <!-- Uses your public asset name; swap to .png if needed -->
+          <img src="/ParkerPawsPic.jpg" alt="ParkerPixie with amigurumi creations" onerror="this.src='/ParkerPawsPic.png'" />
         </figure>
       </section>
 
