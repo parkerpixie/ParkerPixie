@@ -1,119 +1,244 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
-    <meta name="description" content="ParkerPixie — cozy crochet, playful gaming, and glittery life updates. Sass · Shimmer · Sparkle ✨" />
-    <link rel="icon" href="/CapyGoldIcon.png" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
+  <meta name="description" content="ParkerPixie—cozy crochet (Paws), playful pop persona (Pop), and pixel-perfect tinkering (Pixel). Sass · Shimmer · Sparkle ✨" />
+  <link rel="icon" href="/CapyGoldIcon.png" />
 
-    <style>
-      /* RESET */
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+  <!-- Fonts (system stack for speed) -->
+  <style>
+    :root{
+      --bg:#0a0a0f;
+      --ink:#f7f7fb;
+      --muted:#b8b6c9;
+      --accent:#d6b36b;          /* gold */
+      --accent-2:#b479ff;        /* lilac shimmer */
+      --chip:#1a1a24;
+      --card:#111119;
+      --ring:rgba(214,179,107,.45);
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+    }
 
-      body {
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        background: #000;
-        color: #fff;
-        line-height: 1.6;
-      }
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--ink);
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(180,121,255,.12), transparent 60%),
+                  radial-gradient(1000px 500px at 90% 10%, rgba(214,179,107,.10), transparent 60%),
+                  radial-gradient(800px 800px at 50% 120%, rgba(180,121,255,.08), transparent 60%),
+                  var(--bg);
+      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
 
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        background: rgba(0,0,0,0.8);
-        border-bottom: 1px solid gold;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-      }
+    /* Subtle animated stars */
+    .stars::before, .stars::after{
+      content:"";
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.6) 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 70% 40%, rgba(255,255,255,.5) 50%, transparent 51%),
+        radial-gradient(1.8px 1.8px at 40% 75%, rgba(255,255,255,.45) 50%, transparent 51%),
+        radial-gradient(1.2px 1.2px at 85% 70%, rgba(255,255,255,.5) 50%, transparent 51%);
+      opacity:.35;
+      animation: drift 22s linear infinite;
+    }
+    .stars::after{
+      animation-duration: 38s;
+      opacity:.22;
+      filter:blur(.3px);
+    }
+    @keyframes drift{ from{transform:translateY(0)} to{transform:translateY(-80px)} }
 
-      header .logo {
-        display: flex;
-        align-items: center;
-        font-size: 1.3rem;
-        font-weight: bold;
-        color: gold;
-        text-decoration: none;
-      }
+    /* Layout */
+    .wrap{max-width:1100px; margin:0 auto; padding:28px 20px 80px}
+    header.site{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:14px 0 6px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+    .brand img{
+      width:40px; height:40px; object-fit:contain; border-radius:10px;
+      filter: drop-shadow(0 4px 12px rgba(214,179,107,.35));
+    }
+    .brand .name{font-weight:800; letter-spacing:.4px}
+    .brand .tag{display:block; color:var(--muted); font-size:12px; margin-top:-2px}
 
-      header .logo img {
-        height: 28px;
-        width: 28px;
-        margin-right: 8px;
-      }
+    nav ul{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
+    nav a{
+      color:var(--ink); text-decoration:none; padding:8px 12px; border-radius:999px;
+      background:transparent; outline:none; border:1px solid transparent;
+    }
+    nav a:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08)}
+    nav a.cta{
+      background: linear-gradient(180deg, rgba(214,179,107,.18), rgba(214,179,107,.08));
+      border:1px solid var(--ring);
+      box-shadow: 0 0 0 2px rgba(214,179,107,.08), var(--shadow);
+      color:#ffe9b0;
+    }
 
-      nav ul {
-        list-style: none;
-        display: flex;
-        gap: 1.5rem;
-      }
+    /* Hero */
+    .hero{
+      margin-top:18px;
+      display:grid; grid-template-columns:1.1fr .9fr; gap:24px;
+    }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr} }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:26px;
+    }
+    .eyebrow{color:var(--accent-2); font-weight:700; letter-spacing:.2px; text-transform:uppercase; font-size:12px}
+    h1{margin:.2rem 0 0; font-size:clamp(28px, 4.2vw, 48px); line-height:1.1}
+    .lede{color:var(--muted); margin:12px 0 20px}
+    .actions{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.12); text-decoration:none; color:var(--ink);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .btn.primary{
+      background:linear-gradient(180deg, rgba(180,121,255,.25), rgba(180,121,255,.10));
+      border-color:rgba(180,121,255,.4); color:#f7ecff;
+      box-shadow: 0 0 0 2px rgba(180,121,255,.12);
+    }
+    .btn.gold{
+      background:linear-gradient(180deg, rgba(214,179,107,.25), rgba(214,179,107,.10));
+      border-color:var(--ring); color:#fff2ce;
+      box-shadow: 0 0 0 2px rgba(214,179,107,.12);
+    }
 
-      nav a {
-        text-decoration: none;
-        color: #fff;
-        font-weight: 500;
-        transition: color 0.2s ease;
-      }
+    /* Three pillars */
+    .grid{
+      margin-top:26px;
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;
+    }
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+    .pill .hd{font-weight:800; font-size:20px; margin:0 0 6px}
+    .pill p{color:var(--muted); margin:0 0 14px}
+    .chip{display:inline-block; background:var(--chip); border:1px solid rgba(255,255,255,.08); padding:6px 10px; border-radius:999px; font-size:12px; color:#d7d5e6; margin-right:6px; margin-bottom:6px}
 
-      nav a:hover {
-        color: gold;
-      }
+    /* Footer */
+    footer{margin-top:32px; color:#d0cee1; opacity:.85}
+    footer .row{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .socials{display:flex; gap:10px; flex-wrap:wrap}
+    .socials a{color:#e7e5f5; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.25)}
+    .mini{font-size:12px; color:#a9a8bb}
+    @media (prefers-reduced-motion: reduce){
+      .stars::before, .stars::after{animation:none}
+    }
+  </style>
+</head>
 
-      .hero {
-        text-align: center;
-        padding: 6rem 2rem;
-        background: url('/bg/cotton-candy.jpg') center/cover no-repeat;
-      }
-
-      .hero h1 {
-        font-size: 3rem;
-        color: gold;
-        text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-        margin-bottom: 1rem;
-      }
-
-      .hero p {
-        font-size: 1.2rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      footer {
-        text-align: center;
-        padding: 2rem;
-        border-top: 1px solid gold;
-        margin-top: 4rem;
-        font-size: 0.9rem;
-        opacity: 0.8;
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <a href="/" class="logo">
-        <img src="/CapyGoldIcon.png" alt="Capybara Logo" />
-        ParkerPixie
+<body class="stars">
+  <div class="wrap">
+    <!-- Header -->
+    <header class="site" role="banner" aria-label="Site header">
+      <a class="brand" href="/" aria-label="ParkerPixie Home">
+        <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
+        <div>
+          <div class="name">ParkerPixie</div>
+          <small class="tag">Sass · Shimmer · Sparkle</small>
+        </div>
       </a>
-      <nav>
+
+      <nav aria-label="Primary">
         <ul>
+          <li><a href="/">Home</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/contact/">Contact</a></li>
-          <li><a href="/blog/">Blog</a></li>
+          <li><a class="cta" href="/parkerpixiepaws/">ParkerPixiePaws</a></li>
         </ul>
       </nav>
     </header>
 
-    <section class="hero">
-      <h1>Welcome to ParkerPixie</h1>
-      <p>Sass · Shimmer · Sparkle ✨ — Cozy crochet, glittery gaming, and unapologetic healing.</p>
+    <!-- Hero -->
+    <section class="hero" role="region" aria-label="Intro">
+      <div class="card">
+        <div class="eyebrow">Bienvenue à la Boutique</div>
+        <h1>Cozy crochet, pop persona, pixel tinkering.</h1>
+        <p class="lede">
+          I’m Parker—designer, streamer, capybara devotee. Three lanes, one glittering highway:
+          <strong>Paws</strong> (amigurumi &amp; handmade), <strong>Pop</strong> (gaming &amp; streaming),
+          and <strong>Pixel</strong> (web &amp; brand play).
+        </p>
+        <div class="actions">
+          <a class="btn gold" href="/parkerpixiepaws/">Explore ParkerPixiePaws →</a>
+          <a class="btn" href="/blog/">Read the Blog</a>
+        </div>
+      </div>
+
+      <div class="card" aria-label="Hero image card">
+        <!-- Swap this image if you have a dedicated hero asset -->
+        <img src="/ParkerPawsPic.jpg" alt="Amigurumi and sparkly tools on a dark desk" style="width:100%; height:auto; border-radius:14px; display:block;" />
+        <p class="mini" style="margin-top:10px">
+          New: ParkerPixiePaws—custom plushies, care guides, and cozy commissions.
+        </p>
+      </div>
     </section>
 
-    <footer>
-      © 2025 ParkerPixie · Made with Shimmer ✨
+    <!-- Three pillars -->
+    <section class="grid" role="region" aria-label="Site pillars">
+      <article class="card pill">
+        <h2 class="hd">Paws</h2>
+        <p>Amigurumi commissions, care guides, and behind-the-scenes WIPs. Soft, celestial, capy-coded.</p>
+        <div>
+          <span class="chip">Amigurumi</span>
+          <span class="chip">Care Cards</span>
+          <span class="chip">Commissions</span>
+        </div>
+        <p style="margin-top:12px"><a class="btn primary" href="/parkerpixiepaws/">Enter the Paws Studio →</a></p>
+      </article>
+
+      <article class="card pill">
+        <h2 class="hd">Pop</h2>
+        <p>Streaming cozy fashion vibes in Dreamlight Valley &amp; Infinity Nikki. Parisian boutique meets glitter.</p>
+        <div>
+          <span class="chip">Twitch</span>
+          <span class="chip">DLV Looks</span>
+          <span class="chip">Infinity Nikki</span>
+        </div>
+        <p style="margin-top:12px"><a class="btn" href="/pop/">See Pop Projects →</a></p>
+      </article>
+
+      <article class="card pill">
+        <h2 class="hd">Pixel</h2>
+        <p>Web experiments, brand polish, and little UX niceties that sparkle without blinding.</p>
+        <div>
+          <span class="chip">Astro</span>
+          <span class="chip">Notion</span>
+          <span class="chip">Canva</span>
+        </div>
+        <p style="margin-top:12px"><a class="btn" href="/pixel/">Peek at Pixels →</a></p>
+      </article>
+    </section>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+      <div class="row" style="margin-top:18px">
+        <div class="socials">
+          <!-- Replace with your actual handles/links -->
+          <a href="https://twitch.tv/ParkerPixieDust" target="_blank" rel="noopener">Twitch</a>
+          <a href="https://instagram.com/parkerpixiedust" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener">Discord</a>
+          <a href="mailto:parker@parkerpixie.com">Email</a>
+        </div>
+        <div class="mini">© <span id="y"></span> ParkerPixie • Made with capybara calm &amp; bejeweled sparkle</div>
+      </div>
     </footer>
-  </body>
+  </div>
+
+  <script>
+    // Year stamp
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
