@@ -1,24 +1,32 @@
 ---
 /*
-  InfinityNikki.astro — v2 tweaks
-  - Strong background mute via ::before overlay + blur
-  - 2-column large cards (1-col on mobile)
-  - Higher text contrast + legible font stack
-  - NOTE: Netlify is case-sensitive. Filenames must match exactly.
+  InfinityNikki.astro — full file
+  ONLY CHANGES:
+   1) gallery array uses your exact filenames
+   2) .gallery-wrap widened (max-width + padding)
 */
 
 const pageTitle = "Infinity Nikki — ParkerPixie";
 const pageDesc  = "A living gallery of shimmer looks. Ethereal, glam, and unapologetically Parker.";
 
+// EXACT FILENAMES (case + extension)
 const gallery = [
-  // 🔊 Replace with your real files from /public/img/nikki/
-  // Make sure the names & extensions match EXACTLY (case-sensitive).
-  { src: "/img/nikki/look-01.jpg", alt: "Celestial gown with star-kissed veil" },
-  { src: "/img/nikki/look-02.jpg", alt: "Iridescent cape with pearl boots" },
-  { src: "/img/nikki/look-03.jpg", alt: "Goth-luxe corset, glimmer skirt" },
-  { src: "/img/nikki/look-04.jpg", alt: "Pastel streetwear with charm bag" },
-  { src: "/img/nikki/look-05.jpg", alt: "Opal armor, chiffon sleeves" },
-  { src: "/img/nikki/look-06.jpg", alt: "Rose quartz set, ribbon heels" },
+  { src: "/img/nikki/Nikki01.JPG", alt: "Nikki01" },
+  { src: "/img/nikki/Nikki02.JPG", alt: "Nikki02" },
+  { src: "/img/nikki/Nikki03.JPG", alt: "Nikki03" },
+  { src: "/img/nikki/Nikki04.jpeg", alt: "Nikki04" }, // jpeg (lowercase)
+  { src: "/img/nikki/Nikki05.JPG", alt: "Nikki05" },
+  { src: "/img/nikki/Nikki06.JPG", alt: "Nikki06" },
+  { src: "/img/nikki/Nikki07.JPG", alt: "Nikki07" },
+  { src: "/img/nikki/Nikki08.JPG", alt: "Nikki08" },
+  { src: "/img/nikki/Nikki09.JPG", alt: "Nikki09" },
+  { src: "/img/nikki/Nikki10.JPG", alt: "Nikki10" },
+  { src: "/img/nikki/Nikki11.JPG", alt: "Nikki11" },
+  { src: "/img/nikki/Nikki12.JPG", alt: "Nikki12" },
+  { src: "/img/nikki/Nikki13.JPG", alt: "Nikki13" },
+  { src: "/img/nikki/Nikki14.JPG", alt: "Nikki14" },
+  { src: "/img/nikki/Nikki15.JPG", alt: "Nikki15" },
+  { src: "/img/nikki/Nikki16.JPG", alt: "Nikki16" },
 ];
 ---
 
@@ -92,8 +100,12 @@ const gallery = [
       .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
       .chip{background:linear-gradient(180deg,var(--chip),var(--chip-2));border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:8px 12px;font-size:.9rem;color:var(--muted)}
 
-      /* Gallery — BIGGER: 1-col mobile → 2-col >= 720px */
-      .gallery-wrap{max-width:1100px;margin:18px auto 44px;padding:0 20px 44px}
+      /* Gallery — 1-col mobile → 2-col >= 720px */
+      .gallery-wrap{
+        max-width: 1400px;      /* widened */
+        margin: 18px auto 44px;
+        padding: 0 16px 44px;   /* narrower side padding */
+      }
       .grid{display:grid;gap:14px;grid-template-columns:1fr}
       @media (min-width:720px){ .grid{grid-template-columns:1fr 1fr} }
 
@@ -103,7 +115,6 @@ const gallery = [
         width:100%;height:auto;display:block;
         aspect-ratio: 4/5; object-fit: cover;
         filter: saturate(1.02) contrast(1.03);
-        /* improve perceived sharpness on dark bg */
         image-rendering:-webkit-optimize-contrast;
       }
       .card:hover::after{
@@ -182,7 +193,7 @@ const gallery = [
     </div>
 
     <script is:inline>
-      // Lightbox behavior
+      // Lightbox behavior (unchanged)
       const dlg = document.getElementById('lb');
       const lbImg = document.getElementById('lb-img');
       const lbCap = document.getElementById('lb-caption');
