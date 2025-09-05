@@ -1,7 +1,6 @@
 ---
 /* Who is ParkerPixie — timeline layout in site theme */
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,17 +23,30 @@
       img{max-width:100%;height:auto;display:block}
       .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
 
-      /* Header (matches index) */
-      header{position:sticky;top:0;z-index:50;background:rgba(15,11,20,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+      /* HEADER — matches index */
+      header{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter:blur(10px);
+        background:linear-gradient(to bottom, rgba(15,11,20,.85), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
       .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
       .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
       .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
-      .brand span{font-size:18px}
-      .links{display:flex;gap:16px}
-      .links a{padding:8px 12px;border-radius:12px;transition:.2s ease}
-      .links a:hover{background:rgba(255,255,255,.07)}
-      .links a.cta{background:linear-gradient(135deg,var(--brand),var(--brand-deep));box-shadow:0 8px 30px rgba(138,93,255,.35)}
-      .links a.cta:hover{transform:translateY(-1px)}
+      .brand span{font-size:18px;color:var(--gold)}
+      .nav-right{display:flex;align-items:center;gap:14px}
+      .nav-link{
+        padding:.55rem .2rem; border-radius:8px; opacity:.92;
+        transition:opacity .15s ease,color .15s ease,background .15s ease;
+      }
+      .nav-link:hover{opacity:1;color:var(--gold)}
+      .nav-btn{
+        padding:.6rem .9rem; border-radius:999px; font-weight:600;
+        border:1px solid rgba(255,255,255,.18);
+        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+        box-shadow:0 8px 24px rgba(75,47,181,.35);
+      }
+      .nav-btn:hover{filter:brightness(1.06)}
 
       /* HERO */
       .hero{
@@ -89,6 +101,12 @@
       }
 
       footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+
+      /* Responsive tweak for header links */
+      @media (max-width:900px){
+        .nav-right{gap:10px}
+        .nav-link{padding:.5rem .1rem}
+      }
     </style>
   </head>
 
@@ -99,9 +117,10 @@
           <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
           <span>ParkerPixie</span>
         </a>
-        <nav class="links">
-          <a href="/about">About</a>
-          <a class="cta" href="/contact">Contact</a>
+        <nav class="nav-right" aria-label="Primary">
+          <a class="nav-link" href="/about/">About</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-btn" href="/contact/">Contact</a>
         </nav>
       </div>
     </header>
@@ -187,7 +206,7 @@
           <strong>Come hang out.</strong>
           <div class="sub" style="margin-top:4px;color:var(--muted)">Catch me crocheting, gaming, or sprinkling sparkle across socials — or say hi and tell me your story.</div>
         </div>
-        <a href="/contact" class="btn">Contact ParkerPixie</a>
+        <a href="/contact/" class="btn">Contact ParkerPixie</a>
       </section>
 
       <footer>
