@@ -1,32 +1,32 @@
 ---
 /*
   InfinityNikki.astro — full file
-  ONLY CHANGES:
-   1) gallery array uses your exact filenames
-   2) .gallery-wrap widened (max-width + padding)
+  CHANGES IN THIS VERSION:
+   • gallery src paths now use /img/ (no /nikki/ subfolder)
+   • Nikki11 has a double dot in filename, matched exactly
 */
 
 const pageTitle = "Infinity Nikki — ParkerPixie";
 const pageDesc  = "A living gallery of shimmer looks. Ethereal, glam, and unapologetically Parker.";
 
-// EXACT FILENAMES (case + extension)
+// EXACT FILENAMES (case + extension + paths in /public/img)
 const gallery = [
-  { src: "/img/nikki/Nikki01.JPG", alt: "Nikki01" },
-  { src: "/img/nikki/Nikki02.JPG", alt: "Nikki02" },
-  { src: "/img/nikki/Nikki03.JPG", alt: "Nikki03" },
-  { src: "/img/nikki/Nikki04.jpeg", alt: "Nikki04" }, // jpeg (lowercase)
-  { src: "/img/nikki/Nikki05.JPG", alt: "Nikki05" },
-  { src: "/img/nikki/Nikki06.JPG", alt: "Nikki06" },
-  { src: "/img/nikki/Nikki07.JPG", alt: "Nikki07" },
-  { src: "/img/nikki/Nikki08.JPG", alt: "Nikki08" },
-  { src: "/img/nikki/Nikki09.JPG", alt: "Nikki09" },
-  { src: "/img/nikki/Nikki10.JPG", alt: "Nikki10" },
-  { src: "/img/nikki/Nikki11.JPG", alt: "Nikki11" },
-  { src: "/img/nikki/Nikki12.JPG", alt: "Nikki12" },
-  { src: "/img/nikki/Nikki13.JPG", alt: "Nikki13" },
-  { src: "/img/nikki/Nikki14.JPG", alt: "Nikki14" },
-  { src: "/img/nikki/Nikki15.JPG", alt: "Nikki15" },
-  { src: "/img/nikki/Nikki16.JPG", alt: "Nikki16" },
+  { src: "/img/Nikki01.JPG", alt: "Nikki01" },
+  { src: "/img/Nikki02.JPG", alt: "Nikki02" },
+  { src: "/img/Nikki03.JPG", alt: "Nikki03" },
+  { src: "/img/Nikki04.jpeg", alt: "Nikki04" }, // jpeg (lowercase)
+  { src: "/img/Nikki05.JPG", alt: "Nikki05" },
+  { src: "/img/Nikki06.JPG", alt: "Nikki06" },
+  { src: "/img/Nikki07.JPG", alt: "Nikki07" },
+  { src: "/img/Nikki08.JPG", alt: "Nikki08" },
+  { src: "/img/Nikki09.JPG", alt: "Nikki09" },
+  { src: "/img/Nikki10.JPG", alt: "Nikki10" },
+  { src: "/img/Nikki11..JPG", alt: "Nikki11" }, // double dot as shown
+  { src: "/img/Nikki12.JPG", alt: "Nikki12" },
+  { src: "/img/Nikki13.JPG", alt: "Nikki13" },
+  { src: "/img/Nikki14.JPG", alt: "Nikki14" },
+  { src: "/img/Nikki15.JPG", alt: "Nikki15" },
+  { src: "/img/Nikki16.JPG", alt: "Nikki16" },
 ];
 ---
 
@@ -40,12 +40,11 @@ const gallery = [
     <link rel="icon" href="/CapyGoldIcon.png" />
 
     <style>
-      /* ========== Page-scoped only ========== */
       :root{
-        --ink:#f3f2ff;       /* brighter text */
-        --muted:#c9c4ff;     /* softer secondary */
-        --bg:#000;           /* base */
-        --accent:#f2c14e;    /* capy gold */
+        --ink:#f3f2ff;
+        --muted:#c9c4ff;
+        --bg:#000;
+        --accent:#f2c14e;
         --chip:#1a152a;
         --chip-2:#0e0b18;
         --ring:#7a5cff;
@@ -61,24 +60,19 @@ const gallery = [
         grid-template-rows:auto 1fr auto;
         font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       }
-      /* Muted background: image + heavy overlay + slight blur */
       .nikki::before{
         content:"";
         position:fixed;
         inset:0;
         background:
-          /* dark veil */
           linear-gradient(180deg, rgba(0,0,0,.70), rgba(10,0,30,.78)),
-          /* soft glow accents */
           radial-gradient(1200px 600px at 50% -10%, rgba(122,92,255,.18), rgba(122,92,255,0) 60%),
           radial-gradient(800px 400px at 10% 0%, rgba(242,193,78,.20), rgba(242,193,78,0) 50%),
-          /* actual image */
           url("/img/InfinityNikki.jpg") center / cover no-repeat;
         filter: blur(2px) saturate(.9);
         z-index:-1;
       }
 
-      /* Header */
       .site-header{
         position:sticky; top:0; z-index:5;
         backdrop-filter: blur(8px);
@@ -92,7 +86,6 @@ const gallery = [
       .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
       .nav-links a.active,.nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.06);outline:1px solid rgba(255,255,255,.08)}
 
-      /* Hero */
       .hero{max-width:1100px;margin:34px auto 4px;padding:24px 20px 8px}
       .eyebrow{color:var(--muted);font-size:.9rem;letter-spacing:.18em;text-transform:uppercase}
       h1{margin:8px 0 12px;font-size:clamp(2rem,4vw,3rem);line-height:1.1;text-shadow:0 0 10px rgba(0,0,0,.45)}
@@ -100,11 +93,10 @@ const gallery = [
       .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
       .chip{background:linear-gradient(180deg,var(--chip),var(--chip-2));border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:8px 12px;font-size:.9rem;color:var(--muted)}
 
-      /* Gallery — 1-col mobile → 2-col >= 720px */
       .gallery-wrap{
-        max-width: 1400px;      /* widened */
+        max-width: 1400px;
         margin: 18px auto 44px;
-        padding: 0 16px 44px;   /* narrower side padding */
+        padding: 0 16px 44px;
       }
       .grid{display:grid;gap:14px;grid-template-columns:1fr}
       @media (min-width:720px){ .grid{grid-template-columns:1fr 1fr} }
@@ -122,7 +114,6 @@ const gallery = [
         box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ring) 55%, transparent);
       }
 
-      /* Lightbox */
       dialog#lb{width:min(92vw,1100px);border:none;padding:0;background:rgba(8,6,16,.96);border-radius:12px;overflow:clip}
       dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(3px)}
       .lb-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -131,7 +122,6 @@ const gallery = [
       .lb-media{line-height:0;display:grid;place-items:center;max-height:86svh}
       .lb-media img{width:100%;height:auto;display:block}
 
-      /* Footer */
       .site-footer{border-top:1px solid rgba(255,255,255,.08);color:var(--muted);font-size:.95rem;padding:16px 20px 30px;text-align:center}
       .site-footer a{color:var(--ink);text-decoration:none}
     </style>
@@ -193,7 +183,6 @@ const gallery = [
     </div>
 
     <script is:inline>
-      // Lightbox behavior (unchanged)
       const dlg = document.getElementById('lb');
       const lbImg = document.getElementById('lb-img');
       const lbCap = document.getElementById('lb-caption');
