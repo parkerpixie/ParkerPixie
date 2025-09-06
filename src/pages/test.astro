@@ -1,213 +1,141 @@
 ---
-// src/pages/index.astro
-const year = new Date().getFullYear();
+// src/pages/blog/BlogMySoundtrack.astro
+// Standalone blog page
+const title = "The Soundtrack of My Life 🎶";
+const subtitle = "How music became my refuge, rebellion, and rhythm of healing.";
+const date = "September 6, 2025";
+const tags = ["music", "healing", "story", "Swiftie"];
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
-    <meta name="description" content="I stitch joy into amigurumi, decorate digital worlds, and build playful systems that make life feel a little more magical." />
+    <meta
+      name="description"
+      content="Parker writes about how music has been her constant—childhood soundtrack, refuge in high school, college radio chaos, opera performances, Swiftie healing, and now sharing Ani DiFranco with Porter."
+    />
     <link rel="icon" href="/CapyGoldIcon.png" />
-
-    <!-- 🌟 Social Share Preview -->
-    <meta property="og:title" content="ParkerPixie" />
-    <meta property="og:description" content="Welcome to my Universe ✨ Sass. Shimmer. Sparkle. Share!" />
-    <meta property="og:image" content="https://parkerpixie.netlify.app/img/SharePhoto.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://parkerpixie.netlify.app/" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ParkerPixie" />
-    <meta name="twitter:description" content="Welcome to my Universe ✨ Sass. Shimmer. Sparkle. Share!" />
-    <meta name="twitter:image" content="https://parkerpixie.netlify.app/img/SharePhoto.png" />
-
     <style>
-      :root{
-        --bg:#0b0b10;
-        --ink:#f5f4fb;
-        --muted:#c7c5d6;
-        --card:#111119;
-        --chip-text:#e8ddff;
-        --lilac:#7d5cff;
-        --gold:#d6b36b;
-        --radius:22px;
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: radial-gradient(circle at top, #1a1a2e, #000);
+        color: #f0f0f0;
+        line-height: 1.6;
       }
-      *{box-sizing:border-box}
-      html,body{height:100%}
-      body{
-        margin:0; color:var(--ink);
-        background:
-          radial-gradient(1200px 600px at 10% -10%, rgba(155,125,255,.16), transparent 60%),
-          radial-gradient(900px 600px at 95% 0%, rgba(214,179,107,.12), transparent 60%),
-          radial-gradient(900px 900px at 50% 120%, rgba(140,120,255,.10), transparent 60%),
-          var(--bg);
-        font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        -webkit-font-smoothing:antialiased;
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: linear-gradient(to right, #2b2b40, #1a1a2e);
       }
-      .wrap{max-width:1200px; margin:0 auto; padding:22px 20px 80px}
-
-      /* Header --------------------------------------------------------- */
-      header.site{
-        display:flex; align-items:center; justify-content:space-between; gap:16px;
-        padding:10px 0 6px;
+      nav a {
+        color: white;
+        text-decoration: none;
       }
-      .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink)}
-      .brand img{width:34px; height:34px; object-fit:contain; border-radius:10px; filter:drop-shadow(0 3px 10px rgba(214,179,107,.35))}
-      .brand .name{font-weight:800; letter-spacing:.3px}
-      nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; align-items:center}
-      nav a{color:#e9e7f7; text-decoration:none}
-      nav a:hover{opacity:.85}
-      .contact{
-        display:inline-flex; align-items:center; padding:8px 16px; border-radius:999px;
-        background:linear-gradient(180deg, rgba(214,179,107,.18), rgba(214,179,107,.08));
-        border:1px solid rgba(214,179,107,.45);
-        color:#fff2cf; box-shadow:0 0 0 2px rgba(214,179,107,.08);
+      nav a.contact {
+        background: #6c47ff;
+        padding: .4rem 1rem;
+        border-radius: 20px;
+        font-weight: bold;
       }
-
-      /* Hero ----------------------------------------------------------- */
-      .hero{
-        margin-top:18px;
-        display:grid; grid-template-columns: 1.04fr .96fr; gap:36px; align-items:center;
+      header.blog-hero {
+        padding: 3rem 2rem;
+        background: linear-gradient(180deg, #2a2a40, #000);
+        text-align: left;
+        border-radius: 0 0 1rem 1rem;
       }
-      @media (max-width:980px){ .hero{grid-template-columns:1fr; gap:22px} }
-
-      .eyebrow{color:#b9b6d1; letter-spacing:.18em; text-transform:uppercase; font-size:.9rem; margin-bottom:10px}
-      .title{
-        margin:0 0 14px;
-        font-weight:800;
-        font-size:clamp(32px, 6vw, 64px);
-        line-height:1.12;
-        letter-spacing:.2px;
-        text-wrap:balance;
+      header.blog-hero h1 {
+        font-size: 2.5rem;
+        margin: 0.5rem 0;
+        color: #fff;
       }
-      .subline{
-        margin:6px 0 16px;
-        color:#dddaf0;
-        font-size:clamp(16px, 2.2vw, 20px);
-        line-height:1.55;
-        max-width: 760px;
+      header.blog-hero .subtitle {
+        color: #bbb;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
       }
-
-      .chips{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0 8px}
-      .chip{
-        display:inline-flex; align-items:center; gap:8px; padding:12px 16px;
-        border-radius:14px; text-decoration:none; color:var(--chip-text);
-        background:
-          radial-gradient(120% 120% at 0% 0%, rgba(125,92,255,.34), rgba(125,92,255,.18) 60%),
-          linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-        border:1px solid rgba(123,99,255,.40);
-        box-shadow:0 0 0 2px rgba(123,99,255,.10), inset 0 1px 0 rgba(255,255,255,.05);
+      header.blog-hero .meta {
+        font-size: .9rem;
+        color: #aaa;
+        margin-bottom: 1rem;
       }
-
-      .tagline{margin:8px 0 0; color:#cfcde3; font-style:italic; font-size:.95rem}
-
-      .heroimg{
-        background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-        border:1px solid rgba(255,255,255,.08);
-        border-radius:22px; padding:10px; box-shadow:0 12px 34px rgba(0,0,0,.38);
+      .tags {
+        display: flex;
+        gap: .5rem;
+        flex-wrap: wrap;
       }
-      .heroimg img{width:100%; height:auto; display:block; border-radius:16px}
-
-      /* Lanes ---------------------------------------------------------- */
-      .lanes{margin-top:36px; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
-      @media (max-width:1100px){ .lanes{grid-template-columns:1fr} }
-      .card{
-        background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-        border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:22px;
-        box-shadow:0 10px 28px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.04);
+      .tag {
+        background: #3a3a3a;
+        padding: .3rem .8rem;
+        border-radius: 20px;
+        font-size: .85rem;
+        color: #fff;
       }
-      .eyebrow-small{color:#a9a5c6; text-transform:uppercase; letter-spacing:.2px; font-size:12px; margin-bottom:6px}
-      .title-small{font-size:20px; font-weight:800; margin:0 0 6px}
-      .desc{color:#cfcde3; margin:0 0 14px}
-      .btn{
-        display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
-        text-decoration:none; color:#f5edff;
-        background:linear-gradient(180deg, rgba(125,92,255,.24), rgba(125,92,255,.10));
-        border:1px solid rgba(125,92,255,.38); box-shadow:0 0 0 2px rgba(125,92,255,.10);
+      main {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
       }
-
-      /* Footer --------------------------------------------------------- */
-      footer{margin-top:40px; color:#bdbad4; font-size:12px}
-
-      /* Safety: ensure decorative layers never block clicks */
-      .hero::before, .hero::after { pointer-events:none !important; }
+      main p {
+        margin: 1rem 0;
+      }
     </style>
   </head>
-
   <body>
-    <div class="wrap">
-      <!-- Header -->
-      <header class="site" role="banner">
-        <a class="brand" href="/" aria-label="ParkerPixie Home">
-          <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
-          <span class="name">ParkerPixie</span>
-        </a>
-        <nav aria-label="Main">
-          <ul>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/blog/">Blog</a></li>
-            <li><a class="contact" href="/contact/">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
+    <!-- HEADER NAV -->
+    <nav>
+      <div style="display:flex;align-items:center;gap:.5rem;">
+        <img src="/CapyGoldIcon.png" alt="Capybara Icon" style="height:20px;" />
+        <a href="/" style="font-weight:bold;color:#f9d6ff;">ParkerPixie</a>
+      </div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="/about/">About</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/" class="contact">Contact</a>
+      </div>
+    </nav>
 
-      <!-- Hero -->
-      <section class="hero" aria-label="Intro">
-        <div>
-          <div class="eyebrow">Sass · Shimmer · Sparkle</div>
+    <!-- BLOG HERO -->
+    <header class="blog-hero">
+      <div style="letter-spacing:2px;font-size:.85rem;color:#aaa;">PARKERPIXIE BLOG</div>
+      <h1>{title}</h1>
+      <div class="subtitle">{subtitle}</div>
+      <div class="meta">{date}</div>
+      <div class="tags">
+        {tags.map(tag => <span class="tag">{tag}</span>)}
+      </div>
+    </header>
 
-          <h1 class="title">
-            Cozy craft queen, gamer,<br/>
-            and pixel tinkerer.
-          </h1>
+    <!-- BLOG BODY -->
+    <main>
+      <p>Music has always been the undercurrent of my life—sometimes loud and brash, sometimes quiet and grounding, but always there.</p>
 
-          <p class="subline">
-            I stitch joy into amigurumi 🧶, decorate digital worlds, and build
-            playful systems that make life feel a little more magical.
-          </p>
+      <p>As a little kid, I was constantly singing: in the car, to myself, to anyone who would listen. My mom blasted Carole King’s <em>Tapestry</em> in her little Yugo, filling our rides with the ache of “So Far Away.” My brother Jimmy, on the other hand, made sure the whole house knew he was going to <em>fight for his right to party</em>—blasting Beastie Boys and N.W.A. from his bedroom until the walls practically shook. My sister and I choreographed Lisa Loeb’s <em>Stay</em> on the jungle gym, convinced we were destined for Olympic floor routines. Music wasn’t just entertainment; it was oxygen.</p>
 
-          <div class="chips" role="navigation" aria-label="Quick links">
-            <a class="chip" href="/about/">Who is ParkerPixie</a>
-            <a class="chip" href="/blog/">Blog</a>
-            <a class="chip" href="/capybara/">What’s with the Capybara?</a>
-          </div>
+      <p>High school cemented that bond. While some kids ruled the cafeteria, I ruled the band and choir rooms. Jazz Band mornings gave me peace before the chaos of the day. Swing Choir gave me sparkle. A school trip to Toronto gave me the surreal joy of seeing Paul Stanley from KISS as the Phantom of the Opera. And in an almost comical oversight, our small-town Wisconsin high school took us to see <em>RENT</em>—clearly not realizing what it was about. It didn’t exactly change my life, but it cracked open my eyes to what musicals could be. Suddenly it wasn’t just Rodgers &amp; Hammerstein or Andrew Lloyd Webber—it was rock, grit, and modern storytelling. A whole new world of music-driven theatre was out there, and I wanted more.</p>
 
-          <div class="tagline">“Sass, Shimmer, Sparkle”—and a whole lot of heart.</div>
-        </div>
+      <p>I was even chosen for the Dorian Vocal Festival in Iowa, where I sang alongside the best young voices in the Midwest. By senior year, music had given me something nothing else had: recognition. I walked away with the National School Choral Award <em>and</em> the John Philip Sousa Award, proof that my hours in the practice rooms mattered.</p>
 
-        <div class="heroimg" aria-label="Hero image">
-          <img src="/hero.jpg" alt="Parker knitting with laptop and Steam Deck by the lake" />
-        </div>
-      </section>
+      <p>College tried to tell me to “be practical.” I declared a Biotechnology major, but a D in Biology proved otherwise. I pivoted to music, studying theory, dictation, voice, piano (badly), and history. When I realized piano wasn’t my destiny, I turned to another mic: the college radio station. <em>The Blonde Moment</em> was born—a weekly radio show where my co-host and I took requests from dorms, and even from prisoners at the county jail, while spinning everything from Ani to Nelly. Somewhere in a box, I still have a cassette recording of that show, waiting for me to rescue it before it disintegrates.</p>
 
-      <!-- Three lanes -->
-      <section class="lanes" aria-label="ParkerPixie lanes">
-        <article class="card">
-          <div class="eyebrow-small">Paws</div>
-          <h2 class="title-small">ParkerPixiePaws</h2>
-          <p class="desc">Amigurumi, capybaras, care guides, commissions, and cozy drops.</p>
-          <p><a class="btn" href="/parkerpixiepaws/">Enter the Paws Studio →</a></p>
-        </article>
+      <p>In 2006, life surprised me again. Working in HR at Copps and Pick ’n Save, I overheard a coworker mention she sang in the Madison Opera Chorus. Suddenly, a door opened. Within months, I was on stage, singing music that stretched me further than I’d ever gone before. Over the years, I performed in eight operas—including <em>Carmen</em> while pregnant with Porter, his tiny kicks echoing in time with Bizet.</p>
 
-        <article class="card">
-          <div class="eyebrow-small">Pop</div>
-          <h2 class="title-small">ParkerPixiePop</h2>
-          <p class="desc">Gaming, streams, and glittery persona—Infinity Nikki & Dreamlight vibes.</p>
-          <p><a class="btn" href="/parkerpixiepop/">See Pop Projects →</a></p>
-        </article>
+      <p>Even now, music is my pulse. I still spin the women of the ’90s who raised me—Tori Amos, Ani DiFranco, Alanis Morissette, Fiona Apple. But I’ve also found myself unexpectedly wrapped up in Taylor Swift’s world. Once “that country girl,” she grew, healed, and sharpened her words into weapons. Her lyrics now slice through me: <em>“You’re on your own, kid, you always have been.”</em> <em>“I was a functioning alcoholic ’til nobody noticed my new aesthetic.”</em> It’s therapy in disguise.</p>
 
-        <article class="card">
-          <div class="eyebrow-small">Pixel</div>
-          <h2 class="title-small">ParkerPixiePixel</h2>
-          <p class="desc">Design experiments, printables, and tiny tools that make life easier.</p>
-          <p><a class="btn" href="/pixel/">Peek at Pixels →</a></p>
-        </article>
-      </section>
+      <p>If you peek at one of my playlists, you’ll hear my ADHD on full display: House of Pain’s <em>Jump Around</em> crashing into Taylor’s <em>Bejeweled,</em> then bursting into “I’m the queen of the castle” from <em>Six the Musical.</em> It’s chaos. It’s joy. It’s me.</p>
 
-      <footer>© {year} ParkerPixie — Made with capybara calm & bejeweled sparkle</footer>
-    </div>
+      <p>And tonight—it all comes full circle. I’m seeing Ani DiFranco for the third time, but this time with Porter. They’re drawn to Ani not just as an artist but as a feminist, an activist, a truth-teller. I can’t wait for them to feel that spark live, in a room filled with people who know music can be both rebellion and refuge.</p>
+
+      <p>Because that’s what music has always been for me: a safe place, a rallying cry, and a reminder that our voices matter.</p>
+
+      <p><strong>Here’s to Ani tonight. Here’s to Porter hearing the soundtrack of resistance and healing. And here’s to music—the thread that has always, always held me together.</strong></p>
+
+      <p style="text-align:center;font-size:1.5rem;">✨🎶✨</p>
+    </main>
   </body>
 </html>
