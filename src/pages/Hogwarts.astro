@@ -1,1 +1,239 @@
-Something magical coming soon....
+---
+/* Hogwarts.astro — ParkerPixiePop pillar page */
+const pageTitle = "Hogwarts Legacy · ParkerPixiePop";
+const pageDesc  = "Quests, house pride, and spellcraft shenanigans. Hogwarts Legacy with ParkerPixie.";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{pageTitle}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={pageDesc} />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <style>
+      :root{
+        --bg:#0a0b0f;
+        --ink:#f2f0ff;
+        --muted:#c9c4ff;
+
+        /* PixiePop header tokens */
+        --pp-purple:#7a5cff;
+        --pp-purple-2:#a693ff;
+        --pp-ink:#f2f0ff;
+        --pp-muted:#c9c4ff;
+
+        /* Hogwarts glow accents */
+        --gold:#e2c572;
+        --star:#ffffff;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;background:var(--bg);color:var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial}
+
+      /* ===== PixiePop-style header ===== */
+      .pop-header{
+        position: sticky; top: 0; z-index: 40;
+        backdrop-filter: saturate(140%) blur(10px);
+        background: rgba(10, 8, 18, .70);
+        border-bottom: 1px solid rgba(255,255,255,.06);
+      }
+      .pop-nav{
+        max-width: 1200px; margin: 0 auto; padding: 12px 18px;
+        display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
+        color: var(--pp-ink);
+        font: 700 14px/1 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      }
+      .pop-brand{ display:inline-flex; align-items:center; gap:10px; text-decoration:none }
+      .pop-brand img{ height:36px; width:auto; display:block; filter: drop-shadow(0 0 10px rgba(122,92,255,.45)); }
+
+      .pop-primary{
+        list-style:none; margin:0; padding:0;
+        display:flex; gap:26px; justify-content:center; align-items:center; flex-wrap:wrap;
+      }
+      .pop-primary a{
+        position:relative; display:inline-block; padding:10px 2px; text-decoration:none;
+        color: var(--pp-ink); letter-spacing:.02em; text-transform: uppercase;
+        transition: color .15s ease;
+      }
+      .pop-primary a::after{
+        content:""; position:absolute; left:0; right:0; bottom:4px; height:3px;
+        border-radius: 3px; background: currentColor; opacity:.95;
+        transform: scaleX(0); transform-origin: left;
+        transition: transform .18s ease;
+      }
+      .pop-primary a:hover{ color: var(--pp-purple-2); }
+      .pop-primary a:hover::after{ transform: scaleX(1); }
+      .pop-primary a.is-active{ color: var(--pp-purple); }
+      .pop-primary a.is-active::after{ transform: scaleX(1); }
+
+      .pop-right{ display:flex; gap:14px; align-items:center }
+      .pop-link{ color: var(--pp-muted); text-decoration:none; padding:8px 10px; border-radius:10px; }
+      .pop-link:hover{ color: var(--pp-ink); background: rgba(255,255,255,.06) }
+      .pop-cta{
+        text-decoration:none; font-weight:800;
+        background: var(--pp-purple); color:#100a1f;
+        padding: 9px 16px; border-radius: 999px;
+        border: 1px solid color-mix(in oklab, var(--pp-purple) 90%, #000);
+        box-shadow: 0 6px 20px rgba(122,92,255,.45), inset 0 0 0 1px rgba(255,255,255,.1);
+      }
+      .pop-cta:hover{ background: var(--pp-purple-2); }
+
+      @media (max-width: 860px){
+        .pop-primary{ gap:18px; overflow-x:auto; scrollbar-width:none }
+        .pop-primary::-webkit-scrollbar{ display:none }
+      }
+
+      /* ===== Hero with subtle whimsical stars ===== */
+      .hero{
+        position:relative; isolation:isolate;
+        min-height: min(78svh, 820px);
+        display:grid; place-items:center;
+        overflow: clip;
+      }
+      .hero img{
+        position:absolute; inset:0; width:100%; height:100%;
+        object-fit:cover; object-position:center;
+        filter: saturate(1.04) contrast(1.04) brightness(0.96);
+        transform: scale(1.02);
+      }
+      .veil{
+        position:absolute; inset:0;
+        background:
+          radial-gradient(1100px 480px at 120% 0%, rgba(255,255,255,.08), transparent 60%),
+          linear-gradient(180deg, rgba(5,6,12,.35), rgba(5,6,12,.58));
+      }
+      .titlewrap{
+        position:relative; z-index:2; text-align:center; padding: 0 16px;
+        text-shadow: 0 6px 28px rgba(0,0,0,.45);
+      }
+      .eyebrow{
+        color: var(--pp-muted); text-transform:uppercase; letter-spacing:.18em; font-size:.9rem;
+      }
+      h1{
+        margin:.35rem 0 0;
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 1.06;
+      }
+
+      /* Sparkling “More magic coming soon…” */
+      .soon{
+        margin-top: 14px; display:inline-block; font-weight:800; letter-spacing:.02em; position:relative;
+        background: linear-gradient(90deg, #ffffff 0%, #e8dba7 25%, #ffffff 55%, #e2c572 90%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        animation: rollIn .8s ease-out both, shine 3.5s linear infinite, twinkle 2.6s ease-in-out infinite;
+      }
+      @keyframes rollIn{
+        0%{ opacity:0; transform: translateY(10px) scale(.98); filter: blur(2px); }
+        100%{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
+      }
+      @keyframes shine{
+        0%{ background-position: 0% 50%; }
+        100%{ background-position: 200% 50%; }
+      }
+      @keyframes twinkle{
+        0%,100%{ text-shadow: 0 0 0px rgba(255,255,255,0.0), 0 0 0px rgba(226,197,114,0.0); }
+        50%{ text-shadow: 0 0 14px rgba(255,255,255,.45), 0 0 28px rgba(226,197,114,.25); }
+      }
+
+      /* Subtle star particles */
+      .stars{ position:absolute; inset:0; pointer-events:none; z-index:1; }
+      .star{
+        position:absolute; width:2px; height:2px; border-radius:50%;
+        background: var(--star);
+        box-shadow: 0 0 8px rgba(255,255,255,.6), 0 0 14px rgba(226,197,114,.25);
+        opacity:0;
+        animation: starTwinkle 3s ease-in-out infinite;
+      }
+      @keyframes starTwinkle{
+        0%{ opacity:0; transform: scale(.8); }
+        10%{ opacity:.9; transform: scale(1); }
+        20%{ opacity:.6 }
+        40%{ opacity:.95 }
+        100%{ opacity:0; transform: scale(.9); }
+      }
+
+      /* Motion safety */
+      @media (prefers-reduced-motion: reduce){
+        .soon{ animation: none; background: none; color: var(--ink); text-shadow: none; }
+        .stars{ display:none; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- PixiePop header -->
+    <header class="pop-header" role="banner">
+      <nav class="pop-nav" aria-label="Primary">
+        <!-- Left: pillar logo -->
+        <a class="pop-brand" href="/parkerpixiepop/">
+          <img src="/img/PixiePopLogo.PNG" alt="PixiePop logo" />
+        </a>
+
+        <!-- Center: pillar pages (Hogwarts active) -->
+        <ul class="pop-primary">
+          <li><a href="/DLV/">Dreamlight Valley</a></li>
+          <li><a href="/InfinityNikki/">Infinity Nikki</a></li>
+          <li><a href="/Hogwarts/" class="is-active" aria-current="page">Hogwarts Legacy</a></li>
+        </ul>
+
+        <!-- Right: core links -->
+        <div class="pop-right">
+          <a class="pop-link" href="/about/">About</a>
+          <a class="pop-link" href="/blog/">Blog</a>
+          <a class="pop-cta"  href="/contact/">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero with your Hogwarts image + sparkle line + subtle stars -->
+    <section class="hero" aria-label="Hogwarts Legacy">
+      <img src="/img/Hogwarts.jpg" alt="Hogwarts Legacy — ParkerPixie scene" />
+      <div class="veil" aria-hidden="true"></div>
+
+      <!-- stars layer (filled by script) -->
+      <div class="stars" id="stars" aria-hidden="true"></div>
+
+      <div class="titlewrap">
+        <div class="eyebrow">ParkerPixiePop</div>
+        <h1>Hogwarts Legacy</h1>
+        <div class="soon" aria-live="polite">More magic coming soon…</div>
+      </div>
+    </section>
+
+    <script is:inline>
+      // Subtle whimsical stars: random positions + staggered twinkle
+      (function(){
+        const container = document.getElementById('stars');
+        if (!container) return;
+
+        const STAR_COUNT = 40; // subtle density
+        const durMin = 2400, durMax = 5200;   // ms
+        const delMax = 4000;                  // ms
+
+        for (let i = 0; i < STAR_COUNT; i++){
+          const s = document.createElement('span');
+          s.className = 'star';
+          // Random size: 1.5–2.5px for subtle variety
+          const size = (Math.random() * 1 + 1.5).toFixed(2);
+          s.style.width = size + 'px';
+          s.style.height = size + 'px';
+
+          // Random position
+          s.style.left = (Math.random() * 100).toFixed(2) + '%';
+          s.style.top  = (Math.random() * 100).toFixed(2) + '%';
+
+          // Staggered timings
+          const dur = Math.floor(Math.random() * (durMax - durMin)) + durMin;
+          const del = Math.floor(Math.random() * delMax);
+          s.style.animationDuration = dur + 'ms';
+          s.style.animationDelay = del + 'ms';
+
+          container.appendChild(s);
+        }
+      })();
+    </script>
+  </body>
+</html>
