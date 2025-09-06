@@ -1,6 +1,5 @@
 ---
 // src/pages/blog/BlogMySoundtrack.astro
-// Standalone blog page
 const title = "The Soundtrack of My Life 🎶";
 const subtitle = "How music became my refuge, rebellion, and rhythm of healing.";
 const date = "September 6, 2025";
@@ -22,9 +21,9 @@ const tags = ["music", "healing", "story", "Swiftie"];
       body {
         margin: 0;
         font-family: system-ui, sans-serif;
-        background: radial-gradient(circle at top, #1a1a2e, #000);
+        background: linear-gradient(180deg, #1a1a2e, #000);
         color: #f0f0f0;
-        line-height: 1.6;
+        line-height: 1.7;
       }
       nav {
         display: flex;
@@ -43,23 +42,25 @@ const tags = ["music", "healing", "story", "Swiftie"];
         border-radius: 20px;
         font-weight: bold;
       }
-      header.blog-hero {
-        padding: 3rem 2rem;
-        background: linear-gradient(180deg, #2a2a40, #000);
-        text-align: left;
-        border-radius: 0 0 1rem 1rem;
+      .blog-card {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: linear-gradient(180deg, #2a2a40, #1a1a2e);
+        border-radius: 1rem;
+        box-shadow: 0 0 25px rgba(255, 150, 255, 0.2);
       }
-      header.blog-hero h1 {
+      .blog-card h1 {
         font-size: 2.5rem;
         margin: 0.5rem 0;
         color: #fff;
       }
-      header.blog-hero .subtitle {
+      .blog-card .subtitle {
         color: #bbb;
         font-size: 1.2rem;
         margin-bottom: 1rem;
       }
-      header.blog-hero .meta {
+      .blog-card .meta {
         font-size: .9rem;
         color: #aaa;
         margin-bottom: 1rem;
@@ -68,6 +69,7 @@ const tags = ["music", "healing", "story", "Swiftie"];
         display: flex;
         gap: .5rem;
         flex-wrap: wrap;
+        margin-bottom: 1rem;
       }
       .tag {
         background: #3a3a3a;
@@ -83,6 +85,22 @@ const tags = ["music", "healing", "story", "Swiftie"];
       }
       main p {
         margin: 1rem 0;
+      }
+      .insight, .mantra {
+        margin: 3rem auto;
+        padding: 1.5rem;
+        background: rgba(255,255,255,0.05);
+        border-left: 4px solid #f9d6ff;
+        border-radius: .5rem;
+        font-style: italic;
+        text-align: center;
+        max-width: 700px;
+      }
+      .insight h2, .mantra h2 {
+        font-size: 1.2rem;
+        margin-bottom: .5rem;
+        color: #f9d6ff;
+        font-style: normal;
       }
     </style>
   </head>
@@ -100,8 +118,8 @@ const tags = ["music", "healing", "story", "Swiftie"];
       </div>
     </nav>
 
-    <!-- BLOG HERO -->
-    <header class="blog-hero">
+    <!-- BLOG HERO CARD -->
+    <div class="blog-card">
       <div style="letter-spacing:2px;font-size:.85rem;color:#aaa;">PARKERPIXIE BLOG</div>
       <h1>{title}</h1>
       <div class="subtitle">{subtitle}</div>
@@ -109,7 +127,7 @@ const tags = ["music", "healing", "story", "Swiftie"];
       <div class="tags">
         {tags.map(tag => <span class="tag">{tag}</span>)}
       </div>
-    </header>
+    </div>
 
     <!-- BLOG BODY -->
     <main>
@@ -133,7 +151,17 @@ const tags = ["music", "healing", "story", "Swiftie"];
 
       <p>Because that’s what music has always been for me: a safe place, a rallying cry, and a reminder that our voices matter.</p>
 
+      <div class="insight">
+        <h2>Pixie Insight ✨</h2>
+        “Music isn’t just something you listen to—it’s something you live.”
+      </div>
+
       <p><strong>Here’s to Ani tonight. Here’s to Porter hearing the soundtrack of resistance and healing. And here’s to music—the thread that has always, always held me together.</strong></p>
+
+      <div class="mantra">
+        <h2>Mantra 🌙</h2>
+        “My voice has power, whether I sing, shout, or whisper.”
+      </div>
 
       <p style="text-align:center;font-size:1.5rem;">✨🎶✨</p>
     </main>
