@@ -1,139 +1,97 @@
 ---
-// src/pages/blog/index.astro
-// Standalone blog index using hard-coded posts (no Markdown files)
+/* Blog index — lists .astro posts by reading an exported `post` object from each file */
+const entries = await Astro.glob('./*.astro');
 
-type Post = {
-  title: string;
-  slug: string;        // path segment after /blog/
-  date: string;        // ISO or readable date
-  excerpt: string;
-  cover?: string;      // e.g., "/img/blog/mysoundtrack-card.jpg"
-  coverAlt?: string;
-};
-
-// ⚠️ Update paths/titles as you add posts.
-// "cover" is optional; a fallback image will render if missing.
-const posts: Post[] = [
-  {
-    title: "Hello, Sparkle World ✨",
-    slug: "helloworld",
-    date: "2025-09-02",
-    excerpt:
-      "Kicking off the ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates.",
-    cover: "/img/blog/hello-card.jpg",
-    coverAlt: "Glittering purple background with subtle stars"
-  },
-  {
-    title: "My Life in Songs (A Tiny Soundtrack)",
-    slug: "blogmysoundtrack",
-    date: "2025-09-06",
-    excerpt:
-      "Tracks that stitched me together — recovery, rage, love, and glitter.",
-    // Use your actual image; this will crop nicely in-card:
-    cover: "/img/blog/mysoundtrack-card.jpg",
-    coverAlt: "Headphones resting on a journal with soft bokeh lights"
-  },
-];
-
-posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-const prettyDate = (d: string) =>
-  new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+// Filter out this index file and only keep posts that export `post`
+const posts = entries
+  .filter(p => p.url !== '/blog/index' && typeof p.post === 'object')
+  .map(p => ({
+    url: p.url,               // e.g., /blog/blogmysoundtrack
+    title: p.post.title,
+    subtitle: p.post.subtitle,
+    date: p.post.date,
+    tags: p.post.tags || [],
+    cover: p.post.cover || null
+  }))
+  // sort by date desc (fallback: unsorted)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>ParkerPixie · Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-      content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
+    <title>ParkerPixie · Blog</title>
+    <meta name="description" content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
     <link rel="icon" href="/CapyGoldIcon.png" />
-
-    <!-- Open Graph (so shares pull the right image/text) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="ParkerPixie · Blog" />
-    <meta property="og:description"
-      content="Cozy crafts, capybara lore, gaming, life & sparkle." />
-    <meta property="og:image" content="/img/og/blog-index.jpg" />
-
     <style>
       :root{
-        --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
-        --ink:#f7f3ff; --muted:#bdb5d9;
-        --bg1:#0f0b14; --bg2:#130e1f; --bg3:#100b1a;
-        --card:#1b1426; --line:#2a2240;
+        --bg:#0f0b14; --bg2:#130e1f; --ink:#f7f3ff; --muted:#bdb5d9; --brand:#8a5dff; --gold:#D8AA3B;
       }
       *{box-sizing:border-box}
-      html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg1),var(--bg2) 60%,var(--bg3));color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial}
+      body{margin:0;font-family:system-ui, -apple-system, Segoe UI, Roboto, sans-serif;background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--ink)}
       a{color:inherit;text-decoration:none}
-      header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(16,11,26,.8);backdrop-filter: blur(8px)}
-      .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-      .brand img{width:24px;height:24px}
-      nav a{margin-left:16px;opacity:.9}
-      nav a:hover{opacity:1;text-decoration:underline}
-
-      main{max-width:1100px;margin:32px auto;padding:0 20px}
-      h1{font-size:clamp(28px,3vw,40px);margin:0 0 4px}
-      .sub{color:var(--muted);margin:0 0 24px}
-
-      .grid{
-        display:grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap:18px;
-      }
-      .card{
-        background:linear-gradient(180deg, #1b1426, #161022);
-        border:1px solid var(--line);
-        border-radius:16px; overflow:hidden;
-        transition:transform .18s ease, box-shadow .18s ease;
-      }
-      .card:hover{transform:translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.35)}
-      .cover{
-        width:100%;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;           /* visual crop so any image “works” */
-        display:block;
-        background:#0d0a14 url("/img/blog/_fallback.jpg") center/cover no-repeat;
-      }
-      .body{padding:14px}
-      .ttl{font-weight:700;font-size:18px;margin:0 0 6px}
-      .meta{font-size:12px;color:var(--muted);margin:0 0 8px}
-      .excerpt{font-size:14px;color:#e8e3ff}
-      footer{max-width:1100px;margin:28px auto 48px;padding:0 20px;color:var(--muted);text-align:center;border-top:1px dashed var(--line);padding-top:18px}
+      nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:linear-gradient(90deg,#2b2b40,#1a1a2e)}
+      nav a.contact{background:#6c47ff;padding:.4rem 1rem;border-radius:20px;font-weight:bold}
+      .wrap{max-width:1200px;margin:0 auto;padding:0 1rem}
+      header{padding:2rem 0;display:flex;align-items:center;gap:.75rem}
+      h1{margin:0;font-size:2rem}
+      .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;padding-bottom:4rem}
+      .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+      .thumb{width:100%;height:160px;object-fit:cover;background:#1d1630}
+      .card-body{padding:1rem;display:flex;flex-direction:column;gap:.5rem}
+      .title{font-weight:700;line-height:1.2}
+      .subtitle{font-size:.95rem;color:var(--muted)}
+      .meta{font-size:.85rem;color:#a7a1bf}
+      .tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.25rem}
+      .tag{font-size:.75rem;padding:.25rem .6rem;border:1px solid rgba(255,255,255,.15);border-radius:999px}
+      .card:hover{transform:translateY(-2px);transition:transform .15s ease}
+      .empty{opacity:.8;padding:2rem;border:1px dashed rgba(255,255,255,.2);border-radius:12px;text-align:center}
     </style>
   </head>
   <body>
-    <header>
-      <a class="brand" href="/">
-        <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
-        <span>ParkerPixie</span>
-      </a>
-      <nav>
+    <nav>
+      <div style="display:flex;align-items:center;gap:.5rem;">
+        <img src="/CapyGoldIcon.png" alt="Capybara Icon" style="height:20px;" />
+        <a href="/" style="font-weight:bold;color:#f9d6ff;">ParkerPixie</a>
+      </div>
+      <div style="display:flex;gap:1.5rem;">
         <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
-      </nav>
-    </header>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/" class="contact">Contact</a>
+      </div>
+    </nav>
 
-    <main>
-      <h1># Blog</h1>
-      <p class="sub">Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
+    <div class="wrap">
+      <header>
+        <h1>Blog</h1>
+        <span style="color:var(--gold);font-weight:700;letter-spacing:.02em;">· glitter, grit & growth</span>
+      </header>
 
-      <section class="grid">
-        {posts.map(p => (
-          <a class="card" href={`/blog/${p.slug}/`}>
-            <img class="cover" src={p.cover ?? "/img/blog/_fallback.jpg"} alt={p.coverAlt ?? "Blog post cover"} loading="lazy" />
-            <div class="body">
-              <h2 class="ttl">{p.title}</h2>
-              <p class="meta">{prettyDate(p.date)}</p>
-              <p class="excerpt">{p.excerpt}</p>
-            </div>
-          </a>
-        ))}
-      </section>
-    </main>
-
-    <footer>© ParkerPixie · Made with ✨ glitter ✨, sass, and love from Madison, WI</footer>
+      {posts.length === 0 ? (
+        <div class="empty">
+          <p>No posts yet. Add a new <code>.astro</code> file in <code>src/pages/blog/</code> that exports <code>post</code> metadata.</p>
+        </div>
+      ) : (
+        <div class="grid">
+          {posts.map(p => (
+            <a class="card" href={p.url}>
+              {p.cover ? <img class="thumb" src={p.cover} alt={p.title} loading="eager" /> : <div class="thumb"></div>}
+              <div class="card-body">
+                <div class="title">{p.title}</div>
+                {p.subtitle ? <div class="subtitle">{p.subtitle}</div> : null}
+                <div class="meta">{p.date}</div>
+                {p.tags?.length ? (
+                  <div class="tags">
+                    {p.tags.map(t => <span class="tag">{t}</span>)}
+                  </div>
+                ) : null}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
   </body>
 </html>
