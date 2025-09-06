@@ -1,208 +1,63 @@
 ---
-/* DLV.astro — ParkerPixiePop pillar page */
-const pageTitle = "Disney Dreamlight Valley · ParkerPixiePop";
-const pageDesc  = "Cozy quests, fashion fits, and biome glow-ups. Dreamlight Valley with ParkerPixie.";
+const year = new Date().getFullYear();
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{pageTitle}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={pageDesc} />
+    <title>ParkerPixie — Sass · Shimmer · Sparkle</title>
+    <meta name="description" content="Welcome to my Universe ✨ Sass. Shimmer. Sparkle. Share!" />
     <link rel="icon" href="/CapyGoldIcon.png" />
 
+    <!-- 🌟 Social Share Preview (Facebook, Twitter, etc.) -->
+    <meta property="og:title" content="ParkerPixie" />
+    <meta property="og:description" content="Welcome to my Universe ✨ Sass. Shimmer. Sparkle. Share!" />
+    <meta property="og:image" content="https://parkerpixie.netlify.app/img/SharePhoto.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parkerpixie.netlify.app/" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ParkerPixie" />
+    <meta name="twitter:description" content="Welcome to my Universe ✨ Sass. Shimmer. Sparkle. Share!" />
+    <meta name="twitter:image" content="https://parkerpixie.netlify.app/img/SharePhoto.png" />
+
     <style>
-      :root{
-        --bg:#0a0b0f;
-        --ink:#f2f0ff;
-        --muted:#c9c4ff;
-
-        /* PixiePop header tokens */
-        --pp-purple:#7a5cff;
-        --pp-purple-2:#a693ff;
-        --pp-ink:#f2f0ff;
-        --pp-muted:#c9c4ff;
+      body {
+        background-color: black;
+        color: white;
+        font-family: 'Trebuchet MS', sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
       }
-      *{box-sizing:border-box}
-      html,body{margin:0;background:var(--bg);color:var(--ink);
-        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial}
-
-      /* ===== PixiePop-style header ===== */
-      .pop-header{
-        position: sticky; top: 0; z-index: 40;
-        backdrop-filter: saturate(140%) blur(10px);
-        background: rgba(10, 8, 18, .70);
-        border-bottom: 1px solid rgba(255,255,255,.06);
+      header {
+        padding: 2rem;
       }
-      .pop-nav{
-        max-width: 1200px; margin: 0 auto; padding: 12px 18px;
-        display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
-        color: var(--pp-ink);
-        font: 700 14px/1 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
       }
-      .pop-brand{ display:inline-flex; align-items:center; gap:10px; text-decoration:none }
-      .pop-brand img{ height:36px; width:auto; display:block; filter: drop-shadow(0 0 10px rgba(122,92,255,.45)); }
-
-      .pop-primary{
-        list-style:none; margin:0; padding:0;
-        display:flex; gap:26px; justify-content:center; align-items:center; flex-wrap:wrap;
+      p {
+        font-size: 1.2rem;
+        margin-top: 0;
       }
-      .pop-primary a{
-        position:relative; display:inline-block; padding:10px 2px; text-decoration:none;
-        color: var(--pp-ink); letter-spacing:.02em; text-transform: uppercase;
-        transition: color .15s ease;
-      }
-      .pop-primary a::after{
-        content:""; position:absolute; left:0; right:0; bottom:4px; height:3px;
-        border-radius: 3px; background: currentColor; opacity:.95;
-        transform: scaleX(0); transform-origin: left;
-        transition: transform .18s ease;
-      }
-      .pop-primary a:hover{ color: var(--pp-purple-2); }
-      .pop-primary a:hover::after{ transform: scaleX(1); }
-      .pop-primary a.is-active{ color: var(--pp-purple); }
-      .pop-primary a.is-active::after{ transform: scaleX(1); }
-
-      .pop-right{ display:flex; gap:14px; align-items:center }
-      .pop-link{ color: var(--pp-muted); text-decoration:none; padding:8px 10px; border-radius:10px; }
-      .pop-link:hover{ color: var(--pp-ink); background: rgba(255,255,255,.06) }
-      .pop-cta{
-        text-decoration:none; font-weight:800;
-        background: var(--pp-purple); color:#100a1f;
-        padding: 9px 16px; border-radius: 999px;
-        border: 1px solid color-mix(in oklab, var(--pp-purple) 90%, #000);
-        box-shadow: 0 6px 20px rgba(122,92,255,.45), inset 0 0 0 1px rgba(255,255,255,.1);
-      }
-      .pop-cta:hover{ background: var(--pp-purple-2); }
-
-      @media (max-width: 860px){
-        .pop-primary{ gap:18px; overflow-x:auto; scrollbar-width:none }
-        .pop-primary::-webkit-scrollbar{ display:none }
-      }
-
-      /* ===== Hero Image with Sparkle Line ===== */
-      .hero{
-        position:relative; isolation:isolate;
-        min-height: min(78svh, 820px);
-        display:grid; place-items:center;
-        overflow: clip;
-      }
-      .hero img{
-        position:absolute; inset:0; width:100%; height:100%;
-        object-fit:cover; object-position:center;
-        filter: saturate(1.06) contrast(1.05) brightness(0.98);
-        transform: scale(1.02);
-      }
-      .veil{
-        position:absolute; inset:0;
-        background:
-          radial-gradient(1200px 500px at 10% -10%, rgba(122,92,255,.22), transparent 60%),
-          radial-gradient(1100px 480px at 120% 0%, rgba(255,255,255,.06), transparent 60%),
-          linear-gradient(180deg, rgba(5,6,12,.35), rgba(5,6,12,.55));
-        mix-blend-mode: normal;
-      }
-      .titlewrap{
-        position:relative; z-index:2; text-align:center; padding: 0 16px;
-      }
-      .eyebrow{
-        color: var(--pp-muted); text-transform:uppercase; letter-spacing:.18em; font-size:.9rem;
-      }
-      h1{
-        margin:.4rem 0 0;
-        font-size: clamp(2rem, 6vw, 4rem);
-        line-height: 1.06;
-        text-shadow: 0 6px 28px rgba(0,0,0,.45);
-      }
-
-      /* Sparkling “More coming soon…” */
-      .soon{
-        margin-top: 14px;
-        display:inline-block;
-        font-weight:800;
-        letter-spacing:.02em;
-        position:relative;
-        /* subtle gradient “ink” that moves */
-        background: linear-gradient(90deg, #ffffff 0%, #cfc6ff 30%, #ffffff 60%, #d8ccff 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        animation: rollIn .8s ease-out both, shine 3.2s linear infinite, twinkle 2.2s ease-in-out infinite;
-      }
-      @keyframes rollIn{
-        0%{ opacity:0; transform: translateY(10px) scale(.98); filter: blur(2px); }
-        100%{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
-      }
-      @keyframes shine{
-        0%{ background-position: 0% 50%; }
-        100%{ background-position: 200% 50%; }
-      }
-      @keyframes twinkle{
-        0%,100%{ text-shadow: 0 0 0px rgba(255,255,255,0.0), 0 0 0px rgba(122,92,255,0.0); }
-        50%{ text-shadow: 0 0 14px rgba(255,255,255,.45), 0 0 28px rgba(122,92,255,.25); }
-      }
-      .soon::after{
-        content:"✨";
-        position:absolute; right:-1.2ch; top:-.3ch;
-        animation: star 1.8s ease-in-out infinite;
-        filter: drop-shadow(0 0 8px rgba(255,255,255,.6));
-      }
-      @keyframes star{
-        0%,100%{ transform: translateY(0) rotate(0deg) scale(1); opacity:.9 }
-        50%{ transform: translateY(-3px) rotate(12deg) scale(1.08); opacity:1 }
-      }
-
-      /* Motion safety */
-      @media (prefers-reduced-motion: reduce){
-        .soon{ animation: none; background: none; color: var(--ink); text-shadow: none; }
-        .soon::after{ display:none; }
-      }
-
-      /* Page body spacing */
-      .pad{ max-width:1100px; margin: 28px auto 64px; padding: 0 18px; color: var(--pp-muted) }
     </style>
   </head>
 
   <body>
-    <!-- PixiePop header -->
-    <header class="pop-header" role="banner">
-      <nav class="pop-nav" aria-label="Primary">
-        <!-- Left: pillar logo -->
-        <a class="pop-brand" href="/parkerpixiepop/">
-          <img src="/img/PixiePopLogo.PNG" alt="PixiePop logo" />
-        </a>
-
-        <!-- Center: pillar pages (DLV active) -->
-        <ul class="pop-primary">
-          <li><a href="/DLV/" class="is-active" aria-current="page">Dreamlight Valley</a></li>
-          <li><a href="/InfinityNikki/">Infinity Nikki</a></li>
-          <li><a href="/Hogwarts/">Hogwarts Legacy</a></li>
-        </ul>
-
-        <!-- Right: core links -->
-        <div class="pop-right">
-          <a class="pop-link" href="/about/">About</a>
-          <a class="pop-link" href="/blog/">Blog</a>
-          <a class="pop-cta"  href="/contact/">Contact</a>
-        </div>
-      </nav>
+    <header>
+      <h1>ParkerPixie</h1>
+      <p>Sass · Shimmer · Sparkle</p>
     </header>
 
-    <!-- Hero with your DLV image + sparkle line -->
-    <section class="hero" aria-label="Disney Dreamlight Valley">
-      <img src="/img/DLV_DS2.jpg" alt="Disney Dreamlight Valley — ParkerPixie scene" />
-      <div class="veil" aria-hidden="true"></div>
-      <div class="titlewrap">
-        <div class="eyebrow">ParkerPixiePop</div>
-        <h1>Disney Dreamlight Valley</h1>
-        <div class="soon" aria-live="polite">More coming soon…</div>
-      </div>
-    </section>
+    <main>
+      <img src="/img/SharePhoto.png" alt="Welcome to my Universe" style="max-width:100%; height:auto; border-radius: 12px;" />
+    </main>
 
-    <!-- Optional stub body space (safe to remove later) -->
-    <div class="pad">
-      Future: outfit vaults, valley tours, quest guides, and co-op nights. ✨
-    </div>
+    <footer>
+      <p>&copy; {year} ParkerPixie</p>
+    </footer>
   </body>
 </html>
