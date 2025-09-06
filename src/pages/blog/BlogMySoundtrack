@@ -1,1 +1,108 @@
+---
+// src/pages/blog/BlogMySoundtrack.astro
+// Standalone blog page
+const title = "The Soundtrack of My Life";
+const subtitle = "How music became my refuge, rebellion, and rhythm of healing.";
+const date = "September 6, 2025";
+const tags = ["music", "healing", "story", "Swiftie"];
+const cover = null; // could add an image later if you want
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Parker writes about how music has been her constant—childhood soundtrack, refuge in high school, college radio chaos, opera performances, Swiftie healing, and now sharing Ani DiFranco with Porter."
+    />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: radial-gradient(circle at top, #1a1a2e, #000);
+        color: #f0f0f0;
+        line-height: 1.6;
+      }
+      header.hero {
+        padding: 4rem 2rem;
+        text-align: center;
+        background: linear-gradient(180deg, #2a2a40, #000);
+      }
+      header.hero h1 {
+        font-size: 2.5rem;
+        margin: 0.5rem 0;
+        color: #f9d6ff;
+        text-shadow: 0 0 10px rgba(255, 180, 255, 0.7);
+      }
+      header.hero .subtitle {
+        color: #bbb;
+        font-size: 1.1rem;
+      }
+      main {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+      }
+      h2 {
+        color: #f9d6ff;
+        margin-top: 2rem;
+      }
+      p {
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER NAV -->
+    <nav style="display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:linear-gradient(to right,#2b2b40,#1a1a2e);">
+      <div style="display:flex;align-items:center;gap:.5rem;">
+        <img src="/CapyGoldIcon.png" alt="Capybara Icon" style="height:20px;" />
+        <a href="/" style="color:#f9d6ff;text-decoration:none;font-weight:bold;">ParkerPixie</a>
+      </div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="/about/" style="color:white;text-decoration:none;">About</a>
+        <a href="/blog/" style="color:white;text-decoration:none;">Blog</a>
+        <a href="/contact/" style="color:#fff;background:#6c47ff;padding:.4rem 1rem;border-radius:20px;font-weight:bold;text-decoration:none;">Contact</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <h1>{title}</h1>
+      <div class="subtitle">{subtitle}</div>
+      <div style="margin-top:.5rem;color:#999;font-size:.9rem;">{date}</div>
+    </header>
+
+    <!-- BODY -->
+    <main>
+      <p>Music has always been the undercurrent of my life—sometimes loud and brash, sometimes quiet and grounding, but always there.</p>
+
+      <p>As a little kid, I was constantly singing: in the car, to myself, to anyone who would listen. My mom blasted Carole King’s <em>Tapestry</em> in her little Yugo, filling our rides with the ache of “So Far Away.” My brother Jimmy, on the other hand, made sure the whole house knew he was going to <em>fight for his right to party</em>—blasting Beastie Boys and N.W.A. from his bedroom until the walls practically shook. My sister and I choreographed Lisa Loeb’s <em>Stay</em> on the jungle gym, convinced we were destined for Olympic floor routines. Music wasn’t just entertainment; it was oxygen.</p>
+
+      <p>High school cemented that bond. While some kids ruled the cafeteria, I ruled the band and choir rooms. Jazz Band mornings gave me peace before the chaos of the day. Swing Choir gave me sparkle. A school trip to Toronto gave me the surreal joy of seeing Paul Stanley from KISS as the Phantom of the Opera. And in an almost comical oversight, our small-town Wisconsin high school took us to see <em>RENT</em>—clearly not realizing what it was about. It didn’t exactly change my life, but it cracked open my eyes to what musicals could be. Suddenly it wasn’t just Rodgers &amp; Hammerstein or Andrew Lloyd Webber—it was rock, grit, and modern storytelling. A whole new world of music-driven theatre was out there, and I wanted more.</p>
+
+      <p>I was even chosen for the Dorian Vocal Festival in Iowa, where I sang alongside the best young voices in the Midwest. By senior year, music had given me something nothing else had: recognition. I walked away with the National School Choral Award <em>and</em> the John Philip Sousa Award, proof that my hours in the practice rooms mattered.</p>
+
+      <p>College tried to tell me to “be practical.” I declared a Biotechnology major, but a D in Biology proved otherwise. I pivoted to music, studying theory, dictation, voice, piano (badly), and history. When I realized piano wasn’t my destiny, I turned to another mic: the college radio station. <em>The Blonde Moment</em> was born—a weekly radio show where my co-host and I took requests from dorms, and even from prisoners at the county jail, while spinning everything from Ani to Nelly. Somewhere in a box, I still have a cassette recording of that show, waiting for me to rescue it before it disintegrates.</p>
+
+      <p>In 2006, life surprised me again. Working in HR at Copps and Pick ’n Save, I overheard a coworker mention she sang in the Madison Opera Chorus. Suddenly, a door opened. Within months, I was on stage, singing music that stretched me further than I’d ever gone before. Over the years, I performed in eight operas—including <em>Carmen</em> while pregnant with Porter, his tiny kicks echoing in time with Bizet.</p>
+
+      <p>Even now, music is my pulse. I still spin the women of the ’90s who raised me—Tori Amos, Ani DiFranco, Alanis Morissette, Fiona Apple. But I’ve also found myself unexpectedly wrapped up in Taylor Swift’s world. Once “that country girl,” she grew, healed, and sharpened her words into weapons. Her lyrics now slice through me: <em>“You’re on your own, kid, you always have been.”</em> <em>“I was a functioning alcoholic ’til nobody noticed my new aesthetic.”</em> It’s therapy in disguise.</p>
+
+      <p>If you peek at one of my playlists, you’ll hear my ADHD on full display: House of Pain’s <em>Jump Around</em> crashing into Taylor’s <em>Bejeweled,</em> then bursting into “I’m the queen of the castle” from <em>Six the Musical.</em> It’s chaos. It’s joy. It’s me.</p>
+
+      <p>And tonight—it all comes full circle. I’m seeing Ani DiFranco for the third time, but this time with Porter. They’re drawn to Ani not just as an artist but as a feminist, an activist, a truth-teller. I can’t wait for them to feel that spark live, in a room filled with people who know music can be both rebellion and refuge.</p>
+
+      <p>Because that’s what music has always been for me: a safe place, a rallying cry, and a reminder that our voices matter.</p>
+
+      <p><strong>Here’s to Ani tonight. Here’s to Porter hearing the soundtrack of resistance and healing. And here’s to music—the thread that has always, always held me together.</strong></p>
+
+      <p style="text-align:center;font-size:1.5rem;">✨🎶✨</p>
+    </main>
+  </body>
+</html>
 
