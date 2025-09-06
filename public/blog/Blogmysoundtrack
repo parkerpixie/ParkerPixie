@@ -1,0 +1,80 @@
+---
+// src/pages/blog/blogmysoundtrack.astro
+const title = "My Life in Songs (A Tiny Soundtrack)";
+const date = "September 6, 2025";
+const description = "Tracks that stitched me together — recovery, rage, love, and glitter.";
+// Put a real image here. This MUST exist under /public:
+const hero = "/img/blog/mysoundtrack-hero.jpg";
+const heroAlt = "Headphones and journal with soft light bokeh";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- Share/meta -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={hero} />
+
+    <style>
+      :root{
+        --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
+        --ink:#f7f3ff; --muted:#bdb5d9;
+        --bg1:#0f0b14; --bg2:#130e1f; --bg3:#100b1a;
+        --line:#2a2240;
+      }
+      html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg1),var(--bg2) 60%,var(--bg3));color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial}
+      a{color:inherit;text-decoration:none}
+      header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(16,11,26,.8);backdrop-filter: blur(8px)}
+      .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+      .brand img{width:24px;height:24px}
+      nav a{margin-left:16px;opacity:.9}
+      nav a:hover{opacity:1;text-decoration:underline}
+
+      main{max-width:900px;margin:28px auto;padding:0 20px}
+      h1{margin:8px 0 0;font-size:clamp(28px,3.2vw,42px)}
+      .meta{color:var(--muted);margin:6px 0 18px}
+      .hero{
+        width:100%; aspect-ratio: 16/9; object-fit:cover; border-radius:16px;
+        border:1px solid var(--line); background:#0d0a14;
+      }
+      article{line-height:1.7;font-size:18px}
+      article p{margin:14px 0}
+      footer{color:var(--muted);margin:28px 0 48px;border-top:1px dashed var(--line);padding-top:16px}
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/">
+        <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
+        <span>ParkerPixie</span>
+      </a>
+      <nav>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <img class="hero" src={hero} alt={heroAlt} />
+      <h1>{title}</h1>
+      <p class="meta">{date}</p>
+
+      <article>
+        <p><em>Drop your mini-essay here — why each song matters, the season of life it scores, and the line that hit hardest.</em></p>
+        <p>Example sections: “Anger Alchemized,” “Quiet Grief,” “Recovery Anthems,” “Soft Power.” Link out to Spotify/Apple.</p>
+      </article>
+
+      <footer>
+        <a href="/blog/">← Back to Blog</a>
+      </footer>
+    </main>
+  </body>
+</html>
