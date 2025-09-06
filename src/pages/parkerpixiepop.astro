@@ -70,7 +70,7 @@ const year = new Date().getFullYear();
       .pop-primary a:hover{ color: var(--pp-purple-2); }
       .pop-primary a:hover::after{ transform: scaleX(1); }
 
-      /* Active page styling (none set active on the pillar hub by default) */
+      /* Active state helper (set on leaf pages, not on hub) */
       .pop-primary a.is-active{ color: var(--pp-purple); }
       .pop-primary a.is-active::after{ transform: scaleX(1); }
 
@@ -154,12 +154,12 @@ const year = new Date().getFullYear();
     <!-- NEW PixiePop header -->
     <header class="pop-header" role="banner">
       <nav class="pop-nav" aria-label="Primary">
-        <!-- Left: PixiePop logo -->
-        <a class="pop-brand" href="/ParkerPixiePop/">
-          <img src="/img/PixiePopLogo.PNG" alt="PixiePop" />
+        <!-- Left: PixiePop logo (pillar home) -->
+        <a class="pop-brand" href="/parkerpixiepop/">
+          <img src="/img/PixiePopLogo.PNG" alt="PixiePop logo" />
         </a>
 
-        <!-- Center: pillar pages (underlines + highlight when active) -->
+        <!-- Center: pillar pages (underline style; no active on hub) -->
         <ul class="pop-primary">
           <li><a href="/DLV/">Dreamlight Valley</a></li>
           <li><a href="/InfinityNikki/">Infinity Nikki</a></li>
