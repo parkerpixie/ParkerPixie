@@ -1,19 +1,24 @@
 ---
 /*
-  InfinityNikki.astro — your version + two fixes
-  FIX 1: card images use natural aspect ratio (no cropping)
-  FIX 2: lightbox click works; fallback opens image in a new tab if <dialog> isn't supported
+  test.astro — sandbox page with Option 2 Connect card
+  Uses your live socials + Steam code from /contact
 */
 
-const pageTitle = "Infinity Nikki — ParkerPixie";
-const pageDesc  = "A living gallery of shimmer looks. Ethereal, glam, and unapologetically Parker.";
+const pageTitle = "Test — Connect Card · ParkerPixie";
+const pageDesc  = "Sandbox page to test the Connect & Co-Op card.";
+const steamCode = "119555934"; // from Contact page
 
-// EXACT FILENAMES (case + extension + paths in /public/img)
+const socials = {
+  facebook: "https://www.facebook.com",
+  twitch: "https://www.twitch.tv",
+  discord: "https://discord.gg",
+};
+
 const gallery = [
   { src: "/img/Nikki01.JPG", alt: "Nikki01" },
   { src: "/img/Nikki02.JPG", alt: "Nikki02" },
   { src: "/img/Nikki03.JPG", alt: "Nikki03" },
-  { src: "/img/Nikki04.jpeg", alt: "Nikki04" }, // jpeg (lowercase)
+  { src: "/img/Nikki04.jpeg", alt: "Nikki04" },
   { src: "/img/Nikki05.JPG", alt: "Nikki05" },
   { src: "/img/Nikki06.JPG", alt: "Nikki06" },
   { src: "/img/Nikki07.JPG", alt: "Nikki07" },
@@ -37,54 +42,83 @@ const gallery = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={pageDesc} />
     <link rel="icon" href="/CapyGoldIcon.png" />
-
     <style>
-      :root{
-        --ink:#f3f2ff;
-        --muted:#c9c4ff;
-        --bg:#000;
-        --accent:#f2c14e;
-        --chip:#1a152a;
-        --chip-2:#0e0b18;
-        --ring:#7a5cff;
-      }
-      html,body{margin:0;padding:0}
-      body{background:var(--bg)}
+      :root{ --ink:#f3f2ff; --muted:#c9c4ff; --bg:#000; --accent:#f2c14e;
+             --chip:#1a152a; --chip-2:#0e0b18; --ring:#7a5cff;
+             --pp-purple:#7a5cff; --pp-purple-2:#a693ff; --pp-ink:#f2f0ff; --pp-muted:#c9c4ff; }
+      html,body{margin:0;padding:0} body{background:var(--bg)}
 
-      .nikki{
-        position:relative;
-        min-height:100svh;
-        color:var(--ink);
-        display:grid;
-        grid-template-rows:auto 1fr auto;
-        font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      }
+      .nikki{ position:relative; min-height:100svh; color:var(--ink);
+              display:grid; grid-template-rows:auto 1fr auto;
+              font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
       .nikki::before{
-        content:"";
-        position:fixed;
-        inset:0;
+        content:""; position:fixed; inset:0;
         background:
           linear-gradient(180deg, rgba(0,0,0,.70), rgba(10,0,30,.78)),
           radial-gradient(1200px 600px at 50% -10%, rgba(122,92,255,.18), rgba(122,92,255,0) 60%),
           radial-gradient(800px 400px at 10% 0%, rgba(242,193,78,.20), rgba(242,193,78,0) 50%),
           url("/img/InfinityNikki.jpg") center / cover no-repeat;
-        filter: blur(2px) saturate(.9);
-        z-index:-1;
+        filter: blur(2px) saturate(.9); z-index:-1;
       }
 
-      .site-header{
-        position:sticky; top:0; z-index:5;
-        backdrop-filter: blur(8px);
-        background: rgba(0,0,0,.45);
-        border-bottom:1px solid rgba(255,255,255,.08);
+      /* ===== PixiePop Pillar Header (Femme-style underline) ===== */
+      .pop-header{
+        position: sticky; top: 0; z-index: 40;
+        backdrop-filter: blur(10px);
+        background: rgba(10, 8, 18, .70);
+        border-bottom: 1px solid rgba(255,255,255,.08);
       }
-      .nav{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
-      .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;letter-spacing:.2px}
-      .brand img{width:28px;height:28px;border-radius:999px;box-shadow:0 0 10px rgba(242,193,78,.35)}
-      .nav-links{margin-left:auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-      .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
-      .nav-links a.active,.nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.06);outline:1px solid rgba(255,255,255,.08)}
+      .pop-nav{
+        max-width: 1200px; margin: 0 auto; padding: 12px 18px;
+        display: grid; grid-template-columns: auto 1fr auto;
+        gap: 16px; align-items: center;
+        font: 700 14px/1 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+        color: var(--pp-ink);
+      }
+      .pop-brand{ display:inline-flex; align-items:center; text-decoration:none }
+      .pop-brand img{
+        height:36px; width:auto; display:block;
+        filter: drop-shadow(0 0 10px rgba(122,92,255,.45));
+      }
+      .pop-primary{
+        list-style:none; margin:0; padding:0;
+        display:flex; gap:26px; justify-content:center; align-items:center; flex-wrap:wrap;
+      }
+      .pop-primary a{
+        position:relative; display:inline-block; padding:10px 2px; text-decoration:none;
+        color: var(--pp-ink); letter-spacing:.02em; text-transform: uppercase;
+        transition: color .15s ease;
+      }
+      .pop-primary a::after{
+        content:""; position:absolute; left:0; right:0; bottom:4px; height:3px;
+        border-radius: 3px; background: currentColor; opacity:.95;
+        transform: scaleX(0); transform-origin: left;
+        transition: transform .18s ease;
+      }
+      .pop-primary a:hover{ color: var(--pp-purple-2); }
+      .pop-primary a:hover::after{ transform: scaleX(1); }
+      .pop-primary a.is-active{ color: var(--pp-purple); }
+      .pop-primary a.is-active::after{ transform: scaleX(1); }
 
+      .pop-right{ display:flex; gap:14px; align-items:center }
+      .pop-link{
+        color: var(--pp-muted); text-decoration:none; padding:8px 10px; border-radius:10px;
+      }
+      .pop-link:hover{ color: var(--pp-ink); background: rgba(255,255,255,.06) }
+      .pop-cta{
+        text-decoration:none; font-weight:800;
+        background: var(--pp-purple); color:#100a1f;
+        padding: 9px 16px; border-radius: 999px;
+        border: 1px solid color-mix(in oklab, var(--pp-purple) 90%, #000);
+        box-shadow: 0 6px 20px rgba(122,92,255,.45), inset 0 0 0 1px rgba(255,255,255,.1);
+      }
+      .pop-cta:hover{ background: var(--pp-purple-2); }
+      @media (max-width: 860px){
+        .pop-primary{ gap:18px; overflow-x:auto; scrollbar-width:none }
+        .pop-primary::-webkit-scrollbar{ display:none }
+      }
+
+      /* Hero */
       .hero{max-width:1100px;margin:34px auto 4px;padding:24px 20px 8px}
       .eyebrow{color:var(--muted);font-size:.9rem;letter-spacing:.18em;text-transform:uppercase}
       h1{margin:8px 0 12px;font-size:clamp(2rem,4vw,3rem);line-height:1.1;text-shadow:0 0 10px rgba(0,0,0,.45)}
@@ -92,32 +126,55 @@ const gallery = [
       .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
       .chip{background:linear-gradient(180deg,var(--chip),var(--chip-2));border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:8px 12px;font-size:.9rem;color:var(--muted)}
 
-      .gallery-wrap{
-        max-width: 1400px;
-        margin: 18px auto 44px;
-        padding: 0 16px 44px;
+      /* Connect Card */
+      .connect-wrap{max-width:1100px;margin:10px auto 22px;padding:0 20px}
+      .connect{
+        display:grid; gap:14px; border-radius:16px; overflow:clip;
+        background: linear-gradient(180deg, rgba(26,21,42,.7), rgba(14,11,24,.7));
+        border:1px solid rgba(255,255,255,.08);
+        box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.04);
       }
+      .connect-head{padding:16px 16px 4px}
+      .connect-title{font-weight:800; font-size:1.25rem}
+      .connect-sub{color:var(--muted); margin-top:2px}
+      .connect-grid{ display:grid; gap:10px; padding:4px 16px 16px; grid-template-columns:1fr }
+      @media (min-width:720px){ .connect-grid{ grid-template-columns:auto 1fr } }
+
+      .btnrow{display:flex; gap:10px; flex-wrap:wrap}
+      .btn{
+        appearance:none; text-decoration:none; cursor:pointer;
+        padding:10px 14px; border-radius:12px; font-weight:700;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.06); color:var(--ink);
+      }
+      .btn:hover{background: rgba(255,255,255,.10)}
+      .btn:active{transform: translateY(1px)}
+
+      .steam{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+      .steam input{
+        flex:1 1 240px; min-width: 200px;
+        background: rgba(0,0,0,.35); color:var(--ink);
+        border:1px solid rgba(255,255,255,.14); border-radius:12px;
+        padding:10px 12px; font-weight:700; letter-spacing:.5px;
+      }
+      .copy{
+        appearance:none; padding:10px 12px; border-radius:12px; font-weight:700;
+        background: var(--accent); color:#1a1200; border:1px solid rgba(0,0,0,.2);
+        cursor:pointer;
+      }
+      .copy:active{transform:translateY(1px)}
+      .copied{ color: var(--muted); font-size:.9rem; opacity:.9 }
+
+      /* Gallery (same as InfinityNikki) */
+      .gallery-wrap{max-width: 1400px; margin: 18px auto 44px; padding: 0 16px 44px;}
       .grid{display:grid;gap:14px;grid-template-columns:1fr}
       @media (min-width:720px){ .grid{grid-template-columns:1fr 1fr} }
 
       .card{position:relative;overflow:clip;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08)}
       .card a{display:block;line-height:0;text-decoration:none;color:inherit}
+      .card img{width:100%;height:auto;display:block;filter: saturate(1.02) contrast(1.03);image-rendering:-webkit-optimize-contrast}
 
-      /* FIX 1: natural aspect ratio (remove forced crop) */
-      .card img{
-        width:100%;
-        height:auto;           /* keep original height ratio */
-        display:block;
-        /* removed: aspect-ratio and object-fit */
-        filter: saturate(1.02) contrast(1.03);
-        image-rendering:-webkit-optimize-contrast;
-      }
-
-      .card:hover::after{
-        content:"";position:absolute;inset:0;border-radius:16px;
-        box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ring) 55%, transparent);
-      }
-
+      /* Lightbox */
       dialog#lb{width:min(92vw,1100px);border:none;padding:0;background:rgba(8,6,16,.96);border-radius:12px;overflow:clip}
       dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(3px)}
       .lb-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -133,32 +190,59 @@ const gallery = [
 
   <body>
     <div class="nikki">
-      <header class="site-header" role="banner">
-        <nav class="nav" aria-label="Primary">
-          <a class="brand" href="/">
-            <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara" />
-            <span>ParkerPixie</span>
+      <!-- PixiePop-style header (treating this page as Infinity Nikki) -->
+      <header class="pop-header" role="banner">
+        <nav class="pop-nav" aria-label="Primary">
+          <a class="pop-brand" href="/parkerpixiepop/">
+            <img src="/img/PixiePopLogo.PNG" alt="PixiePop" />
           </a>
-          <div class="nav-links">
-            <a href="/parkerpixiepop/">Pop</a>
-            <a href="/parkerpixiepaws/">Paws</a>
-            <a href="/blog/">Blog</a>
-            <a class="active" href="/infinitynikki/">Infinity Nikki</a>
-            <a href="/about/">About</a>
-            <a href="/contact/">Contact</a>
+
+          <ul class="pop-primary">
+            <li><a href="/DLV/">Dreamlight Valley</a></li>
+            <li><a href="/infinitynikki/" class="is-active" aria-current="page">Infinity Nikki</a></li>
+            <li><a href="/Hogwarts/">Hogwarts Legacy</a></li>
+          </ul>
+
+          <div class="pop-right">
+            <a class="pop-link" href="/about/">About</a>
+            <a class="pop-link" href="/blog/">Blog</a>
+            <a class="pop-cta"  href="/contact/">Contact</a>
           </div>
         </nav>
       </header>
 
       <header class="hero">
         <div class="eyebrow">Cozy glam · Celestial couture</div>
-        <h1>Infinity Nikki</h1>
-        <p class="lead">A living gallery of shimmer looks. Ethereal, glam, and unapologetically ParkerPixie!</p>
+        <h1>Infinity Nikki (Test)</h1>
+        <p class="lead">Sandbox to try a clean Connect card without touching your live page.</p>
         <div class="chips" aria-label="Tags">
           <span class="chip">Ethereal</span><span class="chip">Shimmer</span><span class="chip">LinLang</span><span class="chip">Beautiful Landscapes</span>
         </div>
       </header>
 
+      <!-- CONNECT & CO-OP (Option 2) -->
+      <section class="connect-wrap" aria-label="Connect & Co-Op">
+        <div class="connect">
+          <div class="connect-head">
+            <div class="connect-title">Connect & Co-Op</div>
+            <div class="connect-sub">Wanna connect to my gaming universe?</div>
+          </div>
+          <div class="connect-grid">
+            <div class="btnrow">
+              <a class="btn" href={socials.facebook} target="_blank" rel="noopener">Facebook</a>
+              <a class="btn" href={socials.twitch} target="_blank" rel="noopener">Twitch</a>
+              <a class="btn" href={socials.discord} target="_blank" rel="noopener">Discord</a>
+            </div>
+            <div class="steam">
+              <input id="steamCode" type="text" value={steamCode} readonly aria-label="Steam Friend Code" />
+              <button class="copy" type="button" id="copyBtn">Copy</button>
+              <span class="copied" id="copyNote" hidden>Copied!</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
       <main class="gallery-wrap" role="main">
         <section aria-label="Gallery">
           <div class="grid">
@@ -173,6 +257,7 @@ const gallery = [
         </section>
       </main>
 
+      <!-- Lightbox -->
       <dialog id="lb" aria-label="Image viewer">
         <div class="lb-bar">
           <div class="lb-title" id="lb-caption">Infinity Nikki</div>
@@ -182,17 +267,32 @@ const gallery = [
       </dialog>
 
       <footer class="site-footer">
-        <p>Back to <a href="/parkerpixiepop/">ParkerPixiePop</a> · © {new Date().getFullYear()} ParkerPixie · Sass · Shimmer · Sparkle</p>
+        <p>Back to <a href="/infinitynikki/">Infinity Nikki</a> · © {new Date().getFullYear()} ParkerPixie · Sass · Shimmer · Sparkle</p>
       </footer>
     </div>
 
     <script is:inline>
+      // Copy Steam Friend Code
+      const copyBtn = document.getElementById('copyBtn');
+      const codeEl  = document.getElementById('steamCode');
+      const noteEl  = document.getElementById('copyNote');
+      copyBtn?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(codeEl.value);
+          noteEl.hidden = false;
+          setTimeout(() => noteEl.hidden = true, 1600);
+        } catch (_) {
+          codeEl.select(); document.execCommand?.('copy');
+          noteEl.hidden = false; setTimeout(() => noteEl.hidden = true, 1600);
+        }
+      });
+
+      // Lightbox behavior
       const dlg = document.getElementById('lb');
       const lbImg = document.getElementById('lb-img');
       const lbCap = document.getElementById('lb-caption');
       const btnClose = document.getElementById('lb-close');
 
-      // FIX 2: click opens large; fallback to new tab if <dialog> unsupported
       document.addEventListener('click', (e) => {
         const a = e.target.closest('a.thumb');
         if (!a) return;
@@ -202,25 +302,18 @@ const gallery = [
         const caption = a.dataset.alt || "Infinity Nikki";
 
         if (dlg && typeof dlg.showModal === 'function') {
-          lbImg.src = href;
-          lbImg.alt = caption;
-          lbCap.textContent = caption;
-          dlg.showModal();
+          lbImg.src = href; lbImg.alt = caption; lbCap.textContent = caption; dlg.showModal();
         } else {
-          // fallback (older Safari, etc.)
           window.open(href, '_blank');
         }
       });
-
       btnClose?.addEventListener('click', () => dlg.close());
       dlg?.addEventListener('click', (e) => {
         const r = dlg.getBoundingClientRect();
         const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
         if (!inside) dlg.close();
       });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && dlg?.open) dlg.close();
-      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && dlg?.open) dlg.close(); });
     </script>
   </body>
 </html>
