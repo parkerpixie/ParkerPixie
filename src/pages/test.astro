@@ -44,7 +44,8 @@ const gallery = [
     <link rel="icon" href="/CapyGoldIcon.png" />
     <style>
       :root{ --ink:#f3f2ff; --muted:#c9c4ff; --bg:#000; --accent:#f2c14e;
-             --chip:#1a152a; --chip-2:#0e0b18; --ring:#7a5cff; }
+             --chip:#1a152a; --chip-2:#0e0b18; --ring:#7a5cff;
+             --pp-purple:#7a5cff; --pp-purple-2:#a693ff; --pp-ink:#f2f0ff; --pp-muted:#c9c4ff; }
       html,body{margin:0;padding:0} body{background:var(--bg)}
 
       .nikki{ position:relative; min-height:100svh; color:var(--ink);
@@ -60,15 +61,64 @@ const gallery = [
         filter: blur(2px) saturate(.9); z-index:-1;
       }
 
-      .site-header{position:sticky; top:0; z-index:5; backdrop-filter: blur(8px);
-        background: rgba(0,0,0,.45); border-bottom:1px solid rgba(255,255,255,.08)}
-      .nav{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
-      .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800}
-      .brand img{width:28px;height:28px;border-radius:999px;box-shadow:0 0 10px rgba(242,193,78,.35)}
-      .nav-links{margin-left:auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-      .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
-      .nav-links a.active,.nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.06);outline:1px solid rgba(255,255,255,.08)}
+      /* ===== PixiePop Pillar Header (Femme-style underline) ===== */
+      .pop-header{
+        position: sticky; top: 0; z-index: 40;
+        backdrop-filter: blur(10px);
+        background: rgba(10, 8, 18, .70);
+        border-bottom: 1px solid rgba(255,255,255,.08);
+      }
+      .pop-nav{
+        max-width: 1200px; margin: 0 auto; padding: 12px 18px;
+        display: grid; grid-template-columns: auto 1fr auto;
+        gap: 16px; align-items: center;
+        font: 700 14px/1 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+        color: var(--pp-ink);
+      }
+      .pop-brand{ display:inline-flex; align-items:center; text-decoration:none }
+      .pop-brand img{
+        height:36px; width:auto; display:block;
+        filter: drop-shadow(0 0 10px rgba(122,92,255,.45));
+      }
+      .pop-primary{
+        list-style:none; margin:0; padding:0;
+        display:flex; gap:26px; justify-content:center; align-items:center; flex-wrap:wrap;
+      }
+      .pop-primary a{
+        position:relative; display:inline-block; padding:10px 2px; text-decoration:none;
+        color: var(--pp-ink); letter-spacing:.02em; text-transform: uppercase;
+        transition: color .15s ease;
+      }
+      .pop-primary a::after{
+        content:""; position:absolute; left:0; right:0; bottom:4px; height:3px;
+        border-radius: 3px; background: currentColor; opacity:.95;
+        transform: scaleX(0); transform-origin: left;
+        transition: transform .18s ease;
+      }
+      .pop-primary a:hover{ color: var(--pp-purple-2); }
+      .pop-primary a:hover::after{ transform: scaleX(1); }
+      .pop-primary a.is-active{ color: var(--pp-purple); }
+      .pop-primary a.is-active::after{ transform: scaleX(1); }
 
+      .pop-right{ display:flex; gap:14px; align-items:center }
+      .pop-link{
+        color: var(--pp-muted); text-decoration:none; padding:8px 10px; border-radius:10px;
+      }
+      .pop-link:hover{ color: var(--pp-ink); background: rgba(255,255,255,.06) }
+      .pop-cta{
+        text-decoration:none; font-weight:800;
+        background: var(--pp-purple); color:#100a1f;
+        padding: 9px 16px; border-radius: 999px;
+        border: 1px solid color-mix(in oklab, var(--pp-purple) 90%, #000);
+        box-shadow: 0 6px 20px rgba(122,92,255,.45), inset 0 0 0 1px rgba(255,255,255,.1);
+      }
+      .pop-cta:hover{ background: var(--pp-purple-2); }
+      @media (max-width: 860px){
+        .pop-primary{ gap:18px; overflow-x:auto; scrollbar-width:none }
+        .pop-primary::-webkit-scrollbar{ display:none }
+      }
+
+      /* Hero */
       .hero{max-width:1100px;margin:34px auto 4px;padding:24px 20px 8px}
       .eyebrow{color:var(--muted);font-size:.9rem;letter-spacing:.18em;text-transform:uppercase}
       h1{margin:8px 0 12px;font-size:clamp(2rem,4vw,3rem);line-height:1.1;text-shadow:0 0 10px rgba(0,0,0,.45)}
@@ -140,19 +190,23 @@ const gallery = [
 
   <body>
     <div class="nikki">
-      <header class="site-header" role="banner">
-        <nav class="nav" aria-label="Primary">
-          <a class="brand" href="/">
-            <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara" />
-            <span>ParkerPixie</span>
+      <!-- PixiePop-style header (treating this page as Infinity Nikki) -->
+      <header class="pop-header" role="banner">
+        <nav class="pop-nav" aria-label="Primary">
+          <a class="pop-brand" href="/parkerpixiepop/">
+            <img src="/img/PixiePopLogo.PNG" alt="PixiePop" />
           </a>
-          <div class="nav-links">
-            <a class="active" href="/test">Test</a>
-            <a href="/infinitynikki/">Infinity Nikki</a>
-            <a href="/parkerpixiepop/">Pop</a>
-            <a href="/parkerpixiepaws/">Paws</a>
-            <a href="/about/">About</a>
-            <a href="/contact/">Contact</a>
+
+          <ul class="pop-primary">
+            <li><a href="/DLV/">Dreamlight Valley</a></li>
+            <li><a href="/infinitynikki/" class="is-active" aria-current="page">Infinity Nikki</a></li>
+            <li><a href="/Hogwarts/">Hogwarts Legacy</a></li>
+          </ul>
+
+          <div class="pop-right">
+            <a class="pop-link" href="/about/">About</a>
+            <a class="pop-link" href="/blog/">Blog</a>
+            <a class="pop-cta"  href="/contact/">Contact</a>
           </div>
         </nav>
       </header>
