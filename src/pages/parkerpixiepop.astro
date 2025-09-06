@@ -24,27 +24,76 @@ const year = new Date().getFullYear();
         --accent-3:#ff7fd1;     /* pink */
         --ring: 0 0 0 2px rgba(255,255,255,.06);
         --radius:18px;
+
+        /* PixiePop header tokens */
+        --pp-purple:#7a5cff;
+        --pp-purple-2:#a693ff;
+        --pp-ink:#f2f0ff;
+        --pp-muted:#c9c4ff;
       }
       *{box-sizing:border-box}
       html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
       a{color:inherit;text-decoration:none}
       .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 
-      /* Header (inline to avoid global bleed) */
-      header.site{
-        position:sticky;top:0;z-index:50;
-        backdrop-filter:saturate(140%) blur(8px);
-        background:rgba(10,11,15,.6);
-        border-bottom:1px solid rgba(255,255,255,.06);
+      /* ===== NEW PixiePop-style header (logo left, pillar nav center, core right) ===== */
+      .pop-header{
+        position: sticky; top: 0; z-index: 50;
+        backdrop-filter: saturate(140%) blur(10px);
+        background: rgba(10, 8, 18, .70);
+        border-bottom: 1px solid rgba(255,255,255,.06);
       }
-      .site .row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
-      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
-      .brand img{width:28px;height:28px}
-      nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0}
-      nav a{padding:10px 14px;border-radius:999px;color:var(--muted)}
-      nav a.active, nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+      .pop-nav{
+        max-width: 1200px; margin: 0 auto; padding: 12px 18px;
+        display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center;
+        color: var(--pp-ink);
+        font: 700 14px/1 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      }
+      .pop-brand{ display:inline-flex; align-items:center; text-decoration:none; gap:10px }
+      .pop-brand img{ height:36px; width:auto; display:block; filter: drop-shadow(0 0 10px rgba(122,92,255,.45)); }
 
-      .cta{padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-weight:700}
+      .pop-primary{
+        list-style:none; margin:0; padding:0;
+        display:flex; gap:26px; justify-content:center; align-items:center; flex-wrap:wrap;
+      }
+      .pop-primary a{
+        position:relative; display:inline-block; padding:10px 2px; text-decoration:none;
+        color: var(--pp-ink); letter-spacing:.02em; text-transform: uppercase;
+        transition: color .15s ease;
+      }
+      .pop-primary a::after{
+        content:""; position:absolute; left:0; right:0; bottom:4px; height:3px;
+        border-radius: 3px; background: currentColor; opacity:.95;
+        transform: scaleX(0); transform-origin: left;
+        transition: transform .18s ease;
+      }
+      .pop-primary a:hover{ color: var(--pp-purple-2); }
+      .pop-primary a:hover::after{ transform: scaleX(1); }
+
+      /* Active page styling (none set active on the pillar hub by default) */
+      .pop-primary a.is-active{ color: var(--pp-purple); }
+      .pop-primary a.is-active::after{ transform: scaleX(1); }
+
+      .pop-right{ display:flex; gap:14px; align-items:center }
+      .pop-link{
+        color: var(--pp-muted); text-decoration:none; padding:8px 10px; border-radius:10px;
+      }
+      .pop-link:hover{ color: var(--pp-ink); background: rgba(255,255,255,.06) }
+      .pop-cta{
+        text-decoration:none; font-weight:800;
+        background: var(--pp-purple); color:#100a1f;
+        padding: 9px 16px; border-radius: 999px;
+        border: 1px solid color-mix(in oklab, var(--pp-purple) 90%, #000);
+        box-shadow: 0 6px 20px rgba(122,92,255,.45), inset 0 0 0 1px rgba(255,255,255,.1);
+      }
+      .pop-cta:hover{ background: var(--pp-purple-2); }
+
+      @media (max-width: 860px){
+        .pop-primary{ gap:18px; overflow-x:auto; scrollbar-width:none }
+        .pop-primary::-webkit-scrollbar{ display:none }
+      }
+
+      /* ===== Existing styles below unchanged ===== */
 
       /* Hero */
       .hero{
@@ -97,28 +146,33 @@ const year = new Date().getFullYear();
 
       /* Responsive */
       @media (max-width:960px){ .grid3{grid-template-columns:1fr 1fr} .social{grid-template-columns:1fr 1fr 1fr} }
-      @media (max-width:640px){ nav ul{gap:8px} .grid3{grid-template-columns:1fr} .social{grid-template-columns:1fr} }
+      @media (max-width:640px){ .grid3{grid-template-columns:1fr} .social{grid-template-columns:1fr} }
     </style>
   </head>
 
   <body>
-    <!-- Header -->
-    <header class="site">
-      <div class="wrap row">
-        <a class="brand" href="/">
-          <img src="/CapyGoldIcon.png" alt="ParkerPixie capybara icon" />
-          <span>ParkerPixie</span>
+    <!-- NEW PixiePop header -->
+    <header class="pop-header" role="banner">
+      <nav class="pop-nav" aria-label="Primary">
+        <!-- Left: PixiePop logo -->
+        <a class="pop-brand" href="/ParkerPixiePop/">
+          <img src="/img/PixiePopLogo.PNG" alt="PixiePop" />
         </a>
-        <nav aria-label="Main">
-          <ul>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/contact/">Contact</a></li>
-            <li><a href="/ParkerPixiePaws/">Paws</a></li>
-            <li><a class="active" href="/ParkerPixiePop/">Pop</a></li>
-          </ul>
-        </nav>
-        <a class="cta" href="/contact/">Say Hi</a>
-      </div>
+
+        <!-- Center: pillar pages (underlines + highlight when active) -->
+        <ul class="pop-primary">
+          <li><a href="/DLV/">Dreamlight Valley</a></li>
+          <li><a href="/InfinityNikki/">Infinity Nikki</a></li>
+          <li><a href="/Hogwarts/">Hogwarts Legacy</a></li>
+        </ul>
+
+        <!-- Right: core links + purple CTA -->
+        <div class="pop-right">
+          <a class="pop-link" href="/about/">About</a>
+          <a class="pop-link" href="/blog/">Blog</a>
+          <a class="pop-cta"  href="/contact/">Contact</a>
+        </div>
+      </nav>
     </header>
 
     <!-- Hero -->
