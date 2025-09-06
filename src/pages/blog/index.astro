@@ -1,152 +1,139 @@
+---
+// src/pages/blog/index.astro
+// Standalone blog index using hard-coded posts (no Markdown files)
+
+type Post = {
+  title: string;
+  slug: string;        // path segment after /blog/
+  date: string;        // ISO or readable date
+  excerpt: string;
+  cover?: string;      // e.g., "/img/blog/mysoundtrack-card.jpg"
+  coverAlt?: string;
+};
+
+// ⚠️ Update paths/titles as you add posts.
+// "cover" is optional; a fallback image will render if missing.
+const posts: Post[] = [
+  {
+    title: "Hello, Sparkle World ✨",
+    slug: "helloworld",
+    date: "2025-09-02",
+    excerpt:
+      "Kicking off the ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates.",
+    cover: "/img/blog/hello-card.jpg",
+    coverAlt: "Glittering purple background with subtle stars"
+  },
+  {
+    title: "My Life in Songs (A Tiny Soundtrack)",
+    slug: "blogmysoundtrack",
+    date: "2025-09-06",
+    excerpt:
+      "Tracks that stitched me together — recovery, rage, love, and glitter.",
+    // Use your actual image; this will crop nicely in-card:
+    cover: "/img/blog/mysoundtrack-card.jpg",
+    coverAlt: "Headphones resting on a journal with soft bokeh lights"
+  },
+];
+
+posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+const prettyDate = (d: string) =>
+  new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ParkerPixie · Blog</title>
-    <meta name="description" content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+      content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
     <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- Open Graph (so shares pull the right image/text) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ParkerPixie · Blog" />
+    <meta property="og:description"
+      content="Cozy crafts, capybara lore, gaming, life & sparkle." />
+    <meta property="og:image" content="/img/og/blog-index.jpg" />
+
     <style>
       :root{
         --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
         --ink:#f7f3ff; --muted:#bdb5d9;
         --bg1:#0f0b14; --bg2:#130e1f; --bg3:#100b1a;
-        --card:#171220; --radius:18px;
+        --card:#1b1426; --line:#2a2240;
       }
       *{box-sizing:border-box}
-      html,body{
-        margin:0;padding:0;color:var(--ink);
-        background:linear-gradient(180deg,var(--bg1),var(--bg2) 40%,var(--bg3));
-        font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial
-      }
+      html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg1),var(--bg2) 60%,var(--bg3));color:var(--ink);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial}
       a{color:inherit;text-decoration:none}
-      img{max-width:100%;height:auto;display:block}
-      .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
+      header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(16,11,26,.8);backdrop-filter: blur(8px)}
+      .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+      .brand img{width:24px;height:24px}
+      nav a{margin-left:16px;opacity:.9}
+      nav a:hover{opacity:1;text-decoration:underline}
 
-      /* HEADER — matches site */
-      header.site{
-        position:sticky;top:0;z-index:50;
-        backdrop-filter:blur(10px);
-        background:linear-gradient(to bottom, rgba(15,11,20,.85), rgba(15,11,20,.55));
-        border-bottom:1px solid rgba(255,255,255,.06)
+      main{max-width:1100px;margin:32px auto;padding:0 20px}
+      h1{font-size:clamp(28px,3vw,40px);margin:0 0 4px}
+      .sub{color:var(--muted);margin:0 0 24px}
+
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap:18px;
       }
-      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
-      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
-      .brand span{font-size:18px;color:var(--gold)}
-      .nav-right{display:flex;align-items:center;gap:14px}
-      .nav-link{
-        padding:.55rem .2rem;border-radius:8px;opacity:.92;
-        transition:opacity .15s ease,color .15s ease,background .15s ease
+      .card{
+        background:linear-gradient(180deg, #1b1426, #161022);
+        border:1px solid var(--line);
+        border-radius:16px; overflow:hidden;
+        transition:transform .18s ease, box-shadow .18s ease;
       }
-      .nav-link:hover{opacity:1;color:var(--gold)}
-      .nav-link[aria-current="page"]{color:var(--gold);opacity:1}
-      .nav-btn{
-        padding:.6rem .9rem;border-radius:999px;font-weight:600;
-        border:1px solid rgba(255,255,255,.18);
-        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
-        box-shadow:0 8px 24px rgba(75,47,181,.35)
+      .card:hover{transform:translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.35)}
+      .cover{
+        width:100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;           /* visual crop so any image “works” */
+        display:block;
+        background:#0d0a14 url("/img/blog/_fallback.jpg") center/cover no-repeat;
       }
-      .nav-btn:hover{filter:brightness(1.06)}
-
-      /* PAGE */
-      .hero{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-      .hero h1{font-size:clamp(28px,5vw,44px);margin:0}
-      .hero p{color:var(--muted);margin:8px 0 0}
-
-      .grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-      @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
-      @media (max-width:640px){ .grid{grid-template-columns:1fr} }
-
-      .card{display:flex;flex-direction:column;overflow:hidden;border-radius:var(--radius);
-        background:linear-gradient(180deg,#1c152d,#181126);
-        border:1px solid rgba(255,255,255,.08);
-        box-shadow:0 20px 60px rgba(0,0,0,.35);min-height:280px;transition:transform .12s ease}
-      .card:hover{transform:translateY(-1px)}
-      .thumb{aspect-ratio:16/9;background:#120d1b;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
-      .thumb img{width:100%;height:100%;object-fit:cover;opacity:.95;transition:transform .25s ease}
-      .card:hover .thumb img{transform:scale(1.03)}
-      .body{padding:16px}
-      .title{margin:0 0 6px;font-size:18px;line-height:1.25}
-      .meta{color:var(--muted);font-size:13px;margin:0 0 8px}
-      .excerpt{color:#eae6ff;font-size:14px;margin:0}
-      .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-      .tag{font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:4px 8px;border-radius:999px}
-
-      footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+      .body{padding:14px}
+      .ttl{font-weight:700;font-size:18px;margin:0 0 6px}
+      .meta{font-size:12px;color:var(--muted);margin:0 0 8px}
+      .excerpt{font-size:14px;color:#e8e3ff}
+      footer{max-width:1100px;margin:28px auto 48px;padding:0 20px;color:var(--muted);text-align:center;border-top:1px dashed var(--line);padding-top:18px}
     </style>
   </head>
-
   <body>
-    <header class="site">
-      <div class="wrap nav">
-        <a class="brand" href="/">
-          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
-          <span>ParkerPixie</span>
-        </a>
-        <nav class="nav-right" aria-label="Primary">
-          <a class="nav-link" href="/about/">About</a>
-          <a class="nav-link" href="/blog/" aria-current="page">Blog</a>
-          <a class="nav-btn" href="/contact/">Contact</a>
-        </nav>
-      </div>
+    <header>
+      <a class="brand" href="/">
+        <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
+        <span>ParkerPixie</span>
+      </a>
+      <nav>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
     </header>
 
-    <main class="wrap">
-      <div class="hero">
-        <div>
-          <h1>Blog</h1>
-          <p>Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
-        </div>
-      </div>
+    <main>
+      <h1># Blog</h1>
+      <p class="sub">Cozy crafts, capybara lore, gaming, life & sparkle ✨</p>
 
-      <section class="grid" aria-label="Magazine posts">
-
-        <!-- New Blog Post Card -->
-        <a class="card" href="/blog/blogmysoundtrack/">
-          <div class="thumb">
-            <img src="/img/Anipic-cover.jpg" alt="Ani DiFranco Unprecedented Tour poster" />
-          </div>
-          <div class="body">
-            <h2 class="title">The Soundtrack of My Life 🎶</h2>
-            <p class="meta">September 6, 2025</p>
-            <p class="excerpt">How music became my refuge, rebellion, and rhythm of healing.</p>
-            <div class="tags">
-              <span class="tag">music</span>
-              <span class="tag">healing</span>
-              <span class="tag">story</span>
-              <span class="tag">Swiftie</span>
+      <section class="grid">
+        {posts.map(p => (
+          <a class="card" href={`/blog/${p.slug}/`}>
+            <img class="cover" src={p.cover ?? "/img/blog/_fallback.jpg"} alt={p.coverAlt ?? "Blog post cover"} loading="lazy" />
+            <div class="body">
+              <h2 class="ttl">{p.title}</h2>
+              <p class="meta">{prettyDate(p.date)}</p>
+              <p class="excerpt">{p.excerpt}</p>
             </div>
-          </div>
-        </a>
-
-        <!-- Existing Blog Post Card -->
-        <a class="card" href="/blog/helloworld/">
-          <div class="thumb">
-            <img src="/img/helloworld-cover.png" alt="Open Doors, Quiet Halls cover" />
-          </div>
-          <div class="body">
-            <h2 class="title">Open Doors, Quiet Halls</h2>
-            <p class="meta">September 3, 2025</p>
-            <p class="excerpt">Expectations, boundaries, and the echo that follows.</p>
-            <div class="tags">
-              <span class="tag">healing</span>
-              <span class="tag">boundaries</span>
-              <span class="tag">family</span>
-              <span class="tag">recovery</span>
-            </div>
-          </div>
-        </a>
-
+          </a>
+        ))}
       </section>
-
-      <footer>
-        © <span id="y"></span> ParkerPixie · Made with ✨ glitter ✨, 💃 sass 💃, and 💖 love 💖 from Madison, WI
-      </footer>
     </main>
 
-    <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
-    </script>
+    <footer>© ParkerPixie · Made with ✨ glitter ✨, sass, and love from Madison, WI</footer>
   </body>
 </html>
