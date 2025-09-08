@@ -1,12 +1,22 @@
 ---
+// src/pages/mysoundtrack.astro
+// Standalone page: no external layout required
+
 /* Blog post: The Soundtrack of My Life — standalone Astro page */
 const title = "The Soundtrack of My Life 🎶";
 const subtitle = "How music became my refuge, rebellion, and rhythm of healing.";
 const date = "September 6, 2025";
+const isoDate = "2025-09-06";
 const tags = ["music", "healing", "story", "Swiftie"];
 
-/* Optional: put a wide image at /public/img/blog/soundtrack-card.jpg */
+/* Page URL and share image (adjust if your site URL changes) */
+const site = "https://parkerpixie.netlify.app";
+const pathname = "/mysoundtrack/";
+const url = `${site}${pathname}`;
+
+/* Put a wide image at /public/img/blog/soundtrack-card.jpg */
 const cover = "/img/blog/soundtrack-card.jpg";
+const absoluteImage = cover.startsWith("http") ? cover : `${site}${cover}`;
 
 /* Exported metadata (safe even if your index doesn’t use it) */
 export const post = { title, subtitle, date, tags, cover };
@@ -23,16 +33,45 @@ export const post = { title, subtitle, date, tags, cover };
       content="Parker writes about how music has been her constant—childhood soundtrack, refuge in high school, college radio chaos, opera, Swiftie healing, and now sharing Ani DiFranco with Porter."
     />
     <link rel="icon" href="/CapyGoldIcon.png" />
+    <link rel="canonical" href={url} />
 
-    <!-- Share cards (so Facebook/Twitter don’t pull the capy default) -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content={`${title} • ParkerPixie`} />
     <meta property="og:description" content="Music as refuge, rebellion, and healing." />
-    <meta property="og:image" content={cover ?? "/CapyGoldIcon.png"} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:alt" content={title} />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${title} • ParkerPixie`} />
     <meta name="twitter:description" content="Music as refuge, rebellion, and healing." />
-    <meta name="twitter:image" content={cover ?? "/CapyGoldIcon.png"} />
+    <meta name="twitter:image" content={absoluteImage} />
+
+    <!-- Optional: basic theming -->
+    <meta name="theme-color" content="#8a5dff" />
+
+    <!-- JSON-LD Article Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": {title},
+        "description": "Music as refuge, rebellion, and healing.",
+        "image": [{absoluteImage}],
+        "datePublished": "{isoDate}",
+        "dateModified": "{isoDate}",
+        "author": {
+          "@type": "Person",
+          "name": "Parker"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "{url}"
+        }
+      }
+    </script>
 
     <style>
       :root{
@@ -77,7 +116,9 @@ export const post = { title, subtitle, date, tags, cover };
         <div style="letter-spacing:2px;font-size:.85rem;color:#aaa;">PARKERPIXIE BLOG</div>
         <h1>{title}</h1>
         <div class="subtitle">{subtitle}</div>
-        <div class="meta">{date}</div>
+        <div class="meta">
+          <time datetime={isoDate}>{date}</time>
+        </div>
         {cover ? <img class="cover" src={cover} alt={title} loading="eager" /> : null}
         <div class="tags">{tags.map(t => <span class="tag">{t}</span>)}</div>
       </article>
