@@ -1,6 +1,6 @@
 ---
 // src/pages/mysoundtrack.astro
-// Standalone page: no external layout required
+// Standalone page: everything it uses is defined here.
 
 /* Blog post: The Soundtrack of My Life — standalone Astro page */
 const title = "The Soundtrack of My Life 🎶";
@@ -9,8 +9,8 @@ const date = "September 6, 2025";
 const isoDate = "2025-09-06";
 const tags = ["music", "healing", "story", "Swiftie"];
 
-/* Page URL and share image (adjust if your site URL changes) */
-const site = "https://parkerpixie.netlify.app";
+/* Page URL and share image */
+const site = "https://parkerpixie.netlify.app"; // change if your domain changes
 const pathname = "/mysoundtrack/";
 const url = `${site}${pathname}`;
 
@@ -35,7 +35,7 @@ export const post = { title, subtitle, date, tags, cover };
     <link rel="icon" href="/CapyGoldIcon.png" />
     <link rel="canonical" href={url} />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content={`${title} • ParkerPixie`} />
     <meta property="og:description" content="Music as refuge, rebellion, and healing." />
@@ -49,27 +49,18 @@ export const post = { title, subtitle, date, tags, cover };
     <meta name="twitter:description" content="Music as refuge, rebellion, and healing." />
     <meta name="twitter:image" content={absoluteImage} />
 
-    <!-- Optional: basic theming -->
-    <meta name="theme-color" content="#8a5dff" />
-
     <!-- JSON-LD Article Schema -->
     <script type="application/ld+json">
       {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
+        "@context":"https://schema.org",
+        "@type":"BlogPosting",
         "headline": {title},
-        "description": "Music as refuge, rebellion, and healing.",
-        "image": [{absoluteImage}],
-        "datePublished": "{isoDate}",
-        "dateModified": "{isoDate}",
-        "author": {
-          "@type": "Person",
-          "name": "Parker"
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "{url}"
-        }
+        "description":"Music as refuge, rebellion, and healing.",
+        "image":[{absoluteImage}],
+        "datePublished":"{isoDate}",
+        "dateModified":"{isoDate}",
+        "author":{"@type":"Person","name":"Parker"},
+        "mainEntityOfPage":{"@type":"WebPage","@id":"{url}"}
       }
     </script>
 
@@ -98,7 +89,7 @@ export const post = { title, subtitle, date, tags, cover };
     </style>
   </head>
   <body>
-    <!-- Same header pattern as your working /blog/helloworld/ -->
+    <!-- Header -->
     <nav>
       <div style="display:flex;align-items:center;gap:.5rem;">
         <img src="/CapyGoldIcon.png" alt="Capybara Icon" style="height:20px;" />
@@ -116,9 +107,7 @@ export const post = { title, subtitle, date, tags, cover };
         <div style="letter-spacing:2px;font-size:.85rem;color:#aaa;">PARKERPIXIE BLOG</div>
         <h1>{title}</h1>
         <div class="subtitle">{subtitle}</div>
-        <div class="meta">
-          <time datetime={isoDate}>{date}</time>
-        </div>
+        <div class="meta"><time datetime={isoDate}>{date}</time></div>
         {cover ? <img class="cover" src={cover} alt={title} loading="eager" /> : null}
         <div class="tags">{tags.map(t => <span class="tag">{t}</span>)}</div>
       </article>
