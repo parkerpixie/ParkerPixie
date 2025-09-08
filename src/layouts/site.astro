@@ -1,13 +1,12 @@
 ---
-/* src/layouts/Site.astro */
 import "../styles/global.css";
 
-// Props from pages (all optional)
+/** All props optional; safe defaults stop “title is not defined” build errors */
 const {
   title = "ParkerPixie — Sass · Shimmer · Sparkle",
   description = "I stitch joy into amigurumi, decorate digital worlds, and build playful systems that make life feel a little more magical.",
-  image = "/img/hero.jpg", // change if your social image is elsewhere
-  url = "https://parkerpixie.netlify.app/",
+  image = "/img/hero.jpg", // make sure this exists in /public/img/
+  url = "https://parkerpixie.netlify.app/"
 } = Astro.props;
 ---
 
@@ -19,7 +18,6 @@ const {
 
     <title>{title}</title>
     <meta name="description" content={description} />
-
     <link rel="icon" href="/CapyGoldIcon.png" />
 
     <!-- Open Graph -->
@@ -34,15 +32,6 @@ const {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-
-    <style>
-      :root{
-        --bg:#0b0b10; --ink:#f7f3ff; --muted:#bdb5d9; --brand:#8a5dff; --gold:#D8AA3B;
-      }
-      html,body{margin:0;background:var(--bg);color:var(--ink);}
-      a{color:var(--gold);}
-      main{min-height:100dvh;}
-    </style>
   </head>
   <body>
     <main>
