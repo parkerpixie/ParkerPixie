@@ -1,14 +1,15 @@
 :root {
-  --bg: #000;
-  --ink: #fff;
-  --muted: #cbbde7;
-  --brand: #8a5dff;
+  --bg:#0b0b10; 
+  --ink:#f7f3ff; 
+  --muted:#bdb5d9; 
+  --brand:#8a5dff; 
+  --gold:#D8AA3B;
 }
-body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: system-ui, sans-serif;
-}
-a { color: var(--brand); }
+html, body { margin:0; background:var(--bg); color:var(--ink); }
+a { color: var(--gold); text-decoration: none; }
+main { min-height: 100dvh; }
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+.h1 { font-size: clamp(2rem, 2vw + 1.5rem, 3rem); margin: 0 0 1rem; }
+.lead { color: var(--muted); margin-bottom: 2rem; }
+.card { background: #120f17; border: 1px solid #261f35; border-radius: 16px; padding: 1.25rem; }
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
