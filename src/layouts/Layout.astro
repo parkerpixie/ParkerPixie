@@ -1,7 +1,34 @@
 ---
 import "../styles/global.css";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const { title, description }: Props = Astro.props;
+
+// Safe fallbacks so "title is not defined" never happens
+const siteTitle = title ?? "ParkerPixie — Sass · Shimmer · Sparkle";
+const siteDesc =
+  description ??
+  "I stitch joy into amigurumi, decorate digital worlds, and build playful systems that make life feel a little more magical.";
 ---
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{siteTitle}</title>
+    <meta name="description" content={siteDesc} />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- Open Graph / social share defaults -->
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDesc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parkerpixie.netlify.app/" />
+  </head>
   <body>
     <slot />
   </body>
