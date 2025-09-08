@@ -1,1 +1,272 @@
+---
+// src/pages/tryit.astro
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ParkerPixiePaws · Try It</title>
+    <meta name="description" content="Hand-stitched joy, capybara calm, and a little glittery rebellion. Cozy Drops, commissions, and a studio peek." />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- Social (safe defaults) -->
+    <meta property="og:title" content="ParkerPixiePaws" />
+    <meta property="og:description" content="Hand-stitched joy, capybara calm, and a little glittery rebellion." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parkerpixie.netlify.app/tryit/" />
+    <meta property="og:image" content="https://parkerpixie.netlify.app/img/SharePhoto.png?v=3" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style>
+      /* ========= Brand base (matches your site) ========= */
+      :root{
+        --bg:#0b0b10;
+        --ink:#f5f4fb;
+        --muted:#c7c5d6;
+        --card:#111119;
+        --chip-text:#e8ddff;
+        --lilac:#7d5cff;
+        --gold:#d6b36b;
+        --radius:22px;
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0; color:var(--ink);
+        background:
+          radial-gradient(1200px 600px at 10% -10%, rgba(155,125,255,.16), transparent 60%),
+          radial-gradient(900px 600px at 95% 0%, rgba(214,179,107,.12), transparent 60%),
+          radial-gradient(900px 900px at 50% 120%, rgba(140,120,255,.10), transparent 60%),
+          var(--bg);
+        font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        -webkit-font-smoothing:antialiased;
+      }
+      .wrap{max-width:1200px; margin:0 auto; padding:22px 20px 96px}
+
+      /* ========= Header (copied from homepage) ========= */
+      header.site{
+        display:flex; align-items:center; justify-content:space-between; gap:16px;
+        padding:10px 0 6px;
+      }
+      .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink)}
+      .brand img{width:34px; height:34px; object-fit:contain; border-radius:10px; filter:drop-shadow(0 3px 10px rgba(214,179,107,.35))}
+      .brand .name{font-weight:800; letter-spacing:.3px}
+      nav ul{display:flex; gap:22px; list-style:none; margin:0; padding:0; align-items:center}
+      nav a{color:#e9e7f7; text-decoration:none}
+      nav a:hover{opacity:.85}
+      .contact{
+        display:inline-flex; align-items:center; padding:8px 16px; border-radius:999px;
+        background:linear-gradient(180deg, rgba(214,179,107,.18), rgba(214,179,107,.08));
+        border:1px solid rgba(214,179,107,.45); color:#fff2cf; box-shadow:0 0 0 2px rgba(214,179,107,.08);
+      }
+
+      /* ========= Paws hero with float + sparkles ========= */
+      .paws-hero{position:relative; margin:24px 0 18px}
+      .hero-card{
+        position:relative; padding:28px 28px 36px; border-radius:22px;
+        background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+        border:1px solid rgba(255,255,255,.10);
+        box-shadow:0 18px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+        outline:1px solid rgba(125,92,255,.2);
+        animation:float 10s ease-in-out infinite;
+      }
+      .hero-title{margin:0 0 8px; font-size:clamp(28px, 4.2vw, 44px)}
+      .hero-sub{color:#dddaf0; margin:0 0 16px; font-size:clamp(16px, 2.2vw, 19px)}
+      .hero-cta{display:flex; gap:12px; flex-wrap:wrap}
+      .btn-lilac{background:linear-gradient(180deg, rgba(125,92,255,.26), rgba(125,92,255,.12)); border:1px solid rgba(125,92,255,.4); color:#f5edff; padding:10px 14px; border-radius:12px; text-decoration:none}
+      .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,.18); color:#e9e7f7; padding:10px 14px; border-radius:12px; text-decoration:none}
+      .btn-lilac:hover{filter:saturate(1.1) brightness(1.05)}
+      .btn-ghost:hover{background:rgba(255,255,255,.04)}
+      @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+      /* sparkle particles */
+      .sparkles{position:absolute; inset:0; pointer-events:none; background:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(2px 2px at 70% 20%, rgba(214,179,107,.6), transparent 60%),
+        radial-gradient(1.5px 1.5px at 40% 70%, rgba(125,92,255,.6), transparent 60%),
+        radial-gradient(2px 2px at 85% 55%, rgba(255,255,255,.5), transparent 60%);
+        animation: twinkle 6s linear infinite; filter: drop-shadow(0 0 6px rgba(214,179,107,.4));
+      }
+      @keyframes twinkle{
+        0%{opacity:.65; transform:translateY(0)}
+        50%{opacity:1; transform:translateY(-3px)}
+        100%{opacity:.65; transform:translateY(0)}
+      }
+
+      /* ========= Ribbon marquee ========= */
+      .ribbon{margin:18px 0; overflow:hidden; border:1px solid rgba(255,255,255,.08); border-radius:999px}
+      .ribbon .track{white-space:nowrap; padding:6px 0; color:#cfcde3; animation:marq 20s linear infinite}
+      @keyframes marq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+      /* ========= Cozy Drops scroll-snap ========= */
+      .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:26px 0 12px}
+      .section-head h2{margin:0; font-size:clamp(20px,2.6vw,28px)}
+      .section-head .link{color:var(--gold); text-decoration:none}
+      .section-head .link:hover{text-decoration:underline}
+
+      .snap-row{
+        display:flex; gap:14px; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:6px;
+        -webkit-overflow-scrolling:touch;
+      }
+      .drop-card{
+        min-width:260px; scroll-snap-align:center; border-radius:18px; overflow:hidden;
+        background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+        border:1px solid rgba(255,255,255,.08);
+        transform:scale(.98); transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      }
+      .drop-card:hover{transform:scale(1); box-shadow:0 12px 26px rgba(0,0,0,.34); border-color:rgba(125,92,255,.35)}
+      .drop-card img{width:100%; height:200px; object-fit:cover; display:block}
+      .drop-card .meta{padding:12px}
+      .drop-card h3{margin:0 0 4px; font-size:18px}
+      .drop-card p{margin:0 0 10px; color:#cfcde3; font-size:14px}
+
+      /* ========= Masonry gallery (no JS) ========= */
+      .masonry h2{margin:22px 0 10px}
+      .masonry .cols{columns: 280px; column-gap:12px}
+      .masonry img{width:100%; margin:0 0 12px; border-radius:14px; display:block; break-inside:avoid; border:1px solid rgba(255,255,255,.08)}
+
+      /* ========= FAQ accordion ========= */
+      .faq h2{margin:26px 0 8px}
+      .faq details{border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:12px 14px; margin:10px 0;
+        background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015))}
+      .faq summary{cursor:pointer; list-style:none; font-weight:600}
+      .faq p{color:#cfcde3; margin:8px 0 0}
+
+      /* ========= Sticky CTA ========= */
+      .sticky-cta{
+        position:sticky; bottom:14px; display:flex; gap:12px; justify-content:center; align-items:center;
+        background:rgba(15,11,20,.7); backdrop-filter:blur(6px);
+        border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:10px 14px; margin-top:18px
+      }
+
+      /* ========= Scroll reveal helper ========= */
+      .reveal{ opacity:1 !important; transform:none !important; transition:opacity .5s ease, transform .5s ease }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <!-- Header -->
+      <header class="site" role="banner">
+        <a class="brand" href="/" aria-label="ParkerPixie Home">
+          <img src="/CapyGoldIcon.png" alt="Gold capybara icon" />
+          <span class="name">ParkerPixie</span>
+        </a>
+        <nav aria-label="Main">
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a class="contact" href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- HERO -->
+      <section class="paws-hero">
+        <div class="hero-card">
+          <h1 class="hero-title">🧶 ParkerPixiePaws</h1>
+          <p class="hero-sub">Hand-stitched joy, capybara calm, and a little glittery rebellion.</p>
+          <div class="hero-cta">
+            <a class="btn-lilac" href="#drops">Shop Cozy Drops</a>
+            <a class="btn-ghost" href="#commissions">Custom Commissions</a>
+          </div>
+          <div class="sparkles" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <!-- RIBBON -->
+      <div class="ribbon" aria-hidden="true">
+        <div class="track">hand-stitched • capybara calm • bejeweled sparkle • hand-stitched • capybara calm • bejeweled sparkle • </div>
+      </div>
+
+      <!-- COZY DROPS -->
+      <section id="drops">
+        <div class="section-head">
+          <h2>Cozy Drops</h2><a class="link" href="/paws/drops/">View all →</a>
+        </div>
+        <div class="snap-row">
+          <!-- Swap images with your real ones -->
+          <article class="drop-card">
+            <img src="/img/paws/clementine.jpg" alt="Clementine the Capybara plush"/>
+            <div class="meta">
+              <h3>Clementine (Mini)</h3>
+              <p>Super-squish • Made to order</p>
+              <a class="btn-lilac" href="/contact/">Add to Wishlist</a>
+            </div>
+          </article>
+
+          <article class="drop-card">
+            <img src="/img/paws/peacock.jpg" alt="Bejeweled the Peacock"/>
+            <div class="meta">
+              <h3>Bejeweled Peacock</h3>
+              <p>Limited run • Sparkly trims</p>
+              <a class="btn-lilac" href="/contact/">Notify Me</a>
+            </div>
+          </article>
+
+          <article class="drop-card">
+            <img src="/img/paws/guineapig.jpg" alt="Guinea pig plush"/>
+            <div class="meta">
+              <h3>Guinea Pig (XL)</h3>
+              <p>Weighted • Ultimate cuddle</p>
+              <a class="btn-lilac" href="/contact/">Notify Me</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section class="masonry" aria-label="Studio Gallery">
+        <h2>Studio Gallery</h2>
+        <div class="cols">
+          <!-- Replace with your shots -->
+          <img src="/img/paws/1.jpg" alt="Work in progress 1"/>
+          <img src="/img/paws/2.jpg" alt="Work in progress 2"/>
+          <img src="/img/paws/3.jpg" alt="Work in progress 3"/>
+          <img src="/img/paws/4.jpg" alt="Work in progress 4"/>
+          <img src="/img/paws/5.jpg" alt="Work in progress 5"/>
+        </div>
+      </section>
+
+      <!-- FAQ / COMMISSIONS -->
+      <section id="commissions" class="faq">
+        <h2>Commissions & Care</h2>
+        <details open>
+          <summary>How long is the queue?</summary>
+          <p>Usually 2–4 weeks depending on the piece. I’ll confirm an exact window when you reach out.</p>
+        </details>
+        <details>
+          <summary>Care instructions?</summary>
+          <p>Spot clean with cool water, air dry, keep away from curious pups 😅. For deep care, message me.</p>
+        </details>
+        <details>
+          <summary>Do you do custom creatures?</summary>
+          <p>Yes! Send reference pics or a vibe board. We’ll size it, pick colors, and plan trims together.</p>
+        </details>
+      </section>
+
+      <!-- STICKY CTA -->
+      <div class="sticky-cta">
+        <span>Want a custom plush? Let’s make it!</span>
+        <a class="btn-lilac" href="/contact/">Start a commission</a>
+      </div>
+
+      <footer style="margin-top:34px; color:#bdbad4; font-size:12px">
+        © {year} ParkerPixie — Made with capybara calm & bejeweled sparkle
+      </footer>
+    </div>
+
+    <!-- Scroll reveal (tiny, safe) -->
+    <script type="module">
+      const items = document.querySelectorAll('.drop-card, .masonry img, .faq details');
+      const io = new IntersectionObserver((ents)=>ents.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('reveal'); io.unobserve(e.target); }
+      }), {threshold:.12});
+      items.forEach(i=>{ i.style.opacity=0; i.style.transform='translateY(14px)'; io.observe(i); });
+    </script>
+  </body>
+</html>
 
