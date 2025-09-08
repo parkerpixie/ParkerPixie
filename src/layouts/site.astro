@@ -1,0 +1,52 @@
+---
+/* src/layouts/Site.astro */
+import "../styles/global.css";
+
+// Props from pages (all optional)
+const {
+  title = "ParkerPixie — Sass · Shimmer · Sparkle",
+  description = "I stitch joy into amigurumi, decorate digital worlds, and build playful systems that make life feel a little more magical.",
+  image = "/img/hero.jpg", // change if your social image is elsewhere
+  url = "https://parkerpixie.netlify.app/",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <style>
+      :root{
+        --bg:#0b0b10; --ink:#f7f3ff; --muted:#bdb5d9; --brand:#8a5dff; --gold:#D8AA3B;
+      }
+      html,body{margin:0;background:var(--bg);color:var(--ink);}
+      a{color:var(--gold);}
+      main{min-height:100dvh;}
+    </style>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
