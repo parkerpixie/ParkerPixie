@@ -1,38 +1,28 @@
----
-/* Blog post: The Soundtrack of My Life — standalone Astro page */
-const title = "The Soundtrack of My Life 🎶";
-const subtitle = "How music became my refuge, rebellion, and rhythm of healing.";
-const date = "September 6, 2025";
-const tags = ["music", "healing", "story", "Swiftie"];
-
-/* Optional: put a wide image at /public/img/blog/soundtrack-card.jpg */
-const cover = "/img/blog/soundtrack-card.jpg";
-
-/* Exported metadata (safe even if your index doesn’t use it) */
-export const post = { title, subtitle, date, tags, cover };
----
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{title} • ParkerPixie Blog</title>
+    <title>The Soundtrack of My Life 🎶 • ParkerPixie Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
       content="Parker writes about how music has been her constant—childhood soundtrack, refuge in high school, college radio chaos, opera, Swiftie healing, and now sharing Ani DiFranco with Porter."
     />
     <link rel="icon" href="/CapyGoldIcon.png" />
+    <link rel="canonical" href="/mysoundtrack/" />
 
-    <!-- Share cards (so Facebook/Twitter don’t pull the capy default) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="article" />
-    <meta property="og:title" content={`${title} • ParkerPixie`} />
+    <meta property="og:title" content="The Soundtrack of My Life 🎶 • ParkerPixie" />
     <meta property="og:description" content="Music as refuge, rebellion, and healing." />
-    <meta property="og:image" content={cover ?? "/CapyGoldIcon.png"} />
+    <meta property="og:image" content="/img/blog/soundtrack-card.jpg" />
+    <meta property="og:image:alt" content="The Soundtrack of My Life 🎶" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} • ParkerPixie`} />
+    <meta name="twitter:title" content="The Soundtrack of My Life 🎶 • ParkerPixie" />
     <meta name="twitter:description" content="Music as refuge, rebellion, and healing." />
-    <meta name="twitter:image" content={cover ?? "/CapyGoldIcon.png"} />
+    <meta name="twitter:image" content="/img/blog/soundtrack-card.jpg" />
 
     <style>
       :root{
@@ -59,7 +49,6 @@ export const post = { title, subtitle, date, tags, cover };
     </style>
   </head>
   <body>
-    <!-- Same header pattern as your working /blog/helloworld/ -->
     <nav>
       <div style="display:flex;align-items:center;gap:.5rem;">
         <img src="/CapyGoldIcon.png" alt="Capybara Icon" style="height:20px;" />
@@ -75,11 +64,16 @@ export const post = { title, subtitle, date, tags, cover };
     <div class="wrap">
       <article class="hero">
         <div style="letter-spacing:2px;font-size:.85rem;color:#aaa;">PARKERPIXIE BLOG</div>
-        <h1>{title}</h1>
-        <div class="subtitle">{subtitle}</div>
-        <div class="meta">{date}</div>
-        {cover ? <img class="cover" src={cover} alt={title} loading="eager" /> : null}
-        <div class="tags">{tags.map(t => <span class="tag">{t}</span>)}</div>
+        <h1>The Soundtrack of My Life 🎶</h1>
+        <div class="subtitle">How music became my refuge, rebellion, and rhythm of healing.</div>
+        <div class="meta"><time datetime="2025-09-06">September 6, 2025</time></div>
+        <img class="cover" src="/img/blog/soundtrack-card.jpg" alt="The Soundtrack of My Life 🎶" loading="eager" />
+        <div class="tags">
+          <span class="tag">music</span>
+          <span class="tag">healing</span>
+          <span class="tag">story</span>
+          <span class="tag">Swiftie</span>
+        </div>
       </article>
     </div>
 
