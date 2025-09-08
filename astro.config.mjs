@@ -1,11 +1,8 @@
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  output: 'static',          // we’re shipping a static site to Netlify
-  trailingSlash: 'ignore',   // keep URLs simple
-  vite: {
-    build: {
-      sourcemap: false
-    }
-  }
+  // Keep it minimal. Don't pass a custom `vite` block unless we truly need it.
+  // Astro will provide a working Vite config on Netlify.
+  output: 'static'
 });
