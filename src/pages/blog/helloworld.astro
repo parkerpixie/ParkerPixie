@@ -1,15 +1,16 @@
 ---
-// src/pages/helloworld.astro
-// Standalone page — no Markdown, no external CSS
+/* src/pages/blog/helloworld.astro */
 const title = "Open Doors, Quiet Halls";
 const subtitle = "Expectations, boundaries, and the echo that follows.";
 const date = "September 3, 2025";
 const tags = ["healing", "boundaries", "family", "recovery"];
 
-// ✅ Match blog.astro preview exactly:
-const cover = "/img/helloworld-cover.png"; // file should be at /public/img/helloworld-cover.png
+/* Image lives at /public/img/helloworld-cover.png */
+const cover = "/img/helloworld-cover.png";
 const coverAbs = "https://parkerpixie.netlify.app/img/helloworld-cover.png";
-const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
+
+/* ✅ Correct absolute URL for this page (now under /blog/) */
+const pageUrl = "https://parkerpixie.netlify.app/blog/helloworld/";
 ---
 <!doctype html>
 <html lang="en">
@@ -22,14 +23,16 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
       content="Parker writes about opening the door to her mother, the silence that followed, and choosing boundaries that glitter with self-respect."
     />
     <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- ✅ Absolute canonical under /blog/ -->
     <link rel="canonical" href={pageUrl} />
-    <meta name="x-debug" content="helloworld-astro-fixed-cover" />
 
     <!-- ✅ Social preview (absolute URLs) -->
     <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title + " • ParkerPixie Blog"} />
     <meta property="og:description" content={subtitle} />
-    <meta property="og:url" content={pageUrl} />
     <meta property="og:image" content={coverAbs} />
     <meta property="og:image:alt" content="Open Doors, Quiet Halls hero image" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -57,8 +60,6 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
       }
       a{ color:var(--gold); text-decoration:none }
       a:hover{ text-decoration:underline }
-
-      /* SITE HEADER — matches index/about/contact, tuned for cotton-candy bg */
       .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
       header.site{
         position:sticky; top:0; z-index:50;
@@ -89,11 +90,7 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
         .nav-right{gap:10px}
         .nav-link{padding:.5rem .1rem}
       }
-
-      /* POST SHELL */
       .shell{ max-width:820px; margin:40px auto 100px; padding:0 20px }
-
-      /* POST HEADER */
       header.post{
         background: linear-gradient(180deg, rgba(138,93,255,.18), transparent 55%), var(--card);
         border:1px solid rgba(255,255,255,.10); border-radius:var(--radius);
@@ -116,8 +113,6 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
             color:#ffeecf; padding:4px 10px; border-radius:999px; font-size:.78rem }
       .cover{ margin:18px 0 0; border-radius:calc(var(--radius) - 6px); overflow:hidden; border:1px solid rgba(255,255,255,.12) }
       .cover img{ width:100%; display:block }
-
-      /* CONTENT */
       .content{
         margin-top:26px; padding:26px; border-radius:var(--radius);
         background: rgba(9,7,15,.55); backdrop-filter: blur(4px);
@@ -167,7 +162,6 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
     </style>
   </head>
   <body>
-    <!-- SITE HEADER -->
     <header class="site">
       <div class="wrap nav">
         <a class="brand" href="/">
@@ -249,7 +243,6 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
       </article>
     </main>
 
-    <!-- Copy/Share logic + toast -->
     <div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
 
     <script type="module">
@@ -261,12 +254,10 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
       const nativeBtn = document.getElementById("nativeShareBtn");
       const toast = document.getElementById("toast");
 
-      // Facebook share link
       const fbShareUrl = new URL("https://www.facebook.com/sharer/sharer.php");
       fbShareUrl.searchParams.set("u", url.href);
       fbA.href = fbShareUrl.toString();
 
-      // Copy link
       copyBtn?.addEventListener("click", async () => {
         try {
           if (navigator.clipboard?.writeText) {
@@ -285,7 +276,6 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
         }
       });
 
-      // Web Share API (mobile / supported browsers)
       if (navigator.share) {
         nativeBtn.hidden = false;
         nativeBtn.addEventListener("click", () => {
@@ -293,7 +283,6 @@ const pageUrl = "https://parkerpixie.netlify.app/helloworld/";
         });
       }
 
-      // Toast
       let toastTimer;
       function showToast() {
         toast.classList.add("show");
