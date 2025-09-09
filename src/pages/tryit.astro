@@ -42,9 +42,7 @@
     }
 
     /* class toggles are added by JS below: .bg-loaded keeps the image; .bg-missing uses the gradient above */
-    body.bg-loaded {
-      /* this class won't be applied unless the script confirms the image exists */
-    }
+    body.bg-loaded { }
     img{max-width:100%; display:block}
     a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
@@ -70,7 +68,13 @@
     .hero-img{position:relative; z-index:1; border-radius: 20px; box-shadow: var(--glow); border: 6px solid #fff; width:100%; height:auto; max-width:360px; object-fit:cover}
 
     section{margin:28px 0}
-    .card{background:var(--panel); border:1px solid #eee; border-radius: var(--radius); box-shadow: var(--glow)}
+    .card{
+      background: rgba(255,255,255,0.9); /* translucent bubble */
+      border:1px solid #eee;
+      border-radius: var(--radius);
+      box-shadow: var(--glow);
+      backdrop-filter: blur(6px);
+    }
     .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 14px}
     .section-head h2{margin:0; font-size: clamp(20px, 2.6vw, 28px)}
     .section-head p{margin:4px 0 0; color:var(--subtle)}
@@ -83,18 +87,44 @@
     .iotm .btn{margin-top:10px}
 
     .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px}
-    .g-item{grid-column: span 4; border-radius:16px; overflow:hidden; border:1px solid #eee; background:#fff; box-shadow: var(--glow)}
+    .g-item{
+      grid-column: span 4;
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid #eee;
+      background: rgba(255,255,255,0.9); /* bubble for projects */
+      box-shadow: var(--glow);
+      backdrop-filter: blur(6px);
+    }
     .g-item img{aspect-ratio:1/1; object-fit:cover}
-    .g-item .cap{padding:10px; font-size:14px; color:var(--subtle)}
+    .g-item .cap{
+      padding:10px;
+      font-size:14px;
+      color:var(--ink);
+      background: rgba(255,255,255,0.8);
+      border-radius: 0 0 12px 12px;
+      font-weight:600;
+    }
     @media (max-width: 900px){ .g-item{grid-column: span 6} }
     @media (max-width: 560px){ .g-item{grid-column: span 12} }
 
-    .steps{display:grid; grid-template-columns: repeat(3,1fr); gap:14px; padding:24px}
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:14px;
+      padding:40px 28px; /* more breathing room */
+    }
     @media (max-width: 800px){ .steps{grid-template-columns:1fr} }
-    .step{padding:16px; border:1px solid #eee; border-radius:16px; background:#fff}
+    .step{
+      padding:16px;
+      border:1px solid #eee;
+      border-radius:16px;
+      background: rgba(255,255,255,0.9); /* bubble for steps */
+      backdrop-filter: blur(6px);
+    }
     .k{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:10px; background:var(--brand-2); color:#4b3f7f; font-weight:700; margin-bottom:6px}
 
-    details{border:1px solid #eee; border-radius:12px; padding:12px 14px; background:#fff}
+    details{border:1px solid #eee; border-radius:12px; padding:12px 14px; background: rgba(255,255,255,0.9); backdrop-filter: blur(6px);}
     details + details{margin-top:10px}
     summary{cursor:pointer; font-weight:600}
     summary::-webkit-details-marker{display:none}
@@ -105,136 +135,3 @@
     body.bg-missing header{ background: rgba(255,255,255,0.95); }
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <header class="card">
-      <div class="hero">
-        <div class="hero-copy">
-          <h1>ParkerPixiePaws — Cozy Amigurumi</h1>
-          <p>Soft, squishy friends stitched with intention. I make capybaras, chickens, puffins, pelicans, and custom creatures that feel like a hug.</p>
-          <div class="badges">
-            <span class="badge">Handmade in Madison, WI</span>
-            <span class="badge">Crafted and perfected with YOU in mind</span>
-          </div>
-          <div class="cta-row">
-            <a class="btn primary" href="#commission">Commission a Custom</a>
-            <a class="btn ghost" href="#gallery">Browse Amigurumi</a>
-          </div>
-        </div>
-        <div class="hero-art">
-          <div class="cloud" aria-hidden="true"></div>
-
-          <!-- try preferred PNG first; onerror fallback to deployed lowercase JPG -->
-          <img
-            class="hero-img"
-            src="/img/ParkerPixiePawProfile.png"
-            onerror="this.onerror=null; this.src='/img/parkerpixiepawprofile.jpg';"
-            alt="ParkerPixiePaws profile collage of cozy amigurumi." />
-
-        </div>
-      </div>
-    </header>
-
-    <section id="iotm" class="card">
-      <div class="iotm">
-        <div>
-          <div class="section-head">
-            <h2>✨ Item of the Month</h2>
-          </div>
-          <p>This month: <strong>Pocket Pumpkins</strong> — plump, palm-sized cuties perfect for fall trays, teacher gifts, or anxiety squishes. Just pick your favorite color!</p>
-          <div class="chips">
-            <span class="chip">Made to order</span>
-            <span class="chip">Ships in 3–5 days</span>
-            <span class="chip">Approx. 3.5&quot; wide</span>
-          </div>
-          <p class="price">$15 • Shipping available at shipping costs</p>
-          <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Order a Pumpkin</a>
-          <p style="margin-top:8px; color:var(--subtle); font-size:14px">Limited batch. When sold out, the button will be disabled.</p>
-        </div>
-        <div>
-          <img src="/img/pumpkin.jpg" alt="Hand holding a crocheted pumpkin in front of a pile of amigurumi pumpkins." />
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery" aria-labelledby="gal-h">
-      <div class="section-head"><h2 id="gal-h">✨ Handmade Highlights & Pixie Projects</h2><p>Textures, colors, and cozy vibes.</p></div>
-      <div class="grid">
-        <figure class="g-item"><img src="/img/Bejeweled.jpg" alt="Amigurumi peacock with jeweled tail."><figcaption class="cap">Bejeweled the Peacock</figcaption></figure>
-        <figure class="g-item"><img src="/img/bonnie.jpg" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the Chicken</figcaption></figure>
-        <figure class="g-item"><img src="/img/gilligan.jpg" alt="Amigurumi character Gilligan."><figcaption class="cap">Gilligan the Pelican</figcaption></figure>
-        <figure class="g-item"><img src="/img/ginny.jpg" alt="Amigurumi character Ginny."><figcaption class="cap">Ginny the Giraffe</figcaption></figure>
-        <figure class="g-item"><img src="/img/grogu.jpg" alt="Amigurumi Grogu with big ears."><figcaption class="cap">Grogu!</figcaption></figure>
-      </div>
-    </section>
-
-    <section id="commission" class="card" aria-labelledby="how-h">
-      <div class="section-head"><h2 id="how-h">How Commissions Work</h2><p>Simple, cozy steps.</p></div>
-      <div class="steps">
-        <div class="step"><div class="k">1</div><strong>Tell me your idea.</strong><br/>Animal, vibe, size, colors — or show a reference pic.</div>
-        <div class="step"><div class="k">2</div><strong>I confirm details + price.</strong><br/>Most are complete within 2 to 3 weeks! Give me some damn time to stitch, huh???</div>
-        <div class="step"><div class="k">3</div><strong>I Stitch, I deliver.</strong><br/>You can pick it up, arrange to meet, or I can ship it to you if you agree to pay the cost.</div>
-      </div>
-      <div style="padding: 0 14px 18px">
-        <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Start a Commission</a>
-        <a class="btn ghost" href="#faq">Read FAQs</a>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="care-h" style="padding:18px">
-      <div class="section-head"><h2 id="care-h">Materials & Care</h2><p>Made for snuggles and display.</p></div>
-      <ul>
-        <li>Premium acrylic/cotton yarns; hypoallergenic, pet-safe stuffing.</li>
-        <li>Spot clean with cool water + mild soap; air dry. Avoid machine wash.</li>
-        <li>Not intended for children under 3 (small parts possible).</li>
-      </ul>
-    </section>
-
-    <section id="faq" aria-labelledby="faq-h">
-      <div class="section-head"><h2 id="faq-h">FAQ</h2><p>Your top questions, answered.</p></div>
-      <details>
-        <summary>How big are your pieces?</summary>
-        <p>As big or as small as you want them to be. You are paying for my time and mostly yarn — the only limit is likely your pocketbook.</p>
-      </details>
-      <details>
-        <summary>Do you ship outside the US?</summary>
-        <p>Shipping is available at shipping costs. If you’re international, note it on the form and I’ll see what’s possible.</p>
-      </details>
-      <details>
-        <summary>Can I rush an order?</summary>
-        <p>Sometimes! Add your date in the form and I’ll confirm what’s realistic before you pay.</p>
-      </details>
-    </section>
-
-    <footer>
-      <small>© <span id="yr"></span> ParkerPixiePaws • Made with coziness in Madison, WI</small>
-    </footer>
-  </div>
-
-  <script>
-    // Year
-    document.getElementById('yr').textContent = new Date().getFullYear();
-
-    // Background loader: attempt to load the site-wide background image(s).
-    (function(){
-      var desktop = '/img/pawback.png';
-      var mobile = '/img/pawbackmobile.png';
-      var chosen = (window.innerWidth <= 768) ? mobile : desktop;
-      var img = new Image();
-      img.onload = function(){
-        // we have the image, apply as body background
-        document.body.classList.add('bg-loaded');
-        document.body.style.backgroundImage = 'url(\"' + chosen + '\")';
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-        document.body.style.backgroundRepeat = 'no-repeat';
-      };
-      img.onerror = function(){
-        // image missing — keep the gradient fallback; add a class for any minor adjustments
-        document.body.classList.add('bg-missing');
-      };
-      img.src = chosen;
-    })();
-  </script>
-</body>
-</html>
