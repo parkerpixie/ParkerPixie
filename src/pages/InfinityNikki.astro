@@ -1,11 +1,7 @@
 ---
-/*
-  test.astro — sandbox page with Option 2 Connect card
-  Uses your live socials + Steam code from /contact
-*/
-
-const pageTitle = "Test — Connect Card · ParkerPixie";
-const pageDesc  = "Sandbox page to test the Connect & Co-Op card.";
+// Infinity Nikki page with Connect card (updated to remove sandbox language)
+const pageTitle = "Infinity Nikki · ParkerPixie";
+const pageDesc  = "Infinity Nikki — a cozy, open-world dress-up adventure I adore. Screenshots, outfits & landscapes. Steam Friend Code 119555934 · UID 601742966.";
 const steamCode = "119555934"; // from Contact page
 
 const socials = {
@@ -151,6 +147,7 @@ const gallery = [
       .btn:active{transform: translateY(1px)}
 
       .steam{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+      .steam-label{ display:block; width:100%; font-weight:800; color:var(--muted); margin:0 0 6px; font-size:.95rem }
       .steam input{
         flex:1 1 240px; min-width: 200px;
         background: rgba(0,0,0,.35); color:var(--ink);
@@ -214,8 +211,15 @@ const gallery = [
       <header class="hero">
         <div class="eyebrow">Cozy glam · Celestial couture</div>
         <h1>Infinity Nikki</h1>
-        <p class="lead">Sandbox to try a clean Connect card without touching your live page.</p>
+        <p class="lead">
+          Infinity Nikki is a cozy, open-world dress-up adventure—part fashion sandbox, part photo safari—where you wander dreamy biomes,
+          craft outfits, solve gentle puzzles, and take way too many screenshots. I stumbled onto it after getting frustrated with the design
+          limits in Disney Dreamlight Valley. It’s the main reason I upgraded from a Switch Lite to a Steam Deck OLED… and I’ve fallen in love!
+          I’m not totally sure what I’ll do with this page yet, but for now I love capturing beautiful landscapes and outfits—and this page
+          is home to some of my favorites.
+        </p>
         <div class="chips" aria-label="Tags">
+          <span class="chip">UID 601742966</span>
           <span class="chip">Ethereal</span><span class="chip">Shimmer</span><span class="chip">LinLang</span><span class="chip">Beautiful Landscapes</span>
         </div>
       </header>
@@ -234,6 +238,7 @@ const gallery = [
               <a class="btn" href={socials.discord} target="_blank" rel="noopener">Discord</a>
             </div>
             <div class="steam">
+              <label for="steamCode" class="steam-label">Steam Friend Code</label>
               <input id="steamCode" type="text" value={steamCode} readonly aria-label="Steam Friend Code" />
               <button class="copy" type="button" id="copyBtn">Copy</button>
               <span class="copied" id="copyNote" hidden>Copied!</span>
