@@ -9,20 +9,24 @@
       content="Parker writes about how music has been her constant—childhood soundtrack, refuge in high school, college radio chaos, opera, Swiftie healing, and now sharing Ani DiFranco with Porter."
     />
     <link rel="icon" href="/CapyGoldIcon.png" />
-    <link rel="canonical" href="/mysoundtrack/" />
 
-    <!-- Open Graph -->
+    <!-- ✅ ALWAYS absolute, and correct path under /blog/ -->
+    <link rel="canonical" href="https://parkerpixie.netlify.app/blog/mysoundtrack/" />
+
+    <!-- Open Graph (absolute URLs so FB/Twitter don't guess) -->
     <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:url" content="https://parkerpixie.netlify.app/blog/mysoundtrack/" />
     <meta property="og:title" content="The Soundtrack of My Life 🎶 • ParkerPixie" />
     <meta property="og:description" content="Music as refuge, rebellion, and healing." />
-    <meta property="og:image" content="/img/blog/soundtrack-card.jpg" />
+    <meta property="og:image" content="https://parkerpixie.netlify.app/img/Anipic.jpg" />
     <meta property="og:image:alt" content="The Soundtrack of My Life 🎶" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="The Soundtrack of My Life 🎶 • ParkerPixie" />
     <meta name="twitter:description" content="Music as refuge, rebellion, and healing." />
-    <meta name="twitter:image" content="/img/blog/soundtrack-card.jpg" />
+    <meta name="twitter:image" content="https://parkerpixie.netlify.app/img/Anipic.jpg" />
 
     <style>
       :root{
@@ -67,7 +71,10 @@
         <h1>The Soundtrack of My Life 🎶</h1>
         <div class="subtitle">How music became my refuge, rebellion, and rhythm of healing.</div>
         <div class="meta"><time datetime="2025-09-06">September 6, 2025</time></div>
-        <img class="cover" src="/img/blog/soundtrack-card.jpg" alt="The Soundtrack of My Life 🎶" loading="eager" />
+
+        <!-- ✅ On-page cover (local path OK) -->
+        <img class="cover" src="/img/Anipic.jpg" alt="The Soundtrack of My Life 🎶" loading="eager" />
+
         <div class="tags">
           <span class="tag">music</span>
           <span class="tag">healing</span>
