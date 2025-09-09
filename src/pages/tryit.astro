@@ -4,16 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ParkerPixiePaws • Cozy Amigurumi, Handmade with Heart</title>
-  <meta name="description" content="Cozy amigurumi from ParkerPixiePaws — soft, squishy, and stitched with love. Commission a custom friend or grab the Item of the Month for $15!" />
+  <meta name="description" content="Cozy amigurumi from ParkerPixiePaws — soft, squishy, and stitched with love. Commission a custom friend or browse recent makes. Item of the Week is pumpkin pals for $15." />
 
   <!-- Fav / Share -->
   <link rel="icon" href="/CapyGoldIcon.png" />
   <meta property="og:title" content="ParkerPixiePaws — Cozy Amigurumi" />
-  <meta property="og:description" content="Soft, squishy friends — stitched with love. Item of the Month just $15." />
+  <meta property="og:description" content="Soft, squishy friends — stitched with love. Commission customs or grab the Item of the Week for $15." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://parkerpixie.netlify.app/amigurumi/" />
-  <!-- If your hero lives at /public/img/hero.png use that absolute URL below -->
-  <meta property="og:image" content="https://parkerpixie.netlify.app/img/hero.png" />
+  <meta property="og:image" content="https://parkerpixie.netlify.app/img/parkerpixiepawprofile.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
@@ -32,11 +31,7 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0; background: radial-gradient(1200px 800px at 10% 0%, #fff 0%, var(--bg) 60%), var(--bg);
-      color:var(--ink); font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      letter-spacing:.2px;
-    }
+    body{ margin:0; background: radial-gradient(1200px 800px at 10% 0%, #fff 0%, var(--bg) 60%), var(--bg); color:var(--ink); font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; letter-spacing:.2px; }
     img{max-width:100%; display:block}
     a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
@@ -44,11 +39,7 @@
     .wrap{max-width:1100px; margin:auto; padding:22px}
 
     /* Header */
-    header{
-      position:relative; border-radius: var(--radius-lg);
-      overflow:hidden; box-shadow: var(--glow);
-      background: linear-gradient(135deg, #fefcff 0%, #f7f3ff 100%);
-    }
+    header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: linear-gradient(135deg, #fefcff 0%, #f7f3ff 100%); }
     .hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:20px; align-items:center; padding:32px 28px}
     @media (max-width: 880px){ .hero{grid-template-columns:1fr; padding:24px} }
 
@@ -63,12 +54,7 @@
     .btn.ghost{background:#fff; border-color:#eee; color:var(--ink)}
 
     .hero-art{position:relative}
-    .cloud{
-      position:absolute; inset:auto auto 10% -10%; width:120%; height:70%; z-index:0;
-      background: radial-gradient(300px 140px at 20% 30%, rgba(124,106,200,.22), transparent 60%),
-                  radial-gradient(360px 160px at 80% 60%, rgba(231,179,194,.20), transparent 60%);
-      filter: blur(24px);
-    }
+    .cloud{ position:absolute; inset:auto auto 10% -10%; width:120%; height:70%; z-index:0; background: radial-gradient(300px 140px at 20% 30%, rgba(124,106,200,.22), transparent 60%), radial-gradient(360px 160px at 80% 60%, rgba(231,179,194,.20), transparent 60%); filter: blur(24px); }
     .hero-img{position:relative; z-index:1; border-radius: 20px; box-shadow: var(--glow); border: 6px solid #fff}
 
     /* Section shells */
@@ -78,7 +64,7 @@
     .section-head h2{margin:0; font-size: clamp(20px, 2.6vw, 28px)}
     .section-head p{margin:4px 0 0; color:var(--subtle)}
 
-    /* IOTM */
+    /* IOTW */
     .iotm{display:grid; grid-template-columns: 1fr 1fr; gap:22px; padding:22px}
     @media (max-width: 820px){ .iotm{grid-template-columns:1fr} }
     .price{font-size: clamp(22px, 3vw, 28px); font-weight:800; color:var(--brand)}
@@ -124,53 +110,51 @@
             <span class="badge">Gentle yarn • Pet‑safe stuffing</span>
           </div>
           <div class="cta-row">
-            <a class="btn primary" href="#iotm">Item of the Month — $15</a>
-            <a class="btn ghost" href="#commission">Commission a Custom</a>
+            <a class="btn primary" href="#commission">Commission a Custom</a>
+            <a class="btn ghost" href="#gallery">Browse Amigurumi</a>
           </div>
         </div>
         <div class="hero-art">
           <div class="cloud" aria-hidden="true"></div>
-          <!-- Replace src with your cozy hero photo (lifestyle shot works best) -->
-          <img class="hero-img" src="/img/hero.png" alt="A cozy arrangement of handmade amigurumi friends: a capybara with a tiny flower crown, a puffin, and a chicken, all in soft lavender and cream tones."/>
+          <!-- Updated hero to public/img/parkerpixiepawprofile.jpg -->
+          <img class="hero-img" src="/img/parkerpixiepawprofile.jpg" alt="ParkerPixiePaws profile collage of cozy amigurumi in soft lavender and cream tones."/>
         </div>
       </div>
     </header>
 
-    <!-- Item of the Month -->
+    <!-- Item of the Week (pumpkin) -->
     <section id="iotm" class="card">
       <div class="iotm">
         <div>
           <div class="section-head">
-            <h2>✨ Item of the Month</h2>
+            <h2>✨ Item of the Week</h2>
           </div>
-          <p>Each month I batch a single design so I can offer it at a sweet price. For September, meet <strong>"Clementine Jr."</strong> — a pocket capybara with a tiny flower crown. Perfect desk buddy, anxiety squish, or gift.</p>
+          <p>This week only: <strong>Pocket Pumpkins</strong> — plump, palm‑sized cuties perfect for fall trays, teacher gifts, or anxiety squishes. Choose classic orange or mixed patch.</p>
           <div class="chips">
             <span class="chip">Made to order</span>
             <span class="chip">Ships in 3–5 days</span>
-            <span class="chip">Approx. 4" tall</span>
+            <span class="chip">Approx. 3.5" wide</span>
           </div>
           <p class="price">$15 • US only</p>
-          <!-- Replace href with your Google Form link for Item of the Month orders -->
-          <a class="btn primary" href="https://forms.gle/YOUR_IOTM_FORM" target="_blank" rel="noopener">Order September’s IOTM</a>
-          <p style="margin-top:8px; color:var(--subtle); font-size:14px">Limited batch. If this month sells out, the form will close automatically.</p>
+          <!-- TEMP: same Google Form as commissions until IOTW form is ready -->
+          <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Order a Pumpkin</a>
+          <p style="margin-top:8px; color:var(--subtle); font-size:14px">Limited batch. When sold out, the button will be disabled.</p>
         </div>
         <div>
-          <!-- Swap with IOTM photo -->
-          <img src="/img/iotm-clementinejr.png" alt="September Item of the Month: a pocket-size capybara amigurumi wearing a tiny flower crown." />
+          <img src="/img/pumpkin.jpg" alt="Hand holding a crocheted pumpkin in front of a pile of amigurumi pumpkins." />
         </div>
       </div>
     </section>
 
-    <!-- Gallery (swap images as needed) -->
-    <section aria-labelledby="gal-h">
+    <!-- Gallery -->
+    <section id="gallery" aria-labelledby="gal-h">
       <div class="section-head"><h2 id="gal-h">Recent Makes</h2><p>Textures, colors, and cozy vibes.</p></div>
       <div class="grid">
-        <figure class="g-item"><img src="/img/gallery/capy-flower.png" alt="Capybara with flower crown."><figcaption class="cap">Clementine, capybara goddess</figcaption></figure>
-        <figure class="g-item"><img src="/img/gallery/chicken.png" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the chicken</figcaption></figure>
-        <figure class="g-item"><img src="/img/gallery/puffin.png" alt="Amigurumi puffin with orange beak."><figcaption class="cap">Percy the puffin</figcaption></figure>
-        <figure class="g-item"><img src="/img/gallery/pelican.png" alt="Amigurumi pelican with fish detail."><figcaption class="cap">Percival the pelican</figcaption></figure>
-        <figure class="g-item"><img src="/img/gallery/peacock.png" alt="Amigurumi peacock with jeweled tail."><figcaption class="cap">Bejeweled the peacock</figcaption></figure>
-        <figure class="g-item"><img src="/img/gallery/custom.png" alt="Custom commission trio."><figcaption class="cap">Custom trio (gift set)</figcaption></figure>
+        <figure class="g-item"><img src="/img/bejeweled-the-peacock.png" alt="Amigurumi peacock with jeweled tail."><figcaption class="cap">Bejeweled the Peacock</figcaption></figure>
+        <figure class="g-item"><img src="/img/bonnie.png" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the Chicken</figcaption></figure>
+        <figure class="g-item"><img src="/img/gilligan.png" alt="Amigurumi character Gilligan."><figcaption class="cap">Gilligan</figcaption></figure>
+        <figure class="g-item"><img src="/img/ginny.png" alt="Amigurumi character Ginny."><figcaption class="cap">Ginny</figcaption></figure>
+        <figure class="g-item"><img src="/img/grogu.png" alt="Amigurumi Grogu with big ears."><figcaption class="cap">Grogu</figcaption></figure>
       </div>
     </section>
 
@@ -183,13 +167,12 @@
         <div class="step"><div class="k">3</div><strong>I stitch & ship.</strong><br/>I’ll share a progress snap, then send tracking when it’s on the way.</div>
       </div>
       <div style="padding: 0 14px 18px">
-        <!-- Replace with your separate Google Form for commissions -->
         <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Start a Commission</a>
         <a class="btn ghost" href="#faq">Read FAQs</a>
       </div>
     </section>
 
-    <!-- Care + Materials -->
+    <!-- Materials & Care -->
     <section class="card" aria-labelledby="care-h" style="padding:18px">
       <div class="section-head"><h2 id="care-h">Materials & Care</h2><p>Made for snuggles and display.</p></div>
       <ul>
