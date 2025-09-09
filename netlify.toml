@@ -1,7 +1,10 @@
 [build]
-  command = "npm ci && npm run build"
+  # replace this:
+  # command = "npm ci && npm run build"
+  # with this:
+  command = "npm install && npm run build"
   publish = "dist"
 
+# (optional but helpful) make Netlify use the same Node you used locally
 [build.environment]
-  NODE_VERSION = "20.11.1"
-  NPM_FLAGS = "--legacy-peer-deps --no-audit --no-fund"
+  NODE_VERSION = "22.19.0"
