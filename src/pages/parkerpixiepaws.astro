@@ -22,12 +22,19 @@
       --ink: #3a3042;
       --subtle: #6e6274;
       --brand: #7c6ac8;
-      --brand-2: #e9d8fd;    /* lavender pill background */
+      --brand-2: #e9d8fd;   /* lavender pill background */
       --accent: #e7b3c2;
       --glow: 0 10px 24px rgba(60, 40, 120, .12);
       --radius: 18px;
       --radius-lg: 26px;
+
+      /* nav */
+      --nav-text: #fff;
+      --nav-grad-1:#6e51c7;
+      --nav-grad-2:#7f62d6;
+      --nav-grad-3:#6e51c7;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -35,18 +42,39 @@
       color:var(--ink);
       font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
       letter-spacing:.2px;
-
       /* default fallback (used if images not present) */
       background: radial-gradient(1200px 800px at 10% 0%, rgba(255,255,255,1) 0%, var(--bg) 60%), var(--bg);
       background-attachment: fixed;
     }
-
-    /* class toggles are added by JS below: .bg-loaded keeps the image; .bg-missing uses the gradient above */
-    body.bg-loaded { }
     img{max-width:100%; display:block}
     a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
 
+    /* ========= STICKY PURPLE NAV (full width) ========= */
+    .sitebar{
+      position: sticky; top: 0; z-index: 1000;
+      background: linear-gradient(90deg,var(--nav-grad-1),var(--nav-grad-2),var(--nav-grad-3));
+      color: var(--nav-text);
+      border-bottom: 1px solid rgba(255,255,255,.35);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    .sitebar .navwrap{
+      max-width:1100px; margin:0 auto; padding:10px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .site-brand{display:flex; align-items:center; gap:10px; font-weight:800; color:#fff; text-decoration:none}
+    .site-brand img{width:22px; height:22px}
+    .site-links{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .site-links a{
+      color:#fff; opacity:.95; text-decoration:none; font-weight:600;
+    }
+    .site-links a:hover{opacity:1; text-decoration:underline}
+    .site-links .active{
+      padding:6px 10px; border-radius:999px;
+      background:rgba(255,255,255,.16);
+    }
+
+    /* page container */
     .wrap{max-width:1100px; margin:auto; padding:22px}
 
     header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: rgba(255,255,255,0.9); }
@@ -99,7 +127,7 @@
 
     footer{margin:26px 0 40px; color:var(--subtle); text-align:center}
 
-    /* --- NEW: pill/bubble links for maker resources --- */
+    /* maker resource pills */
     .pillwrap{display:flex; gap:14px; flex-wrap:wrap; margin-top:10px}
     .pilllink{
       display:inline-flex; align-items:center; justify-content:center;
@@ -116,6 +144,24 @@
   </style>
 </head>
 <body>
+
+  <!-- ======= PURPLE NAV BAR ======= -->
+  <div class="sitebar" role="navigation" aria-label="Primary">
+    <div class="navwrap">
+      <a class="site-brand" href="/">
+        <img src="/CapyGoldIcon.png" alt="" />
+        <span>ParkerPixie</span>
+      </a>
+      <div class="site-links">
+        <!-- Add .active manually on the page you’re on -->
+        <a href="/parkerpixiepaws/" class="active">Amigurumi</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+        <a href="/blog/">Blog</a>
+      </div>
+    </div>
+  </div>
+
   <div class="wrap">
     <header class="card">
       <div class="hero">
@@ -133,13 +179,10 @@
         </div>
         <div class="hero-art">
           <div class="cloud" aria-hidden="true"></div>
-
-          <!-- try preferred PNG first; onerror fallback to deployed lowercase JPG -->
-          <img
-            class="hero-img"
-            src="/img/ParkerPixiePawProfile.png"
-            onerror="this.onerror=null; this.src='/img/parkerpixiepawprofile.jpg';"
-            alt="ParkerPixiePaws profile collage of cozy amigurumi." />
+          <!-- preferred PNG, fallback to jpg if not present -->
+          <img class="hero-img" src="/img/ParkerPixiePawProfile.png"
+               onerror="this.onerror=null; this.src='/img/parkerpixiepawprofile.jpg';"
+               alt="ParkerPixiePaws profile collage of cozy amigurumi." />
         </div>
       </div>
     </header>
@@ -147,9 +190,7 @@
     <section id="iotm" class="card">
       <div class="iotm">
         <div>
-          <div class="section-head">
-            <h2>✨ Item of the Month</h2>
-          </div>
+          <div class="section-head"><h2>✨ Item of the Month</h2></div>
           <p>This month: <strong>Pocket Pumpkins</strong> — plump, palm-sized cuties perfect for fall trays, teacher gifts, or anxiety squishes. Just pick your favorite color!</p>
           <div class="chips">
             <span class="chip">Made to order</span>
@@ -173,12 +214,12 @@
         <figure class="g-item"><img src="/img/bonnie.jpg" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the Chicken</figcaption></figure>
         <figure class="g-item"><img src="/img/gilligan.jpg" alt="Amigurumi character Gilligan."><figcaption class="cap">Gilligan the Pelican</figcaption></figure>
         <figure class="g-item"><img src="/img/ginny.jpg" alt="Amigurumi character Ginny."><figcaption class="cap">Ginny the Giraffe</figcaption></figure>
-        <figure class="g-item"><img src="/img/grogu.jpg" alt="Amigurumi Grogu with big ears."><figcaption class="cap">Grogu!</figcaption>
-        </figure><figure class="g-item"><img src="/img/Jade.jpg" alt="Amigurumi succulent planter"><figcaption class="cap">Jade the Succulent</figcaption></figure>
-        </figure><figure class="g-item"><img src="/img/Aurora.jpg" alt="Amigurumi Puffin in cloud background."><figcaption class="cap">Aurora the Puffin</figcaption></figure>
-        </figure><figure class="g-item"><img src="/img/Buster.jpg" alt="Amigurumi dog with big ears."><figcaption class="cap">Buster the Dog</figcaption></figure>
-        </figure><figure class="g-item"><img src="/img/Petunia.jpg" alt="Amigurumi Pink Hippo with Ballerina Skirt."><figcaption class="cap">Petunia the Ballerina Hippo</figcaption></figure>
-        </figure><figure class="g-item"><img src="/img/Whiskers.jpg" alt="Amigurumi Orange cat with big ears."><figcaption class="cap">Whiskers the Cat</figcaption></figure>
+        <figure class="g-item"><img src="/img/grogu.jpg" alt="Amigurumi Grogu with big ears."><figcaption class="cap">Grogu!</figcaption></figure>
+        <figure class="g-item"><img src="/img/Jade.jpg" alt="Amigurumi succulent planter"><figcaption class="cap">Jade the Succulent</figcaption></figure>
+        <figure class="g-item"><img src="/img/Aurora.jpg" alt="Amigurumi Puffin in cloud background."><figcaption class="cap">Aurora the Puffin</figcaption></figure>
+        <figure class="g-item"><img src="/img/Buster.jpg" alt="Amigurumi dog with big ears."><figcaption class="cap">Buster the Dog</figcaption></figure>
+        <figure class="g-item"><img src="/img/Petunia.jpg" alt="Amigurumi Pink Hippo with Ballerina Skirt."><figcaption class="cap">Petunia the Ballerina Hippo</figcaption></figure>
+        <figure class="g-item"><img src="/img/Whiskers.jpg" alt="Amigurumi Orange cat with big ears."><figcaption class="cap">Whiskers the Cat</figcaption></figure>
       </div>
     </section>
 
@@ -195,7 +236,7 @@
       </div>
     </section>
 
-    <!-- UPDATED: Maker resources with lavender pill/bubble links -->
+    <!-- Maker resources with lavender pill/bubble links -->
     <section id="makers" class="card" aria-labelledby="makers-h" style="padding:18px">
       <div class="section-head">
         <h2 id="makers-h">Already know how to crochet? Looking for inspiration?</h2>
@@ -212,7 +253,6 @@
       </div>
     </section>
 
-    <!-- Materials & Care stays as its own section, below -->
     <section class="card" aria-labelledby="care-h" style="padding:18px">
       <div class="section-head"><h2 id="care-h">Materials & Care</h2><p>Made for snuggles and display.</p></div>
       <ul>
@@ -254,7 +294,6 @@
       var chosen = (window.innerWidth <= 768) ? mobile : desktop;
       var img = new Image();
       img.onload = function(){
-        // we have the image, apply as body background
         document.body.classList.add('bg-loaded');
         document.body.style.backgroundImage = 'url(\"' + chosen + '\")';
         document.body.style.backgroundSize = 'cover';
@@ -262,7 +301,6 @@
         document.body.style.backgroundRepeat = 'no-repeat';
       };
       img.onerror = function(){
-        // image missing — keep the gradient fallback; add a class for any minor adjustments
         document.body.classList.add('bg-missing');
       };
       img.src = chosen;
