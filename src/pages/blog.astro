@@ -1,3 +1,11 @@
+---
+// src/pages/blog/index.astro
+const site = "https://parkerpixie.netlify.app";
+const pageUrl = `${site}/blog/`;
+
+// ✅ Share THIS image when someone shares the blog index:
+const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
+---
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,16 +14,19 @@
     <title>ParkerPixie · Blog</title>
     <meta name="description" content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
     <link rel="icon" href="/CapyGoldIcon.png" />
+    <link rel="canonical" href={pageUrl} />
 
-    <!-- Share preview for the *index page only* (site hero) -->
+    <!-- 🔗 Social (absolute URLs so Facebook/Twitter don’t guess) -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content="ParkerPixie · Blog" />
     <meta property="og:description" content="Cozy crafts, capybara lore, gaming, life & sparkle ✨" />
-    <meta property="og:image" content="/img/hero.jpg" />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:alt" content="ParkerPixie hero image" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ParkerPixie · Blog" />
     <meta name="twitter:description" content="Cozy crafts, capybara lore, gaming, life & sparkle ✨" />
-    <meta name="twitter:image" content="/img/hero.jpg" />
+    <meta name="twitter:image" content={shareImage} />
 
     <style>
       :root{
@@ -112,7 +123,7 @@
       </div>
 
       <section class="grid" aria-label="Magazine posts">
-        <!-- Post: Open Doors, Quiet Halls -->
+        <!-- Post 1 -->
         <a class="card" href="/blog/helloworld/">
           <div class="thumb">
             <img src="/img/helloworld-cover.png" alt="Open Doors, Quiet Halls cover" />
@@ -130,7 +141,7 @@
           </div>
         </a>
 
-        <!-- Post: The Soundtrack of My Life -->
+        <!-- Post 2 -->
         <a class="card" href="/blog/mysoundtrack/">
           <div class="thumb">
             <img src="/img/Anipic.jpg" alt="The Soundtrack of My Life cover" />
