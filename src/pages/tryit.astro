@@ -16,15 +16,14 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
-    /* ——— ParkerPixiePaws: cozy, calm, celestial ——— */
     :root{
-      --bg: #faf7fb;          /* soft lilac milk */
-      --panel: #ffffff;       /* card surface */
-      --ink: #3a3042;         /* deep violet-brown */
-      --subtle: #6e6274;      /* muted caption */
-      --brand: #7c6ac8;       /* lavender-indigo */
-      --brand-2: #e9d8fd;     /* pale lavender */
-      --accent: #e7b3c2;      /* rosy pink */
+      --bg: #faf7fb;
+      --panel: #ffffff;
+      --ink: #3a3042;
+      --subtle: #6e6274;
+      --brand: #7c6ac8;
+      --brand-2: #e9d8fd;
+      --accent: #e7b3c2;
       --glow: 0 10px 24px rgba(60, 40, 120, .12);
       --radius: 18px;
       --radius-lg: 26px;
@@ -38,7 +37,6 @@
 
     .wrap{max-width:1100px; margin:auto; padding:22px}
 
-    /* Header */
     header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: linear-gradient(135deg, #fefcff 0%, #f7f3ff 100%); }
     .hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:20px; align-items:center; padding:32px 28px}
     @media (max-width: 880px){ .hero{grid-template-columns:1fr; padding:24px} }
@@ -57,14 +55,12 @@
     .cloud{ position:absolute; inset:auto auto 10% -10%; width:120%; height:70%; z-index:0; background: radial-gradient(300px 140px at 20% 30%, rgba(124,106,200,.22), transparent 60%), radial-gradient(360px 160px at 80% 60%, rgba(231,179,194,.20), transparent 60%); filter: blur(24px); }
     .hero-img{position:relative; z-index:1; border-radius: 20px; box-shadow: var(--glow); border: 6px solid #fff}
 
-    /* Section shells */
     section{margin:28px 0}
     .card{background:var(--panel); border:1px solid #eee; border-radius: var(--radius); box-shadow: var(--glow)}
     .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 14px}
     .section-head h2{margin:0; font-size: clamp(20px, 2.6vw, 28px)}
     .section-head p{margin:4px 0 0; color:var(--subtle)}
 
-    /* IOTW */
     .iotm{display:grid; grid-template-columns: 1fr 1fr; gap:22px; padding:22px}
     @media (max-width: 820px){ .iotm{grid-template-columns:1fr} }
     .price{font-size: clamp(22px, 3vw, 28px); font-weight:800; color:var(--brand)}
@@ -72,7 +68,6 @@
     .chip{padding:6px 10px; border-radius:999px; background:var(--brand-2); color:#4b3f7f; font-size:12px}
     .iotm .btn{margin-top:10px}
 
-    /* Gallery */
     .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px}
     .g-item{grid-column: span 4; border-radius:16px; overflow:hidden; border:1px solid #eee; background:#fff; box-shadow: var(--glow)}
     .g-item img{aspect-ratio:1/1; object-fit:cover}
@@ -80,13 +75,11 @@
     @media (max-width: 900px){ .g-item{grid-column: span 6} }
     @media (max-width: 560px){ .g-item{grid-column: span 12} }
 
-    /* Steps */
     .steps{display:grid; grid-template-columns: repeat(3,1fr); gap:14px; padding:14px}
     @media (max-width: 800px){ .steps{grid-template-columns:1fr} }
     .step{padding:16px; border:1px solid #eee; border-radius:16px; background:#fff}
     .k{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:10px; background:var(--brand-2); color:#4b3f7f; font-weight:700; margin-bottom:6px}
 
-    /* FAQ */
     details{border:1px solid #eee; border-radius:12px; padding:12px 14px; background:#fff}
     details + details{margin-top:10px}
     summary{cursor:pointer; font-weight:600}
@@ -97,8 +90,6 @@
 </head>
 <body>
   <div class="wrap">
-
-    <!-- Header / Hero -->
     <header class="card">
       <div class="hero">
         <div class="hero-copy">
@@ -116,13 +107,11 @@
         </div>
         <div class="hero-art">
           <div class="cloud" aria-hidden="true"></div>
-          <!-- Updated hero to public/img/parkerpixiepawprofile.jpg -->
-          <img class="hero-img" src="/img/parkerpixiepawprofile.jpg" alt="ParkerPixiePaws profile collage of cozy amigurumi in soft lavender and cream tones."/>
+          <img class="hero-img" src="/img/parkerpixiepawprofile.jpg" onerror="this.onerror=null;this.src='/img/hero.jpg';" alt="ParkerPixiePaws profile collage of cozy amigurumi."/>
         </div>
       </div>
     </header>
 
-    <!-- Item of the Week (pumpkin) -->
     <section id="iotm" class="card">
       <div class="iotm">
         <div>
@@ -133,10 +122,9 @@
           <div class="chips">
             <span class="chip">Made to order</span>
             <span class="chip">Ships in 3–5 days</span>
-            <span class="chip">Approx. 3.5" wide</span>
+            <span class="chip">Approx. 3.5\" wide</span>
           </div>
           <p class="price">$15 • US only</p>
-          <!-- TEMP: same Google Form as commissions until IOTW form is ready -->
           <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Order a Pumpkin</a>
           <p style="margin-top:8px; color:var(--subtle); font-size:14px">Limited batch. When sold out, the button will be disabled.</p>
         </div>
@@ -146,19 +134,17 @@
       </div>
     </section>
 
-    <!-- Gallery -->
     <section id="gallery" aria-labelledby="gal-h">
       <div class="section-head"><h2 id="gal-h">Recent Makes</h2><p>Textures, colors, and cozy vibes.</p></div>
       <div class="grid">
         <figure class="g-item"><img src="/img/bejeweled-the-peacock.png" alt="Amigurumi peacock with jeweled tail."><figcaption class="cap">Bejeweled the Peacock</figcaption></figure>
-        <figure class="g-item"><img src="/img/bonnie.png" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the Chicken</figcaption></figure>
-        <figure class="g-item"><img src="/img/gilligan.png" alt="Amigurumi character Gilligan."><figcaption class="cap">Gilligan</figcaption></figure>
-        <figure class="g-item"><img src="/img/ginny.png" alt="Amigurumi character Ginny."><figcaption class="cap">Ginny</figcaption></figure>
-        <figure class="g-item"><img src="/img/grogu.png" alt="Amigurumi Grogu with big ears."><figcaption class="cap">Grogu</figcaption></figure>
+        <figure class="g-item"><img src="/img/bonnie.jpg" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the Chicken</figcaption></figure>
+        <figure class="g-item"><img src="/img/gilligan.jpg" alt="Amigurumi character Gilligan."><figcaption class="cap">Gilligan</figcaption></figure>
+        <figure class="g-item"><img src="/img/ginny.jpg" alt="Amigurumi character Ginny."><figcaption class="cap">Ginny</figcaption></figure>
+        <figure class="g-item"><img src="/img/grogu.jpg" alt="Amigurumi Grogu with big ears."><figcaption class="cap">Grogu</figcaption></figure>
       </div>
     </section>
 
-    <!-- How commissions work -->
     <section id="commission" class="card" aria-labelledby="how-h">
       <div class="section-head"><h2 id="how-h">How Commissions Work</h2><p>Simple, ADHD‑friendly steps.</p></div>
       <div class="steps">
@@ -172,7 +158,6 @@
       </div>
     </section>
 
-    <!-- Materials & Care -->
     <section class="card" aria-labelledby="care-h" style="padding:18px">
       <div class="section-head"><h2 id="care-h">Materials & Care</h2><p>Made for snuggles and display.</p></div>
       <ul>
@@ -182,7 +167,6 @@
       </ul>
     </section>
 
-    <!-- FAQ -->
     <section id="faq" aria-labelledby="faq-h">
       <div class="section-head"><h2 id="faq-h">FAQ</h2><p>Your top questions, answered.</p></div>
       <details>
