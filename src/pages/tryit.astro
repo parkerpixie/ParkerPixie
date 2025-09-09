@@ -2,239 +2,473 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <title>ParkerPixiePaws — Cozy Amigurumi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ParkerPixiePaws • Cozy Amigurumi, Handmade with Heart</title>
-  <meta name="description" content="Cozy amigurumi from ParkerPixiePaws — soft, squishy, and stitched with love. Commission a custom friend or browse Handmade Highlights & Pixie Projects. Item of the Month is pumpkin pals for $15." />
-
-  <!-- Fav / Share -->
+  <meta name="description" content="Soft, squishy friends stitched with intention. Capybaras, chickens, puffins, pelicans, and custom creatures that feel like a hug." />
   <link rel="icon" href="/CapyGoldIcon.png" />
+
+  <!-- Open Graph / Share -->
   <meta property="og:title" content="ParkerPixiePaws — Cozy Amigurumi" />
-  <meta property="og:description" content="Soft, squishy friends — stitched with love. Commission customs or grab the Item of the Month for $15." />
+  <meta property="og:description" content="Soft, squishy friends stitched with intention. Commission a custom friend or browse the gallery." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://parkerpixie.netlify.app/amigurumi/" />
-  <meta property="og:image" content="https://parkerpixie.netlify.app/img/parkerpixiepawprofile.png" />
+  <meta property="og:url" content="https://parkerpixie.netlify.app/parkerpixiepaws/" />
+  <meta property="og:image" content="https://parkerpixie.netlify.app/img/parkerpixiepawprofile.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://parkerpixie.netlify.app/img/parkerpixiepawprofile.jpg" />
 
   <style>
     :root{
-      --bg: #faf7fb;
-      --panel: #ffffff;
-      --ink: #3a3042;
-      --subtle: #6e6274;
-      --brand: #7c6ac8;
-      --brand-2: #e9d8fd;
-      --accent: #e7b3c2;
-      --glow: 0 10px 24px rgba(60, 40, 120, .12);
-      --radius: 18px;
-      --radius-lg: 26px;
+      --brand:#8a5dff; 
+      --brand-deep:#4b2fb5;
+      --ink:#f7f3ff; 
+      --muted:#c9c2dd;
+      --bg1:#0f0b14; 
+      --bg2:#130e1f; 
+      --bg3:#100b1a;
+      --gold:#D8AA3B;
+      --bubble:#e7d3d9; /* mauve */
+      --bubble-ink:#2b1f26;
+      --max:1100px;
+      --shadow:0 8px 28px rgba(0,0,0,.25);
+      --round:1.25rem;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;
-      color:var(--ink);
-      font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      margin:0; color:var(--ink); background:
+        radial-gradient(1200px 500px at 20% -10%, rgba(138,93,255,.25), transparent 60%),
+        radial-gradient(900px 400px at 85% -10%, rgba(216,170,59,.15), transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg1) 30%, var(--bg3));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.45;
       letter-spacing:.2px;
-
-      /* default fallback (used if images not present) */
-      background: radial-gradient(1200px 800px at 10% 0%, rgba(255,255,255,1) 0%, var(--bg) 60%), var(--bg);
       background-attachment: fixed;
     }
 
-    /* class toggles are added by JS below: .bg-loaded keeps the image; .bg-missing uses the gradient above */
-    body.bg-loaded {
-      /* this class won't be applied unless the script confirms the image exists */
-    }
-    img{max-width:100%; display:block}
-    a{color:var(--brand); text-decoration:none}
+    a{color:var(--gold); text-decoration:none}
     a:hover{text-decoration:underline}
 
-    .wrap{max-width:1100px; margin:auto; padding:22px}
+    /* Header / Banner */
+    .banner{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(8px);
+      background:linear-gradient(180deg, rgba(19,14,31,.85), rgba(19,14,31,.6));
+      border-bottom:1px solid rgba(231,211,217,.15);
+    }
+    .nav{
+      max-width:var(--max); margin:0 auto; padding:.75rem 1rem;
+      display:flex; align-items:center; gap:1rem; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:.6rem; font-weight:700}
+    .brand img{width:28px; height:28px}
+    .nav a.navlink{
+      color:var(--ink); opacity:.9; padding:.5rem .75rem; border-radius:999px;
+    }
+    .nav a.navlink.active{background:rgba(231,211,217,.2)}
+    .navgroup{display:flex; gap:.25rem; flex-wrap:wrap}
 
-    header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: rgba(255,255,255,0.9); }
-    .hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:20px; align-items:center; padding:32px 28px}
-    @media (max-width: 880px){ .hero{grid-template-columns:1fr; padding:24px} }
+    /* Hero */
+    .hero{
+      max-width:var(--max); margin:2rem auto 1.25rem; padding:0 1rem;
+      display:grid; grid-template-columns: 140px 1fr; gap:1rem; align-items:center;
+    }
+    .pfp{
+      width:140px; height:140px; border-radius:50%;
+      background:var(--bubble); color:var(--bubble-ink);
+      display:grid; place-items:center; overflow:hidden; box-shadow:var(--shadow);
+      border:3px solid rgba(231,211,217,.65);
+    }
+    .pfp img{width:100%; height:100%; object-fit:cover}
+    .h-text h1{margin:.1rem 0 .4rem; font-size:1.9rem}
+    .pillrow{display:flex; gap:.5rem; flex-wrap:wrap}
+    .pill{
+      background: var(--bubble);
+      color: var(--bubble-ink);
+      padding:.4rem .7rem; border-radius:999px; font-size:.85rem;
+      border:1px solid rgba(0,0,0,.06);
+    }
 
-    .hero-copy h1{margin:0 0 8px; font-size: clamp(28px, 3.6vw, 44px); letter-spacing:.3px}
-    .hero-copy p{margin:0 0 16px; color:var(--subtle)}
-    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 18px}
-    .badge{background:var(--panel); border:1px solid #eee; padding:6px 10px; border-radius:999px; font-size:12px; color:var(--subtle)}
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
-    .btn{display:inline-block; padding:12px 16px; border-radius:12px; font-weight:600; border:1px solid transparent; box-shadow: var(--glow)}
-    .btn.primary{background: var(--brand); color:#fff}
-    .btn.primary:hover{filter:brightness(1.05)}
-    .btn.ghost{background:#fff; border-color:#eee; color:var(--ink)}
+    /* About bubble */
+    .about{
+      max-width:var(--max); margin:0 auto; padding:0 1rem 1.5rem;
+    }
+    .bubble{
+      background:linear-gradient(180deg, rgba(231,211,217,.92), rgba(231,211,217,.88));
+      color:var(--bubble-ink);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:var(--round);
+      box-shadow:var(--shadow);
+      padding:1rem;
+    }
 
-    .hero-art{position:relative}
-    .cloud{ position:absolute; inset:auto auto 10% -10%; width:120%; height:70%; z-index:0; background: radial-gradient(300px 140px at 20% 30%, rgba(124,106,200,.22), transparent 60%), radial-gradient(360px 160px at 80% 60%, rgba(231,179,194,.20), transparent 60%); filter: blur(24px); }
-    .hero-img{position:relative; z-index:1; border-radius: 20px; box-shadow: var(--glow); border: 6px solid #fff; width:100%; height:auto; max-width:360px; object-fit:cover}
+    .cta-row{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.75rem}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+      padding:.6rem .9rem; border-radius:999px; text-decoration:none; font-weight:600;
+      background:var(--brand); color:white; border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 6px 18px rgba(138,93,255,.35);
+    }
+    .btn:hover{filter:brightness(1.07)}
+    .btn.alt{background:transparent; color:var(--brand); border:1px solid var(--brand)}
 
-    section{margin:28px 0}
-    .card{background:var(--panel); border:1px solid #eee; border-radius: var(--radius); box-shadow: var(--glow)}
-    .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 14px}
-    .section-head h2{margin:0; font-size: clamp(20px, 2.6vw, 28px)}
-    .section-head p{margin:4px 0 0; color:var(--subtle)}
+    /* Section heading */
+    .section{
+      max-width:var(--max); margin:2rem auto; padding:0 1rem;
+    }
+    .section h2{margin:0 0 .75rem; font-size:1.5rem}
+    .section p.lead{opacity:.95; max-width:68ch}
 
-    .iotm{display:grid; grid-template-columns: 1fr 1fr; gap:22px; padding:22px}
-    @media (max-width: 820px){ .iotm{grid-template-columns:1fr} }
-    .price{font-size: clamp(22px, 3vw, 28px); font-weight:800; color:var(--brand)}
-    .chips{display:flex; gap:8px; flex-wrap:wrap}
-    .chip{padding:6px 10px; border-radius:999px; background:var(--brand-2); color:#4b3f7f; font-size:12px}
-    .iotm .btn{margin-top:10px}
+    /* Gallery grid (tryit-style cards) */
+    .grid{
+      display:grid; gap:1rem;
+      grid-template-columns: repeat( auto-fill, minmax(220px, 1fr) );
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(231,211,217,.96), rgba(231,211,217,.9));
+      color:var(--bubble-ink);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:calc(var(--round) - .25rem);
+      overflow:hidden; display:flex; flex-direction:column;
+      box-shadow:var(--shadow);
+    }
+    .card-fig{aspect-ratio: 4/3; background:#fff; overflow:hidden}
+    .card-fig img{width:100%; height:100%; object-fit:cover; display:block}
+    .card-body{padding:.85rem}
+    .card h3{margin:.1rem 0 .25rem; font-size:1.05rem}
+    .tagrow{display:flex; flex-wrap:wrap; gap:.35rem; margin:.35rem 0 .6rem}
+    .tag{font-size:.78rem; padding:.25rem .5rem; border-radius:999px; background:rgba(75,47,181,.12); color:#402b8a}
 
-    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px}
-    .g-item{grid-column: span 4; border-radius:16px; overflow:hidden; border:1px solid #eee; background:#fff; box-shadow: var(--glow)}
-    .g-item img{aspect-ratio:1/1; object-fit:cover}
-    .g-item .cap{padding:10px; font-size:14px; color:var(--subtle)}
-    @media (max-width: 900px){ .g-item{grid-column: span 6} }
-    @media (max-width: 560px){ .g-item{grid-column: span 12} }
+    .card .mini{
+      display:flex; gap:.4rem; margin-top:auto; padding:.85rem;
+      border-top:1px solid rgba(0,0,0,.06);
+      background:rgba(255,255,255,.45);
+    }
+    .mini a{flex:1; text-align:center; font-weight:700; color:var(--brand-deep); text-decoration:none}
+    .mini a:hover{text-decoration:underline}
 
-    .steps{display:grid; grid-template-columns: repeat(3,1fr); gap:14px; padding:24px}
-    @media (max-width: 800px){ .steps{grid-template-columns:1fr} }
-    .step{padding:16px; border:1px solid #eee; border-radius:16px; background:#fff}
-    .k{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:10px; background:var(--brand-2); color:#4b3f7f; font-weight:700; margin-bottom:6px}
+    /* Philosophy list */
+    .philo{
+      display:grid; gap:.75rem;
+      grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
+    }
+    .philo .bubble{padding:1rem}
+    .philo h3{margin:.1rem 0 .35rem; font-size:1.05rem}
 
-    details{border:1px solid #eee; border-radius:12px; padding:12px 14px; background:#fff}
-    details + details{margin-top:10px}
-    summary{cursor:pointer; font-weight:600}
-    summary::-webkit-details-marker{display:none}
+    /* “Already know how to crochet?” links */
+    .quicklinks{display:grid; gap:.75rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))}
+    .ql{padding:1rem; border-left:4px solid var(--brand);}
 
-    footer{margin:26px 0 40px; color:var(--subtle); text-align:center}
+    /* FAQ */
+    details{
+      background:linear-gradient(180deg, rgba(231,211,217,.96), rgba(231,211,217,.9));
+      color:var(--bubble-ink);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:calc(var(--round) - .25rem);
+      box-shadow:var(--shadow);
+      padding:1rem; margin-bottom:.75rem;
+    }
+    details > summary{cursor:pointer; font-weight:700}
+    details[open]{outline:2px solid rgba(138,93,255,.25)}
+    details p{margin:.6rem 0 0}
 
-    /* fallback styles if image not present */
-    body.bg-missing header{ background: rgba(255,255,255,0.95); }
+    /* Footer */
+    footer{
+      max-width:var(--max); margin:2.5rem auto 3rem; padding:0 1rem;
+      opacity:.85; font-size:.95rem
+    }
+
+    /* Small screens */
+    @media (max-width:680px){
+      .hero{grid-template-columns: 96px 1fr}
+      .pfp{width:96px; height:96px}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="card">
-      <div class="hero">
-        <div class="hero-copy">
-          <h1>ParkerPixiePaws — Cozy Amigurumi</h1>
-          <p>Soft, squishy friends stitched with intention. I make capybaras, chickens, puffins, pelicans, and custom creatures that feel like a hug.</p>
-          <div class="badges">
-            <span class="badge">Handmade in Madison, WI</span>
-            <span class="badge">Crafted and perfected with YOU in mind</span>
-          </div>
-          <div class="cta-row">
-            <a class="btn primary" href="#commission">Commission a Custom</a>
-            <a class="btn ghost" href="#gallery">Browse Amigurumi</a>
-          </div>
-        </div>
-        <div class="hero-art">
-          <div class="cloud" aria-hidden="true"></div>
 
-          <!-- try preferred PNG first; onerror fallback to deployed lowercase JPG -->
-          <img
-            class="hero-img"
-            src="/img/ParkerPixiePawProfile.png"
-            onerror="this.onerror=null; this.src='/img/parkerpixiepawprofile.jpg';"
-            alt="ParkerPixiePaws profile collage of cozy amigurumi." />
-
-        </div>
+  <!-- Banner / Global Nav -->
+  <div class="banner">
+    <nav class="nav">
+      <div class="brand">
+        <img src="/CapyGoldIcon.png" alt="Capybara gold icon" />
+        <span>ParkerPixie</span>
       </div>
-    </header>
-
-    <section id="iotm" class="card">
-      <div class="iotm">
-        <div>
-          <div class="section-head">
-            <h2>✨ Item of the Month</h2>
-          </div>
-          <p>This month: <strong>Pocket Pumpkins</strong> — plump, palm-sized cuties perfect for fall trays, teacher gifts, or anxiety squishes. Just pick your favorite color!</p>
-          <div class="chips">
-            <span class="chip">Made to order</span>
-            <span class="chip">Ships in 3–5 days</span>
-            <span class="chip">Approx. 3.5&quot; wide</span>
-          </div>
-          <p class="price">$15 • Shipping available at shipping costs</p>
-          <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Order a Pumpkin</a>
-          <p style="margin-top:8px; color:var(--subtle); font-size:14px">Limited batch. When sold out, the button will be disabled.</p>
-        </div>
-        <div>
-          <img src="/img/pumpkin.jpg" alt="Hand holding a crocheted pumpkin in front of a pile of amigurumi pumpkins." />
-        </div>
+      <div class="navgroup">
+        <a class="navlink" href="/">Home</a>
+        <a class="navlink active" href="/parkerpixiepaws/">Amigurumi</a>
+        <a class="navlink" href="/tryit/">Try-It Page</a>
+        <a class="navlink" href="/blog/">Blog</a>
+        <a class="navlink" href="/contact/">Contact</a>
       </div>
-    </section>
-
-    <section id="gallery" aria-labelledby="gal-h">
-      <div class="section-head"><h2 id="gal-h">✨ Handmade Highlights & Pixie Projects</h2><p>Textures, colors, and cozy vibes.</p></div>
-      <div class="grid">
-        <figure class="g-item"><img src="/img/Bejeweled.jpg" alt="Amigurumi peacock with jeweled tail."><figcaption class="cap">Bejeweled the Peacock</figcaption></figure>
-        <figure class="g-item"><img src="/img/bonnie.jpg" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the Chicken</figcaption></figure>
-        <figure class="g-item"><img src="/img/gilligan.jpg" alt="Amigurumi character Gilligan."><figcaption class="cap">Gilligan the Pelican</figcaption></figure>
-        <figure class="g-item"><img src="/img/ginny.jpg" alt="Amigurumi character Ginny."><figcaption class="cap">Ginny the Giraffe</figcaption></figure>
-        <figure class="g-item"><img src="/img/grogu.jpg" alt="Amigurumi Grogu with big ears."><figcaption class="cap">Grogu!</figcaption></figure>
-      </div>
-    </section>
-
-    <section id="commission" class="card" aria-labelledby="how-h">
-      <div class="section-head"><h2 id="how-h">How Commissions Work</h2><p>Simple, cozy steps.</p></div>
-      <div class="steps">
-        <div class="step"><div class="k">1</div><strong>Tell me your idea.</strong><br/>Animal, vibe, size, colors — or show a reference pic.</div>
-        <div class="step"><div class="k">2</div><strong>I confirm details + price.</strong><br/>Most are complete within 2 to 3 weeks! Give me some damn time to stitch, huh???</div>
-        <div class="step"><div class="k">3</div><strong>I Stitch, I deliver.</strong><br/>You can pick it up, arrange to meet, or I can ship it to you if you agree to pay the cost.</div>
-      </div>
-      <div style="padding: 0 14px 18px">
-        <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Start a Commission</a>
-        <a class="btn ghost" href="#faq">Read FAQs</a>
-      </div>
-    </section>
-
-    <section class="card" aria-labelledby="care-h" style="padding:18px">
-      <div class="section-head"><h2 id="care-h">Materials & Care</h2><p>Made for snuggles and display.</p></div>
-      <ul>
-        <li>Premium acrylic/cotton yarns; hypoallergenic, pet-safe stuffing.</li>
-        <li>Spot clean with cool water + mild soap; air dry. Avoid machine wash.</li>
-        <li>Not intended for children under 3 (small parts possible).</li>
-      </ul>
-    </section>
-
-    <section id="faq" aria-labelledby="faq-h">
-      <div class="section-head"><h2 id="faq-h">FAQ</h2><p>Your top questions, answered.</p></div>
-      <details>
-        <summary>How big are your pieces?</summary>
-        <p>As big or as small as you want them to be. You are paying for my time and mostly yarn — the only limit is likely your pocketbook.</p>
-      </details>
-      <details>
-        <summary>Do you ship outside the US?</summary>
-        <p>Shipping is available at shipping costs. If you’re international, note it on the form and I’ll see what’s possible.</p>
-      </details>
-      <details>
-        <summary>Can I rush an order?</summary>
-        <p>Sometimes! Add your date in the form and I’ll confirm what’s realistic before you pay.</p>
-      </details>
-    </section>
-
-    <footer>
-      <small>© <span id="yr"></span> ParkerPixiePaws • Made with coziness in Madison, WI</small>
-    </footer>
+    </nav>
   </div>
 
-  <script>
-    // Year
-    document.getElementById('yr').textContent = new Date().getFullYear();
+  <!-- Hero / Title -->
+  <header class="hero" id="top">
+    <div class="pfp">
+      <img src="/img/parkerpixiepawprofile.jpg" alt="ParkerPixiePaws profile" />
+    </div>
+    <div class="h-text">
+      <h1>ParkerPixiePaws — Cozy Amigurumi</h1>
+      <div class="pillrow">
+        <span class="pill">Custom Commissions</span>
+        <span class="pill">Capybaras & Friends</span>
+        <span class="pill">Hand-stitched with Love</span>
+      </div>
+      <div class="cta-row">
+        <!-- TODO: replace with your Google Form link -->
+        <a class="btn" href="https://forms.gle/" target="_blank" rel="noreferrer">Commission a Custom</a>
+        <a class="btn alt" href="#gallery">See the Gallery</a>
+      </div>
+    </div>
+  </header>
 
-    // Background loader: attempt to load the site-wide background image(s).
-    (function(){
-      var desktop = '/img/pawback.png';
-      var mobile = '/img/pawbackmobile.png';
-      var chosen = (window.innerWidth <= 768) ? mobile : desktop;
-      var img = new Image();
-      img.onload = function(){
-        // we have the image, apply as body background
-        document.body.classList.add('bg-loaded');
-        document.body.style.backgroundImage = 'url(\"' + chosen + '\")';
-        document.body.style.backgroundSize = 'cover';
-        document.body.style.backgroundPosition = 'center';
-        document.body.style.backgroundRepeat = 'no-repeat';
-      };
-      img.onerror = function(){
-        // image missing — keep the gradient fallback; add a class for any minor adjustments
-        document.body.classList.add('bg-missing');
-      };
-      img.src = chosen;
-    })();
+  <!-- About bubble -->
+  <section class="about">
+    <div class="bubble">
+      <p><strong>About:</strong> Soft, squishy friends stitched with intention. I make capybaras, chickens, puffins, pelicans, and custom creatures that feel like a hug. If you’ve got a character, pet, or wild idea you want turned into cozy plush form, I’m your capy-queen.</p>
+    </div>
+  </section>
+
+  <!-- Gallery / Projects (tryit-style, COMPLETE 10) -->
+  <section class="section" id="gallery">
+    <h2>Gallery</h2>
+    <p class="lead">Meet the whole ParkerPixiePaws lineup — quirky, cuddly, and stitched with spark.</p>
+
+    <div class="grid">
+      <!-- Aurora · Puffin -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Aurora.jpg" alt="Aurora the puffin amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Aurora</h3>
+          <div class="tagrow"><span class="tag">Puffin</span><span class="tag">Coastal Cutie</span></div>
+          <p>Polar-night tuxedo with northern-lights charm.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Bejeweled · Peacock -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Bejeweled.jpg" alt="Bejeweled the peacock amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Bejeweled</h3>
+          <div class="tagrow"><span class="tag">Peacock</span><span class="tag">Statement Tail</span></div>
+          <p>Dazzling tail, dramatic flair — unapologetically extra.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Bonnie · The Skein Hen -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Bonnie.jpg" alt="Bonnie the chicken amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Bonnie</h3>
+          <div class="tagrow"><span class="tag">Chicken</span><span class="tag">The Skein Hen</span></div>
+          <p>Plump little yarn guardian with wholesome coop vibes.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Buster · Pup -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Buster.jpg" alt="Buster the pup amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Buster</h3>
+          <div class="tagrow"><span class="tag">Pup</span><span class="tag">Goodest Boy</span></div>
+          <p>Pocket-sized tail wags and instant emotional support.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Gilligan · Pelican -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Gilligan.jpg" alt="Gilligan the pelican amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Gilligan</h3>
+          <div class="tagrow"><span class="tag">Pelican</span><span class="tag">Beach Day</span></div>
+          <p>Big-pouch buddy with seaside snack-thief energy.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Ginny · Giraffe -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Ginny.jpg" alt="Ginny the giraffe amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Ginny</h3>
+          <div class="tagrow"><span class="tag">Giraffe</span><span class="tag">Long Neck Sweetheart</span></div>
+          <p>Spots, lashes, and skyscraper-cuddles for days.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Grogu · Mini -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Grogu.jpg" alt="Grogu amigurumi (green) mini" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Grogu (Mini)</h3>
+          <div class="tagrow"><span class="tag">Fan Favorite</span><span class="tag">Big Ears</span></div>
+          <p>Small in size, galaxy-level cuddle power. This is the squish.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Jade · Cactus Pot -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Jade.jpg" alt="Jade — cactus & succulent pot amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Jade</h3>
+          <div class="tagrow"><span class="tag">Cactus Pot</span><span class="tag">Planty Pal</span></div>
+          <p>Prickle-free greenery for serial plant un-alivers.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Petunia · Ballerina Pig -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Petunia.jpg" alt="Petunia the pig ballerina amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Petunia</h3>
+          <div class="tagrow"><span class="tag">Pig</span><span class="tag">Ballerina</span></div>
+          <p>Tutu twirls and snout-boops — stage-ready and sugar-sweet.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+
+      <!-- Whiskers · Fox -->
+      <article class="card">
+        <figure class="card-fig">
+          <img src="/img/Whiskers.jpg" alt="Whiskers the fox amigurumi" loading="lazy" />
+        </figure>
+        <div class="card-body">
+          <h3>Whiskers</h3>
+          <div class="tagrow"><span class="tag">Fox</span><span class="tag">Clever Cozy</span></div>
+          <p>Forest-fox charm with couch-nap priorities.</p>
+        </div>
+        <div class="mini">
+          <a href="https://forms.gle/" target="_blank" rel="noreferrer">Commission</a>
+          <a href="#faq">Care</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="section" id="philosophy">
+    <h2>Philosophy</h2>
+    <div class="philo">
+      <div class="bubble">
+        <h3>Made to be Held</h3>
+        <p>These aren’t dust-collectors. They’re comfort objects—stitched to be squeezed, loved, and treasured.</p>
+      </div>
+      <div class="bubble">
+        <h3>Intentional Materials</h3>
+        <p>Soft fibers, secure stitching, and durable construction so your plush stays huggable for years.</p>
+      </div>
+      <div class="bubble">
+        <h3>Your Story, Your Squish</h3>
+        <p>From color palettes to tiny accessories, each friend is customized around <em>you</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Already know how to crochet? -->
+  <section class="section" id="already-crochet">
+    <h2>Already know how to crochet?</h2>
+    <p class="lead">Love making your own? Same. Here are quick links you’ll actually use.</p>
+    <div class="quicklinks">
+      <div class="bubble ql">
+        <h3>Care & Materials</h3>
+        <p><a href="/files/ParkerPixiePaws-Care-Guide.pdf">Care Guide (PDF)</a> — how to wash, dry, and store your plush so it stays gorgeous.</p>
+      </div>
+      <div class="bubble ql">
+        <h3>Yarn & Colors</h3>
+        <p><a href="/yarn/">Yarn Inventory</a> — what’s currently on hand for customs, with favorite shades for animals.</p>
+      </div>
+      <div class="bubble ql">
+        <h3>Request a Collab</h3>
+        <p><a href="https://forms.gle/" target="_blank" rel="noreferrer">Design with Me</a> — have a pattern in mind? Let’s style it ParkerPixie-cute.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <h2>FAQ</h2>
+
+    <details>
+      <summary>How do commissions work?</summary>
+      <p>Fill out the commission form with your idea, colors, and timeline. I’ll reply with a quote and an estimated ship date. A deposit secures your spot in the queue.</p>
+    </details>
+
+    <details>
+      <summary>What’s the typical size and price?</summary>
+      <p>Most plushies are ~6–10 inches tall. Pricing depends on complexity and accessories—custom quotes are the way to go.</p>
+    </details>
+
+    <details>
+      <summary>How do I care for my plush?</summary>
+      <p>Spot clean gently with a damp cloth. For deeper cleans, place in a mesh bag and wash on delicate, cold water; air dry. See the <a href="/files/ParkerPixiePaws-Care-Guide.pdf">Care Guide</a> for details.</p>
+    </details>
+
+    <details>
+      <summary>Can you match a pet or character?</summary>
+      <p>Yes! Send photos and vibes. We’ll dial in markings, colors, and little accessories to capture their personality.</p>
+    </details>
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> ParkerPixie — Sass · Shimmer · Sparkle. | <a href="#top">Back to top</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
