@@ -2,6 +2,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  output: 'static'
-  // ⬆️ Keep it minimal. No custom vite block.
+  site: 'https://parkerpixie.netlify.app', // <- IMPORTANT
 });
