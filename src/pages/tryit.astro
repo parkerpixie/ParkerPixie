@@ -30,19 +30,20 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{ 
-      margin:0; 
-      color:var(--ink); 
-      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; 
+    body{
+      margin:0;
+      color:var(--ink);
+      font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
       letter-spacing:.2px;
-      background: url('/img/pawback.png') no-repeat center center fixed;
-      background-size: cover;
+
+      /* default fallback (used if images not present) */
+      background: radial-gradient(1200px 800px at 10% 0%, rgba(255,255,255,1) 0%, var(--bg) 60%), var(--bg);
+      background-attachment: fixed;
     }
-    @media (max-width: 768px){
-      body {
-        background: url('/img/pawbackmobile.png') no-repeat center center fixed;
-        background-size: cover;
-      }
+
+    /* class toggles are added by JS below: .bg-loaded keeps the image; .bg-missing uses the gradient above */
+    body.bg-loaded {
+      /* this class won't be applied unless the script confirms the image exists */
     }
     img{max-width:100%; display:block}
     a{color:var(--brand); text-decoration:none}
@@ -50,7 +51,7 @@
 
     .wrap{max-width:1100px; margin:auto; padding:22px}
 
-    header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: rgba(255,255,255,0.85); }
+    header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: rgba(255,255,255,0.9); }
     .hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:20px; align-items:center; padding:32px 28px}
     @media (max-width: 880px){ .hero{grid-template-columns:1fr; padding:24px} }
 
@@ -66,7 +67,7 @@
 
     .hero-art{position:relative}
     .cloud{ position:absolute; inset:auto auto 10% -10%; width:120%; height:70%; z-index:0; background: radial-gradient(300px 140px at 20% 30%, rgba(124,106,200,.22), transparent 60%), radial-gradient(360px 160px at 80% 60%, rgba(231,179,194,.20), transparent 60%); filter: blur(24px); }
-    .hero-img{position:relative; z-index:1; border-radius: 20px; box-shadow: var(--glow); border: 6px solid #fff}
+    .hero-img{position:relative; z-index:1; border-radius: 20px; box-shadow: var(--glow); border: 6px solid #fff; width:100%; height:auto; max-width:360px; object-fit:cover}
 
     section{margin:28px 0}
     .card{background:var(--panel); border:1px solid #eee; border-radius: var(--radius); box-shadow: var(--glow)}
@@ -99,6 +100,9 @@
     summary::-webkit-details-marker{display:none}
 
     footer{margin:26px 0 40px; color:var(--subtle); text-align:center}
+
+    /* fallback styles if image not present */
+    body.bg-missing header{ background: rgba(255,255,255,0.95); }
   </style>
 </head>
 <body>
@@ -113,13 +117,20 @@
             <span class="badge">Crafted and perfected with YOU in mind</span>
           </div>
           <div class="cta-row">
-            <a class="btn primary" href="#commission">Commission an Amigurumi</a>
+            <a class="btn primary" href="#commission">Commission a Custom</a>
             <a class="btn ghost" href="#gallery">Browse Amigurumi</a>
           </div>
         </div>
         <div class="hero-art">
           <div class="cloud" aria-hidden="true"></div>
-          <img class="hero-img" src="/img/ParkerPixiePawProfile.png" onerror="this.onerror=null;this.src='/img/hero.jpg';" alt="ParkerPixiePaws profile collage of cozy amigurumi."/>
+
+          <!-- try preferred PNG first; onerror fallback to deployed lowercase JPG -->
+          <img
+            class="hero-img"
+            src="/img/ParkerPixiePawProfile.png"
+            onerror="this.onerror=null; this.src='/img/parkerpixiepawprofile.jpg';"
+            alt="ParkerPixiePaws profile collage of cozy amigurumi." />
+
         </div>
       </div>
     </header>
@@ -161,7 +172,7 @@
       <div class="section-head"><h2 id="how-h">How Commissions Work</h2><p>Simple, cozy steps.</p></div>
       <div class="steps">
         <div class="step"><div class="k">1</div><strong>Tell me your idea.</strong><br/>Animal, vibe, size, colors — or show a reference pic.</div>
-        <div class="step"><div class="k">2</div><strong>I confirm details + price.</strong><br/>Most are complete within 2 to 3 weeks!</div>
+        <div class="step"><div class="k">2</div><strong>I confirm details + price.</strong><br/>Most are complete within 2 to 3 weeks! Give me some damn time to stitch, huh???</div>
         <div class="step"><div class="k">3</div><strong>I Stitch, I deliver.</strong><br/>You can pick it up, arrange to meet, or I can ship it to you if you agree to pay the cost.</div>
       </div>
       <div style="padding: 0 14px 18px">
@@ -175,7 +186,7 @@
       <ul>
         <li>Premium acrylic/cotton yarns; hypoallergenic, pet-safe stuffing.</li>
         <li>Spot clean with cool water + mild soap; air dry. Avoid machine wash.</li>
-        <li>Not intended for children under 3 (safety eyes are not really that safe).</li>
+        <li>Not intended for children under 3 (small parts possible).</li>
       </ul>
     </section>
 
@@ -201,7 +212,29 @@
   </div>
 
   <script>
+    // Year
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Background loader: attempt to load the site-wide background image(s).
+    (function(){
+      var desktop = '/img/pawback.png';
+      var mobile = '/img/pawbackmobile.png';
+      var chosen = (window.innerWidth <= 768) ? mobile : desktop;
+      var img = new Image();
+      img.onload = function(){
+        // we have the image, apply as body background
+        document.body.classList.add('bg-loaded');
+        document.body.style.backgroundImage = 'url(\"' + chosen + '\")';
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundRepeat = 'no-repeat';
+      };
+      img.onerror = function(){
+        // image missing — keep the gradient fallback; add a class for any minor adjustments
+        document.body.classList.add('bg-missing');
+      };
+      img.src = chosen;
+    })();
   </script>
 </body>
 </html>
