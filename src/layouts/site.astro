@@ -1,15 +1,24 @@
 ---
+/* Global, share-ready layout with OG/Twitter defaults and per-page overrides */
+
 import "../styles/global.css";
 
-/** All props optional; safe defaults stop “title is not defined” build errors */
+// Props any page can pass to override defaults:
 const {
   title = "ParkerPixie — Sass · Shimmer · Sparkle",
   description = "I stitch joy into amigurumi, decorate digital worlds, and build playful systems that make life feel a little more magical.",
-  image = "/img/hero.jpg", // make sure this exists in /public/img/
-  url = "https://parkerpixie.netlify.app/"
+  // ogImage can be relative to /public or absolute
+  ogImage = "/img/hero-social.jpg",      // <- use your hero share image here (1200×630 recommended)
+  ogImageAlt = "ParkerPixie hero",
+  pageType = "website",                  // "website" or "article"
+  noIndex = false,
 } = Astro.props;
----
 
+// Build absolute URLs for crawlers (FB/X require absolute)
+const site = Astro.site?.toString() ?? "https://parkerpixie.netlify.app";
+const url = new URL(Astro.url.pathname, site).toString();
+const imgAbs = new URL(ogImage, site).toString();
+---
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,24 +27,31 @@ const {
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noIndex ? <meta name="robots" content="noindex,nofollow" /> : null}
+    <link rel="canonical" href={url} />
+
+    <!-- Favicon -->
     <link rel="icon" href="/CapyGoldIcon.png" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={pageType} />
     <meta property="og:url" content={url} />
-    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:image" content={imgAbs} />
+    <meta property="og:image:secure_url" content={imgAbs} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={imgAbs} />
   </head>
   <body>
-    <main>
-      <slot />
-    </main>
+    <slot />
   </body>
 </html>
