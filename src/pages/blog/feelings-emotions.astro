@@ -1,0 +1,70 @@
+---
+// src/pages/blog/feelings-emotions.astro
+const title = "When the Loudest Voice Is in My Head";
+const subtitle = "Talking back to the spiral with compassion.";
+const date = "September 9, 2025";
+const tags = ["healing", "self-compassion", "therapy", "mistakes"];
+
+/* Image lives at /public/img/FeelingsEmotions.png */
+const cover = "/img/FeelingsEmotions.png";
+const coverAbs = "https://parkerpixie.netlify.app/img/FeelingsEmotions.png";
+
+/* ✅ Absolute URL for this page (under /blog/) */
+const pageUrl = "https://parkerpixie.netlify.app/blog/feelings-emotions/";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Today felt heavy: ship the project, find the mistake, start the spiral. This is me practicing self-compassion in real time—and learning to talk back to the loud voice in my head."
+    />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- ✅ Absolute canonical under /blog/ -->
+    <link rel="canonical" href={pageUrl} />
+
+    <!-- ✅ Social preview (absolute URLs) -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title + " • ParkerPixie Blog"} />
+    <meta property="og:description" content={subtitle} />
+    <meta property="og:image" content={coverAbs} />
+    <meta property="og:image:alt" content="Feelings & Emotions illustration" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={subtitle} />
+    <meta name="twitter:image" content={coverAbs} />
+
+    <style>
+      :root{
+        --brand:#8a5dff; --brand-deep:#5a39d9;
+        --ink:#f6f1ff; --muted:#cfc7e6;
+        --bg:#0e0a16; --card:#151025f2;
+        --gold:#f2c98b; --glow:0 0 30px rgba(138,93,255,.35);
+        --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{
+        margin:0; padding:0; line-height:1.6; color:var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+        background:
+          radial-gradient(1200px 800px at 10% -10%, rgba(138,93,255,.16), transparent 60%),
+          radial-gradient(900px 600px at 90% 0%, rgba(255,214,232,.14), transparent 58%),
+          url('/bg/cotton-candy.jpg') center/cover no-repeat fixed,
+          var(--bg);
+      }
+      a{ color:var(--gold); text-decoration:none }
+      a:hover{ text-decoration:underline }
+      .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+      header.site{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(15,11,20,.86), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .nav{display:flex; align-items:center; justify-content:space-betwee
