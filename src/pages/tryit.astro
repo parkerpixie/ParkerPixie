@@ -22,7 +22,7 @@
       --ink: #3a3042;
       --subtle: #6e6274;
       --brand: #7c6ac8;
-      --brand-2: #e9d8fd;
+      --brand-2: #e9d8fd;    /* lavender pill background */
       --accent: #e7b3c2;
       --glow: 0 10px 24px rgba(60, 40, 120, .12);
       --radius: 18px;
@@ -42,9 +42,7 @@
     }
 
     /* class toggles are added by JS below: .bg-loaded keeps the image; .bg-missing uses the gradient above */
-    body.bg-loaded {
-      /* this class won't be applied unless the script confirms the image exists */
-    }
+    body.bg-loaded { }
     img{max-width:100%; display:block}
     a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
@@ -101,6 +99,18 @@
 
     footer{margin:26px 0 40px; color:var(--subtle); text-align:center}
 
+    /* --- NEW: pill/bubble links for maker resources --- */
+    .pillwrap{display:flex; gap:14px; flex-wrap:wrap; margin-top:10px}
+    .pilllink{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 16px; border-radius:999px; background:var(--brand-2);
+      color:#4b3f7f; font-weight:600; white-space:nowrap; border:1px solid #e7defc;
+      box-shadow: 0 3px 10px rgba(124,106,200,.18);
+      transition: transform .08s ease, box-shadow .12s ease;
+    }
+    .pilllink:hover{ text-decoration:none; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(124,106,200,.22); }
+    .pilllink:focus{ outline:2px solid #c4b5fd; outline-offset:2px }
+
     /* fallback styles if image not present */
     body.bg-missing header{ background: rgba(255,255,255,0.95); }
   </style>
@@ -130,7 +140,6 @@
             src="/img/ParkerPixiePawProfile.png"
             onerror="this.onerror=null; this.src='/img/parkerpixiepawprofile.jpg';"
             alt="ParkerPixiePaws profile collage of cozy amigurumi." />
-
         </div>
       </div>
     </header>
@@ -181,16 +190,25 @@
       </div>
     </section>
 
-<section class="card" aria-labelledby="care-h" style="padding:18px">
-      <div class="section-head"><h2 id="care-h">Already know how to crochet? Looking for inspiration?</h2><p>Made for snuggles and display.</p></div>
-      <ul>
-        <li>Premium acrylic/cotton yarns; hypoallergenic, pet-safe stuffing.</li>
-        <li>Spot clean with cool water + mild soap; air dry. Avoid machine wash.</li>
-        <li>Not intended for children under 3 (small parts possible).</li>
-      </ul>
+    <!-- UPDATED: Maker resources with lavender pill/bubble links -->
+    <section id="makers" class="card" aria-labelledby="makers-h" style="padding:18px">
+      <div class="section-head">
+        <h2 id="makers-h">Already know how to crochet? Looking for inspiration?</h2>
+      </div>
+      <p style="margin:0 0 10px; color:var(--subtle)">Here are some of my favorite places for patterns and yarn:</p>
+      <div class="pillwrap" role="list">
+        <a class="pilllink" role="listitem" href="https://www.ravelry.com/account/login" target="_blank" rel="noopener">Ravelry</a>
+        <a class="pilllink" role="listitem" href="https://hobbii.com/" target="_blank" rel="noopener">Hobbii</a>
+        <a class="pilllink" role="listitem" href="https://www.knitandsip.com/" target="_blank" rel="noopener">The Sow’s Ear — Verona, WI</a>
+        <a class="pilllink" role="listitem" href="https://www.amigurumi.com/search/free/" target="_blank" rel="noopener">Amigurumi.com</a>
+        <a class="pilllink" role="listitem" href="https://amenagerieofstitchesblog.com/" target="_blank" rel="noopener">A Menagerie of Stitches</a>
+        <a class="pilllink" role="listitem" href="https://www.mariskavos.nl/category/free-amigurumi-patterns/" target="_blank" rel="noopener">DIY Fluffies</a>
+        <a class="pilllink" role="listitem" href="https://littlecrochetfarm.com/" target="_blank" rel="noopener">Little Crochet Farm</a>
+      </div>
     </section>
 
-<section class="card" aria-labelledby="care-h" style="padding:18px">
+    <!-- Materials & Care stays as its own section, below -->
+    <section class="card" aria-labelledby="care-h" style="padding:18px">
       <div class="section-head"><h2 id="care-h">Materials & Care</h2><p>Made for snuggles and display.</p></div>
       <ul>
         <li>Premium acrylic/cotton yarns; hypoallergenic, pet-safe stuffing.</li>
