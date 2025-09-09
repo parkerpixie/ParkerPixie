@@ -4,15 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ParkerPixiePaws • Cozy Amigurumi, Handmade with Heart</title>
-  <meta name="description" content="Cozy amigurumi from ParkerPixiePaws — soft, squishy, and stitched with love. Commission a custom friend or browse recent makes. Item of the Week is pumpkin pals for $15." />
+  <meta name="description" content="Cozy amigurumi from ParkerPixiePaws — soft, squishy, and stitched with love. Commission a custom friend or browse Handmade Highlights & Pixie Projects. Item of the Month is pumpkin pals for $15." />
 
   <!-- Fav / Share -->
   <link rel="icon" href="/CapyGoldIcon.png" />
   <meta property="og:title" content="ParkerPixiePaws — Cozy Amigurumi" />
-  <meta property="og:description" content="Soft, squishy friends — stitched with love. Commission customs or grab the Item of the Week for $15." />
+  <meta property="og:description" content="Soft, squishy friends — stitched with love. Commission customs or grab the Item of the Month for $15." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://parkerpixie.netlify.app/amigurumi/" />
-  <meta property="og:image" content="https://parkerpixie.netlify.app/img/parkerpixiepawprofile.jpg" />
+  <meta property="og:image" content="https://parkerpixie.netlify.app/img/parkerpixiepawprofile.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
@@ -30,14 +30,27 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{ margin:0; background: radial-gradient(1200px 800px at 10% 0%, #fff 0%, var(--bg) 60%), var(--bg); color:var(--ink); font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; letter-spacing:.2px; }
+    body{ 
+      margin:0; 
+      color:var(--ink); 
+      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; 
+      letter-spacing:.2px;
+      background: url('/img/pawback.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+    @media (max-width: 768px){
+      body {
+        background: url('/img/pawbackmobile.png') no-repeat center center fixed;
+        background-size: cover;
+      }
+    }
     img{max-width:100%; display:block}
     a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
 
     .wrap{max-width:1100px; margin:auto; padding:22px}
 
-    header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: linear-gradient(135deg, #fefcff 0%, #f7f3ff 100%); }
+    header{ position:relative; border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--glow); background: rgba(255,255,255,0.85); }
     .hero{display:grid; grid-template-columns: 1.1fr .9fr; gap:20px; align-items:center; padding:32px 28px}
     @media (max-width: 880px){ .hero{grid-template-columns:1fr; padding:24px} }
 
@@ -75,7 +88,7 @@
     @media (max-width: 900px){ .g-item{grid-column: span 6} }
     @media (max-width: 560px){ .g-item{grid-column: span 12} }
 
-    .steps{display:grid; grid-template-columns: repeat(3,1fr); gap:14px; padding:14px}
+    .steps{display:grid; grid-template-columns: repeat(3,1fr); gap:14px; padding:24px}
     @media (max-width: 800px){ .steps{grid-template-columns:1fr} }
     .step{padding:16px; border:1px solid #eee; border-radius:16px; background:#fff}
     .k{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:10px; background:var(--brand-2); color:#4b3f7f; font-weight:700; margin-bottom:6px}
@@ -97,17 +110,16 @@
           <p>Soft, squishy friends stitched with intention. I make capybaras, chickens, puffins, pelicans, and custom creatures that feel like a hug.</p>
           <div class="badges">
             <span class="badge">Handmade in Madison, WI</span>
-            <span class="badge">ADHD‑friendly ordering</span>
-            <span class="badge">Gentle yarn • Pet‑safe stuffing</span>
+            <span class="badge">Crafted and perfected with YOU in mind</span>
           </div>
           <div class="cta-row">
-            <a class="btn primary" href="#commission">Commission a Custom</a>
+            <a class="btn primary" href="#commission">Commission an Amigurumi</a>
             <a class="btn ghost" href="#gallery">Browse Amigurumi</a>
           </div>
         </div>
         <div class="hero-art">
           <div class="cloud" aria-hidden="true"></div>
-          <img class="hero-img" src="/img/parkerpixiepawprofile.jpg" onerror="this.onerror=null;this.src='/img/hero.jpg';" alt="ParkerPixiePaws profile collage of cozy amigurumi."/>
+          <img class="hero-img" src="/img/ParkerPixiePawProfile.png" onerror="this.onerror=null;this.src='/img/hero.jpg';" alt="ParkerPixiePaws profile collage of cozy amigurumi."/>
         </div>
       </div>
     </header>
@@ -116,15 +128,15 @@
       <div class="iotm">
         <div>
           <div class="section-head">
-            <h2>✨ Item of the Week</h2>
+            <h2>✨ Item of the Month</h2>
           </div>
-          <p>This week only: <strong>Pocket Pumpkins</strong> — plump, palm‑sized cuties perfect for fall trays, teacher gifts, or anxiety squishes. Choose classic orange or mixed patch.</p>
+          <p>This month: <strong>Pocket Pumpkins</strong> — plump, palm-sized cuties perfect for fall trays, teacher gifts, or anxiety squishes. Just pick your favorite color!</p>
           <div class="chips">
             <span class="chip">Made to order</span>
             <span class="chip">Ships in 3–5 days</span>
-            <span class="chip">Approx. 3.5\" wide</span>
+            <span class="chip">Approx. 3.5&quot; wide</span>
           </div>
-          <p class="price">$15 • US only</p>
+          <p class="price">$15 • Shipping available at shipping costs</p>
           <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Order a Pumpkin</a>
           <p style="margin-top:8px; color:var(--subtle); font-size:14px">Limited batch. When sold out, the button will be disabled.</p>
         </div>
@@ -135,9 +147,9 @@
     </section>
 
     <section id="gallery" aria-labelledby="gal-h">
-      <div class="section-head"><h2 id="gal-h">Recent Makes</h2><p>Textures, colors, and cozy vibes.</p></div>
+      <div class="section-head"><h2 id="gal-h">✨ Handmade Highlights & Pixie Projects</h2><p>Textures, colors, and cozy vibes.</p></div>
       <div class="grid">
-        <figure class="g-item"><img src="/img/bejeweled-the-peacock.png" alt="Amigurumi peacock with jeweled tail."><figcaption class="cap">Bejeweled the Peacock</figcaption></figure>
+        <figure class="g-item"><img src="/img/bejeweled.png" alt="Amigurumi peacock with jeweled tail."><figcaption class="cap">Bejeweled the Peacock</figcaption></figure>
         <figure class="g-item"><img src="/img/bonnie.jpg" alt="Amigurumi chicken in cream and gold."><figcaption class="cap">Bonnie the Chicken</figcaption></figure>
         <figure class="g-item"><img src="/img/gilligan.jpg" alt="Amigurumi character Gilligan."><figcaption class="cap">Gilligan</figcaption></figure>
         <figure class="g-item"><img src="/img/ginny.jpg" alt="Amigurumi character Ginny."><figcaption class="cap">Ginny</figcaption></figure>
@@ -146,11 +158,11 @@
     </section>
 
     <section id="commission" class="card" aria-labelledby="how-h">
-      <div class="section-head"><h2 id="how-h">How Commissions Work</h2><p>Simple, ADHD‑friendly steps.</p></div>
+      <div class="section-head"><h2 id="how-h">How Commissions Work</h2><p>Simple, cozy steps.</p></div>
       <div class="steps">
         <div class="step"><div class="k">1</div><strong>Tell me your idea.</strong><br/>Animal, vibe, size, colors — or show a reference pic.</div>
-        <div class="step"><div class="k">2</div><strong>I confirm details + price.</strong><br/>You’ll get a friendly quote and timeline (most smalls in 1–2 weeks).</div>
-        <div class="step"><div class="k">3</div><strong>I stitch & ship.</strong><br/>I’ll share a progress snap, then send tracking when it’s on the way.</div>
+        <div class="step"><div class="k">2</div><strong>I confirm details + price.</strong><br/>Most are complete within 2 to 3 weeks!</div>
+        <div class="step"><div class="k">3</div><strong>I Stitch, I deliver.</strong><br/>You can pick it up, arrange to meet, or I can ship it to you if you agree to pay the cost.</div>
       </div>
       <div style="padding: 0 14px 18px">
         <a class="btn primary" href="https://forms.gle/YOUR_COMMISSION_FORM" target="_blank" rel="noopener">Start a Commission</a>
@@ -161,9 +173,9 @@
     <section class="card" aria-labelledby="care-h" style="padding:18px">
       <div class="section-head"><h2 id="care-h">Materials & Care</h2><p>Made for snuggles and display.</p></div>
       <ul>
-        <li>Premium acrylic/cotton yarns; hypoallergenic, pet‑safe stuffing.</li>
+        <li>Premium acrylic/cotton yarns; hypoallergenic, pet-safe stuffing.</li>
         <li>Spot clean with cool water + mild soap; air dry. Avoid machine wash.</li>
-        <li>Not intended for children under 3 (small parts possible).</li>
+        <li>Not intended for children under 3 (safety eyes are not really that safe).</li>
       </ul>
     </section>
 
@@ -171,11 +183,11 @@
       <div class="section-head"><h2 id="faq-h">FAQ</h2><p>Your top questions, answered.</p></div>
       <details>
         <summary>How big are your pieces?</summary>
-        <p>Smalls are ~3–5 inches. Customs can be sized up; mention your preference on the form.</p>
+        <p>As big or as small as you want them to be. You are paying for my time and mostly yarn — the only limit is likely your pocketbook.</p>
       </details>
       <details>
         <summary>Do you ship outside the US?</summary>
-        <p>Right now I ship within the US. If you’re international, note it on the form and I’ll see what’s possible.</p>
+        <p>Shipping is available at shipping costs. If you’re international, note it on the form and I’ll see what’s possible.</p>
       </details>
       <details>
         <summary>Can I rush an order?</summary>
