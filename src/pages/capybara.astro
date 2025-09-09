@@ -83,6 +83,51 @@ const year = new Date().getFullYear();
       .gallery img{width:100%; height:auto; border-radius:14px; display:block}
       .caption-emoji{margin-right:.4em}
       footer{margin-top:24px; color:#d0cee1; opacity:.85; font-size:12px}
+
+      /* ✨ Secret Burrow styles (pink + sparkly) */
+      .burrow-wrap { margin: 22px 0; }
+      .burrow{
+        position: relative;
+        padding: 14px 18px;
+        border-radius: 16px;
+        font: 600 15px/1.4 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
+        color: #2a0d22; /* readable on pinks */
+        background:
+          linear-gradient(135deg,#ffd8ee 0%, #ffb8e4 35%, #ff8fd5 65%, #ff6fc6 100%);
+        border: 1px solid rgba(255,255,255,.55);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,.6),
+          0 10px 30px rgba(255, 24, 93,.25);
+        overflow: hidden; /* contains sparkles */
+      }
+      .burrow strong{font-weight:800}
+      .burrow .sep{ opacity:.6; padding: 0 .3rem; }
+
+      /* sparkly twinkle overlay */
+      .burrow::before, .burrow::after{
+        content:"";
+        position:absolute; inset:-40%;
+        background:
+          radial-gradient(6px 6px at 20% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%),
+          radial-gradient(4px 4px at 78% 62%, rgba(255,255,255,.85), rgba(255,255,255,0) 60%),
+          radial-gradient(3px 3px at 52% 82%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%),
+          radial-gradient(5px 5px at 64% 18%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%);
+        filter: blur(.25px);
+        animation: twinkle 6s linear infinite;
+        pointer-events:none;
+      }
+      .burrow::after{
+        animation-duration: 9s;
+        transform: rotate(12deg);
+        opacity:.7;
+      }
+      @keyframes twinkle{
+        0%   { transform: translate3d(0,0,0) rotate(0deg); }
+        100% { transform: translate3d(10%, -10%, 0) rotate(1turn); }
+      }
+      @media (prefers-reduced-motion: reduce){
+        .burrow::before, .burrow::after{ animation: none; }
+      }
     </style>
   </head>
 
@@ -106,7 +151,7 @@ const year = new Date().getFullYear();
         </nav>
       </header>
 
-      <!-- Your original content, untouched -->
+      <!-- Page content -->
       <main class="why-capybara" role="main">
         <!-- HERO -->
         <header class="hero">
@@ -158,28 +203,15 @@ const year = new Date().getFullYear();
           <p>Bejeweled is my reminder to shine without apology, speak my truth, and make art that sparkles.</p>
         </section>
 
-        <!-- Yin & Yang -->
-        <section class="card stack" aria-labelledby="sec-yinyang">
-          <h2 id="sec-yinyang">My Yin &amp; Yang</h2>
-          <div class="yin-yang">
-            <div class="yy">
-              <h3>🧘‍♀️ Capybara — The Grounding</h3>
-              <ul>
-                <li>Calm, communal, gentle presence</li>
-                <li>Rest as a healing practice</li>
-                <li>Soft focus, deep connection</li>
-              </ul>
-            </div>
-            <div class="yy">
-              <h3>🦚 Peacock — The Sparkle</h3>
-              <ul>
-                <li>Glitter, color, and bold truth</li>
-                <li>Honor, integrity, and confidence</li>
-                <li>Unapologetically me</li>
-              </ul>
-            </div>
+        <!-- ✨ SECRET BURROW (pink sparkly box) -->
+        <section class="burrow-wrap" aria-label="Secret Burrow">
+          <div class="burrow">
+            <span aria-hidden="true">✨</span>
+            <strong>You found the Secret Burrow!</strong>
+            <span class="sep">·</span>
+            Screenshot this and post it on my Facebook post to claim your prize
+            <span aria-hidden="true">✨🧵</span>
           </div>
-          <p>Together, the capybara and the peacock are my balance. You’ll see capybaras pop up across my world—and sometimes you’ll meet my peacock when I show off my feathers.</p>
         </section>
 
         <!-- Gallery -->
