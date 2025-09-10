@@ -31,7 +31,7 @@ const year = new Date().getFullYear();
       z-index:1;
     }
 
-    /* 🌟 Full-page background video (UNCHANGED) */
+    /* 🌟 Full-page background video */
     .bg-video {
       position:fixed;
       top:0;
@@ -169,7 +169,7 @@ const year = new Date().getFullYear();
 </head>
 <body>
 
-  <!-- 🌟 Full-page looping background (UNCHANGED) -->
+  <!-- 🌟 Full-page looping background -->
   <video autoplay muted loop playsinline poster="/img/hero-fallback.jpg" class="bg-video">
     <source src="/videos/pixelbackground.webM" type="video/webm" />
     <source src="/videos/Pixelbackground.mp4" type="video/mp4" />
@@ -196,16 +196,11 @@ const year = new Date().getFullYear();
     <a href="https://your-google-form-link.com" class="btn-primary">Request a Graphic</a>
   </section>
 
-  <!-- 🪄 Templates Grid (now using your dummy images) -->
+  <!-- 🪄 Templates Grid -->
   <section class="templates">
-    <!-- 1200x800 -->
     <div class="card">
       <span class="category">Meal Planning</span>
-      <img 
-        src="/img/dummy/dummy-800x600.jpg"
-        srcset="/img/dummy/dummy-600x400.jpg 600w, /img/dummy/dummy-800x600.jpg 800w, /img/dummy/dummy-1200x800.jpg 1200w"
-        sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        alt="Dummy preview 1200x800" />
+      <img src="/img/dummy-800x600.jpg" alt="Dummy 800x600" loading="lazy" />
       <div class="card-body">
         <h3>Weekly Meal Planner</h3>
         <p>A simple ADHD-friendly planner with room for meals, snacks, and grocery notes.</p>
@@ -213,14 +208,9 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <!-- 1080-ish square via 300x300 fallback -->
     <div class="card">
       <span class="category">ADHD-Friendly</span>
-      <img 
-        src="/img/dummy/dummy-300x300.jpg"
-        srcset="/img/dummy/dummy-300x300.jpg 300w, /img/dummy/dummy-1200x800.jpg 1200w"
-        sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        alt="Dummy square preview" />
+      <img src="/img/dummy-300x300.jpg" alt="Dummy 300x300" loading="lazy" />
       <div class="card-body">
         <h3>Focus Dashboard</h3>
         <p>Color-coded blocks and gentle prompts to reduce friction and boost follow-through.</p>
@@ -228,14 +218,9 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <!-- 600x400 -->
     <div class="card">
       <span class="category">Home Management</span>
-      <img 
-        src="/img/dummy/dummy-600x400.jpg"
-        srcset="/img/dummy/dummy-600x400.jpg 600w, /img/dummy/dummy-800x600.jpg 800w"
-        sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        alt="Dummy preview 600x400" />
+      <img src="/img/dummy-600x400.jpg" alt="Dummy 600x400" loading="lazy" />
       <div class="card-body">
         <h3>Family Chore Chart</h3>
         <p>A colorful, easy-to-read chart that keeps chores on track without nagging.</p>
@@ -243,38 +228,29 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <!-- 1200x628 OG-style -->
     <div class="card">
       <span class="category">Banners</span>
-      <img 
-        src="/img/dummy/dummy-1200x628.jpg"
-        alt="Dummy OG banner 1200x628" />
+      <img src="/img/dummy-1200x628.jpg" alt="Dummy 1200x628" loading="lazy" />
       <div class="card-body">
         <h3>Social Share Banner</h3>
-        <p>Plug-and-play OpenGraph image that looks crisp on Facebook, X, and LinkedIn.</p>
+        <p>OpenGraph-friendly banner that looks crisp on Facebook, X, and LinkedIn.</p>
         <a href="#" class="save-btn">Save</a>
       </div>
     </div>
 
-    <!-- 1920x1080 -->
     <div class="card">
       <span class="category">Artwork</span>
-      <img 
-        src="/img/dummy/dummy-1920x1080.jpg"
-        alt="Dummy 1920x1080 hero" />
+      <img src="/img/dummy-1920x1080.jpg" alt="Dummy 1920x1080" loading="lazy" />
       <div class="card-body">
         <h3>Hero Canvas</h3>
-        <p>HD hero backdrop test for sections that need a drama moment without blur.</p>
+        <p>HD hero backdrop test for sections that need a dramatic moment without blur.</p>
         <a href="#" class="save-btn">Save</a>
       </div>
     </div>
 
-    <!-- 2560x1440 -->
     <div class="card">
       <span class="category">Travel</span>
-      <img 
-        src="/img/dummy/dummy-2560x1440.jpg"
-        alt="Dummy 2560x1440 widescreen" />
+      <img src="/img/dummy-3840x2160.jpg" alt="Dummy 3840x2160" loading="lazy" />
       <div class="card-body">
         <h3>Road Trip Itinerary</h3>
         <p>Plan stops, sights, and snacks with an adventure-map vibe.</p>
