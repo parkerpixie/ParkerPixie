@@ -1,39 +1,213 @@
+---
+const year = new Date().getFullYear();
+---
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ParkerPixiePaws • Cozy Amigurumi, Handmade with Heart</title>
-  <meta name="description" content="Cozy amigurumi from ParkerPixiePaws — soft, squishy, and stitched with love. Commission a custom friend or browse Handmade Highlights & Pixie Projects. Item of the Month is pumpkin pals for $15." />
-
-  <!-- Fav / Share -->
+  <title>ParkerPixiePixel • Templates & Designs</title>
+  <meta name="description" content="Free ADHD-friendly templates, planners, and graphics designed by ParkerPixie — playful, practical, and easy to use." />
   <link rel="icon" href="/CapyGoldIcon.png" />
-  <meta property="og:title" content="ParkerPixiePaws — Cozy Amigurumi" />
-  <meta property="og:description" content="Soft, squishy friends — stitched with love. Commission customs or grab the Item of the Month for $15." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://parkerpixie.netlify.app/amigurumi/" />
-  <meta property="og:image" content="https://parkerpixie.netlify.app/img/parkerpixiepawprofile.png" />
-  <meta name="twitter:card" content="summary_large_image" />
 
   <style>
-    :root{
-      --bg: #faf7fb;
-      --panel: #ffffff;
-      --ink: #3a3042;
-      --subtle: #6e6274;
-      --brand: #7c6ac8;
-      --brand-2: #e9d8fd;    /* lavender pill background */
-      --accent: #e7b3c2;
-      --glow: 0 10px 24px rgba(60, 40, 120, .12);
-      --radius: 18px;
-      --radius-lg: 26px;
+    :root {
+      --brand:#8a5dff;
+      --brand-deep:#4b2fb5;
+      --gold:#D8AA3B;
+      --ink:#f7f3ff;
+      --muted:#bdb5d9;
+      --bg1:#0f0b14;
+      --bg2:#130e1f;
+      --bg3:#100b1a;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+
+    body {
       margin:0;
+      font-family:'Segoe UI', sans-serif;
+      background:var(--bg1);
       color:var(--ink);
-      font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    header {
+      padding:1rem 2rem;
+      background:var(--bg2);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    header a {
+      color:var(--gold);
+      margin-left:1rem;
+      font-weight:600;
+      text-decoration:none;
+    }
+
+    /* HERO */
+    .hero {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:5rem 2rem;
+      background:var(--bg3);
+    }
+
+    .hero h1 {
+      font-size:2.8rem;
+      font-weight:700;
+      color:var(--gold);
+      margin-bottom:1rem;
+    }
+
+    .hero p {
+      max-width:700px;
+      font-size:1.2rem;
+      color:var(--muted);
+      margin-bottom:2rem;
+    }
+
+    .btn-primary {
+      background:var(--brand);
+      color:#fff;
+      padding:0.9rem 1.8rem;
+      border-radius:9999px;
+      font-weight:600;
+      text-decoration:none;
+    }
+
+    /* GRID */
+    .templates {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:2rem;
+      padding:3rem 2rem;
+    }
+
+    .card {
+      background:var(--bg2);
+      border-radius:1rem;
+      overflow:hidden;
+      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+      transition:transform 0.2s;
+      position:relative;
+    }
+    .card:hover { transform:translateY(-5px); }
+
+    .card img {
+      width:100%;
+      height:200px;
+      object-fit:cover;
+    }
+
+    .category {
+      position:absolute;
+      top:15px;
+      left:15px;
+      background:var(--brand-deep);
+      color:white;
+      padding:0.4rem 0.8rem;
+      font-size:0.75rem;
+      border-radius:9999px;
+      font-weight:600;
+    }
+
+    .card-body {
+      padding:1.2rem;
+    }
+    .card-body h3 {
+      margin:0 0 0.5rem;
+      font-size:1.3rem;
+      color:var(--gold);
+    }
+    .card-body p {
+      font-size:0.95rem;
+      color:var(--muted);
+    }
+
+    .save-btn {
+      display:inline-block;
+      margin-top:1rem;
+      background:var(--brand);
+      color:#fff;
+      padding:0.6rem 1.2rem;
+      border-radius:9999px;
+      font-weight:600;
+      text-decoration:none;
+    }
+
+    footer {
+      text-align:center;
+      padding:2rem;
+      color:var(--muted);
+      font-size:0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Consistent Header -->
+  <header>
+    <a href="/">ParkerPixie ✨</a>
+    <nav>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- 🌟 Hero -->
+  <section class="hero">
+    <h1>ParkerPixiePixel</h1>
+    <p>
+      I design playful, ADHD-friendly templates and tools that transform everyday planning 
+      into something beautiful and engaging. By blending creativity with organization, 
+      I help families (starting with my own!) stay on track without losing the magic.
+    </p>
+    <a href="https://your-google-form-link.com" class="btn-primary">Request a Graphic</a>
+  </section>
+
+  <!-- 🪄 Templates Grid -->
+  <section class="templates">
+    <div class="card">
+      <span class="category">Meal Planning</span>
+      <img src="/img/sample1.jpg" alt="Meal Planner Template" />
+      <div class="card-body">
+        <h3>Weekly Meal Planner</h3>
+        <p>A simple ADHD-friendly planner with room for meals, snacks, and grocery notes.</p>
+        <a href="#" class="save-btn">Save</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="category">Travel</span>
+      <img src="/img/sample2.jpg" alt="Travel Itinerary Template" />
+      <div class="card-body">
+        <h3>Road Trip Itinerary</h3>
+        <p>Plan your stops, sights, and snacks with this whimsical adventure map.</p>
+        <a href="#" class="save-btn">Save</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="category">Home Management</span>
+      <img src="/img/sample3.jpg" alt="Chore Chart Template" />
+      <div class="card-body">
+        <h3>Family Chore Chart</h3>
+        <p>A colorful, easy-to-read chart that keeps chores on track without nagging.</p>
+        <a href="#" class="save-btn">Save</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © {year} ParkerPixie • Sparkles, Pixels & Organization
+  </footer>
+</body>
+</html>
       letter-spacing:.2px;
 
       /* default fallback (used if images not present) */
