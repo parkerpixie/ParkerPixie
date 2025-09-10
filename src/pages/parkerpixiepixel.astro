@@ -63,7 +63,7 @@ const year = new Date().getFullYear();
     /* HERO */
     .hero {
       text-align:center;
-      padding:6rem 2rem 4rem;
+      padding:6rem 2rem 2rem;
       position:relative;
       z-index:2;
     }
@@ -92,12 +92,43 @@ const year = new Date().getFullYear();
       text-decoration:none;
     }
 
+    /* FILTER BUBBLES */
+    .filter-bubbles {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:0.5rem;
+      padding:1rem 2rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .filter-btn {
+      background:var(--bg-bubble);
+      color:var(--brand-deep);
+      padding:0.5rem 1rem;
+      border-radius:9999px;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      transition:all 0.2s;
+    }
+    .filter-btn:hover {
+      background:var(--brand);
+      color:#fff;
+    }
+    .filter-btn.active {
+      background:var(--brand);
+      color:#fff;
+      transform:scale(1.05);
+    }
+
     /* GRID */
     .templates {
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
       gap:2rem;
-      padding:3rem 2rem;
+      padding:2rem;
       position:relative;
       z-index:2;
     }
@@ -107,32 +138,23 @@ const year = new Date().getFullYear();
       border-radius:1rem;
       overflow:hidden;
       box-shadow:0 8px 18px rgba(0,0,0,0.25);
-      transition:transform 0.2s;
       display:flex;
       flex-direction:column;
+      opacity:1;
+      transform:scale(1);
+      transition:opacity 0.4s ease, transform 0.4s ease;
     }
-    .card:hover { transform:translateY(-5px); }
-
-    /* square preview on top */
+    .card.hide {
+      opacity:0;
+      transform:scale(0.95);
+      pointer-events:none;
+    }
     .card img {
       width:100%;
-      aspect-ratio:1 / 1; /* forces square preview */
-      object-fit:contain; /* shows full image without cutting */
-      background:#fff; /* frame if image doesn’t fill */
+      aspect-ratio:1 / 1;
+      object-fit:contain;
+      background:#fff;
       display:block;
-    }
-
-    .category {
-      position:absolute;
-      top:15px;
-      left:15px;
-      background:var(--bg-bubble);
-      color:var(--brand-deep);
-      padding:0.4rem 0.8rem;
-      font-size:0.75rem;
-      border-radius:9999px;
-      font-weight:600;
-      box-shadow:0 2px 4px rgba(0,0,0,0.1);
     }
 
     .card-body {
@@ -205,9 +227,20 @@ const year = new Date().getFullYear();
     <a href="https://your-google-form-link.com" class="btn-primary">Request a Graphic</a>
   </section>
 
+  <!-- 🌟 Filter Bubbles -->
+  <div class="filter-bubbles">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="meal">Meal Planning</button>
+    <button class="filter-btn" data-filter="adhd">ADHD-Friendly</button>
+    <button class="filter-btn" data-filter="home">Home Management</button>
+    <button class="filter-btn" data-filter="banner">Banners</button>
+    <button class="filter-btn" data-filter="art">Artwork</button>
+    <button class="filter-btn" data-filter="travel">Travel</button>
+  </div>
+
   <!-- 🪄 Templates Grid -->
   <section class="templates">
-    <div class="card">
+    <div class="card" data-category="meal">
       <img src="/img/dummy-512x512.jpg" alt="Preview Meal Planner" loading="lazy" />
       <div class="card-body">
         <h3>Weekly Meal Planner</h3>
@@ -216,7 +249,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-category="adhd">
       <img src="/img/dummy-512x512.jpg" alt="Preview Focus Dashboard" loading="lazy" />
       <div class="card-body">
         <h3>Focus Dashboard</h3>
@@ -225,7 +258,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-category="home">
       <img src="/img/dummy-512x512.jpg" alt="Preview Chore Chart" loading="lazy" />
       <div class="card-body">
         <h3>Family Chore Chart</h3>
@@ -234,7 +267,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-category="banner">
       <img src="/img/dummy-512x512.jpg" alt="Preview Banner" loading="lazy" />
       <div class="card-body">
         <h3>Social Share Banner</h3>
@@ -243,7 +276,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-category="art">
       <img src="/img/dummy-512x512.jpg" alt="Preview Hero Canvas" loading="lazy" />
       <div class="card-body">
         <h3>Hero Canvas</h3>
@@ -252,7 +285,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" data-category="travel">
       <img src="/img/dummy-512x512.jpg" alt="Preview Itinerary" loading="lazy" />
       <div class="card-body">
         <h3>Road Trip Itinerary</h3>
@@ -265,5 +298,28 @@ const year = new Date().getFullYear();
   <footer>
     © {year} ParkerPixie • Sparkles, Pixels & Organization
   </footer>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // update active bubble
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.classList.remove('hide');
+          } else {
+            card.classList.add('hide');
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
