@@ -95,7 +95,7 @@ const year = new Date().getFullYear();
     /* GRID */
     .templates {
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
       gap:2rem;
       padding:3rem 2rem;
       position:relative;
@@ -108,14 +108,17 @@ const year = new Date().getFullYear();
       overflow:hidden;
       box-shadow:0 8px 18px rgba(0,0,0,0.25);
       transition:transform 0.2s;
-      position:relative;
+      display:flex;
+      flex-direction:column;
     }
     .card:hover { transform:translateY(-5px); }
 
+    /* square preview on top */
     .card img {
       width:100%;
-      height:200px;
-      object-fit:cover;
+      aspect-ratio:1 / 1; /* forces square preview */
+      object-fit:contain; /* shows full image without cutting */
+      background:#fff; /* frame if image doesn’t fill */
       display:block;
     }
 
@@ -134,6 +137,10 @@ const year = new Date().getFullYear();
 
     .card-body {
       padding:1.2rem;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
     }
     .card-body h3 {
       margin:0 0 0.5rem;
@@ -143,6 +150,7 @@ const year = new Date().getFullYear();
     .card-body p {
       font-size:0.95rem;
       color:var(--muted);
+      flex-grow:1;
     }
 
     .save-btn {
@@ -154,6 +162,7 @@ const year = new Date().getFullYear();
       border-radius:9999px;
       font-weight:600;
       text-decoration:none;
+      align-self:flex-start;
     }
 
     footer {
@@ -199,7 +208,6 @@ const year = new Date().getFullYear();
   <!-- 🪄 Templates Grid -->
   <section class="templates">
     <div class="card">
-      <span class="category">Meal Planning</span>
       <img src="/img/dummy-512x512.jpg" alt="Preview Meal Planner" loading="lazy" />
       <div class="card-body">
         <h3>Weekly Meal Planner</h3>
@@ -209,7 +217,6 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="card">
-      <span class="category">ADHD-Friendly</span>
       <img src="/img/dummy-512x512.jpg" alt="Preview Focus Dashboard" loading="lazy" />
       <div class="card-body">
         <h3>Focus Dashboard</h3>
@@ -219,7 +226,6 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="card">
-      <span class="category">Home Management</span>
       <img src="/img/dummy-512x512.jpg" alt="Preview Chore Chart" loading="lazy" />
       <div class="card-body">
         <h3>Family Chore Chart</h3>
@@ -229,7 +235,6 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="card">
-      <span class="category">Banners</span>
       <img src="/img/dummy-512x512.jpg" alt="Preview Banner" loading="lazy" />
       <div class="card-body">
         <h3>Social Share Banner</h3>
@@ -239,7 +244,6 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="card">
-      <span class="category">Artwork</span>
       <img src="/img/dummy-512x512.jpg" alt="Preview Hero Canvas" loading="lazy" />
       <div class="card-body">
         <h3>Hero Canvas</h3>
@@ -249,7 +253,6 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="card">
-      <span class="category">Travel</span>
       <img src="/img/dummy-512x512.jpg" alt="Preview Itinerary" loading="lazy" />
       <div class="card-body">
         <h3>Road Trip Itinerary</h3>
