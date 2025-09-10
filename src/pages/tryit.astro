@@ -16,30 +16,32 @@ const year = new Date().getFullYear();
       --brand:#8a5dff;
       --brand-deep:#4b2fb5;
       --gold:#D8AA3B;
-      --ink:#f7f3ff;
-      --muted:#bdb5d9;
-      --bg1:#0f0b14;
-      --bg2:#130e1f;
-      --bg3:#100b1a;
+      --ink:#2c2c2c; /* darker ink since background is light video */
+      --muted:#6a6a6a;
+      --bg-card:#f5f1eb; /* soft beige for cards */
+      --bg-bubble:#e8dccd; /* beige bubble */
     }
 
     body {
       margin:0;
       font-family:'Segoe UI', sans-serif;
-      background:var(--bg1);
+      background:#fff;
       color:var(--ink);
     }
 
     header {
       padding:1rem 2rem;
-      background:var(--bg2);
+      background:#fff;
       display:flex;
       justify-content:space-between;
       align-items:center;
+      box-shadow:0 2px 4px rgba(0,0,0,0.05);
+      position:relative;
+      z-index:10;
     }
 
     header a {
-      color:var(--gold);
+      color:var(--brand-deep);
       margin-left:1rem;
       font-weight:600;
       text-decoration:none;
@@ -47,13 +49,34 @@ const year = new Date().getFullYear();
 
     /* HERO */
     .hero {
+      position:relative;
+      height:80vh;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding:5rem 2rem;
-      background:var(--bg3);
+      overflow:hidden;
+      color:#fff;
+    }
+
+    .hero video {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:0;
+    }
+
+    .hero-content {
+      position:relative;
+      z-index:1;
+      max-width:800px;
+      padding:2rem;
+      background:rgba(0,0,0,0.45);
+      border-radius:1rem;
     }
 
     .hero h1 {
@@ -64,9 +87,8 @@ const year = new Date().getFullYear();
     }
 
     .hero p {
-      max-width:700px;
       font-size:1.2rem;
-      color:var(--muted);
+      color:#f7f7f7;
       margin-bottom:2rem;
     }
 
@@ -88,10 +110,10 @@ const year = new Date().getFullYear();
     }
 
     .card {
-      background:var(--bg2);
+      background:var(--bg-card);
       border-radius:1rem;
       overflow:hidden;
-      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+      box-shadow:0 8px 18px rgba(0,0,0,0.15);
       transition:transform 0.2s;
       position:relative;
     }
@@ -107,12 +129,13 @@ const year = new Date().getFullYear();
       position:absolute;
       top:15px;
       left:15px;
-      background:var(--brand-deep);
-      color:white;
+      background:var(--bg-bubble);
+      color:var(--brand-deep);
       padding:0.4rem 0.8rem;
       font-size:0.75rem;
       border-radius:9999px;
       font-weight:600;
+      box-shadow:0 2px 4px rgba(0,0,0,0.1);
     }
 
     .card-body {
@@ -121,7 +144,7 @@ const year = new Date().getFullYear();
     .card-body h3 {
       margin:0 0 0.5rem;
       font-size:1.3rem;
-      color:var(--gold);
+      color:var(--brand-deep);
     }
     .card-body p {
       font-size:0.95rem;
@@ -159,15 +182,21 @@ const year = new Date().getFullYear();
     </nav>
   </header>
 
-  <!-- 🌟 Hero -->
+  <!-- 🌟 Hero with looping video -->
   <section class="hero">
-    <h1>ParkerPixiePixel</h1>
-    <p>
-      I design playful, ADHD-friendly templates and tools that transform everyday planning 
-      into something beautiful and engaging. By blending creativity with organization, 
-      I help families (starting with my own!) stay on track without losing the magic.
-    </p>
-    <a href="https://your-google-form-link.com" class="btn-primary">Request a Graphic</a>
+    <video autoplay muted loop playsinline poster="/img/hero-fallback.jpg">
+      <source src="/videos/pixelbackground.webM" type="video/webm" />
+      <source src="/videos/Pixelbackground.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-content">
+      <h1>ParkerPixiePixel</h1>
+      <p>
+        I design playful, ADHD-friendly templates and tools that transform everyday planning 
+        into something beautiful and engaging. By blending creativity with organization, 
+        I help families (starting with my own!) stay on track without losing the magic.
+      </p>
+      <a href="https://your-google-form-link.com" class="btn-primary">Request a Graphic</a>
+    </div>
   </section>
 
   <!-- 🪄 Templates Grid -->
