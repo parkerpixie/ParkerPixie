@@ -39,7 +39,7 @@ const year = new Date().getFullYear();
     /* 🌟 Full-page background video */
     .bg-video { position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1; }
 
-    /* ✅ Header (unchanged) */
+    /* ✅ Header */
     header {
       padding:1rem 2rem;
       background:rgba(255,255,255,0.7);
@@ -49,22 +49,15 @@ const year = new Date().getFullYear();
     }
     header a { color:var(--brand-deep); margin-left:1rem; font-weight:600; text-decoration:none; }
 
-    /* HERO */
+    /* HERO + bubble */
     .hero { text-align:center; padding:6rem 2rem 2rem; position:relative; z-index:2; }
-
-    /* NEW: translucent bubble behind hero content */
     .hero-bubble {
-      max-width:1000px;
-      margin:0 auto;
-      padding:24px 22px;
-      border-radius:24px;
+      max-width:1000px; margin:0 auto; padding:24px 22px; border-radius:24px;
       background: rgba(255,255,255,.18);
       border: 1px solid rgba(255,255,255,.28);
       box-shadow: 0 20px 60px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.35);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
     }
-
     .hero h1 { font-size:3rem; font-weight:700; color:var(--gold); margin:0 0 12px; }
     .hero p  { max-width:700px; font-size:1.2rem; color:#fff; margin:0 auto 18px; text-shadow:0 2px 4px rgba(0,0,0,0.6); }
     .btn-primary { display:inline-block; background:var(--brand); color:#fff; padding:.9rem 1.8rem; border-radius:9999px; font-weight:600; text-decoration:none; }
@@ -127,24 +120,35 @@ const year = new Date().getFullYear();
 
     /* ===== Secret Burrow pill (after gallery) ===== */
     .burrow-section {
-      max-width: 1000px;
-      margin: 0 auto 50px;
-      padding: 0 16px;
-      text-align:center;
+      max-width: 1000px; margin: 0 auto 50px; padding: 0 16px; text-align:center;
     }
     .burrow-pill {
-      display:inline-flex; align-items:center; gap:.5rem;
+      display:inline-flex; align-items:center; gap:.6rem;
       padding: 12px 18px;
       border-radius: 9999px;
-      font: 800 15px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
-      color: #2a0d22;
+      font: 900 16px/1 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
+      color: #150a12; /* darker for contrast */
       background: linear-gradient(135deg,#ffd8ee 0%, #ffb8e4 35%, #ff8fd5 65%, #ff6fc6 100%);
-      border: 1px solid rgba(255,255,255,.55);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 10px 30px rgba(255, 24, 93,.25);
+      border: 1px solid rgba(255,255,255,.65);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 30px rgba(255, 24, 93,.28);
       text-decoration:none;
+      text-shadow: 0 1px 0 rgba(255,255,255,.45); /* subtle halo for readability */
     }
     .burrow-pill:hover{ filter:brightness(1.03); transform: translateY(-1px); }
-    .burrow-sub { color:#e9e3f7; margin-top:10px; font-size:.95rem; }
+
+    /* NEW: readable helper chip under pill */
+    .burrow-chip {
+      display:inline-block;
+      margin-top:10px;
+      padding:8px 12px;
+      border-radius:9999px;
+      background: rgba(0,0,0,.55);
+      color:#fff;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      font-weight:600;
+      font-size:.95rem;
+    }
 
     footer { text-align:center; padding:2rem; color:#fff; font-size:.85rem; position:relative; z-index:2; text-shadow:0 2px 4px rgba(0,0,0,0.6); }
   </style>
@@ -157,7 +161,7 @@ const year = new Date().getFullYear();
     <source src="/videos/Pixelbackground.mp4" type="video/mp4" />
   </video>
 
-  <!-- ✅ Consistent Header -->
+  <!-- ✅ Header -->
   <header>
     <a href="/">ParkerPixie ✨</a>
     <nav>
@@ -279,14 +283,14 @@ const year = new Date().getFullYear();
     </div>
   </section>
 
-  <!-- ✨ Secret Burrow pill (AFTER gallery) -->
+  <!-- ✨ Secret Burrow (AFTER gallery) -->
   <section class="burrow-section" aria-label="Secret Burrow">
-    <a href="#" class="burrow-pill" id="burrowShare">
+    <a href="#" class="burrow-pill" id="burrowShare" aria-label="Share on Facebook to claim your prize">
       <span aria-hidden="true">✨</span>
-      You found the Secret Burrow — Claim your prize
+      Share on Facebook to claim your prize
       <span aria-hidden="true">🧵</span>
     </a>
-    <div class="burrow-sub">Click to share this page on Facebook to report your win.</div>
+    <div class="burrow-chip">You found the Secret Burrow! Post the share to report your win.</div>
   </section>
 
   <footer>
