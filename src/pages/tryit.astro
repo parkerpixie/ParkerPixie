@@ -26,7 +26,7 @@ const year = new Date().getFullYear();
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: "Segoe UI", system-ui, Arial, sans-serif;
+      font-family:"Segoe UI", system-ui, Arial, sans-serif;
       color:var(--ink);
       min-height:100vh;
     }
@@ -46,27 +46,44 @@ const year = new Date().getFullYear();
     header a{ color:var(--brand-deep); text-decoration:none; font-weight:700 }
     header nav a{ margin-left:1rem; color:var(--brand-deep); font-weight:600; text-decoration:none }
 
-    /* Hero / header + subheader you liked */
+    /* HERO */
     .hero{
-      padding:4rem 1.5rem 1.5rem; text-align:left; max-width:1100px; margin:0 auto; color:#fff;
+      padding:4rem 1.5rem 2rem;
+      position:relative;
+      z-index:2;
     }
-    .hero h1{
-      font-size: clamp(2.2rem, 6vw, 4.2rem);
-      line-height:1.1; margin:0 0 1rem; color:#fff; /* big title */
-      text-shadow:0 3px 10px rgba(0,0,0,.55);
-      letter-spacing:.5px;
+    .hero-bubble{
+      max-width:1100px;
+      margin:0 auto;
+      background:rgba(232,220,205,0.92); /* beige bubble w/ alpha */
+      color:var(--ink);
+      border:1px solid rgba(0,0,0,0.06);
+      border-radius:24px;
+      padding:2rem 1.75rem;
+      box-shadow:0 18px 40px rgba(0,0,0,0.25);
+      backdrop-filter:blur(6px);
     }
-    .hero p{
-      font-size:clamp(1.05rem, 2.2vw, 1.25rem);
-      max-width:900px; margin:0 0 1.25rem;
-      text-shadow:0 2px 6px rgba(0,0,0,.55);
+    .hero-bubble h1{
+      margin:0 0 1rem;
+      font-size:clamp(2.2rem, 6vw, 4rem);
+      line-height:1.15;
+      color:var(--brand-deep);
+      letter-spacing:.3px;
+    }
+    .hero-bubble p{
+      margin:0 0 1rem;
+      font-size:clamp(1.05rem, 2.2vw, 1.2rem);
+      color:#2b2b2b;
     }
     .cta{
-      display:inline-block; margin-top:.5rem;
-      background:#e7b39c; color:#fff; text-decoration:none; font-weight:800;
-      padding:0.9rem 1.4rem; border-radius:9999px;
-      box-shadow:0 6px 18px rgba(0,0,0,.25);
+      display:inline-block; margin-top:.25rem;
+      background:var(--brand);
+      color:#fff; text-decoration:none; font-weight:800;
+      padding:0.85rem 1.25rem; border-radius:9999px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.25);
+      transition:.15s ease-in-out;
     }
+    .cta:hover{ opacity:.95; transform:translateY(-1px) }
 
     /* Filter bubbles (always visible, toggle active) */
     .filters{
@@ -88,7 +105,7 @@ const year = new Date().getFullYear();
     .scroller{
       display:grid;
       grid-auto-flow:column;
-      grid-auto-columns: minmax(260px, 320px); /* card width range */
+      grid-auto-columns:minmax(260px,320px); /* card width range */
       gap:1.25rem;
       overflow-x:auto;
       scroll-snap-type:x mandatory;
@@ -151,19 +168,23 @@ const year = new Date().getFullYear();
     </nav>
   </header>
 
-  <!-- Parker Pins & Glitter Wall — copy you liked -->
+  <!-- Parker Pins & Glitter Wall — now inside a beige bubble -->
   <section class="hero">
-    <h1>Parker Pins & Glitter Wall</h1>
-    <p>
-      Welcome to the chaos. This is my little digital corkboard of random everything — pictures, quotes, videos, memes, and whatever shiny thing caught my attention before I got distracted. Think of it as part Pinterest, part “oh wow this photo is amazing,” part Facebook throwback, and part “if I don’t put it here, it’s gone forever.”
-    </p>
-    <p>
-      Basically, it’s a peek into the glittery, squirrel-chasing, capybara-calm-seeking, peacock-sparkling swirl that is my brain. Sometimes cozy, sometimes chaotic, always a little extra.
-    </p>
-    <p>
-      So check back whenever — you never know what I’ll decide deserves a spot on the wall. 💫
-    </p>
-    <a class="cta" href="https://your-google-form-link.com">HAVE SOMETHING YOU KNOW I WOULD LOVE? SHARE IT HERE!</a>
+    <div class="hero-bubble">
+      <h1>Parker Pins & Glitter Wall</h1>
+      <p>
+        Welcome to the chaos. This is my little digital corkboard of random everything — pictures, quotes, videos, memes, and whatever shiny thing caught my attention before I got distracted. Think of it as part Pinterest, part "oh wow this photo is amazing," part Facebook throwback, and part "if I don't put it here, it's gone forever."
+      </p>
+      <p>
+        Basically, it’s a peek into the glittery, squirrel-chasing, capybara-calm-seeking, peacock-sparkling swirl that is my brain. Sometimes cozy, sometimes chaotic, always a little extra.
+      </p>
+      <p>
+        So check back whenever — you never know what I’ll decide deserves a spot on the wall. 💫
+      </p>
+      <a class="cta" href="mailto:ParkerPixieDust@gmail.com?subject=I%20have%20something%20you%27ll%20love!&body=Hi%20Parker%2C%20I%20found%20something%20for%20your%20Pins%20%26%20Glitter%20Wall%3A%20">
+        HAVE SOMETHING YOU KNOW I WOULD LOVE? SHARE IT HERE!
+      </a>
+    </div>
   </section>
 
   <!-- Filter bubbles -->
@@ -273,7 +294,7 @@ const year = new Date().getFullYear();
         const match = filter === "all" || card.dataset.category === filter;
         card.classList.toggle("hide", !match);
       });
-      // after filtering, snap to the first visible card
+      // snap to first visible card
       const firstVisible = cards.find(c => !c.classList.contains("hide"));
       if(firstVisible){ firstVisible.scrollIntoView({behavior:"smooth", inline:"start", block:"nearest"}); }
     }
@@ -290,7 +311,6 @@ const year = new Date().getFullYear();
     const prev = document.querySelector(".prev");
     const next = document.querySelector(".next");
     function scrollByOne(){
-      // width of one card plus gap
       const card = cards.find(c=>!c.classList.contains("hide"));
       const width = card ? card.getBoundingClientRect().width + 20 : 320;
       return width;
