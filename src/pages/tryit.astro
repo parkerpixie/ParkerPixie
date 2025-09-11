@@ -1,31 +1,326 @@
 ---
-// src/pages/pins.astro
 const year = new Date().getFullYear();
+---
 
-// 👇 Define your cards here — add/remove freely
-// type: "image" | "quote" | "video" | "link"
-const items = [
-  {
-    type: "image",
-    title: "AI – Me at the Cabin Crocheting",
-    src: "/img/cabin-me-ai.jpg",
-    alt: "AI art of Parker crocheting at the lake",
-    tags: ["art","cozy","me"]
-  },
-  {
-    type: "image",
-    title: "Taylor – Eras sparkle",
-    src: "/img/taylor-sparkle.jpg",
-    alt: "Taylor Swift in bejeweled outfit",
-    tags: ["taylor","music","fashion"]
-  },
-  {
-    type: "quote",
-    title: "Recovery mantra",
-    text: "Practice, not perfection. One day at a time.",
-    cite: "— Parker",
-    tags: ["recovery","wisdom"]
-  },
-  {
-    type: "video",
-    title: "Infinity Nikki trailer
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ParkerPixiePixel • Templates & Designs</title>
+  <meta name="description" content="Free ADHD-friendly templates, planners, and graphics designed by ParkerPixie — playful, practical, and easy to use." />
+  <link rel="icon" href="/CapyGoldIcon.png" />
+
+  <style>
+    :root {
+      --brand:#8a5dff;
+      --brand-deep:#4b2fb5;
+      --gold:#D8AA3B;
+      --ink:#2c2c2c;
+      --muted:#5a5a5a;
+      --bg-card:#f5f1eb;
+      --bg-bubble:#e8dccd;
+    }
+
+    body {
+      margin:0;
+      font-family:Segoe UI, Arial, sans-serif;
+      color:var(--ink);
+      position:relative;
+      min-height:100vh;
+      z-index:1;
+    }
+
+    /* Full-page background video */
+    .bg-video {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-1;
+    }
+
+    header {
+      padding:1rem 2rem;
+      background:rgba(255,255,255,0.7);
+      backdrop-filter:blur(8px);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    header a {
+      color:var(--brand-deep);
+      margin-left:1rem;
+      font-weight:600;
+      text-decoration:none;
+    }
+
+    /* HERO */
+    .hero {
+      text-align:center;
+      padding:6rem 2rem 2rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero h1 {
+      font-size:3rem;
+      font-weight:700;
+      color:var(--gold);
+      margin-bottom:1rem;
+    }
+
+    .hero p {
+      max-width:700px;
+      font-size:1.2rem;
+      color:#ffffff;
+      margin:0 auto 2rem;
+      text-shadow:0 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .btn-primary {
+      background:var(--brand);
+      color:#ffffff;
+      padding:0.9rem 1.8rem;
+      border-radius:9999px;
+      font-weight:600;
+      text-decoration:none;
+    }
+
+    /* FILTER BUBBLES */
+    .filter-bubbles {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:0.5rem;
+      padding:1rem 2rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .filter-btn {
+      background:var(--bg-bubble);
+      color:var(--brand-deep);
+      padding:0.5rem 1rem;
+      border-radius:9999px;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      transition:all 0.2s;
+    }
+    .filter-btn:hover {
+      background:var(--brand);
+      color:#ffffff;
+    }
+    .filter-btn.active {
+      background:var(--brand);
+      color:#ffffff;
+      transform:scale(1.05);
+    }
+
+    /* GRID */
+    .templates {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:2rem;
+      padding:2rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .card {
+      background:var(--bg-card);
+      border-radius:1rem;
+      overflow:hidden;
+      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+      display:flex;
+      flex-direction:column;
+      opacity:1;
+      transform:scale(1);
+      transition:opacity 0.4s ease, transform 0.4s ease;
+    }
+    .card.hide {
+      opacity:0;
+      transform:scale(0.95);
+      pointer-events:none;
+    }
+    /* Square preview on top, no cropping */
+    .card img {
+      width:100%;
+      aspect-ratio:1 / 1;
+      object-fit:contain;
+      background:#ffffff;
+      display:block;
+    }
+
+    .card-body {
+      padding:1.2rem;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+    }
+    .card-body h3 {
+      margin:0 0 0.5rem;
+      font-size:1.3rem;
+      color:var(--brand-deep);
+    }
+    .card-body p {
+      font-size:0.95rem;
+      color:var(--muted);
+      flex-grow:1;
+    }
+
+    .save-btn {
+      display:inline-block;
+      margin-top:1rem;
+      background:var(--brand);
+      color:#ffffff;
+      padding:0.6rem 1.2rem;
+      border-radius:9999px;
+      font-weight:600;
+      text-decoration:none;
+      align-self:flex-start;
+    }
+
+    footer {
+      text-align:center;
+      padding:2rem;
+      color:#ffffff;
+      font-size:0.85rem;
+      position:relative;
+      z-index:2;
+      text-shadow:0 2px 4px rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-page looping background -->
+  <video autoplay muted loop playsinline poster="/img/hero-fallback.jpg" class="bg-video">
+    <source src="/videos/pixelbackground.webM" type="video/webm" />
+    <source src="/videos/Pixelbackground.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Header -->
+  <header>
+    <a href="/">ParkerPixie ✨</a>
+    <nav>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>ParkerPixiePixel</h1>
+    <p>
+      I design playful, ADHD-friendly templates and tools that transform everyday planning
+      into something beautiful and engaging. By blending creativity with organization,
+      I help families (starting with my own!) stay on track without losing the magic.
+    </p>
+    <a href="https://your-google-form-link.com" class="btn-primary">Request a Graphic</a>
+  </section>
+
+  <!-- Filter Bubbles -->
+  <div class="filter-bubbles">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="meal">Meal Planning</button>
+    <button class="filter-btn" data-filter="adhd">ADHD-Friendly</button>
+    <button class="filter-btn" data-filter="home">Home Management</button>
+    <button class="filter-btn" data-filter="banner">Banners</button>
+    <button class="filter-btn" data-filter="art">Artwork</button>
+    <button class="filter-btn" data-filter="travel">Travel</button>
+  </div>
+
+  <!-- Templates Grid -->
+  <section class="templates">
+    <div class="card" data-category="meal">
+      <img src="/img/dummy-512x512.jpg" alt="Preview Meal Planner" loading="lazy" />
+      <div class="card-body">
+        <h3>Weekly Meal Planner</h3>
+        <p>A simple ADHD-friendly planner with room for meals, snacks, and grocery notes.</p>
+        <a href="/img/dummy-800x600.jpg" download class="save-btn">Save</a>
+      </div>
+    </div>
+
+    <div class="card" data-category="adhd">
+      <img src="/img/dummy-512x512.jpg" alt="Preview Focus Dashboard" loading="lazy" />
+      <div class="card-body">
+        <h3>Focus Dashboard</h3>
+        <p>Color-coded blocks and gentle prompts to reduce friction and boost follow-through.</p>
+        <a href="/img/dummy-300x300.jpg" download class="save-btn">Save</a>
+      </div>
+    </div>
+
+    <div class="card" data-category="home">
+      <img src="/img/dummy-512x512.jpg" alt="Preview Chore Chart" loading="lazy" />
+      <div class="card-body">
+        <h3>Family Chore Chart</h3>
+        <p>A colorful, easy-to-read chart that keeps chores on track without nagging.</p>
+        <a href="/img/dummy-600x400.jpg" download class="save-btn">Save</a>
+      </div>
+    </div>
+
+    <div class="card" data-category="banner">
+      <img src="/img/dummy-512x512.jpg" alt="Preview Banner" loading="lazy" />
+      <div class="card-body">
+        <h3>Social Share Banner</h3>
+        <p>OpenGraph-friendly banner that looks crisp on Facebook, X, and LinkedIn.</p>
+        <a href="/img/dummy-1200x628.jpg" download class="save-btn">Save</a>
+      </div>
+    </div>
+
+    <div class="card" data-category="art">
+      <img src="/img/dummy-512x512.jpg" alt="Preview Hero Canvas" loading="lazy" />
+      <div class="card-body">
+        <h3>Hero Canvas</h3>
+        <p>HD hero backdrop test for sections that need a dramatic moment without blur.</p>
+        <a href="/img/dummy-1920x1080.jpg" download class="save-btn">Save</a>
+      </div>
+    </div>
+
+    <div class="card" data-category="travel">
+      <img src="/img/dummy-512x512.jpg" alt="Preview Itinerary" loading="lazy" />
+      <div class="card-body">
+        <h3>Road Trip Itinerary</h3>
+        <p>Plan stops, sights, and snacks with an adventure-map vibe.</p>
+        <a href="/img/dummy-3840x2160.jpg" download class="save-btn">Save</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; {year} ParkerPixie • Sparkles, Pixels &amp; Organization
+  </footer>
+
+  <script>
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".card");
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const filter = btn.getAttribute("data-filter");
+
+        cards.forEach((card) => {
+          if (filter === "all" || card.dataset.category === filter) {
+            card.classList.remove("hide");
+          } else {
+            card.classList.add("hide");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
