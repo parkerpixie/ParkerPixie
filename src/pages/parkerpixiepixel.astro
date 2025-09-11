@@ -22,125 +22,43 @@ const year = new Date().getFullYear();
       --bg-bubble:#e8dccd;
       --ring: rgba(0,0,0,.08);
       --rail-pad: 1rem;
-      --card-w: 320px;    /* card width */
-      --gap: 16px;        /* gap between cards */
+      --card-w: 320px;
+      --gap: 16px;
     }
-
-    body {
-      margin:0;
-      font-family:'Segoe UI', ui-sans-serif, system-ui, -apple-system, Roboto, Helvetica, Arial;
-      color:var(--ink);
-      position:relative;
-      min-height:100vh;
-      z-index:1;
-      background:#000;
-    }
-
-    /* 🌟 Full-page background video */
-    .bg-video { position:fixed; inset:0; width:100%; height:100%; object-fit:cover; z-index:-1; }
-
-    /* ✅ Header (UNCHANGED) */
-    header {
-      padding:1rem 2rem;
-      background:rgba(255,255,255,0.7);
-      backdrop-filter:blur(8px);
-      display:flex; justify-content:space-between; align-items:center;
-      position:relative; z-index:2;
-    }
-    header a { color:var(--brand-deep); margin-left:1rem; font-weight:600; text-decoration:none; }
-
-    /* HERO (UNCHANGED) */
-    .hero { text-align:center; padding:6rem 2rem 2rem; position:relative; z-index:2; }
-    .hero h1 { font-size:3rem; font-weight:700; color:var(--gold); margin-bottom:1rem; }
-    .hero p { max-width:700px; font-size:1.2rem; color:#fff; margin:0 auto 2rem; text-shadow:0 2px 4px rgba(0,0,0,0.6); }
-    .btn-primary { background:var(--brand); color:#fff; padding:.9rem 1.8rem; border-radius:9999px; font-weight:600; text-decoration:none; }
-
-    /* FILTER BUBBLES (UNCHANGED except label text) */
-    .filter-bubbles { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; padding:1rem 2rem; position:relative; z-index:2; }
-    .filter-btn {
-      background:var(--bg-bubble); color:var(--brand-deep);
-      padding:.5rem 1rem; border-radius:9999px; font-weight:600;
-      border:none; cursor:pointer; transition:all .2s;
-    }
-    .filter-btn:hover { background:var(--brand); color:#fff; }
-    .filter-btn.active { background:var(--brand); color:#fff; transform:scale(1.05); }
-
-    /* ===== Button-only carousel (no native scroll) ===== */
-    .templates-outer {
-      position:relative; z-index:2;
-      padding: 0 var(--rail-pad) 3rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* viewport masks overflow; rail inside moves via transform */
-    .templates-viewport {
-      overflow: hidden;              /* disables native scrolling */
-      position: relative;
-    }
-
-    .templates-rail {
-      display:flex;
-      gap: var(--gap);
-      padding: 1rem 0;
-      transform: translateX(0);      /* we animate this */
-      will-change: transform;
-      transition: transform .35s ease;
-    }
-
-    /* Cards */
-    .tcard {
-      flex: 0 0 var(--card-w);
-      width: var(--card-w);
-      background: var(--bg-card);
-      border:1px solid var(--ring);
-      border-radius: 16px;
-      overflow:hidden;
-      box-shadow: 0 10px 24px rgba(0,0,0,.28);
-      display:flex; flex-direction:column;
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .tcard:hover { transform: translateY(-2px); box-shadow: 0 16px 28px rgba(0,0,0,.32); }
-
-    .tcard-meta {
-      padding: .75rem 1rem .25rem;
-      font-weight: 700;
-      color: var(--brand-deep);
-      letter-spacing: .02em;
-    }
-    .tcard-media { line-height:0; background:#fff; border-top:1px solid var(--ring); border-bottom:1px solid var(--ring); }
-    .tcard-media img {
-      display:block; width:100%; height:auto;
-      aspect-ratio: 4 / 3; object-fit: contain; image-rendering: -webkit-optimize-contrast;
-    }
-    .tcard-body { padding: 1rem; display:flex; flex-direction:column; gap:.5rem; flex:1; }
-    .tcard-title { margin:0; font-size:1.05rem; color:var(--brand-deep); }
-    .tcard-desc { margin:0; color:var(--muted); font-size:.94rem; line-height:1.35; flex:1; }
-    .tcard-actions { margin-top:.6rem; }
-    .save-btn { display:inline-block; background:var(--brand); color:#fff; text-decoration:none; padding:.55rem 1rem; border-radius:9999px; font-weight:700; border:1px solid rgba(0,0,0,.08); }
-    .save-btn:hover{ filter:brightness(1.05); }
-
-    /* Filter state: remove from layout entirely to avoid gaps */
-    .is-hidden { display:none !important; }
-
-    footer { text-align:center; padding:2rem; color:#fff; font-size:.85rem; position:relative; z-index:2; text-shadow:0 2px 4px rgba(0,0,0,0.6); }
-
-    /* Arrow buttons */
-    .rail-btn {
-      position:absolute; top: calc(50% - 24px);
-      width:46px; height:46px; border-radius:50%;
-      border:1px solid rgba(255,255,255,.25);
-      background: rgba(255,255,255,.22);
-      color:#fff; font-weight:900; font-size:20px;
-      display:grid; place-items:center;
-      backdrop-filter: blur(6px);
-      cursor:pointer; user-select:none;
-    }
-    .rail-btn:hover { background: rgba(255,255,255,.32); }
-    .rail-prev { left: 4px; }
-    .rail-next { right: 4px; }
-    .rail-btn[disabled] { opacity:.4; cursor:not-allowed; }
-    @media (max-width: 720px){ .rail-btn{ display:none; } }
+    body{margin:0;font-family:'Segoe UI',ui-sans-serif,system-ui,-apple-system,Roboto,Helvetica,Arial;color:var(--ink);position:relative;min-height:100vh;z-index:1;background:#000}
+    .bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+    header{padding:1rem 2rem;background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+    header a{color:var(--brand-deep);margin-left:1rem;font-weight:600;text-decoration:none}
+    .hero{text-align:center;padding:6rem 2rem 2rem;position:relative;z-index:2}
+    .hero h1{font-size:3rem;font-weight:700;color:var(--gold);margin-bottom:1rem}
+    .hero p{max-width:700px;font-size:1.2rem;color:#fff;margin:0 auto 2rem;text-shadow:0 2px 4px rgba(0,0,0,0.6)}
+    .btn-primary{background:var(--brand);color:#fff;padding:.9rem 1.8rem;border-radius:9999px;font-weight:600;text-decoration:none}
+    .filter-bubbles{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;padding:1rem 2rem;position:relative;z-index:2}
+    .filter-btn{background:var(--bg-bubble);color:var(--brand-deep);padding:.5rem 1rem;border-radius:9999px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+    .filter-btn:hover{background:var(--brand);color:#fff}
+    .filter-btn.active{background:var(--brand);color:#fff;transform:scale(1.05)}
+    .templates-outer{position:relative;z-index:2;padding:0 var(--rail-pad) 3rem;max-width:1400px;margin:0 auto}
+    .templates-viewport{overflow:hidden;position:relative}
+    .templates-rail{display:flex;gap:var(--gap);padding:1rem 0;transform:translateX(0);will-change:transform;transition:transform .35s ease}
+    .tcard{flex:0 0 var(--card-w);width:var(--card-w);background:var(--bg-card);border:1px solid var(--ring);border-radius:16px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.28);display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease}
+    .tcard:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(0,0,0,.32)}
+    .tcard-meta{padding:.75rem 1rem .25rem;font-weight:700;color:var(--brand-deep);letter-spacing:.02em}
+    .tcard-media{line-height:0;background:#fff;border-top:1px solid var(--ring);border-bottom:1px solid var(--ring)}
+    .tcard-media img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;image-rendering:-webkit-optimize-contrast}
+    .tcard-body{padding:1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+    .tcard-title{margin:0;font-size:1.05rem;color:var(--brand-deep)}
+    .tcard-desc{margin:0;color:var(--muted);font-size:.94rem;line-height:1.35;flex:1}
+    .tcard-actions{margin-top:.6rem}
+    .save-btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:.55rem 1rem;border-radius:9999px;font-weight:700;border:1px solid rgba(0,0,0,.08)}
+    .save-btn:hover{filter:brightness(1.05)}
+    .is-hidden{display:none!important}
+    footer{text-align:center;padding:2rem;color:#fff;font-size:.85rem;position:relative;z-index:2;text-shadow:0 2px 4px rgba(0,0,0,0.6)}
+    .rail-btn{position:absolute;top:calc(50% - 24px);width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.22);color:#fff;font-weight:900;font-size:20px;display:grid;place-items:center;backdrop-filter:blur(6px);cursor:pointer;user-select:none}
+    .rail-btn:hover{background:rgba(255,255,255,.32)}
+    .rail-prev{left:4px}
+    .rail-next{right:4px}
+    .rail-btn[disabled]{opacity:.4;cursor:not-allowed}
+    @media (max-width:720px){.rail-btn{display:none}}
   </style>
 </head>
 <body>
@@ -172,7 +90,7 @@ const year = new Date().getFullYear();
     <a href="https://your-google-form-link.com" class="btn-primary">Request a Graphic</a>
   </section>
 
-  <!-- 🌟 Filter Bubbles (ADHD label changed) -->
+  <!-- 🌟 Filter Bubbles -->
   <div class="filter-bubbles">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="meal">Meal Planning</button>
@@ -194,7 +112,7 @@ const year = new Date().getFullYear();
         <article class="tcard" data-category="meal">
           <div class="tcard-meta">Meal Planning</div>
           <div class="tcard-media">
-            <img src="/img/dummy-1200x800.jpg" alt="Preview — Weekly Meal Planner" loading="lazy" decoding="async" />
+            <img src="/img/dummy-1200x800.jpg" alt="Preview — Weekly Meal Planner" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/img/dummy-512x512.jpg';" />
           </div>
           <div class="tcard-body">
             <h3 class="tcard-title">Weekly Meal Planner</h3>
@@ -203,16 +121,16 @@ const year = new Date().getFullYear();
           </div>
         </article>
 
-        <!-- ADHD Tool -->
+        <!-- ADHD Tool (FIXED PATH + FALLBACK) -->
         <article class="tcard" data-category="adhd">
           <div class="tcard-meta">ADHD Tool</div>
           <div class="tcard-media">
-            <img src="/img/dummy-1024x1024.jpg" alt="Preview — Focus Dashboard" loading="lazy" decoding="async" />
+            <img src="/img/dummy-512x512.jpg" alt="Preview — Focus Dashboard" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/img/dummy-512x512.jpg';" />
           </div>
           <div class="tcard-body">
             <h3 class="tcard-title">Focus Dashboard</h3>
             <p class="tcard-desc">Color-coded blocks and gentle prompts to reduce friction and boost follow-through.</p>
-            <div class="tcard-actions"><a href="/img/dummy-1024x1024.jpg" download class="save-btn">Save</a></div>
+            <div class="tcard-actions"><a href="/img/dummy-512x512.jpg" download class="save-btn">Save</a></div>
           </div>
         </article>
 
@@ -220,7 +138,7 @@ const year = new Date().getFullYear();
         <article class="tcard" data-category="home">
           <div class="tcard-meta">Home Management</div>
           <div class="tcard-media">
-            <img src="/img/dummy-600x400.jpg" alt="Preview — Family Chore Chart" loading="lazy" decoding="async" />
+            <img src="/img/dummy-600x400.jpg" alt="Preview — Family Chore Chart" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/img/dummy-512x512.jpg';" />
           </div>
           <div class="tcard-body">
             <h3 class="tcard-title">Family Chore Chart</h3>
@@ -233,7 +151,7 @@ const year = new Date().getFullYear();
         <article class="tcard" data-category="banner">
           <div class="tcard-meta">Banners</div>
           <div class="tcard-media">
-            <img src="/img/dummy-1200x628.jpg" alt="Preview — Social Share Banner" loading="lazy" decoding="async" />
+            <img src="/img/dummy-1200x628.jpg" alt="Preview — Social Share Banner" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/img/dummy-512x512.jpg';" />
           </div>
           <div class="tcard-body">
             <h3 class="tcard-title">Social Share Banner</h3>
@@ -246,7 +164,7 @@ const year = new Date().getFullYear();
         <article class="tcard" data-category="art">
           <div class="tcard-meta">Artwork</div>
           <div class="tcard-media">
-            <img src="/img/dummy-1920x1080.jpg" alt="Preview — Hero Canvas" loading="lazy" decoding="async" />
+            <img src="/img/dummy-1920x1080.jpg" alt="Preview — Hero Canvas" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/img/dummy-512x512.jpg';" />
           </div>
           <div class="tcard-body">
             <h3 class="tcard-title">Hero Canvas</h3>
@@ -255,18 +173,19 @@ const year = new Date().getFullYear();
           </div>
         </article>
 
-        <!-- Travel -->
+        <!-- Travel (FIXED PATH + FALLBACK) -->
         <article class="tcard" data-category="travel">
           <div class="tcard-meta">Travel</div>
           <div class="tcard-media">
-            <img src="/img/dummy-2560x1440.jpg" alt="Preview — Road Trip Itinerary" loading="lazy" decoding="async" />
+            <img src="/img/dummy-3840x2160.jpg" alt="Preview — Road Trip Itinerary" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/img/dummy-512x512.jpg';" />
           </div>
           <div class="tcard-body">
             <h3 class="tcard-title">Road Trip Itinerary</h3>
             <p class="tcard-desc">Plan stops, sights, and snacks with an adventure-map vibe.</p>
-            <div class="tcard-actions"><a href="/img/dummy-2560x1440.jpg" download class="save-btn">Save</a></div>
+            <div class="tcard-actions"><a href="/img/dummy-3840x2160.jpg" download class="save-btn">Save</a></div>
           </div>
         </article>
+
       </div>
     </div>
   </section>
@@ -287,15 +206,12 @@ const year = new Date().getFullYear();
     function visibleCards(){
       return Array.from(rail.querySelectorAll('.tcard')).filter(el => !el.classList.contains('is-hidden'));
     }
-
-    function clamp(n, min, max){ return Math.max(min, Math.min(n, max)); }
-
+    function clamp(n,min,max){return Math.max(min,Math.min(n,max));}
     function updateButtons(){
       const v = visibleCards();
       prevBtn.disabled = (index <= 0);
       nextBtn.disabled = (index >= Math.max(0, v.length - 1));
     }
-
     function snapTo(i){
       const v = visibleCards();
       index = clamp(i, 0, Math.max(0, v.length - 1));
@@ -303,7 +219,6 @@ const year = new Date().getFullYear();
       rail.style.transform = `translateX(${-offset}px)`;
       updateButtons();
     }
-
     prevBtn.addEventListener('click', () => snapTo(index - 1));
     nextBtn.addEventListener('click', () => snapTo(index + 1));
 
@@ -316,10 +231,8 @@ const year = new Date().getFullYear();
         const match = (filter === 'all') || (card.dataset.category === filter);
         card.classList.toggle('is-hidden', !match);
       });
-      // reset position so first visible card is at left
       snapTo(0);
     }
-
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -327,8 +240,6 @@ const year = new Date().getFullYear();
         applyFilter(btn.getAttribute('data-filter'));
       });
     });
-
-    // initialize
     applyFilter('all');
   </script>
 </body>
