@@ -18,9 +18,11 @@ const year = new Date().getFullYear();
       --gold:#D8AA3B;
       --ink:#2c2c2c;
       --muted:#5a5a5a;
-      --bg-card:#f5f1eb;   /* beige card */
-      --bg-bubble:#e8dccd; /* beige bubble */
+      --bg-card:#f5f1eb;
+      --bg-bubble:#e8dccd;
       --ring: rgba(0,0,0,.08);
+      --rail-pad: 1rem;
+      --card-w: 320px;  /* card width in the rail */
     }
 
     body {
@@ -72,72 +74,98 @@ const year = new Date().getFullYear();
     .filter-btn:hover { background:var(--brand); color:#fff; }
     .filter-btn.active { background:var(--brand); color:#fff; transform:scale(1.05); }
 
-    /* ===== Gallery styling (UPDATED to match /tryit/) ===== */
-    .templates {
-      --max: 1200px;
-      max-width: var(--max);
+    /* ===== Horizontal Rail Gallery (matches tryit behavior) ===== */
+    .templates-outer {
+      position:relative; z-index:2;
+      padding: 0 var(--rail-pad) 3rem;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 2rem 1rem 3rem;
-      position: relative; z-index: 2;
-      display:grid; gap:1.4rem;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
+    /* The scroll container */
+    .templates-rail {
+      display:flex;
+      gap: 1rem;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 1rem 0 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-width: thin;
+    }
+    /* optional: hide scrollbar on WebKit while keeping access */
+    .templates-rail::-webkit-scrollbar { height: 10px; }
+    .templates-rail::-webkit-scrollbar-track { background: rgba(255,255,255,.12); border-radius: 999px; }
+    .templates-rail::-webkit-scrollbar-thumb { background: rgba(255,255,255,.3); border-radius: 999px; }
+
+    /* Cards */
     .tcard {
-      display:flex; flex-direction:column;
+      flex: 0 0 var(--card-w);         /* fixed width, no wrap */
+      width: var(--card-w);
+      scroll-snap-align: start;
       background: var(--bg-card);
       border:1px solid var(--ring);
       border-radius: 16px;
       overflow:hidden;
       box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      display:flex; flex-direction:column;
       transition: transform .18s ease, box-shadow .18s ease, opacity .25s ease;
     }
     .tcard:hover { transform: translateY(-2px); box-shadow: 0 16px 28px rgba(0,0,0,.32); }
 
-    /* Category label (matches the look from tryit list headings) */
     .tcard-meta {
       padding: .75rem 1rem .25rem;
       font-weight: 700;
       color: var(--brand-deep);
-      text-transform: none;
       letter-spacing: .02em;
     }
-
-    /* Big preview image */
-    .tcard-media {
-      line-height:0;
-      background:#fff;
-      border-top:1px solid var(--ring);
-      border-bottom:1px solid var(--ring);
-    }
+    .tcard-media { line-height:0; background:#fff; border-top:1px solid var(--ring); border-bottom:1px solid var(--ring); }
     .tcard-media img {
       display:block; width:100%; height:auto;
-      aspect-ratio: 4 / 3;         /* wide-ish like reference */
-      object-fit: contain;          /* keep art crisp */
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
       image-rendering: -webkit-optimize-contrast;
     }
-
-    /* Body: title + blurb + button */
     .tcard-body { padding: 1rem; display:flex; flex-direction:column; gap:.5rem; flex:1; }
-    .tcard-title { margin:0; font-size:1.15rem; color:var(--brand-deep); }
-    .tcard-desc  { margin:0; color:var(--muted); font-size:.96rem; line-height:1.4; flex:1; }
-
+    .tcard-title { margin:0; font-size:1.05rem; color:var(--brand-deep); }
+    .tcard-desc { margin:0; color:var(--muted); font-size:.94rem; line-height:1.35; flex:1; }
     .tcard-actions { margin-top:.6rem; }
     .save-btn {
-      display:inline-block;
-      background:var(--brand); color:#fff; text-decoration:none;
-      padding:.6rem 1.1rem; border-radius:9999px; font-weight:700;
-      border:1px solid rgba(0,0,0,.08);
+      display:inline-block; background:var(--brand); color:#fff; text-decoration:none;
+      padding:.55rem 1rem; border-radius:9999px; font-weight:700; border:1px solid rgba(0,0,0,.08);
     }
     .save-btn:hover{ filter:brightness(1.05); }
 
-    /* Hide animation for filters */
+    /* Filter hide animation */
     .is-hidden { opacity:0; transform:scale(.98); pointer-events:none; }
 
     footer {
       text-align:center; padding:2rem; color:#fff; font-size:.85rem;
       position:relative; z-index:2; text-shadow:0 2px 4px rgba(0,0,0,0.6);
     }
+
+    /* Optional: previous/next nudge buttons (floating) */
+    .rail-nav {
+      position:absolute; inset:0;
+      pointer-events:none;
+    }
+    .rail-btn {
+      position:absolute; top: calc(50% - 24px);
+      width:42px; height:42px; border-radius:50%;
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.2);
+      color:#fff; font-weight:900;
+      display:grid; place-items:center;
+      backdrop-filter: blur(6px);
+      pointer-events:auto;
+      cursor:pointer;
+      user-select:none;
+    }
+    .rail-btn:hover { background: rgba(255,255,255,.3); }
+    .rail-prev { left: 4px; }
+    .rail-next { right: 4px; }
+    @media (max-width: 720px){ .rail-btn{ display:none; } }
   </style>
 </head>
 <body>
@@ -180,97 +208,105 @@ const year = new Date().getFullYear();
     <button class="filter-btn" data-filter="travel">Travel</button>
   </div>
 
-  <!-- 🪄 Templates Grid (UPDATED) -->
-  <section class="templates" aria-label="Templates gallery">
-    <!-- Meal Planning -->
-    <article class="tcard" data-category="meal">
-      <div class="tcard-meta">Meal Planning</div>
-      <div class="tcard-media">
-        <img src="/img/dummy-1200x800.jpg" alt="Preview — Weekly Meal Planner" loading="lazy" decoding="async" />
-      </div>
-      <div class="tcard-body">
-        <h3 class="tcard-title">Weekly Meal Planner</h3>
-        <p class="tcard-desc">A simple ADHD-friendly planner with room for meals, snacks, and grocery notes.</p>
-        <div class="tcard-actions">
-          <a href="/img/dummy-1200x800.jpg" download class="save-btn">Save</a>
+  <!-- 🪄 HORIZONTAL SCROLL RAIL (UPDATED) -->
+  <section class="templates-outer" aria-label="Templates gallery">
+    <div class="templates-rail" id="rail">
+      <!-- Meal Planning -->
+      <article class="tcard" data-category="meal">
+        <div class="tcard-meta">Meal Planning</div>
+        <div class="tcard-media">
+          <img src="/img/dummy-1200x800.jpg" alt="Preview — Weekly Meal Planner" loading="lazy" decoding="async" />
         </div>
-      </div>
-    </article>
+        <div class="tcard-body">
+          <h3 class="tcard-title">Weekly Meal Planner</h3>
+          <p class="tcard-desc">A simple ADHD-friendly planner with room for meals, snacks, and grocery notes.</p>
+          <div class="tcard-actions">
+            <a href="/img/dummy-1200x800.jpg" download class="save-btn">Save</a>
+          </div>
+        </div>
+      </article>
 
-    <!-- ADHD-Friendly -->
-    <article class="tcard" data-category="adhd">
-      <div class="tcard-meta">ADHD-Friendly</div>
-      <div class="tcard-media">
-        <img src="/img/dummy-1024x1024.jpg" alt="Preview — Focus Dashboard" loading="lazy" decoding="async" />
-      </div>
-      <div class="tcard-body">
-        <h3 class="tcard-title">Focus Dashboard</h3>
-        <p class="tcard-desc">Color-coded blocks and gentle prompts to reduce friction and boost follow-through.</p>
-        <div class="tcard-actions">
-          <a href="/img/dummy-1024x1024.jpg" download class="save-btn">Save</a>
+      <!-- ADHD-Friendly -->
+      <article class="tcard" data-category="adhd">
+        <div class="tcard-meta">ADHD-Friendly</div>
+        <div class="tcard-media">
+          <img src="/img/dummy-1024x1024.jpg" alt="Preview — Focus Dashboard" loading="lazy" decoding="async" />
         </div>
-      </div>
-    </article>
+        <div class="tcard-body">
+          <h3 class="tcard-title">Focus Dashboard</h3>
+          <p class="tcard-desc">Color-coded blocks and gentle prompts to reduce friction and boost follow-through.</p>
+          <div class="tcard-actions">
+            <a href="/img/dummy-1024x1024.jpg" download class="save-btn">Save</a>
+          </div>
+        </div>
+      </article>
 
-    <!-- Home Management -->
-    <article class="tcard" data-category="home">
-      <div class="tcard-meta">Home Management</div>
-      <div class="tcard-media">
-        <img src="/img/dummy-600x400.jpg" alt="Preview — Family Chore Chart" loading="lazy" decoding="async" />
-      </div>
-      <div class="tcard-body">
-        <h3 class="tcard-title">Family Chore Chart</h3>
-        <p class="tcard-desc">A colorful, easy-to-read chart that keeps chores on track without nagging.</p>
-        <div class="tcard-actions">
-          <a href="/img/dummy-600x400.jpg" download class="save-btn">Save</a>
+      <!-- Home Management -->
+      <article class="tcard" data-category="home">
+        <div class="tcard-meta">Home Management</div>
+        <div class="tcard-media">
+          <img src="/img/dummy-600x400.jpg" alt="Preview — Family Chore Chart" loading="lazy" decoding="async" />
         </div>
-      </div>
-    </article>
+        <div class="tcard-body">
+          <h3 class="tcard-title">Family Chore Chart</h3>
+          <p class="tcard-desc">A colorful, easy-to-read chart that keeps chores on track without nagging.</p>
+          <div class="tcard-actions">
+            <a href="/img/dummy-600x400.jpg" download class="save-btn">Save</a>
+          </div>
+        </div>
+      </article>
 
-    <!-- Banners -->
-    <article class="tcard" data-category="banner">
-      <div class="tcard-meta">Banners</div>
-      <div class="tcard-media">
-        <img src="/img/dummy-1200x628.jpg" alt="Preview — Social Share Banner" loading="lazy" decoding="async" />
-      </div>
-      <div class="tcard-body">
-        <h3 class="tcard-title">Social Share Banner</h3>
-        <p class="tcard-desc">Plug-and-play OpenGraph image that looks crisp on Facebook, X, and LinkedIn.</p>
-        <div class="tcard-actions">
-          <a href="/img/dummy-1200x628.jpg" download class="save-btn">Save</a>
+      <!-- Banners -->
+      <article class="tcard" data-category="banner">
+        <div class="tcard-meta">Banners</div>
+        <div class="tcard-media">
+          <img src="/img/dummy-1200x628.jpg" alt="Preview — Social Share Banner" loading="lazy" decoding="async" />
         </div>
-      </div>
-    </article>
+        <div class="tcard-body">
+          <h3 class="tcard-title">Social Share Banner</h3>
+          <p class="tcard-desc">Plug-and-play OpenGraph image that looks crisp on Facebook, X, and LinkedIn.</p>
+          <div class="tcard-actions">
+            <a href="/img/dummy-1200x628.jpg" download class="save-btn">Save</a>
+          </div>
+        </div>
+      </article>
 
-    <!-- Artwork -->
-    <article class="tcard" data-category="art">
-      <div class="tcard-meta">Artwork</div>
-      <div class="tcard-media">
-        <img src="/img/dummy-1920x1080.jpg" alt="Preview — Hero Canvas" loading="lazy" decoding="async" />
-      </div>
-      <div class="tcard-body">
-        <h3 class="tcard-title">Hero Canvas</h3>
-        <p class="tcard-desc">HD hero backdrop test for sections that need a dramatic moment without blur.</p>
-        <div class="tcard-actions">
-          <a href="/img/dummy-1920x1080.jpg" download class="save-btn">Save</a>
+      <!-- Artwork -->
+      <article class="tcard" data-category="art">
+        <div class="tcard-meta">Artwork</div>
+        <div class="tcard-media">
+          <img src="/img/dummy-1920x1080.jpg" alt="Preview — Hero Canvas" loading="lazy" decoding="async" />
         </div>
-      </div>
-    </article>
+        <div class="tcard-body">
+          <h3 class="tcard-title">Hero Canvas</h3>
+          <p class="tcard-desc">HD hero backdrop test for sections that need a dramatic moment without blur.</p>
+          <div class="tcard-actions">
+            <a href="/img/dummy-1920x1080.jpg" download class="save-btn">Save</a>
+          </div>
+        </div>
+      </article>
 
-    <!-- Travel -->
-    <article class="tcard" data-category="travel">
-      <div class="tcard-meta">Travel</div>
-      <div class="tcard-media">
-        <img src="/img/dummy-2560x1440.jpg" alt="Preview — Road Trip Itinerary" loading="lazy" decoding="async" />
-      </div>
-      <div class="tcard-body">
-        <h3 class="tcard-title">Road Trip Itinerary</h3>
-        <p class="tcard-desc">Plan stops, sights, and snacks with an adventure-map vibe.</p>
-        <div class="tcard-actions">
-          <a href="/img/dummy-2560x1440.jpg" download class="save-btn">Save</a>
+      <!-- Travel -->
+      <article class="tcard" data-category="travel">
+        <div class="tcard-meta">Travel</div>
+        <div class="tcard-media">
+          <img src="/img/dummy-2560x1440.jpg" alt="Preview — Road Trip Itinerary" loading="lazy" decoding="async" />
         </div>
-      </div>
-    </article>
+        <div class="tcard-body">
+          <h3 class="tcard-title">Road Trip Itinerary</h3>
+          <p class="tcard-desc">Plan stops, sights, and snacks with an adventure-map vibe.</p>
+          <div class="tcard-actions">
+            <a href="/img/dummy-2560x1440.jpg" download class="save-btn">Save</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Optional prev/next nudge buttons -->
+    <div class="rail-nav" aria-hidden="true">
+      <button class="rail-btn rail-prev" type="button" id="prevBtn" title="Scroll left">‹</button>
+      <button class="rail-btn rail-next" type="button" id="nextBtn" title="Scroll right">›</button>
+    </div>
   </section>
 
   <footer>
@@ -278,21 +314,44 @@ const year = new Date().getFullYear();
   </footer>
 
   <script>
-    // Filter behavior (unchanged API, works with new .tcard)
+    // Filter behavior (works with horizontal rail)
     const filterButtons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.tcard');
+    const rail = document.getElementById('rail');
+
+    function applyFilter(filter){
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('is-hidden', !match);
+      });
+      // snap back to start so the first visible card is in view
+      rail.scrollTo({ left: 0, behavior: 'smooth' });
+    }
 
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
-        const filter = btn.getAttribute('data-filter');
-        cards.forEach(card => {
-          const match = filter === 'all' || card.dataset.category === filter;
-          card.classList.toggle('is-hidden', !match);
-        });
+        applyFilter(btn.getAttribute('data-filter'));
       });
+    });
+
+    // Prev/Next nudge buttons (scroll by one card width)
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const CARD_W = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-w')) + 16; // width + gap
+
+    function nudge(dir){
+      rail.scrollBy({ left: dir * CARD_W, behavior: 'smooth' });
+    }
+    prevBtn?.addEventListener('click', () => nudge(-1));
+    nextBtn?.addEventListener('click', () => nudge( 1));
+
+    // Keyboard hint: allow left/right to scroll when rail is focused
+    rail.setAttribute('tabindex', '0');
+    rail.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') nudge(-1);
+      if (e.key === 'ArrowRight') nudge(1);
     });
   </script>
 </body>
