@@ -1,1 +1,284 @@
+---
+// src/pages/blog/weirdal.astro
+const title = "Two Concerts, One Week — Weird Al Tonight!";
+const subtitle = "Nostalgia, growth, and a perfect fall night in Madison.";
+const date = "September 12, 2025";
+const tags = ["music", "concert", "family", "Madison", "WeirdAl"];
+
+/* Image lives at /public/img/weirdal.jpg */
+const cover = "/img/weirdal.jpg";
+const coverAbs = "https://parkerpixie.netlify.app/img/weirdal.jpg";
+
+/* ✅ Absolute URL for this page (under /blog/) */
+const pageUrl = "https://parkerpixie.netlify.app/blog/weirdal/";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="After Ani with friends, we’re off to Weird Al at Breese Stevens Field — a then-vs-now moment that’s all pride, healing, and joyful noise."
+    />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- ✅ Absolute canonical under /blog/ -->
+    <link rel="canonical" href={pageUrl} />
+
+    <!-- ✅ Social preview (absolute URLs) -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title + " • ParkerPixie Blog"} />
+    <meta property="og:description" content={subtitle} />
+    <meta property="og:image" content={coverAbs} />
+    <meta property="og:image:alt" content="Weird Al concert artwork" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={subtitle} />
+    <meta name="twitter:image" content={coverAbs} />
+
+    <style>
+      :root{
+        --brand:#8a5dff; --brand-deep:#5a39d9;
+        --ink:#f6f1ff; --muted:#cfc7e6;
+        --bg:#0e0a16; --card:#151025f2;
+        --gold:#f2c98b; --glow:0 0 30px rgba(138,93,255,.35);
+        --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{
+        margin:0; padding:0; line-height:1.6; color:var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+        background:
+          radial-gradient(1200px 800px at 10% -10%, rgba(138,93,255,.16), transparent 60%),
+          radial-gradient(900px 600px at 90% 0%, rgba(255,214,232,.14), transparent 58%),
+          url('/bg/cotton-candy.jpg') center/cover no-repeat fixed,
+          var(--bg);
+      }
+      a{ color:var(--gold); text-decoration:none }
+      a:hover{ text-decoration:underline }
+      .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+      header.site{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(15,11,20,.86), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+      .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+      .brand img{width:28px; height:28px; filter:drop-shadow(0 0 8px rgba(242,201,139,.45))}
+      .brand span{font-size:18px; color:var(--gold)}
+      .nav-right{display:flex; align-items:center; gap:14px}
+      .nav-link{
+        padding:.55rem .2rem; border-radius:8px; opacity:.92;
+        transition:opacity .15s ease, color .15s ease, background .15s ease;
+        color:#fff; text-decoration:none;
+      }
+      .nav-link:hover{opacity:1; color:var(--gold)}
+      .nav-btn{
+        padding:.6rem .9rem; border-radius:999px; font-weight:600;
+        border:1px solid rgba(255,255,255,.18);
+        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+        box-shadow:0 8px 24px rgba(90,57,217,.35);
+        color:#fff; text-decoration:none;
+      }
+      .nav-btn:hover{filter:brightness(1.06)}
+      @media (max-width:900px){
+        .nav-right{gap:10px}
+        .nav-link{padding:.5rem .1rem}
+      }
+      .shell{ max-width:820px; margin:40px auto 100px; padding:0 20px }
+      header.post{
+        background: linear-gradient(180deg, rgba(138,93,255,.18), transparent 55%), var(--card);
+        border:1px solid rgba(255,255,255,.10); border-radius:var(--radius);
+        box-shadow:var(--glow); padding:28px; position:relative; overflow:hidden;
+      }
+      .sparkles{
+        position:absolute; inset:-2px; pointer-events:none; opacity:.5; filter:blur(.2px);
+        background:
+          radial-gradient(8px 8px at 20% 30%, rgba(242,201,139,.8), transparent 60%),
+          radial-gradient(6px 6px at 70% 20%, rgba(138,93,255,.65), transparent 60%),
+          radial-gradient(5px 5px at 85% 65%, rgba(242,201,139,.7), transparent 60%),
+          radial-gradient(7px 7px at 35% 80%, rgba(138,93,255,.45), transparent 60%);
+      }
+      .kicker{ color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.78rem }
+      h1{ font-size:clamp(1.8rem, 4vw, 2.6rem); line-height:1.12; margin:8px 0 6px; color:#fff }
+      .sub{ color:#e8e0ff; font-size:clamp(1rem, 2.2vw, 1.15rem); margin:0 0 14px }
+      .meta{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--muted); font-size:.92rem }
+      .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-left:auto }
+      .tag{ background:rgba(242,201,139,.12); border:1px solid rgba(242,201,139,.35);
+            color:#ffeecf; padding:4px 10px; border-radius:999px; font-size:.78rem }
+      .cover{ margin:18px 0 0; border-radius:calc(var(--radius) - 6px); overflow:hidden; border:1px solid rgba(255,255,255,.12) }
+      .cover img{ width:100%; display:block }
+      .content{
+        margin-top:26px; padding:26px; border-radius:var(--radius);
+        background: rgba(9,7,15,.55); backdrop-filter: blur(4px);
+        border:1px solid rgba(255,255,255,.10);
+      }
+      .insight{
+        display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:center;
+        background: linear-gradient(180deg, rgba(242,201,139,.12), rgba(138,93,255,.10));
+        border:1px dashed rgba(242,201,139,.45); padding:14px 16px; border-radius:14px; margin:8px 0 22px;
+      }
+      .insight .badge{
+        width:48px; height:48px; border-radius:12px; display:grid; place-items:center;
+        background: radial-gradient(circle at 30% 25%, #fff7, transparent 40%), #2a2141;
+        color:#ffe8bd; font-weight:700; font-size:.68rem; text-align:center; line-height:1.1;
+        border:1px solid rgba(255,255,255,.18);
+      }
+      .pull{
+        font-size:clamp(1.05rem, 2.2vw, 1.25rem);
+        color:#fff; background:rgba(138,93,255,.16);
+        border-left:3px solid var(--brand); padding:14px 16px; border-radius:12px; margin:20px 0;
+      }
+      .hr{ height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); margin:22px 0 }
+      .mantra{
+        display:flex; gap:10px; align-items:center; color:#fff; font-weight:600;
+        background:#1c1530; border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:12px 14px; margin-top:18px;
+      }
+      .mantra .dot{ width:9px; height:9px; border-radius:99px; background:var(--gold); box-shadow:0 0 10px rgba(242,201,139,.9) }
+      .foot{ color:var(--muted); font-size:.9rem; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:18px }
+      .share{ display:flex; gap:10px; flex-wrap:wrap }
+      .btn{
+        padding:7px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+        background:#1b132e; color:#f3ecff; font-size:.85rem; cursor:pointer; text-decoration:none;
+        transition: transform .06s ease, border-color .18s ease;
+      }
+      .btn:hover{ border-color:rgba(242,201,139,.6) }
+      .btn:active{ transform: translateY(1px); }
+      .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+      #toast{
+        position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+        background: rgba(28, 21, 48, .95);
+        color: #f6f1ff; border: 1px solid rgba(255,255,255,.18);
+        padding: 10px 14px; border-radius: 999px; opacity: 0; pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease; box-shadow: 0 10px 30px #0007;
+        font-size: .92rem;
+      }
+      #toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="nav-right" aria-label="Primary">
+          <a class="nav-link" href="/about/">About</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-btn" href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <header class="post">
+        <div class="sparkles" aria-hidden="true"></div>
+        <div class="kicker">ParkerPixie Blog</div>
+        <h1>{title} ✨</h1>
+        <p class="sub">{subtitle}</p>
+        <div class="meta">
+          <span>{date}</span>
+          <div class="tags">
+            {tags.map((t) => <span class="tag">{t}</span>)}
+          </div>
+        </div>
+        {cover && (
+          <figure class="cover">
+            <img src={cover} alt="Weird Al concert artwork" loading="eager" />
+          </figure>
+        )}
+      </header>
+
+      <article class="content">
+        <section class="insight" role="note" aria-label="Pixie Insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p style="margin:0;">Growth looks like doing the same thing again—just healthier, happier, and more you.</p>
+        </section>
+
+        <p>Normally, I don’t stack two concerts in one week. But when artists my family loves roll through town, we make the time 😉.</p>
+
+        <p>After an amazing Ani DiFranco night with Porter and two of my dearest friends, Blake, Porter, and I are off to see <strong>Weird Al</strong> at <strong>Breese Stevens Field</strong> tonight! Weird Al and I go way back—my gateway was <em>Amish Paradise</em>. No, I was never Amish (those who know me are wheezing right now—this feminist atheist would last five minutes… think David from <em>Schitt’s Creek</em> 😂). But it was hilarious and it stuck. I bought the CD, played it on repeat, and yes—I still have it somewhere.</p>
+
+        <p>What makes tonight extra sweet is the <em>then vs. now</em>. A couple years ago Porter and I saw Weird Al at the Overture Center—after I’d spent the morning in the ER with a scary high heart rate. I still made it, but I was really sick. Tonight, I get to wear the pride of how far I’ve come. Same artist, different chapter.</p>
+
+        <p>Also on the bill: <strong>Puddles Pity Party</strong>—the deranged clown with the most beautiful voice. His <em>Sound of Silence</em> cover gives me chills. We first found him on <em>America’s Got Talent</em>, so seeing him live is a full-circle bonus.</p>
+
+        <div class="pull">Perfect fall weather, my favorite people, and a soundtrack that’s equal parts nostalgia and joy. Let’s go.</div>
+
+        <p>I’m sure between Blake and me you’ll see pictures on Facebook tomorrow. Anyone else going? <strong>Comment!!!</strong> I’d love to say hi if we can catch each other!</p>
+
+        <div class="hr"></div>
+
+        <p class="mantra">
+          <span class="dot" aria-hidden="true"></span>
+          <span><strong>Mantra:</strong> I celebrate the progress I can feel, not just the photos I can post.</span>
+        </p>
+
+        <footer class="foot">
+          <div>— Parker</div>
+          <nav class="share" aria-label="Share this post">
+            <button class="btn" id="copyLinkBtn" type="button">Copy Link</button>
+            <a class="btn" id="fbShare" href="#" rel="noopener">Share on Facebook</a>
+            <button class="btn" id="nativeShareBtn" type="button" hidden>Share…</button>
+            <a class="btn" href="/blog/">Back to Blog</a>
+          </nav>
+        </footer>
+      </article>
+    </main>
+
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
+
+    <script type="module">
+      const url = new URL(window.location.href);
+      const titleMeta = document.title || "ParkerPixie Blog";
+
+      const copyBtn = document.getElementById("copyLinkBtn");
+      const fbA = document.getElementById("fbShare");
+      const nativeBtn = document.getElementById("nativeShareBtn");
+      const toast = document.getElementById("toast");
+
+      const fbShareUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+      fbShareUrl.searchParams.set("u", url.href);
+      fbA.href = fbShareUrl.toString();
+
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url.href);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = url.href;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          showToast();
+        } catch {
+          window.prompt("Copy this URL:", url.href);
+        }
+      });
+
+      if (navigator.share) {
+        nativeBtn.hidden = false;
+        nativeBtn.addEventListener("click", () => {
+          navigator.share({ title: titleMeta, url: url.href }).catch(() => {});
+        });
+      }
+
+      let toastTimer;
+      function showToast() {
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+    </script>
+  </body>
+</html>
 
