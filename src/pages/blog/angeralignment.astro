@@ -1,16 +1,16 @@
 ---
-/* src/pages/blog/anger-alignment.astro */
+/* src/pages/blog/angeralignment.astro */
 const title = "From Anger to Alignment: Why I Refuse to Stay Quiet Anymore";
 const subtitle = "Turning rage into values, action, and shimmer.";
 const date = "September 18, 2025";
 const tags = ["healing", "recovery", "values", "boundaries"];
 
-/* Hero image you uploaded */
-const cover = "/img/values.png"; 
+/* Image lives at /public/img/values.png */
+const cover = "/img/values.png";
 const coverAbs = "https://parkerpixie.netlify.app/img/values.png";
 
-/* ✅ Correct absolute URL for this page */
-const pageUrl = "https://parkerpixie.netlify.app/blog/anger-alignment/";
+/* ✅ Absolute URL for this page */
+const pageUrl = "https://parkerpixie.netlify.app/blog/angeralignment/";
 ---
 <!doctype html>
 <html lang="en">
@@ -20,24 +20,24 @@ const pageUrl = "https://parkerpixie.netlify.app/blog/anger-alignment/";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={subtitle} />
     <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- ✅ Absolute canonical under /blog/ -->
     <link rel="canonical" href={pageUrl} />
 
-    <!-- ✅ Social preview -->
+    <!-- ✅ Social preview (absolute URLs) -->
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="ParkerPixie" />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={title + " • ParkerPixie Blog"} />
     <meta property="og:description" content={subtitle} />
     <meta property="og:image" content={coverAbs} />
-    <meta property="og:image:alt" content="Graffiti wall with values" />
+    <meta property="og:image:alt" content="Graffiti wall with Equality, Kindness, Truth" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={subtitle} />
     <meta name="twitter:image" content={coverAbs} />
 
-    <!-- ✅ Pulls styling from your Helloworld post -->
     <style>
-      /* Copy-paste from helloworld.astro so it matches */
       :root{
         --brand:#8a5dff; --brand-deep:#5a39d9;
         --ink:#f6f1ff; --muted:#cfc7e6;
@@ -45,7 +45,100 @@ const pageUrl = "https://parkerpixie.netlify.app/blog/anger-alignment/";
         --gold:#f2c98b; --glow:0 0 30px rgba(138,93,255,.35);
         --radius:18px;
       }
-      /* ... keep the rest of your helloworld.astro CSS here ... */
+      *{box-sizing:border-box}
+      html,body{
+        margin:0; padding:0; line-height:1.6; color:var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+        background:
+          radial-gradient(1200px 800px at 10% -10%, rgba(138,93,255,.16), transparent 60%),
+          radial-gradient(900px 600px at 90% 0%, rgba(255,214,232,.14), transparent 58%),
+          url('/bg/cotton-candy.jpg') center/cover no-repeat fixed,
+          var(--bg);
+      }
+      a{ color:var(--gold); text-decoration:none }
+      a:hover{ text-decoration:underline }
+      .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+      header.site{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(15,11,20,.86), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+      .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+      .brand img{width:28px; height:28px; filter:drop-shadow(0 0 8px rgba(242,201,139,.45))}
+      .brand span{font-size:18px; color:var(--gold)}
+      .nav-right{display:flex; align-items:center; gap:14px}
+      .nav-link{
+        padding:.55rem .2rem; border-radius:8px; opacity:.92;
+        transition:opacity .15s ease, color .15s ease, background .15s ease;
+        color:#fff; text-decoration:none;
+      }
+      .nav-link:hover{opacity:1; color:var(--gold)}
+      .nav-btn{
+        padding:.6rem .9rem; border-radius:999px; font-weight:600;
+        border:1px solid rgba(255,255,255,.18);
+        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+        box-shadow:0 8px 24px rgba(90,57,217,.35);
+        color:#fff; text-decoration:none;
+      }
+      .nav-btn:hover{filter:brightness(1.06)}
+      @media (max-width:900px){
+        .nav-right{gap:10px}
+        .nav-link{padding:.5rem .1rem}
+      }
+      .shell{ max-width:820px; margin:40px auto 100px; padding:0 20px }
+      header.post{
+        background: linear-gradient(180deg, rgba(138,93,255,.18), transparent 55%), var(--card);
+        border:1px solid rgba(255,255,255,.10); border-radius:var(--radius);
+        box-shadow:var(--glow); padding:28px; position:relative; overflow:hidden;
+      }
+      .sparkles{
+        position:absolute; inset:-2px; pointer-events:none; opacity:.5; filter:blur(.2px);
+        background:
+          radial-gradient(8px 8px at 20% 30%, rgba(242,201,139,.8), transparent 60%),
+          radial-gradient(6px 6px at 70% 20%, rgba(138,93,255,.65), transparent 60%),
+          radial-gradient(5px 5px at 85% 65%, rgba(242,201,139,.7), transparent 60%),
+          radial-gradient(7px 7px at 35% 80%, rgba(138,93,255,.45), transparent 60%);
+      }
+      .kicker{ color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.78rem }
+      h1{ font-size:clamp(1.8rem, 4vw, 2.6rem); line-height:1.12; margin:8px 0 6px; color:#fff }
+      .sub{ color:#e8e0ff; font-size:clamp(1rem, 2.2vw, 1.15rem); margin:0 0 14px }
+      .meta{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--muted); font-size:.92rem }
+      .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-left:auto }
+      .tag{ background:rgba(242,201,139,.12); border:1px solid rgba(242,201,139,.35);
+            color:#ffeecf; padding:4px 10px; border-radius:999px; font-size:.78rem }
+      .cover{ margin:18px 0 0; border-radius:calc(var(--radius) - 6px); overflow:hidden; border:1px solid rgba(255,255,255,.12) }
+      .cover img{ width:100%; display:block }
+      .content{
+        margin-top:26px; padding:26px; border-radius:var(--radius);
+        background: rgba(9,7,15,.55); backdrop-filter: blur(4px);
+        border:1px solid rgba(255,255,255,.10);
+      }
+      .pull{
+        font-size:clamp(1.05rem, 2.2vw, 1.25rem);
+        color:#fff; background:rgba(138,93,255,.16);
+        border-left:3px solid var(--brand); padding:14px 16px; border-radius:12px; margin:20px 0;
+      }
+      .hr{ height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); margin:22px 0 }
+      .foot{ color:var(--muted); font-size:.9rem; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:18px }
+      .share{ display:flex; gap:10px; flex-wrap:wrap }
+      .btn{
+        padding:7px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+        background:#1b132e; color:#f3ecff; font-size:.85rem; cursor:pointer; text-decoration:none;
+        transition: transform .06s ease, border-color .18s ease;
+      }
+      .btn:hover{ border-color:rgba(242,201,139,.6) }
+      .btn:active{ transform: translateY(1px); }
+      #toast{
+        position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+        background: rgba(28, 21, 48, .95);
+        color: #f6f1ff; border: 1px solid rgba(255,255,255,.18);
+        padding: 10px 14px; border-radius: 999px; opacity: 0; pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease; box-shadow: 0 10px 30px #0007;
+        font-size: .92rem;
+      }
+      #toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
   </head>
   <body>
@@ -77,7 +170,7 @@ const pageUrl = "https://parkerpixie.netlify.app/blog/anger-alignment/";
         </div>
         {cover && (
           <figure class="cover">
-            <img src={cover} alt="Graffiti wall with Equality, Kindness, Truth" loading="eager" />
+            <img src={cover} alt="Graffiti wall with the words Equality, Kindness, Truth" loading="eager" />
           </figure>
         )}
       </header>
@@ -85,54 +178,56 @@ const pageUrl = "https://parkerpixie.netlify.app/blog/anger-alignment/";
       <article class="content">
         <p>For most of my life, I lived for other people. I did what was expected of me, what kept other people happy, what avoided rocking the boat. Especially when it came to my mother — a woman who thrived on control, criticism, and reminding me that my worth was conditional.</p>
         <p>And when you live like that long enough, you stop naming your feelings. You stop asking yourself, <em>Why am I upset?</em> or <em>Why does this hurt me?</em> Instead, it all boils down to one big emotion: anger. And anger was the only language I knew.</p>
-        <p>But here’s the problem: anger wasn’t working. It didn’t solve anything. It didn’t make me feel better. It didn’t change the systems, the people, or the injustices that pissed me off in the first place...</p>
+        <p>But here’s the problem: anger wasn’t working. It didn’t solve anything. It didn’t make me feel better. It didn’t change the systems, the people, or the injustices that pissed me off in the first place. And the longer I pretended it was working, the more insane I felt — repeating the same explosion over and over, expecting a different result.</p>
 
         <h2>🚪 Recovery Made Me Stop and Ask Why</h2>
         <p>When I started my recovery journey, I had to relearn how to feel. And not just feel — but name those feelings. <strong>This is grief. This is disappointment. This is shame. This is injustice.</strong></p>
         <p>Because once I could name the emotion, I could finally ask: <em>Why am I feeling this way? What is this pointing to?</em></p>
-        <p>That’s when things started to shift...</p>
+        <p>That’s when things started to shift.</p>
+        <p>I realized I can’t control my emotions (they’re going to come, like waves), but I can control my actions. I can control how I show up to those emotions. Do I lash out? Do I shut down? Or do I take a breath, ask why, and make a different choice?</p>
 
         <h2>⚡ Anger Is a Value Misaligned</h2>
-        <p>Here’s what I’ve learned: most of my anger comes from something happening that doesn’t align with my values...</p>
-
+        <p>Here’s what I’ve learned: most of my anger comes from something happening that doesn’t align with my values.</p>
         <ul>
-          <li>Lack of transparency</li>
-          <li>Sneaky, manipulative systems</li>
-          <li>People taking advantage of those who are already disadvantaged</li>
+          <li>Lack of transparency.</li>
+          <li>Sneaky, manipulative systems.</li>
+          <li>People taking advantage of those who are already disadvantaged.</li>
         </ul>
-
-        <p>That’s why I lose my shit when I’m stuck in an endless loop with State Farm or Verizon... Or when I sat in a hospital bed and they tried to prescribe me one of the two medications I’m literally allergic to...</p>
-
-        <p>This is why I now pay extra out of pocket for a direct primary care doctor, <strong>Dr. Wendy Molaska</strong>... </p>
-
-        <p>Same with <strong>Anker</strong>, the company behind my Soundcore earbuds... </p>
+        <p>Nothing gets me more fired up than that. And when I notice my blood boiling, nine times out of ten, it’s because something is violating those values.</p>
+        <p>That’s why I lose my shit when I’m stuck in an endless loop with State Farm or Verizon, trying to get what I already paid for. Or when I sat in a hospital bed and they tried to prescribe me one of the two medications I’m literally allergic to — even though it’s right there in my chart. If I wasn’t my own advocate, I could’ve died.</p>
+        <p>This is why I now pay extra out of pocket for a direct primary care doctor, <strong>Dr. Wendy Molaska</strong>. Because with her, I don’t have to beg someone to remember my forty-three years of medical history. I can text her pictures at 5:17am and she actually knows my story. That’s what healthcare should look like.</p>
+        <p>Same with <strong>Anker</strong>, the company behind my Soundcore earbuds. Their customer service team responded to my warranty claim within one business day, followed up when I missed their email, and shipped me a replacement with no hoops, no hassle, no gaslighting. Compare that to the corporate giants who only seem to respond when you threaten legal action or blast them on social media. Night and day.</p>
 
         <h2>💣 The Bigger Picture</h2>
         <p>And then there’s the world around us. Every day, it feels like one more headline breaks me open:</p>
         <ul>
           <li>Another school shooting.</li>
           <li>Another person killed while the so-called “party of American values” clutches their pearls in shock—after cheering “guns for all.”</li>
-          <li>Another family crying out for mental health support that doesn’t exist...</li>
+          <li>Another family crying out for mental health support that doesn’t exist because the system is already at capacity.</li>
         </ul>
+        <p>We are living in a country where everyone is exhausted, overworked, beaten down—and the only time people seem to get results is when they threaten, scream, or sue.</p>
         <p>No wonder we’re all angry. But anger alone isn’t moving the needle.</p>
 
         <h2>✨ Choosing Differently</h2>
-        <p>I’m not saying I roll over now. Absolutely not. I still stand my ground... </p>
-        <p>Because here’s the truth: <strong>kindness is not weakness. Kindness rules the day.</strong></p>
+        <p>I’m not saying I roll over now. Absolutely not. I still stand my ground. I still call out bullshit when I see it. But I do it differently now.</p>
+        <p>I approach my anger with curiosity instead of letting it consume me. I ask: <em>What value of mine is being stepped on? What’s the real injustice here? How can I push back in a way that doesn’t destroy me in the process?</em></p>
+        <p>That doesn’t mean I’m soft. It means I’m strategic. I’m compassionate. I’m building bridges where they can be built, and drawing hard lines where they can’t.</p>
+        <p>Because here’s the truth: <strong>kindness is not weakness. Kindness rules the day.</strong> Fighting for what’s right doesn’t mean screaming—it means choosing actions that align with your values, even when the world doesn’t.</p>
 
         <h2>📖 Where to Begin</h2>
-        <p>If this all feels overwhelming and you’re wondering where to even start, I’ll tell you what has helped me: <strong>The Let Them Theory</strong>, popularized by Mel Robbins...</p>
-        <p>👉 If you want a place to start, read her book. Seriously. Check out <a href="https://www.melrobbins.com" target="_blank">Mel Robbins’ website here</a>.</p>
+        <p>If this all feels overwhelming and you’re wondering where to even start, I’ll tell you what has helped me: <strong>The Let Them Theory</strong>, popularized by Mel Robbins. By now, you’ve probably heard about it. Maybe you’ve even bought the book because 30498023 other people recommended it and it’s been sitting on your nightstand, silently judging you.</p>
+        <p>Here’s the gist: you can’t control other people. You can’t control their actions, their emotions, their choices. All you can control is your own response. Let them do what they’re going to do—and then choose how you will act in alignment with your own peace and values.</p>
+        <p>It’s not rolling over. It’s refusing to carry responsibility that isn’t yours. It’s freedom.</p>
+        <p>👉 If you want a place to start, read her book. Seriously. Check out <a href="https://www.melrobbins.com" target="_blank" rel="noopener">Mel Robbins’ website here</a>.</p>
 
         <h2>🌱 Why I’m Sharing This</h2>
-        <p>I’m sharing this because I know I’m not the only one who’s tired... </p>
-
+        <p>I’m sharing this because I know I’m not the only one who’s tired. I know I’m not the only one who’s woken up every morning for the last four years feeling disheartened by the world.</p>
+        <p>And I want you to hear this:</p>
         <ul>
           <li>You’re not crazy for feeling angry.</li>
           <li>You’re not weak for wanting peace.</li>
           <li>You don’t have to burn your whole life down to stand for your values.</li>
         </ul>
-
         <p>You only need to start by naming your feelings, asking why, and then choosing differently.</p>
         <p>That’s how we turn anger into alignment. That’s how we build a kinder world. That’s how we make the whole damn place shimmer.</p>
 
@@ -146,5 +241,35 @@ const pageUrl = "https://parkerpixie.netlify.app/blog/anger-alignment/";
         </footer>
       </article>
     </main>
+
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
+
+    <script type="module">
+      const url = new URL(window.location.href);
+      const copyBtn = document.getElementById("copyLinkBtn");
+      const fbA = document.getElementById("fbShare");
+      const toast = document.getElementById("toast");
+
+      const fbShareUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+      fbShareUrl.searchParams.set("u", url.href);
+      fbA.href = fbShareUrl.toString();
+
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url.href);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = url.href;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 1400);
+        } catch {}
+      });
+    </script>
   </body>
 </html>
