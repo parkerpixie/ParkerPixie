@@ -3,358 +3,249 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ParkerPixiePaws — The Stitchbook (Parallax Chapters)</title>
-<meta name="description" content="Scroll through full-screen amigurumi chapters with parallax, sparkles and sliding side-notes. Healing through stitches by ParkerPixiePaws." />
+<title>ParkerPixiePaws — The Stitchbook (Alternating Layout)</title>
+<meta name="description" content="An alternating, mobile-friendly storybook of ParkerPixiePaws amigurumi — image on one side, story on the other. Healing through stitches." />
 <link rel="icon" href="/CapyGoldIcon.png" />
 <style>
   :root{
-    --bg:#0f0b14; --ink:#f5f1ff; --muted:#bdb5d9; --gold:#D8AA3B;
-    --glass:rgba(255,255,255,.08); --rail:#fff7e6; --rail-ink:#2c2c2c;
+    --bg:#0f0b14;         /* deep cosmos */
+    --ink:#f6f1ff;        /* soft lilac-white */
+    --muted:#c9bfe6;
+    --gold:#D8AA3B;       /* Parker gold */
+    --panel:#1a1424;      /* card bg */
+    --glass:rgba(255,255,255,.06);
+    --border:rgba(255,255,255,.12);
+    --shadow:0 14px 40px rgba(0,0,0,.35);
+    --maxw: 1100px;
   }
+
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:ui-rounded,"SF Pro Rounded",Quicksand,Avenir,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-    overflow-x:hidden; scroll-snap-type:y proximity;
-  }
-
-  /* Global sparkles backdrop (subtle) */
-  .sky{
-    position:fixed; inset:-20vh -20vw; z-index:0; pointer-events:none; opacity:.45;
+    margin:0; color:var(--ink);
     background:
-      radial-gradient(2px 2px at 10% 20%, #fff5 60%, transparent 61%),
-      radial-gradient(1.4px 1.4px at 30% 70%, #fff5 60%, transparent 61%),
-      radial-gradient(1.8px 1.8px at 70% 30%, #fff5 60%, transparent 61%),
-      radial-gradient(2.2px 2.2px at 85% 60%, #fff5 60%, transparent 61%),
-      radial-gradient(1.6px 1.6px at 55% 15%, #fff5 60%, transparent 61%);
-    filter:blur(.2px);
-    animation: drift 30s linear infinite;
-  }
-  @keyframes drift{
-    0%{transform:translate3d(0,0,0) scale(1)}
-    50%{transform:translate3d(2vw,3vh,0) scale(1.02)}
-    100%{transform:translate3d(0,0,0) scale(1)}
+      radial-gradient(1200px 800px at 20% -10%, #1b1530 0%, transparent 60%),
+      radial-gradient(1000px 700px at 80% 110%, #24183a 0%, transparent 60%),
+      var(--bg);
+    font-family: ui-rounded,"SF Pro Rounded",Quicksand,Avenir,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
   }
 
-  /* Progress dots */
-  .dots{
-    position:fixed; right:12px; top:50%; transform:translateY(-50%);
-    display:flex; flex-direction:column; gap:10px; z-index:30;
+  /* Header / cover */
+  .cover{
+    padding: clamp(16px,3vw,32px);
+    display:grid; place-items:center; text-align:center;
   }
-  .dot{
-    width:10px; height:10px; border-radius:999px; background:#ffffff35; border:1px solid #ffffff55;
-    transition:transform .25s ease, background .25s ease;
-  }
-  .dot.active{ background:var(--gold); transform:scale(1.4); }
+  .brand{ font-weight:900; letter-spacing:.6px; font-size: clamp(22px,4.2vw,44px) }
+  .tag{ color:var(--muted); font-size: clamp(14px,2vw,18px); max-width:60ch }
 
-  /* Sections (chapters) */
-  section.chapter{
-    position:relative; z-index:1;
-    min-height:100svh; scroll-snap-align:start;
-    display:grid; grid-template-rows:auto 1fr auto;
-    padding: clamp(10px, 2vw, 24px);
+  /* Section rows */
+  section.entry{
+    padding: clamp(18px,4vw,48px) clamp(16px,3vw,32px);
+    display:flex; justify-content:center;
   }
-
-  /* Header strip */
-  .hero{
-    display:flex; align-items:center; gap:12px; padding:10px 12px;
-    background:linear-gradient(180deg,var(--glass),transparent);
-    border:1px solid rgba(255,255,255,.08); border-radius:14px;
-    backdrop-filter:saturate(120%) blur(6px);
+  .row{
+    width:100%; max-width:var(--maxw);
+    display:grid; grid-template-columns: 1.05fr 1fr; gap: clamp(16px,3vw,40px);
+    align-items:center;
   }
-  .hero .title{ font-weight:800; letter-spacing:.3px; font-size:clamp(18px,2.4vw,28px); }
-  .hero .sub{ margin-left:auto; color:var(--muted); font-size:clamp(12px,1.6vw,14px) }
-
-  /* Stage: parallax image + rails */
-  .stage{
-    position:relative; display:grid; place-items:center; overflow:hidden;
-  }
-
-  /* Parallax container */
-  .para{
-    position:relative; width:min(92vw, 980px); height:min(68svh, 720px);
-    perspective:1000px;
-  }
-  .glow{
-    position:absolute; inset:-12%; z-index:1; filter:blur(40px); opacity:.18;
-    background: radial-gradient(50% 50% at 50% 40%, #8a5dff 0%, transparent 55%),
-                radial-gradient(45% 45% at 60% 60%, #D8AA3B55 0%, transparent 60%);
-    transform:translateZ(-80px) scale(1.2);
-  }
-  .photoWrap{
-    position:absolute; inset:0; display:grid; place-items:center; z-index:2;
-    transform-style:preserve-3d;
-    transition:transform .6s cubic-bezier(.2,.8,.2,1), filter .6s;
-  }
-  .photo{
-    width:100%; height:100%; object-fit:cover; border-radius:24px;
-    border:1px solid rgba(255,255,255,.12);
-    box-shadow:0 18px 50px rgba(0,0,0,.35);
-    transform:translateZ(0);
-  }
-
-  /* Side rails (off-canvas notes) */
-  .rail{
-    position:absolute; top:50%; transform:translateY(-50%);
-    width:min(40ch, 84vw); max-width:420px;
-    background:var(--rail); color:var(--rail-ink);
-    border:2px solid var(--gold); border-radius:16px;
-    padding:14px 16px; box-shadow:0 14px 30px rgba(0,0,0,.25);
-    z-index:3; opacity:0; pointer-events:none;
-    transition:transform .7s cubic-bezier(.2,.8,.2,1), opacity .5s ease;
-    will-change:transform,opacity;
-  }
-  .rail small{display:block; color:#5a4b22; opacity:.85; margin-top:6px}
-  .rail.left{ left:-520px }  /* start off-canvas */
-  .rail.right{ right:-520px }
-
-  /* When chapter is revealed */
-  .reveal .rail.left{ transform:translateY(-50%) translateX(560px); opacity:1; pointer-events:auto }
-  .reveal .rail.right{ transform:translateY(-50%) translateX(-560px); opacity:1; pointer-events:auto }
-  .reveal .rail.right.delay{ transition-delay:.12s }
-  .reveal .rail.left.delay{ transition-delay:.22s }
-
-  /* Mobile: rails become toggled drawers at bottom */
-  .notesBtn{
-    display:none;
-    position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
-    z-index:4;
-    background:linear-gradient(180deg,var(--glass),transparent);
-    border:1px solid rgba(255,255,255,.3); color:var(--ink);
-    padding:8px 12px; border-radius:999px; font-weight:700;
-  }
-
+  /* Alternate sides: even rows reverse columns on desktop */
+  .row.reverse{ grid-template-columns: 1fr 1.05fr; }
   @media (max-width: 860px){
-    .rail{ 
-      top:auto; bottom:12px; left:50%; right:auto; transform:translate(-50%, 20px);
-      width:calc(100vw - 24px); max-width:none; border-radius:16px;
-    }
-    .reveal .rail{ transform:translate(-50%,0); opacity:1 }
-    .rail + .rail{ margin-top:8px } /* stack rails */
-    .notesBtn{ display:inline-flex }
-    .rails.collapsed .rail{ transform:translate(-50%, 110%) !important; opacity:0 !important }
+    .row, .row.reverse{ grid-template-columns: 1fr; }
   }
 
-  /* Thread divider */
+  /* Media (image) */
+  .media{
+    background: linear-gradient(180deg,var(--glass),transparent);
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow: var(--shadow);
+    padding: clamp(8px,1.5vw,12px);
+    display:grid; place-items:center;
+  }
+  .media img{
+    max-width:100%;
+    max-height:70svh;
+    height:auto; width:auto; /* natural size; no cropping */
+    object-fit: contain;      /* safe if width/height ever set */
+    border-radius:16px;
+    border:1px solid var(--border);
+    box-shadow: 0 10px 26px rgba(0,0,0,.28);
+    display:block;
+  }
+
+  /* Copy panel */
+  .copy{
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.15));
+    border:1px solid var(--border);
+    border-radius:22px;
+    box-shadow: var(--shadow);
+    padding: clamp(16px,2.6vw,28px);
+  }
+  .kicker{
+    color:var(--gold); font-weight:800; letter-spacing:.3px;
+    text-transform:uppercase; font-size:.9rem; margin:0 0 4px 0;
+  }
+  h2{
+    margin:.1rem 0 .8rem 0; font-size:clamp(20px,2.6vw,30px);
+    font-weight:900; letter-spacing:.2px;
+  }
+  p{ margin:.6rem 0 }
+  em{ color:#eadaff; font-style:italic }
+  .caption{
+    margin-top:.8rem; padding-top:.6rem; border-top:1px dashed var(--border);
+    color:var(--muted); font-size:.95rem;
+  }
+
+  /* Divider thread */
   .thread{
-    height:40px; margin-top:10px; opacity:.35; pointer-events:none;
+    width:100%; max-width:var(--maxw);
+    height:40px; margin: 4px auto 0;
     background:
       radial-gradient(6px 6px at 20% 50%, var(--gold) 35%, transparent 36%),
       repeating-linear-gradient(90deg, transparent 0 28px, rgba(216,170,59,.35) 28px 32px, transparent 32px 64px);
-    filter:blur(.3px);
+    opacity:.35; filter: blur(.3px);
   }
 
-  /* Cover + outro */
-  .cover, .outro{ display:grid; align-content:center; justify-items:center; gap:10px }
-  .brand{ font-size:clamp(22px,4.2vw,44px); font-weight:900; letter-spacing:.6px }
-  .tag{ color:var(--muted); font-size:clamp(14px,2vw,18px); text-align:center; max-width:60ch }
+  /* Outro */
+  .outro{
+    padding: clamp(24px,4vw,56px);
+    display:grid; place-items:center; text-align:center;
+  }
   .cta{
-    margin-top:6px; display:inline-block; padding:10px 14px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.35); color:var(--ink); text-decoration:none; font-weight:700;
-    background:linear-gradient(180deg,var(--glass),transparent);
+    margin-top:10px; display:inline-block; padding:10px 16px;
+    border-radius:999px; color:var(--ink); text-decoration:none; font-weight:800;
+    background:linear-gradient(180deg, var(--glass), transparent);
+    border:1px solid rgba(255,255,255,.35);
   }
   .cta:hover{ border-color:#fff }
 
+  /* Reveal animation */
+  .reveal-up{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1) }
+  .reveal-up.on{ opacity:1; transform: translateY(0) }
+  @media (prefers-reduced-motion: reduce){
+    .reveal-up{ opacity:1; transform:none; transition:none }
+  }
 </style>
 </head>
 <body>
-<div class="sky" aria-hidden="true"></div>
 
-<!-- Progress dots -->
-<nav class="dots" aria-label="Chapters">
-  <a href="#cover" class="dot" aria-label="Cover"></a>
-  <a href="#aurora" class="dot"></a>
-  <a href="#bejeweled" class="dot"></a>
-  <a href="#bonnie" class="dot"></a>
-  <a href="#gilligan" class="dot"></a>
-  <a href="#jade" class="dot"></a>
-  <a href="#outro" class="dot"></a>
-</nav>
+<!-- Cover -->
+<header class="cover">
+  <h1 class="brand">The Stitchbook of ParkerPixiePaws</h1>
+  <p class="tag">An alternating, scrollable gallery—each friend on one side, their story on the other. Cozy, clean, and easy to read on mobile.</p>
+</header>
 
-<!-- COVER -->
-<section class="chapter cover" id="cover" aria-label="Cover">
-  <div class="hero">
-    <div class="title brand">The Stitchbook of ParkerPixiePaws</div>
-    <div class="sub">Sass · Shimmer · Sparkle · Soothing Stitches</div>
-  </div>
-  <div class="stage">
-    <div class="para">
-      <div class="glow"></div>
-      <div class="photoWrap"><img class="photo" src="/img/Bejeweled.jpg" alt="Hero collage — Bejeweled the Peacock" /></div>
-      <button class="notesBtn" data-for="cover">Notes</button>
-      <div class="rails collapsed" id="rails-cover">
-        <div class="rail left">A gentle, scrollable storybook of amigurumi. <small>Welcome</small></div>
-        <div class="rail right delay">Meet each piece, read a few notes, and feel the healing woven in. <small>How to</small></div>
+<!-- AURORA (image left, text right) -->
+<section class="entry" id="aurora">
+  <div class="row">
+    <figure class="media reveal-up">
+      <img src="/img/Aurora.jpg" alt="Aurora the puffin amigurumi" />
+    </figure>
+    <article class="copy reveal-up">
+      <div class="kicker">Puffin · Legacy & Light</div>
+      <h2>Aurora: Legacy & Light</h2>
+      <p>Aurora is for my dearest friend of thirty years — mentor, guide, mother figure. She’s always seen my strength before I did, always lit the path. Puffins are her bird: resilient travelers who thrive in harsh landscapes. Aurora is both tribute and thank-you.</p>
+      <div class="caption">
+        <p><em>Aurora the puffin amigurumi.</em></p>
+        <p><em>Aurora the puffin — stitched in gratitude for three decades of guidance and light.</em></p>
       </div>
-    </div>
-  </div>
-  <div class="thread" aria-hidden="true"></div>
-  <p class="tag">Tip: Use the dots on the right to jump. On mobile, tap “Notes” to reveal captions.</p>
-  <a class="cta" href="#aurora">Begin the wander ↓</a>
-</section>
-
-<!-- AURORA — Puffin -->
-<section class="chapter" id="aurora" aria-labelledby="h-aurora">
-  <div class="hero">
-    <div class="title" id="h-aurora">Aurora — Puffin</div>
-    <div class="sub">calm · feather details · ocean daydream</div>
-  </div>
-  <div class="stage">
-    <div class="para">
-      <div class="glow"></div>
-      <div class="photoWrap" data-tilt>
-        <img class="photo" src="/img/Aurora.jpg" alt="Aurora the puffin plush" />
-      </div>
-      <button class="notesBtn" data-for="aurora">Notes</button>
-      <div class="rails collapsed" id="rails-aurora">
-        <div class="rail left">“Bonjour — I’m Aurora, stitched with extra puff and extra love.”<small>Creature voice</small></div>
-        <div class="rail right delay">I made Aurora during a week I needed softness. Each feather slowed my breath and found a steadier rhythm.<small>Reflection / healing</small></div>
-        <div class="rail left delay">Yarn & notes: Bernat Blanket · ~12 hrs · satin-stitch eyes.<small>Process</small></div>
-      </div>
-    </div>
-  </div>
-  <div class="thread" aria-hidden="true"></div>
-</section>
-
-<!-- BEJEWELED — Peacock -->
-<section class="chapter" id="bejeweled" aria-labelledby="h-bej">
-  <div class="hero">
-    <div class="title" id="h-bej">Bejeweled — Peacock</div>
-    <div class="sub">centerpiece · shimmer · becoming</div>
-  </div>
-  <div class="stage">
-    <div class="para">
-      <div class="glow"></div>
-      <div class="photoWrap" data-tilt>
-        <img class="photo" src="/img/Bejeweled.jpg" alt="Bejeweled the peacock with jeweled tail" />
-      </div>
-      <button class="notesBtn" data-for="bejeweled">Notes</button>
-      <div class="rails collapsed" id="rails-bejeweled">
-        <div class="rail left">“Unmasked. Radiant. I make the whole place shimmer.”<small>Creature voice</small></div>
-        <div class="rail right delay">Tail-feather assembly became a meditation on attention and pride — your declaration piece.<small>Reflection / healing</small></div>
-        <div class="rail left delay">Bulky velvet + felt jewels · wired tail base · blocked overnight for drape.<small>Process</small></div>
-      </div>
-    </div>
-  </div>
-  <div class="thread" aria-hidden="true"></div>
-</section>
-
-<!-- BONNIE — Chicken -->
-<section class="chapter" id="bonnie" aria-labelledby="h-bonnie">
-  <div class="hero">
-    <div class="title" id="h-bonnie">Bonnie — Chicken</div>
-    <div class="sub">comfort · farmhouse cozy · comic relief</div>
-  </div>
-  <div class="stage">
-    <div class="para">
-      <div class="glow"></div>
-      <div class="photoWrap" data-tilt>
-        <img class="photo" src="/img/Bonnie.jpg" alt="Bonnie the chicken plush" />
-      </div>
-      <button class="notesBtn" data-for="bonnie">Notes</button>
-      <div class="rails collapsed" id="rails-bonnie">
-        <div class="rail left">“Bok-bok bestie. I bring breakfast energy and zero judgment.”<small>Creature voice</small></div>
-        <div class="rail right delay">Repetitive, round stitches = calm hands, silly joy when the comb clicked into place.<small>Reflection / healing</small></div>
-        <div class="rail left delay">Chenille yarn · safety eyes · firm polyfill for cartoon roundness.<small>Process</small></div>
-      </div>
-    </div>
-  </div>
-  <div class="thread" aria-hidden="true"></div>
-</section>
-
-<!-- GILLIGAN — Pelican -->
-<section class="chapter" id="gilligan" aria-labelledby="h-gilligan">
-  <div class="hero">
-    <div class="title" id="h-gilligan">Gilligan — Pelican</div>
-    <div class="sub">seaside whimsy · oversized beak · explorer</div>
-  </div>
-  <div class="stage">
-    <div class="para">
-      <div class="glow"></div>
-      <div class="photoWrap" data-tilt>
-        <img class="photo" src="/img/Gilligan.jpg" alt="Gilligan the pelican plush" />
-      </div>
-      <button class="notesBtn" data-for="gilligan">Notes</button>
-      <div class="rails collapsed" id="rails-gilligan">
-        <div class="rail left">“Need a ride for your worries? Into the beak they go.”<small>Creature voice</small></div>
-        <div class="rail right delay">Fiddly beak shaping that kept hands busy and thoughts quiet — worth it for that pocket!<small>Reflection / healing</small></div>
-        <div class="rail left delay">Short rows + firm edge SC · light wire at brim · matte embroidery for charm.<small>Process</small></div>
-      </div>
-    </div>
-  </div>
-  <div class="thread" aria-hidden="true"></div>
-</section>
-
-<!-- JADE — Succulent Planter -->
-<section class="chapter" id="jade" aria-labelledby="h-jade">
-  <div class="hero">
-    <div class="title" id="h-jade">Jade — Succulent Planter</div>
-    <div class="sub">steadfast · patience · roots & growth</div>
-  </div>
-  <div class="stage">
-    <div class="para">
-      <div class="glow"></div>
-      <div class="photoWrap" data-tilt>
-        <img class="photo" src="/img/Jade.jpg" alt="Jade the succulent planter amigurumi" />
-      </div>
-      <button class="notesBtn" data-for="jade">Notes</button>
-      <div class="rails collapsed" id="rails-jade">
-        <div class="rail left">“Quiet soil. Wild bloom. We grow here.”<small>Piece voice</small></div>
-        <div class="rail right delay">For Blake — steady ground to the swirl; proof that patient love lets bright parts flourish.<small>Reflection / healing</small></div>
-        <div class="rail left delay">Planter form · crisp leaves via tighter gauge · cool, calming palette.<small>Process</small></div>
-      </div>
-    </div>
-  </div>
-  <div class="thread" aria-hidden="true"></div>
-</section>
-
-<!-- OUTRO -->
-<section class="chapter outro" id="outro" aria-label="Outro">
-  <div class="hero">
-    <div class="title">Thanks for wandering through my stitches</div>
-    <div class="sub">every piece a chapter · every chapter a little healing</div>
-  </div>
-  <div class="stage">
-    <p class="tag">If one of these speaks to you, I take limited commissions.</p>
-    <a class="cta" href="/parkerpixiepaws/request/">Inquire about a custom</a>
+    </article>
   </div>
 </section>
+<div class="thread" aria-hidden="true"></div>
+
+<!-- BEJEWELED (text left, image right) -->
+<section class="entry" id="bejeweled">
+  <div class="row reverse">
+    <article class="copy reveal-up">
+      <div class="kicker">Peacock · Shimmer & Becoming</div>
+      <h2>Bejeweled: Shimmer & Becoming</h2>
+      <p>And then there’s Bejeweled. My peacock. My queen. My declaration. For years, I wore the mask of “everything is perfect” while I broke inside. Bejeweled is me, unmasked. She is feathers spread wide, shimmer unapologetic. She’s the reminder that the little girl inside me has finally arrived — radiant, worthy, seen.</p>
+      <div class="caption">
+        <p><em>Bejeweled the peacock amigurumi.</em></p>
+        <p><em>Bejeweled — the moment of becoming, stitched in unapologetic shimmer.</em></p>
+      </div>
+    </article>
+    <figure class="media reveal-up">
+      <img src="/img/Bejeweled.jpg" alt="Bejeweled the peacock amigurumi" />
+    </figure>
+  </div>
+</section>
+<div class="thread" aria-hidden="true"></div>
+
+<!-- BONNIE (image left, text right) -->
+<section class="entry" id="bonnie">
+  <div class="row">
+    <figure class="media reveal-up">
+      <img src="/img/Bonnie.jpg" alt="Bonnie the chicken amigurumi" />
+    </figure>
+    <article class="copy reveal-up">
+      <div class="kicker">Chicken · Humor & Resilience</div>
+      <h2>Bonnie: Humor & Resilience</h2>
+      <p>Bonnie has the wildest origin story of them all. She was supposed to be my “Trojan chicken.” The plan was dark and raw: crochet a chicken beautiful enough for my mother to proudly display, then fill it with slips of paper — my hurts, my rage, my childhood wounds. I was going to hand it to her, let her cut it open, and finally see all I’d carried. My counselor gently suggested there might be better ways to heal from childhood PTSD.</p>
+      <p>So Bonnie transformed. She became something else, someone else’s. Instead of being a Trojan horse for pain, she became a tribute for a friend whose honesty, humor, and grounding presence has been a lifeline in my recovery. This “chicken lady” fills her home with warmth and resilience, and she’s far more worthy of such a gift than my mother ever was. Bonnie isn’t trauma anymore — she’s testimony.</p>
+      <div class="caption">
+        <p><em>Bonnie the chicken amigurumi.</em></p>
+        <p><em>Bonnie the chicken — once a Trojan plan, now a tribute to honest friendship.</em></p>
+      </div>
+    </article>
+  </div>
+</section>
+<div class="thread" aria-hidden="true"></div>
+
+<!-- GILLIGAN (text left, image right) -->
+<section class="entry" id="gilligan">
+  <div class="row reverse">
+    <article class="copy reveal-up">
+      <div class="kicker">Pelican · Gratitude & Memories</div>
+      <h2>Gilligan: Gratitude & Memories</h2>
+      <p>Gilligan is a pelican for my mother-in-law, who became my family when my own mother couldn’t. He carries with him years of Florida beaches, dolphins, and seabird sightings — stitched memories of vacations and love. Gilligan isn’t just a bird; he’s a bond.</p>
+      <div class="caption">
+        <p><em>Gilligan the pelican amigurumi.</em></p>
+        <p><em>Gilligan the pelican — sun, salt, and family stitched into a companion.</em></p>
+      </div>
+    </article>
+    <figure class="media reveal-up">
+      <img src="/img/Gilligan.jpg" alt="Gilligan the pelican amigurumi" />
+    </figure>
+  </div>
+</section>
+<div class="thread" aria-hidden="true"></div>
+
+<!-- JADE (image left, text right) -->
+<section class="entry" id="jade">
+  <div class="row">
+    <figure class="media reveal-up">
+      <img src="/img/Jade.jpg" alt="Jade succulent planter amigurumi" />
+    </figure>
+    <article class="copy reveal-up">
+      <div class="kicker">Succulent Planter · Steadfast & Patience</div>
+      <h2>Jade: Steadfast & Patience</h2>
+      <p>Jade is a planter for my husband, whose love is steady even when my energy is chaos. He’s the soil to my swirl, the anchor that lets me grow wild. Succulents bloom in unlikely places — so does love, so does resilience. Jade is a reminder of that.</p>
+      <div class="caption">
+        <p><em>Jade succulent planter amigurumi.</em></p>
+        <p><em>Jade — a stitched planter for the anchor who lets me grow wild.</em></p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Outro -->
+<footer class="outro">
+  <p class="tag">If one of these speaks to you, I take limited commissions.</p>
+  <a class="cta" href="/parkerpixiepaws/request/">Inquire about a custom</a>
+</footer>
 
 <script>
-  // Intersection reveal + dots
-  const chapters=[...document.querySelectorAll('section.chapter')];
-  const dots=[...document.querySelectorAll('.dot')];
-  const io=new IntersectionObserver((ents)=>{
-    ents.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('reveal');
-        const i=chapters.indexOf(e.target);
-        if(i>-1){ dots.forEach(d=>d.classList.remove('active')); dots[i].classList.add('active'); }
-      }
+  // Reveal-in on scroll
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('on'); }
     });
-  },{threshold:.45});
-  chapters.forEach(c=>io.observe(c));
-
-  // Parallax tilt on mouse move
-  const wraps=[...document.querySelectorAll('.photoWrap[data-tilt]')];
-  wraps.forEach(w=>{
-    w.addEventListener('mousemove', (ev)=>{
-      const r=w.getBoundingClientRect();
-      const x=((ev.clientX - r.left)/r.width - .5)*8; // tilt range
-      const y=((ev.clientY - r.top)/r.height - .5)*-8;
-      w.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
-    });
-    w.addEventListener('mouseleave', ()=> w.style.transform='rotateY(0) rotateX(0)');
-  });
-
-  // Mobile Notes toggle
-  document.querySelectorAll('.notesBtn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const id=btn.getAttribute('data-for');
-      const rails=document.getElementById('rails-'+id) || document.getElementById('rails-cover');
-      rails.classList.toggle('collapsed');
-    });
-  });
+  },{threshold:.2});
+  document.querySelectorAll('.reveal-up').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
