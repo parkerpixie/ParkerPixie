@@ -1,328 +1,311 @@
----
-const year = new Date().getFullYear();
----
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Parker Pins & Glitter Wall • ParkerPixiePixel</title>
-  <meta name="description" content="Parker Pins & Glitter Wall — a filterable, scrollable gallery of sparkly Parker things: pictures, quotes, videos, memes, and templates." />
+  <title>ParkerPixiePaws — The Stitchbook</title>
+  <meta name="description" content="A scrollable storybook of ParkerPixiePaws amigurumi — each chapter reveals a creature and the healing, process, and materials behind it." />
   <link rel="icon" href="/CapyGoldIcon.png" />
-
   <style>
     :root{
-      --brand:#8a5dff;
-      --brand-deep:#4b2fb5;
-      --gold:#D8AA3B;
-      --ink:#2c2c2c;
-      --muted:#5a5a5a;
-      --bg-card:#f5f1eb;
-      --bg-bubble:#e8dccd;
-      --glass:rgba(255,255,255,0.7);
+      --bg:#0f0b14;        /* deep cosmos */
+      --ink:#f6f1ff;       /* soft lilac-white */
+      --muted:#c9bfe6;
+      --bubble:#fff7e6;    /* cream puff */
+      --line:#d8aa3b;      /* Parker gold */
+      --card:#1a1424;
+      --shadow:0 12px 30px rgba(0,0,0,.25);
     }
-
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family:"Segoe UI", system-ui, Arial, sans-serif;
       color:var(--ink);
-      min-height:100vh;
+      background:
+        radial-gradient(1200px 800px at 20% -10%, #1b1530 0%, transparent 60%),
+        radial-gradient(1000px 700px at 80% 110%, #24183a 0%, transparent 60%),
+        var(--bg);
+      font-family: ui-rounded, "SF Pro Rounded", Quicksand, Avenir, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height:1.5;
+      scroll-snap-type:y mandatory;
+      overflow-y: auto;
     }
 
-    /* Background video behind everything */
-    .bg-video{
-      position:fixed; inset:0;
-      width:100%; height:100%;
-      object-fit:cover; z-index:-1;
-    }
-
-    header{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:1rem 2rem; background:var(--glass); backdrop-filter:blur(8px);
-      position:sticky; top:0; z-index:5;
-    }
-    header a{ color:var(--brand-deep); text-decoration:none; font-weight:700 }
-    header nav a{ margin-left:1rem; color:var(--brand-deep); font-weight:600; text-decoration:none }
-
-    /* HERO */
-    .hero{
-      padding:4rem 1.5rem 2rem;
-      position:relative;
-      z-index:2;
-    }
-    .hero-bubble{
-      max-width:1100px;
-      margin:0 auto;
-      background:rgba(232,220,205,0.92); /* beige bubble w/ alpha */
-      color:var(--ink);
-      border:1px solid rgba(0,0,0,0.06);
-      border-radius:24px;
-      padding:2rem 1.75rem;
-      box-shadow:0 18px 40px rgba(0,0,0,0.25);
-      backdrop-filter:blur(6px);
-    }
-    .hero-bubble h1{
-      margin:0 0 1rem;
-      font-size:clamp(2.2rem, 6vw, 4rem);
-      line-height:1.15;
-      color:var(--brand-deep);
-      letter-spacing:.3px;
-    }
-    .hero-bubble p{
-      margin:0 0 1rem;
-      font-size:clamp(1.05rem, 2.2vw, 1.2rem);
-      color:#2b2b2b;
-    }
-    .cta{
-      display:inline-block; margin-top:.25rem;
-      background:var(--brand);
-      color:#fff; text-decoration:none; font-weight:800;
-      padding:0.85rem 1.25rem; border-radius:9999px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.25);
-      transition:.15s ease-in-out;
-    }
-    .cta:hover{ opacity:.95; transform:translateY(-1px) }
-
-    /* Filter bubbles (always visible, toggle active) */
-    .filters{
-      max-width:1100px; margin:0 auto; padding:0 1.5rem 0.5rem;
-      display:flex; flex-wrap:wrap; gap:.5rem;
-    }
-    .filter-btn{
-      border:0; cursor:pointer; font-weight:700;
-      background:var(--bg-bubble); color:var(--brand-deep);
-      padding:.55rem 1rem; border-radius:9999px; transition:.2s;
-    }
-    .filter-btn:hover{ background:var(--brand); color:#fff }
-    .filter-btn.active{ background:var(--brand); color:#fff; transform:scale(1.05) }
-
-    /* Scroller shell */
-    .scroller-wrap{
-      position:relative; max-width:1100px; margin:1rem auto 2.25rem; padding:0 2.75rem; /* room for arrows */
-    }
-    .scroller{
+    /* Section = one full-screen chapter */
+    section.chapter{
+      scroll-snap-align:start;
+      min-height:100svh;
       display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:minmax(260px,320px); /* card width range */
-      gap:1.25rem;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      padding:1rem .5rem 1.25rem;
-      scrollbar-width:thin;
+      place-items:center;
+      padding:clamp(16px, 3vw, 32px);
+      position:relative;
+      isolation:isolate;
     }
-    .scroller::-webkit-scrollbar{ height:10px }
-    .scroller::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.25); border-radius:999px }
 
-    /* Card */
-    .card{
-      background:var(--bg-card); border-radius:1rem;
-      box-shadow:0 10px 24px rgba(0,0,0,.25);
-      display:flex; flex-direction:column; scroll-snap-align:start;
-      transition:opacity .35s ease, transform .35s ease;
-      opacity:1; transform:scale(1);
+    .frame{
+      width:min(100%, 1100px);
+      height:min(82svh, 820px);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.2));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-rows:auto 1fr;
+      overflow:hidden;
+      position:relative;
+    }
+
+    header.hero{
+      display:flex; align-items:center; gap:12px;
+      padding:14px 18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    header.hero .title{
+      font-size:clamp(18px, 2.6vw, 28px);
+      font-weight:700;
+      letter-spacing:.5px;
+    }
+    header.hero .sub{
+      margin-left:auto;
+      font-size:clamp(12px,1.4vw,14px);
+      color:var(--muted);
+      opacity:.9;
+    }
+
+    .stage{
+      position:relative;
+      display:grid;
+      place-items:center;
+      padding: clamp(12px, 2vw, 24px);
       overflow:hidden;
     }
-    .card.hide{ opacity:0; transform:scale(.95); pointer-events:none }
-    .card img{
-      width:100%; aspect-ratio:1/1; object-fit:contain; background:#fff; display:block;
+
+    .creature{
+      width: min(92%, 520px);
+      max-height: 70svh;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 2px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      transform: translateY(14px) scale(.985);
+      opacity:.001;
+      transition: transform .8s cubic-bezier(.2,.8,.2,1), opacity .8s ease;
+      will-change: transform, opacity;
     }
-    .card-body{ padding:1rem 1rem 1.1rem; display:flex; flex-direction:column; gap:.4rem; min-height:160px }
-    .card-body h3{ margin:0; font-size:1.1rem; color:var(--brand-deep) }
-    .card-body p{ margin:0; color:var(--muted); font-size:.95rem; flex:1 }
-    .save-btn{
-      align-self:flex-start; text-decoration:none; font-weight:700;
-      background:var(--brand); color:#fff; padding:.55rem 1rem; border-radius:9999px;
+    .reveal .creature{
+      transform: translateY(0) scale(1);
+      opacity:1;
     }
 
-    /* Arrows */
-    .arrow{
-      position:absolute; top:50%; translate:0 -50%;
-      width:42px; height:42px; border-radius:50%;
-      display:grid; place-items:center; border:0; cursor:pointer;
-      background:var(--glass); backdrop-filter:blur(8px);
-      box-shadow:0 6px 16px rgba(0,0,0,.25);
-      color:#222;
+    /* Pop-up bubbles */
+    .bubble{
+      position:absolute;
+      max-width:min(86vw, 380px);
+      background: var(--bubble);
+      color:#2c2c2c;
+      border:2px solid var(--line);
+      border-radius:16px;
+      padding:14px 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+      opacity:0; transform: translateY(16px) scale(.98);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);
+      font-size:clamp(14px, 1.9vw, 16px);
+      line-height:1.45;
     }
-    .arrow:hover{ background:#fff }
-    .prev{ left:.75rem } .next{ right:.75rem }
+    .bubble small{display:block;color:#5a4b22;opacity:.85;margin-top:6px}
 
-    footer{ text-align:center; color:#fff; text-shadow:0 2px 4px rgba(0,0,0,.6); padding:2rem 1rem }
+    /* Positions per-chapter; they adapt on small screens */
+    .b1{ top: clamp(10px, 8svh, 80px); left: clamp(8px, 5vw, 60px); }
+    .b2{ bottom: clamp(60px, 10svh, 120px); right: clamp(8px, 6vw, 80px); }
+    .b3{ bottom: clamp(12px, 4svh, 40px); left: clamp(16px, 10vw, 120px); }
+
+    .reveal .bubble{ opacity:1; transform: translateY(0) scale(1); }
+    .reveal .b2{ transition-delay: .12s; }
+    .reveal .b3{ transition-delay: .22s; }
+
+    /* Yarn thread divider between chapters */
+    .thread{
+      position:absolute; inset:auto 0 -20px 0;
+      height: 40px;
+      background:
+        radial-gradient(6px 6px at 20% 50%, var(--line) 35%, transparent 36%),
+        repeating-linear-gradient(90deg, transparent 0 28px, rgba(216,170,59,.35) 28px 32px, transparent 32px 64px);
+      opacity:.35;
+      filter: blur(.3px);
+      pointer-events:none;
+    }
+
+    /* Cover + Footer */
+    .cover, .outro{
+      text-align:center;
+      display:grid; place-items:center;
+    }
+    .brand{
+      font-size: clamp(22px, 4.2vw, 44px);
+      font-weight: 800;
+      letter-spacing: .6px;
+      margin-bottom: 6px;
+    }
+    .tag{
+      color:var(--muted);
+      font-size:clamp(14px, 2vw, 18px);
+    }
+    .cta{
+      margin-top:16px;
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      color:var(--ink);
+      text-decoration:none;
+      font-weight:600;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+    }
+    .cta:hover{ border-color: rgba(255,255,255,.5); }
+
+    /* Motion sensitivity */
+    @media (prefers-reduced-motion: reduce){
+      .creature, .bubble{ transition:none }
+      .thread{ display:none }
+    }
+
+    /* Small tweaks for very short heights */
+    @media (max-height:600px){
+      .bubble{ font-size:14px }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Background video (DON'T TOUCH 😉) -->
-  <video class="bg-video" autoplay muted loop playsinline poster="/img/hero-fallback.jpg">
-    <source src="/videos/pixelbackground.webM" type="video/webm" />
-    <source src="/videos/Pixelbackground.mp4" type="video/mp4" />
-  </video>
-
-  <header>
-    <a href="/">ParkerPixie ✨</a>
-    <nav>
-      <a href="/about">About</a>
-      <a href="/blog">Blog</a>
-      <a href="/contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- Parker Pins & Glitter Wall — now inside a beige bubble -->
-  <section class="hero">
-    <div class="hero-bubble">
-      <h1>Parker Pins & Glitter Wall</h1>
-      <p>
-        Welcome to the chaos. This is my little digital corkboard of random everything — pictures, quotes, videos, memes, and whatever shiny thing caught my attention before I got distracted. Think of it as part Pinterest, part "oh wow this photo is amazing," part Facebook throwback, and part "if I don't put it here, it's gone forever."
-      </p>
-      <p>
-        Basically, it’s a peek into the glittery, squirrel-chasing, capybara-calm-seeking, peacock-sparkling swirl that is my brain. Sometimes cozy, sometimes chaotic, always a little extra.
-      </p>
-      <p>
-        So check back whenever — you never know what I’ll decide deserves a spot on the wall. 💫
-      </p>
-      <a class="cta" href="mailto:ParkerPixieDust@gmail.com?subject=I%20have%20something%20you%27ll%20love!&body=Hi%20Parker%2C%20I%20found%20something%20for%20your%20Pins%20%26%20Glitter%20Wall%3A%20">
-        HAVE SOMETHING YOU KNOW I WOULD LOVE? SHARE IT HERE!
-      </a>
+  <!-- Cover Page -->
+  <section class="chapter cover" aria-label="Cover">
+    <div class="frame reveal" style="background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.25));">
+      <header class="hero">
+        <div class="title brand">The Stitchbook of ParkerPixiePaws</div>
+        <div class="sub">Sass · Shimmer · Sparkle · Soothing Stitches</div>
+      </header>
+      <div class="stage">
+        <p class="tag">A gentle, scrollable storybook. Meet each creature. Read the making. Feel the mending.</p>
+        <a class="cta" href="#aurora">Begin the wander ↓</a>
+      </div>
+      <div class="thread" aria-hidden="true"></div>
     </div>
   </section>
 
-  <!-- Filter bubbles -->
-  <div class="filters" aria-label="Filter categories">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="sparkle">Sparkle/Sass/Fun</button>
-    <button class="filter-btn" data-filter="recovery">Recovery/Growth</button>
-    <button class="filter-btn" data-filter="brands">PixiePaws/Pop/Pixel</button>
-    <button class="filter-btn" data-filter="adhd">ADHD-Friendly</button>
-    <button class="filter-btn" data-filter="home">Home</button>
-    <button class="filter-btn" data-filter="travel">Travel</button>
-    <button class="filter-btn" data-filter="banner">Banners</button>
-    <button class="filter-btn" data-filter="art">Artwork</button>
-    <button class="filter-btn" data-filter="meal">Meal Planning</button>
-  </div>
-
-  <!-- Horizontal scroller with arrows -->
-  <section class="scroller-wrap">
-    <button class="arrow prev" aria-label="Scroll left" type="button">‹</button>
-    <div class="scroller" id="pins-scroller" aria-live="polite">
-      <!-- Each card: preview is 512x512 square; Save -> full image -->
-      <article class="card" data-category="sparkle">
-        <img src="/img/dummy-512x512.jpg" alt="Sparkle Sass Glitter Chaos preview" loading="lazy" />
-        <div class="card-body">
-          <h3>Sparkle • Sass • Glitter</h3>
-          <p>Whimsical words wall art for instant dopamine.</p>
-          <a class="save-btn" href="/img/dummy-1200x800.jpg" download>Save</a>
-        </div>
-      </article>
-
-      <article class="card" data-category="recovery">
-        <img src="/img/dummy-512x512.jpg" alt="Recovery Growth Healing preview" loading="lazy" />
-        <div class="card-body">
-          <h3>Recovery • Growth</h3>
-          <p>Gentle reminders for self-compassion and restart energy.</p>
-          <a class="save-btn" href="/img/dummy-1560x1440.jpg" download>Save</a>
-        </div>
-      </article>
-
-      <article class="card" data-category="brands">
-        <img src="/img/dummy-512x512.jpg" alt="PixiePaws PixiePop PixiePixel preview" loading="lazy" />
-        <div class="card-body">
-          <h3>PixiePaws • PixiePop • PixiePixel</h3>
-          <p>Brand badges and playful identity bits.</p>
-          <a class="save-btn" href="/img/dummy-1920x1080.jpg" download>Save</a>
-        </div>
-      </article>
-
-      <article class="card" data-category="adhd">
-        <img src="/img/dummy-512x512.jpg" alt="ADHD Focus Dashboard preview" loading="lazy" />
-        <div class="card-body">
-          <h3>Focus Dashboard</h3>
-          <p>Color-coded blocks that calm the chaos.</p>
-          <a class="save-btn" href="/img/dummy-300x300.jpg" download>Save</a>
-        </div>
-      </article>
-
-      <article class="card" data-category="home">
-        <img src="/img/dummy-512x512.jpg" alt="Family Chore Chart preview" loading="lazy" />
-        <div class="card-body">
-          <h3>Family Chore Chart</h3>
-          <p>Easy to read, nag-free home helper.</p>
-          <a class="save-btn" href="/img/dummy-600x400.jpg" download>Save</a>
-        </div>
-      </article>
-
-      <article class="card" data-category="banner">
-        <img src="/img/dummy-512x512.jpg" alt="Social Share Banner preview" loading="lazy" />
-        <div class="card-body">
-          <h3>Social Share Banner</h3>
-          <p>OG-perfect 1200×628 for crisp sharing.</p>
-          <a class="save-btn" href="/img/dummy-1200x628.jpg" download>Save</a>
-        </div>
-      </article>
-
-      <article class="card" data-category="art">
-        <img src="/img/dummy-512x512.jpg" alt="Hero Canvas preview" loading="lazy" />
-        <div class="card-body">
-          <h3>Hero Canvas</h3>
-          <p>HD hero backdrop without blur.</p>
-          <a class="save-btn" href="/img/dummy-1920x1080.jpg" download>Save</a>
-        </div>
-      </article>
-
-      <article class="card" data-category="travel">
-        <img src="/img/dummy-512x512.jpg" alt="Road Trip Itinerary preview" loading="lazy" />
-        <div class="card-body">
-          <h3>Road Trip Itinerary</h3>
-          <p>Stops, sights, and snacks — adventure map style.</p>
-          <a class="save-btn" href="/img/dummy-3840x2160.jpg" download>Save</a>
-        </div>
-      </article>
+  <!-- Chapter: Aurora (PUFFIN) -->
+  <section class="chapter" id="aurora" aria-labelledby="h-aurora">
+    <div class="frame">
+      <header class="hero">
+        <div class="title" id="h-aurora">Aurora the Puffin</div>
+        <div class="sub">calm · feather details · ocean daydream</div>
+      </header>
+      <div class="stage">
+        <img class="creature" src="/img/Aurora.jpg" alt="Aurora the puffin plush" />
+        <!-- Replace with your blog description for Aurora -->
+        <div class="bubble b1">“Bonjour — I’m Aurora, stitched with extra puff and extra love.”<small>Creature voice</small></div>
+        <div class="bubble b2">I made Aurora during a week I needed softness. Every feather detail slowed my breath and found me a steadier rhythm.<small>Reflection / healing</small></div>
+        <div class="bubble b3">Yarn & notes: Bernat Blanket; ~12 hrs; detachable beak detail; satin stitch eyes.<small>Process bits</small></div>
+      </div>
+      <div class="thread" aria-hidden="true"></div>
     </div>
-    <button class="arrow next" aria-label="Scroll right" type="button">›</button>
   </section>
 
-  <footer>&copy; {year} ParkerPixie • Sparkles, Pixels &amp; Organization</footer>
+  <!-- Chapter: Bejeweled (PEACOCK) -->
+  <section class="chapter" id="bejeweled" aria-labelledby="h-bejeweled">
+    <div class="frame">
+      <header class="hero">
+        <div class="title" id="h-bejeweled">Bejeweled the Peacock</div>
+        <div class="sub">centerpiece · sparkle · showstopper</div>
+      </header>
+      <div class="stage">
+        <img class="creature" src="/img/Bejeweled.jpg" alt="Bejeweled the peacock plush with jeweled tail" />
+        <!-- Replace with your blog copy for Bejeweled -->
+        <div class="bubble b1">“I can still make the whole place shimmer.”<small>Creature voice</small></div>
+        <div class="bubble b2">Bejeweled taught me patience layer by layer. Tail-feather assembly became a meditation on attention and pride.<small>Reflection / healing</small></div>
+        <div class="bubble b3">Materials: bulky velvet + felt jewels; wired tail base; blocking overnight for drape.<small>Process bits</small></div>
+      </div>
+      <div class="thread" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Chapter: Bonnie (CHICKEN) -->
+  <section class="chapter" id="bonnie" aria-labelledby="h-bonnie">
+    <div class="frame">
+      <header class="hero">
+        <div class="title" id="h-bonnie">Bonnie the Chicken</div>
+        <div class="sub">comfort · farmhouse cozy · comic relief</div>
+      </header>
+      <div class="stage">
+        <img class="creature" src="/img/Bonnie.jpg" alt="Bonnie the chicken plush" />
+        <!-- Replace with your blog copy for Bonnie -->
+        <div class="bubble b1">“Bok-bok bestie. I bring breakfast energy and zero judgment.”<small>Creature voice</small></div>
+        <div class="bubble b2">Bonnie is pure comfort crafting: repetitive stitches, soft round shapes, and silly joy when her comb went on just right.<small>Reflection / healing</small></div>
+        <div class="bubble b3">Notes: chenille yarn; safety eyes; poly fill packed firm for cartoon roundness.<small>Process bits</small></div>
+      </div>
+      <div class="thread" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Chapter: Gilligan (PELICAN) -->
+  <section class="chapter" id="gilligan" aria-labelledby="h-gilligan">
+    <div class="frame">
+      <header class="hero">
+        <div class="title" id="h-gilligan">Gilligan the Pelican</div>
+        <div class="sub">seaside whimsy · oversized beak · explorer</div>
+      </header>
+      <div class="stage">
+        <img class="creature" src="/img/Gilligan.jpg" alt="Gilligan the pelican plush" />
+        <!-- Replace with your blog copy for Gilligan -->
+        <div class="bubble b1">“Need a ride for your worries? Into the beak they go.”<small>Creature voice</small></div>
+        <div class="bubble b2">Shaping the beak pocket was fiddly-but-worth-it work — the kind that occupies hands and quiets thoughts.<small>Reflection / healing</small></div>
+        <div class="bubble b3">Tech: short rows + firm edge sc for structure; light wire at brim; matte embroidery for charm.<small>Process bits</small></div>
+      </div>
+      <div class="thread" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Chapter: Jade (SUCCULENT PLANTER) -->
+  <section class="chapter" id="jade" aria-labelledby="h-jade">
+    <div class="frame">
+      <header class="hero">
+        <div class="title" id="h-jade">Jade the Succulent Planter</div>
+        <div class="sub">steadfast · patience · roots & growth</div>
+      </header>
+      <div class="stage">
+        <img class="creature" src="/img/Jade.jpg" alt="Jade the succulent planter amigurumi" />
+        <!-- Replace with your blog copy for Jade -->
+        <div class="bubble b1">“Quiet soil. Wild bloom. We grow here.”<small>Piece voice</small></div>
+        <div class="bubble b2">For Blake — a reminder that steady love lets the bright parts flourish, even on hard days.<small>Story / healing</small></div>
+        <div class="bubble b3">Planter form; tidy gauge for crisp leaves; cool, calming palette.<small>Process bits</small></div>
+      </div>
+      <div class="thread" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Outro -->
+  <section class="chapter outro" aria-label="Outro">
+    <div class="frame reveal">
+      <header class="hero">
+        <div class="title">Thanks for wandering through my stitches</div>
+        <div class="sub">every creature a chapter · every chapter a little healing</div>
+      </header>
+      <div class="stage">
+        <p class="tag">If one of these pals speaks to you, I take limited commissions.</p>
+        <a class="cta" href="/parkerpixiepaws/request/">Inquire about a custom</a>
+      </div>
+    </div>
+  </section>
 
   <script>
-    // Filter logic (keeps bubbles visible, animates cards)
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const cards = Array.from(document.querySelectorAll(".card"));
-    const scroller = document.getElementById("pins-scroller");
-
-    function applyFilter(filter){
-      cards.forEach(card=>{
-        const match = filter === "all" || card.dataset.category === filter;
-        card.classList.toggle("hide", !match);
+    // Reveal-on-view to trigger the image + bubbles animation
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('reveal');
       });
-      // snap to first visible card
-      const firstVisible = cards.find(c => !c.classList.contains("hide"));
-      if(firstVisible){ firstVisible.scrollIntoView({behavior:"smooth", inline:"start", block:"nearest"}); }
-    }
+    }, { threshold: 0.3 });
 
-    filterButtons.forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        filterButtons.forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        applyFilter(btn.getAttribute("data-filter"));
-      });
-    });
-
-    // Arrow scrolling
-    const prev = document.querySelector(".prev");
-    const next = document.querySelector(".next");
-    function scrollByOne(){
-      const card = cards.find(c=>!c.classList.contains("hide"));
-      const width = card ? card.getBoundingClientRect().width + 20 : 320;
-      return width;
-    }
-    prev.addEventListener("click", ()=> scroller.scrollBy({left: -scrollByOne(), behavior:"smooth"}));
-    next.addEventListener("click", ()=> scroller.scrollBy({left:  scrollByOne(), behavior:"smooth"}));
-
-    // Keyboard support for scroller
-    scroller.addEventListener("keydown", (e)=>{
-      if(e.key === "ArrowRight") { scroller.scrollBy({left:  scrollByOne(), behavior:"smooth"}); }
-      if(e.key === "ArrowLeft")  { scroller.scrollBy({left: -scrollByOne(), behavior:"smooth"}); }
-    });
+    document.querySelectorAll('.frame').forEach(el=>io.observe(el));
   </script>
 </body>
 </html>
