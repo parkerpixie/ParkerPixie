@@ -3,139 +3,181 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ParkerPixiePaws — The Stitchbook (Alternating Layout)</title>
-<meta name="description" content="An alternating, mobile-friendly storybook of ParkerPixiePaws amigurumi — image on one side, story on the other. Healing through stitches." />
+<title>ParkerPixiePaws — Cozy Amigurumi</title>
+<meta name="description" content="Cozy, whimsical amigurumi stitched with intention. A storybook gallery of soft friends and the healing behind them." />
 <link rel="icon" href="/CapyGoldIcon.png" />
 <style>
   :root{
-    --bg:#0f0b14;         /* deep cosmos */
-    --ink:#f6f1ff;        /* soft lilac-white */
-    --muted:#c9bfe6;
-    --gold:#D8AA3B;       /* Parker gold */
-    --panel:#1a1424;      /* card bg */
-    --glass:rgba(255,255,255,.06);
-    --border:rgba(255,255,255,.12);
-    --shadow:0 14px 40px rgba(0,0,0,.35);
-    --maxw: 1100px;
+    --bg:#0f0b14; --ink:#1d1230; --paper:#ffffff; --muted:#5f5474;
+    --gold:#D8AA3B; --lav:#7c5cff; --lav2:#a07cff;
+    --panel:#fff; --border:#e9e2ff; --shadow:0 18px 50px rgba(15,11,20,.15);
+    --maxw:1100px;
   }
-
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; color:var(--ink);
-    background:
-      radial-gradient(1200px 800px at 20% -10%, #1b1530 0%, transparent 60%),
-      radial-gradient(1000px 700px at 80% 110%, #24183a 0%, transparent 60%),
-      var(--bg);
-    font-family: ui-rounded,"SF Pro Rounded",Quicksand,Avenir,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+    margin:0; background:
+      radial-gradient(1200px 800px at 20% -10%, #f1ecff 0%, transparent 60%),
+      radial-gradient(1000px 700px at 80% 110%, #efe7ff 0%, transparent 60%),
+      #fcfbff;
+    color:var(--ink);
+    font-family: ui-rounded, "SF Pro Rounded", Quicksand, Avenir, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height:1.55;
   }
 
-  /* Header / cover */
-  .cover{
-    padding: clamp(16px,3vw,32px);
-    display:grid; place-items:center; text-align:center;
+  /* Top nav */
+  .site-header{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, #8d6bff, #7a63ff 60%, #6b59ff);
+    color:white;
+    border-bottom:1px solid #00000010;
   }
-  .brand{ font-weight:900; letter-spacing:.6px; font-size: clamp(22px,4.2vw,44px) }
-  .tag{ color:var(--muted); font-size: clamp(14px,2vw,18px); max-width:60ch }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:12px 16px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.3px;
+  }
+  .brand svg{ width:18px; height:18px }
+  .nav{ margin-left:auto; display:flex; gap:8px; flex-wrap:wrap }
+  .pill{
+    display:inline-flex; align-items:center; gap:8px; padding:8px 12px;
+    background:#ffffff22; color:white; text-decoration:none; font-weight:800;
+    border:1px solid #ffffff55; border-radius:999px; backdrop-filter:saturate(130%) blur(6px);
+  }
+  .pill.active{ background:white; color:#5b32ff; border-color:white }
 
-  /* Section rows */
-  section.entry{
-    padding: clamp(18px,4vw,48px) clamp(16px,3vw,32px);
-    display:flex; justify-content:center;
+  /* Hero block */
+  .hero-wrap{ padding: clamp(18px,4vw,42px) 16px 4px }
+  .hero{
+    max-width:var(--maxw); margin:0 auto; display:grid;
+    grid-template-columns: 1.1fr .9fr; gap: clamp(18px,3.5vw,36px);
+    background: linear-gradient(180deg, #ffffff, #fbf9ff);
+    border:1px solid var(--border); border-radius:24px; box-shadow: var(--shadow);
+    padding: clamp(18px,3.2vw,28px);
   }
+  @media (max-width: 920px){ .hero{ grid-template-columns:1fr } }
+  .hero h1{
+    font-size: clamp(26px, 4.2vw, 48px);
+    line-height:1.08; margin:.3rem 0 .6rem 0; letter-spacing:.2px;
+  }
+  .hero p{ color:#4a3f61; margin:.7rem 0 }
+  .chips{ display:flex; gap:8px; flex-wrap:wrap; margin:.8rem 0 1rem }
+  .chip{
+    padding:8px 12px; border:1px solid var(--border); border-radius:999px;
+    background:#f7f3ff; color:#4a3f61; font-weight:700; font-size:.9rem;
+  }
+  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:.6rem }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:900;
+    padding:12px 16px; border-radius:12px; border:1px solid #d9ccff;
+    background:linear-gradient(180deg,#7f66ff,#6c59ff); color:white; box-shadow:0 10px 26px rgba(100,80,255,.25);
+  }
+  .btn.secondary{
+    background:#fff; color:#5b32ff; border-color:#cfc4ff; box-shadow:0 8px 20px rgba(0,0,0,.06);
+  }
+  .hero-portrait{
+    background:linear-gradient(180deg,#ffffff,#f7f3ff);
+    border:1px solid var(--border); border-radius:20px; box-shadow: var(--shadow);
+    padding: clamp(10px,1.6vw,14px); display:grid; place-items:center;
+  }
+  .hero-portrait img{
+    max-width:100%; height:auto; border-radius:14px; display:block;
+  }
+
+  /* Alternating entries */
+  section.entry{ padding: clamp(18px,4vw,48px) 16px; display:flex; justify-content:center }
   .row{
     width:100%; max-width:var(--maxw);
-    display:grid; grid-template-columns: 1.05fr 1fr; gap: clamp(16px,3vw,40px);
-    align-items:center;
+    display:grid; grid-template-columns: 1.05fr 1fr; gap: clamp(16px,3vw,40px); align-items:center;
   }
-  /* Alternate sides: even rows reverse columns on desktop */
-  .row.reverse{ grid-template-columns: 1fr 1.05fr; }
-  @media (max-width: 860px){
-    .row, .row.reverse{ grid-template-columns: 1fr; }
-  }
+  .row.reverse{ grid-template-columns: 1fr 1.05fr }
+  @media (max-width: 860px){ .row, .row.reverse{ grid-template-columns: 1fr } }
 
-  /* Media (image) */
   .media{
-    background: linear-gradient(180deg,var(--glass),transparent);
-    border:1px solid var(--border);
-    border-radius:22px;
-    box-shadow: var(--shadow);
-    padding: clamp(8px,1.5vw,12px);
-    display:grid; place-items:center;
+    background: linear-gradient(180deg,#fff,#fbf9ff);
+    border:1px solid var(--border); border-radius:22px; box-shadow: var(--shadow);
+    padding: clamp(8px,1.5vw,12px); display:grid; place-items:center;
   }
   .media img{
-    max-width:100%;
-    max-height:70svh;
-    height:auto; width:auto; /* natural size; no cropping */
-    object-fit: contain;      /* safe if width/height ever set */
-    border-radius:16px;
-    border:1px solid var(--border);
-    box-shadow: 0 10px 26px rgba(0,0,0,.28);
-    display:block;
+    max-width:100%; max-height:70svh; height:auto; width:auto; object-fit:contain;
+    border-radius:16px; border:1px solid var(--border);
+    box-shadow: 0 10px 26px rgba(0,0,0,.10);
   }
 
-  /* Copy panel */
   .copy{
-    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.15));
-    border:1px solid var(--border);
-    border-radius:22px;
-    box-shadow: var(--shadow);
+    background: linear-gradient(180deg,#fff,#fbf9ff);
+    border:1px solid var(--border); border-radius:22px; box-shadow: var(--shadow);
     padding: clamp(16px,2.6vw,28px);
   }
-  .kicker{
-    color:var(--gold); font-weight:800; letter-spacing:.3px;
-    text-transform:uppercase; font-size:.9rem; margin:0 0 4px 0;
-  }
-  h2{
-    margin:.1rem 0 .8rem 0; font-size:clamp(20px,2.6vw,30px);
-    font-weight:900; letter-spacing:.2px;
-  }
-  p{ margin:.6rem 0 }
-  em{ color:#eadaff; font-style:italic }
-  .caption{
-    margin-top:.8rem; padding-top:.6rem; border-top:1px dashed var(--border);
-    color:var(--muted); font-size:.95rem;
-  }
+  .kicker{ color:#6a4cff; font-weight:900; letter-spacing:.35px; text-transform:uppercase; font-size:.9rem; margin:0 0 4px 0 }
+  h2{ margin:.15rem 0 .8rem 0; font-size:clamp(20px,2.6vw,30px); font-weight:900; letter-spacing:.2px }
+  p{ margin:.6rem 0; color:#3b3153 }
+  em{ color:#5b32ff; font-style:italic }
+  .caption{ margin-top:.8rem; padding-top:.6rem; border-top:1px dashed var(--border); color:#6a5d86; font-size:.95rem }
 
-  /* Divider thread */
+  /* Thread divider */
   .thread{
     width:100%; max-width:var(--maxw);
-    height:40px; margin: 4px auto 0;
+    height:38px; margin:4px auto 0;
     background:
       radial-gradient(6px 6px at 20% 50%, var(--gold) 35%, transparent 36%),
       repeating-linear-gradient(90deg, transparent 0 28px, rgba(216,170,59,.35) 28px 32px, transparent 32px 64px);
     opacity:.35; filter: blur(.3px);
   }
 
-  /* Outro */
-  .outro{
-    padding: clamp(24px,4vw,56px);
-    display:grid; place-items:center; text-align:center;
-  }
-  .cta{
-    margin-top:10px; display:inline-block; padding:10px 16px;
-    border-radius:999px; color:var(--ink); text-decoration:none; font-weight:800;
-    background:linear-gradient(180deg, var(--glass), transparent);
-    border:1px solid rgba(255,255,255,.35);
-  }
-  .cta:hover{ border-color:#fff }
-
-  /* Reveal animation */
+  /* Reveal-in */
   .reveal-up{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1) }
   .reveal-up.on{ opacity:1; transform: translateY(0) }
-  @media (prefers-reduced-motion: reduce){
-    .reveal-up{ opacity:1; transform:none; transition:none }
-  }
+  @media (prefers-reduced-motion: reduce){ .reveal-up{ opacity:1; transform:none; transition:none } }
 </style>
 </head>
 <body>
 
-<!-- Cover -->
-<header class="cover">
-  <h1 class="brand">The Stitchbook of ParkerPixiePaws</h1>
-  <p class="tag">An alternating, scrollable gallery—each friend on one side, their story on the other. Cozy, clean, and easy to read on mobile.</p>
+<!-- ===== Top Bar ===== -->
+<header class="site-header">
+  <div class="nav-inner">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13c3-5 13-5 16 0-3 5-13 5-16 0Z" stroke="#ffdca8" stroke-width="2" stroke-linecap="round"/><circle cx="8.5" cy="12" r="1.5" fill="#ffdca8"/><circle cx="15.5" cy="12" r="1.5" fill="#ffdca8"/></svg>
+      ParkerPixie
+    </div>
+    <nav class="nav" aria-label="Main">
+      <a class="pill active" href="/parkerpixiepaws">Amigurumi</a>
+      <a class="pill" href="/about">About</a>
+      <a class="pill" href="/contact">Contact</a>
+      <a class="pill" href="/blog">Blog</a>
+    </nav>
+  </div>
 </header>
+
+<!-- ===== Hero Card ===== -->
+<section class="hero-wrap">
+  <div class="hero">
+    <div>
+      <h1>ParkerPixiePaws — Cozy Amigurumi</h1>
+
+      <!-- Polished blurb -->
+      <p><strong>I stitch soft, plush, whimsical friends that feel like a hug.</strong> Amigurumi is more than yarn and hooks — it’s a craft rooted in Japanese tradition, patience, and the joy of gifting. Many makers speak of a little “spirit” in handmade things — the warmth of the hands that shaped them.</p>
+      <p>For me, it’s both therapy and expression: a way to honor the people who inspire, teach, and comfort me; to stitch metaphors into every piece; and to turn yarn into lasting symbols of friendship and love. Each creation has a backstory — a reason it came to be. Through this storybook adventure, I’m inviting you to wander with me and witness <em>healing through art.</em></p>
+
+      <div class="chips">
+        <span class="chip">Handmade in Madison, WI</span>
+        <span class="chip">Crafted with YOU in mind</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn" href="/parkerpixiepaws/request/">Commission an Amigurumi</a>
+        <a class="btn secondary" href="#aurora">Browse Amigurumi</a>
+      </div>
+    </div>
+
+    <figure class="hero-portrait">
+      <img src="/img/ParkerPixiePawProfile.png" alt="ParkerPixiePaws profile illustration" />
+    </figure>
+  </div>
+</section>
+
+<!-- ===== Storybook Entries (Alternating) ===== -->
 
 <!-- AURORA (image left, text right) -->
 <section class="entry" id="aurora">
@@ -149,7 +191,7 @@
       <p>Aurora is for my dearest friend of thirty years — mentor, guide, mother figure. She’s always seen my strength before I did, always lit the path. Puffins are her bird: resilient travelers who thrive in harsh landscapes. Aurora is both tribute and thank-you.</p>
       <div class="caption">
         <p><em>Aurora the puffin amigurumi.</em></p>
-        <p><em>Aurora the puffin — stitched in gratitude for three decades of guidance and light.</em></p>
+        <p><em>Aurora — stitched in gratitude for three decades of guidance and light.</em></p>
       </div>
     </article>
   </div>
@@ -188,7 +230,7 @@
       <p>So Bonnie transformed. She became something else, someone else’s. Instead of being a Trojan horse for pain, she became a tribute for a friend whose honesty, humor, and grounding presence has been a lifeline in my recovery. This “chicken lady” fills her home with warmth and resilience, and she’s far more worthy of such a gift than my mother ever was. Bonnie isn’t trauma anymore — she’s testimony.</p>
       <div class="caption">
         <p><em>Bonnie the chicken amigurumi.</em></p>
-        <p><em>Bonnie the chicken — once a Trojan plan, now a tribute to honest friendship.</em></p>
+        <p><em>Bonnie — once a Trojan plan, now a tribute to honest friendship.</em></p>
       </div>
     </article>
   </div>
@@ -204,7 +246,7 @@
       <p>Gilligan is a pelican for my mother-in-law, who became my family when my own mother couldn’t. He carries with him years of Florida beaches, dolphins, and seabird sightings — stitched memories of vacations and love. Gilligan isn’t just a bird; he’s a bond.</p>
       <div class="caption">
         <p><em>Gilligan the pelican amigurumi.</em></p>
-        <p><em>Gilligan the pelican — sun, salt, and family stitched into a companion.</em></p>
+        <p><em>Gilligan — sun, salt, and family stitched into a companion.</em></p>
       </div>
     </article>
     <figure class="media reveal-up">
@@ -233,19 +275,22 @@
 </section>
 
 <!-- Outro -->
-<footer class="outro">
-  <p class="tag">If one of these speaks to you, I take limited commissions.</p>
-  <a class="cta" href="/parkerpixiepaws/request/">Inquire about a custom</a>
+<footer class="hero-wrap" style="padding-bottom:48px">
+  <div class="hero" style="grid-template-columns:1fr">
+    <div style="text-align:center">
+      <p style="color:#5f5474">If one of these speaks to you, I take limited commissions.</p>
+      <a class="btn" href="/parkerpixiepaws/request/">Inquire about a custom</a>
+    </div>
+  </div>
 </footer>
 
 <script>
-  // Reveal-in on scroll
+  // Simple reveal-in
   const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('on'); }
-    });
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
   },{threshold:.2});
   document.querySelectorAll('.reveal-up').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
+
