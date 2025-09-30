@@ -2,295 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ParkerPixiePaws — Cozy Amigurumi</title>
-<meta name="description" content="Cozy, whimsical amigurumi stitched with intention. A storybook gallery of soft friends and the healing behind them." />
-<link rel="icon" href="/CapyGoldIcon.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Parker’s One-Year Sobriety Celebration</title>
 <style>
-  :root{
-    --bg:#0f0b14; --ink:#1d1230; --paper:#ffffff; --muted:#5f5474;
-    --gold:#D8AA3B; --lav:#7c5cff; --lav2:#a07cff;
-    --panel:#fff; --border:#e9e2ff; --shadow:0 18px 50px rgba(15,11,20,.15);
-    --maxw:1100px;
+  :root {
+    --bg: #0b0b12;
+    --ink: #ffffff;
+    --muted: #c6c6d0;
+    --accent: #bb86fc; /* soft neon lilac */
   }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:
-      radial-gradient(1200px 800px at 20% -10%, #f1ecff 0%, transparent 60%),
-      radial-gradient(1000px 700px at 80% 110%, #efe7ff 0%, transparent 60%),
-      #fcfbff;
-    color:var(--ink);
-    font-family: ui-rounded, "SF Pro Rounded", Quicksand, Avenir, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height:1.55;
+  html,body {margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;}
+  a.button {display:inline-block;padding:12px 18px;border:1px solid var(--ink);border-radius:999px;text-decoration:none;color:var(--ink);transition:transform .12s ease, box-shadow .12s ease;}
+  a.button:hover {transform:translateY(-1px);box-shadow:0 8px 24px rgba(187,134,252,.25);}
+  .wrap {max-width:1100px;margin:0 auto;padding:48px 20px;}
+  .hero {
+    position:relative;min-height:70vh;display:grid;place-items:center;text-align:center;
+    background:url("/public/img/Nikki06.JPG") center/cover no-repeat fixed;
+    isolation:isolate;
   }
-
-  /* Top nav */
-  .site-header{
-    position:sticky; top:0; z-index:50;
-    background:linear-gradient(180deg, #8d6bff, #7a63ff 60%, #6b59ff);
-    color:white;
-    border-bottom:1px solid #00000010;
+  .hero::after {content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,10,.55),rgba(5,5,10,.75));z-index:0;}
+  .hero .inner {position:relative;z-index:1;backdrop-filter:saturate(130%) blur(0px);}
+  .hero h1 {font-size: clamp(32px, 6vw, 64px);margin:0 0 10px;letter-spacing:.5px;text-shadow:0 2px 14px rgba(0,0,0,.45);}
+  .hero p {margin:0 0 24px;color:var(--muted)}
+  .stack {display:grid;gap:32px;}
+  .grid {display:grid;gap:24px;grid-template-columns:repeat(12,1fr);}
+  .card {grid-column: span 12;background:#141425;border:1px solid #24243a;border-radius:18px;overflow:hidden;}
+  .card .img {aspect-ratio: 4/3; background:#0f0f1f; display:block; width:100%; object-fit:cover;}
+  .card .body {padding:18px 18px 22px;}
+  .card h3 {margin:0 0 8px;font-size:20px}
+  .card p {margin:0 0 12px;color:var(--muted)}
+  @media (min-width:800px){ .card {grid-column: span 4;} }
+  .feature {display:grid;gap:24px;align-items:center;}
+  .feature img {width:100%;border-radius:18px;display:block}
+  @media (min-width:900px){
+    .feature {grid-template-columns:1.1fr .9fr;}
   }
-  .nav-inner{
-    max-width:var(--maxw); margin:0 auto; padding:12px 16px;
-    display:flex; align-items:center; gap:12px;
-  }
-  .brand{
-    display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.3px;
-  }
-  .brand svg{ width:18px; height:18px }
-  .nav{ margin-left:auto; display:flex; gap:8px; flex-wrap:wrap }
-  .pill{
-    display:inline-flex; align-items:center; gap:8px; padding:8px 12px;
-    background:#ffffff22; color:white; text-decoration:none; font-weight:800;
-    border:1px solid #ffffff55; border-radius:999px; backdrop-filter:saturate(130%) blur(6px);
-  }
-  .pill.active{ background:white; color:#5b32ff; border-color:white }
-
-  /* Hero block */
-  .hero-wrap{ padding: clamp(18px,4vw,42px) 16px 4px }
-  .hero{
-    max-width:var(--maxw); margin:0 auto; display:grid;
-    grid-template-columns: 1.1fr .9fr; gap: clamp(18px,3.5vw,36px);
-    background: linear-gradient(180deg, #ffffff, #fbf9ff);
-    border:1px solid var(--border); border-radius:24px; box-shadow: var(--shadow);
-    padding: clamp(18px,3.2vw,28px);
-  }
-  @media (max-width: 920px){ .hero{ grid-template-columns:1fr } }
-  .hero h1{
-    font-size: clamp(26px, 4.2vw, 48px);
-    line-height:1.08; margin:.3rem 0 .6rem 0; letter-spacing:.2px;
-  }
-  .hero p{ color:#4a3f61; margin:.7rem 0 }
-  .chips{ display:flex; gap:8px; flex-wrap:wrap; margin:.8rem 0 1rem }
-  .chip{
-    padding:8px 12px; border:1px solid var(--border); border-radius:999px;
-    background:#f7f3ff; color:#4a3f61; font-weight:700; font-size:.9rem;
-  }
-  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:.6rem }
-  .btn{
-    display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:900;
-    padding:12px 16px; border-radius:12px; border:1px solid #d9ccff;
-    background:linear-gradient(180deg,#7f66ff,#6c59ff); color:white; box-shadow:0 10px 26px rgba(100,80,255,.25);
-  }
-  .btn.secondary{
-    background:#fff; color:#5b32ff; border-color:#cfc4ff; box-shadow:0 8px 20px rgba(0,0,0,.06);
-  }
-  .hero-portrait{
-    background:linear-gradient(180deg,#ffffff,#f7f3ff);
-    border:1px solid var(--border); border-radius:20px; box-shadow: var(--shadow);
-    padding: clamp(10px,1.6vw,14px); display:grid; place-items:center;
-  }
-  .hero-portrait img{
-    max-width:100%; height:auto; border-radius:14px; display:block;
-  }
-
-  /* Alternating entries */
-  section.entry{ padding: clamp(18px,4vw,48px) 16px; display:flex; justify-content:center }
-  .row{
-    width:100%; max-width:var(--maxw);
-    display:grid; grid-template-columns: 1.05fr 1fr; gap: clamp(16px,3vw,40px); align-items:center;
-  }
-  .row.reverse{ grid-template-columns: 1fr 1.05fr }
-  @media (max-width: 860px){ .row, .row.reverse{ grid-template-columns: 1fr } }
-
-  .media{
-    background: linear-gradient(180deg,#fff,#fbf9ff);
-    border:1px solid var(--border); border-radius:22px; box-shadow: var(--shadow);
-    padding: clamp(8px,1.5vw,12px); display:grid; place-items:center;
-  }
-  .media img{
-    max-width:100%; max-height:70svh; height:auto; width:auto; object-fit:contain;
-    border-radius:16px; border:1px solid var(--border);
-    box-shadow: 0 10px 26px rgba(0,0,0,.10);
-  }
-
-  .copy{
-    background: linear-gradient(180deg,#fff,#fbf9ff);
-    border:1px solid var(--border); border-radius:22px; box-shadow: var(--shadow);
-    padding: clamp(16px,2.6vw,28px);
-  }
-  .kicker{ color:#6a4cff; font-weight:900; letter-spacing:.35px; text-transform:uppercase; font-size:.9rem; margin:0 0 4px 0 }
-  h2{ margin:.15rem 0 .8rem 0; font-size:clamp(20px,2.6vw,30px); font-weight:900; letter-spacing:.2px }
-  p{ margin:.6rem 0; color:#3b3153 }
-  em{ color:#5b32ff; font-style:italic }
-  .caption{ margin-top:.8rem; padding-top:.6rem; border-top:1px dashed var(--border); color:#6a5d86; font-size:.95rem }
-
-  /* Thread divider */
-  .thread{
-    width:100%; max-width:var(--maxw);
-    height:38px; margin:4px auto 0;
-    background:
-      radial-gradient(6px 6px at 20% 50%, var(--gold) 35%, transparent 36%),
-      repeating-linear-gradient(90deg, transparent 0 28px, rgba(216,170,59,.35) 28px 32px, transparent 32px 64px);
-    opacity:.35; filter: blur(.3px);
-  }
-
-  /* Reveal-in */
-  .reveal-up{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1) }
-  .reveal-up.on{ opacity:1; transform: translateY(0) }
-  @media (prefers-reduced-motion: reduce){ .reveal-up{ opacity:1; transform:none; transition:none } }
+  .bios {display:grid;gap:24px;}
+  .bio {display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;background:#141425;border:1px solid #24243a;border-radius:18px;padding:16px;}
+  .bio img {width:96px;height:96px;object-fit:cover;border-radius:14px;}
+  @media (min-width:780px){ .bios {grid-template-columns:1fr 1fr;} }
+  .section-title {font-size:28px;margin:0 0 14px}
+  iframe {border:0;width:100%;}
+  .note {color:var(--muted);font-size:14px}
+  footer {border-top:1px solid #24243a;margin-top:48px}
+  .links a {color:var(--accent);text-decoration:none}
+  .links a:hover {text-decoration:underline}
 </style>
 </head>
 <body>
 
-<!-- ===== Top Bar ===== -->
-<header class="site-header">
-  <div class="nav-inner">
-    <div class="brand">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13c3-5 13-5 16 0-3 5-13 5-16 0Z" stroke="#ffdca8" stroke-width="2" stroke-linecap="round"/><circle cx="8.5" cy="12" r="1.5" fill="#ffdca8"/><circle cx="15.5" cy="12" r="1.5" fill="#ffdca8"/></svg>
-      ParkerPixie
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="inner wrap">
+    <h1>✨ Parker’s One-Year Sobriety Celebration ✨</h1>
+    <p>Saturday, Feb 8, 2026 • 6:00 PM • Madison, WI</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="button" href="https://partiful.com/e/EmIKXxYZnURVBINcjhqN" target="_blank" rel="noopener">RSVP Now</a>
+      <a class="button" href="#song-request">Request a Song</a>
     </div>
-    <nav class="nav" aria-label="Main">
-      <a class="pill active" href="/parkerpixiepaws">Amigurumi</a>
-      <a class="pill" href="/about">About</a>
-      <a class="pill" href="/contact">Contact</a>
-      <a class="pill" href="/blog">Blog</a>
-    </nav>
   </div>
-</header>
+</section>
 
-<!-- ===== Hero Card ===== -->
-<section class="hero-wrap">
-  <div class="hero">
+<div class="wrap stack">
+
+  <!-- NOW SHOWING -->
+  <h2 class="section-title">Now Showing</h2>
+  <div class="grid">
+
+    <!-- DJ CARD (uses dj-steele.png) -->
+    <article class="card" id="dj-steele">
+      <img class="img" src="/public/img/dj-steele.png" alt="DJ Steele at the booth" />
+      <div class="body">
+        <h3>🎧 DJ Steele — All Night</h3>
+        <p>Classics, throwbacks, Parker-core anthems—and your requests.</p>
+        <a class="button" href="#song-request">Request a Song</a>
+      </div>
+    </article>
+
+    <!-- POTLUCK CARD -->
+    <article class="card" id="potluck">
+      <img class="img" src="/public/img/potluck.png" alt="Potluck dishes and serving table" />
+      <div class="body">
+        <h3>🍽 Potluck Feast</h3>
+        <p>Bring a favorite snack or dish—add yours, then peek at the live list.</p>
+        <a class="button" href="#potluck-form">Add Your Dish</a>
+        <a class="button" href="#potluck-live">See Live List</a>
+      </div>
+    </article>
+
+    <!-- MEMORY WALL CARD -->
+    <article class="card" id="memory-wall">
+      <img class="img" src="/public/img/memory-wall.png" alt="Glitter memory book and notes" />
+      <div class="body">
+        <h3>💌 Memory Wall + Glitter Book</h3>
+        <p>Leave a note, a lyric, a doodle, a wish. Let’s fill the night with sparkles and love.</p>
+        <a class="button" href="#memory-form">Leave a Message</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- FEATURE PRESENTATION (teaser) -->
+  <section class="feature" id="journey">
+    <img src="/public/img/journey-highlight.png" alt="Soft, hopeful portrait and sparkle motif" />
     <div>
-      <h1>ParkerPixiePaws — Cozy Amigurumi</h1>
+      <h2 class="section-title">Feature Presentation: The Why</h2>
+      <p style="font-size:18px;line-height:1.6">
+        “One year ago, I chose to change everything. Today we celebrate not just sobriety—but joy, community,
+        and the glitter we found along the way.”
+      </p>
+      <a class="button" href="#story-coming-soon">Read My Story (Jan 1)</a>
+      <p class="note" id="story-coming-soon">Full journey page goes live January 1.</p>
+    </div>
+  </section>
 
-      <!-- Polished blurb -->
-      <p><strong>I stitch soft, plush, whimsical friends that feel like a hug.</strong> Amigurumi is more than yarn and hooks — it’s a craft rooted in Japanese tradition, patience, and the joy of gifting. Many makers speak of a little “spirit” in handmade things — the warmth of the hands that shaped them.</p>
-      <p>For me, it’s both therapy and expression: a way to honor the people who inspire, teach, and comfort me; to stitch metaphors into every piece; and to turn yarn into lasting symbols of friendship and love. Each creation has a backstory — a reason it came to be. Through this storybook adventure, I’m inviting you to wander with me and witness <em>healing through art.</em></p>
-
-      <div class="chips">
-        <span class="chip">Handmade in Madison, WI</span>
-        <span class="chip">Crafted with YOU in mind</span>
-      </div>
-      <div class="cta-row">
-        <a class="btn" href="/parkerpixiepaws/request/">Commission an Amigurumi</a>
-        <a class="btn secondary" href="#aurora">Browse Amigurumi</a>
+  <!-- CAST & CREW (bios) -->
+  <h2 class="section-title">Cast &amp; Crew</h2>
+  <div class="bios">
+    <div class="bio">
+      <img src="/public/img/host-parker.png" alt="Parker smiling" />
+      <div>
+        <strong>Parker (Host)</strong>
+        <p class="note">I’m here because of community, recovery, and a stubborn belief in sparkly second chances. Thanks for being part of this joy.</p>
       </div>
     </div>
-
-    <figure class="hero-portrait">
-      <img src="/img/ParkerPixiePawProfile.png" alt="ParkerPixiePaws profile illustration" />
-    </figure>
-  </div>
-</section>
-
-<!-- ===== Storybook Entries (Alternating) ===== -->
-
-<!-- AURORA (image left, text right) -->
-<section class="entry" id="aurora">
-  <div class="row">
-    <figure class="media reveal-up">
-      <img src="/img/Aurora.jpg" alt="Aurora the puffin amigurumi" />
-    </figure>
-    <article class="copy reveal-up">
-      <div class="kicker">Puffin · Legacy & Light</div>
-      <h2>Aurora: Legacy & Light</h2>
-      <p>Aurora is for my dearest friend of thirty years — mentor, guide, mother figure. She’s always seen my strength before I did, always lit the path. Puffins are her bird: resilient travelers who thrive in harsh landscapes. Aurora is both tribute and thank-you.</p>
-      <div class="caption">
-        <p><em>Aurora the puffin amigurumi.</em></p>
-        <p><em>Aurora — stitched in gratitude for three decades of guidance and light.</em></p>
+    <div class="bio">
+      <!-- Steele bio uses djsteele.png (square) -->
+      <img src="/public/img/djsteele.png" alt="DJ Steele portrait" />
+      <div>
+        <strong>DJ Steele</strong>
+        <p class="note">Spinning 90s vibes, pop bangers, hip-hop, and musical-theater gems—the soundtrack to a glow-up.</p>
       </div>
-    </article>
-  </div>
-</section>
-<div class="thread" aria-hidden="true"></div>
-
-<!-- BEJEWELED (text left, image right) -->
-<section class="entry" id="bejeweled">
-  <div class="row reverse">
-    <article class="copy reveal-up">
-      <div class="kicker">Peacock · Shimmer & Becoming</div>
-      <h2>Bejeweled: Shimmer & Becoming</h2>
-      <p>And then there’s Bejeweled. My peacock. My queen. My declaration. For years, I wore the mask of “everything is perfect” while I broke inside. Bejeweled is me, unmasked. She is feathers spread wide, shimmer unapologetic. She’s the reminder that the little girl inside me has finally arrived — radiant, worthy, seen.</p>
-      <div class="caption">
-        <p><em>Bejeweled the peacock amigurumi.</em></p>
-        <p><em>Bejeweled — the moment of becoming, stitched in unapologetic shimmer.</em></p>
-      </div>
-    </article>
-    <figure class="media reveal-up">
-      <img src="/img/Bejeweled.jpg" alt="Bejeweled the peacock amigurumi" />
-    </figure>
-  </div>
-</section>
-<div class="thread" aria-hidden="true"></div>
-
-<!-- BONNIE (image left, text right) -->
-<section class="entry" id="bonnie">
-  <div class="row">
-    <figure class="media reveal-up">
-      <img src="/img/Bonnie.jpg" alt="Bonnie the chicken amigurumi" />
-    </figure>
-    <article class="copy reveal-up">
-      <div class="kicker">Chicken · Humor & Resilience</div>
-      <h2>Bonnie: Humor & Resilience</h2>
-      <p>Bonnie has the wildest origin story of them all. She was supposed to be my “Trojan chicken.” The plan was dark and raw: crochet a chicken beautiful enough for my mother to proudly display, then fill it with slips of paper — my hurts, my rage, my childhood wounds. I was going to hand it to her, let her cut it open, and finally see all I’d carried. My counselor gently suggested there might be better ways to heal from childhood PTSD.</p>
-      <p>So Bonnie transformed. She became something else, someone else’s. Instead of being a Trojan horse for pain, she became a tribute for a friend whose honesty, humor, and grounding presence has been a lifeline in my recovery. This “chicken lady” fills her home with warmth and resilience, and she’s far more worthy of such a gift than my mother ever was. Bonnie isn’t trauma anymore — she’s testimony.</p>
-      <div class="caption">
-        <p><em>Bonnie the chicken amigurumi.</em></p>
-        <p><em>Bonnie — once a Trojan plan, now a tribute to honest friendship.</em></p>
-      </div>
-    </article>
-  </div>
-</section>
-<div class="thread" aria-hidden="true"></div>
-
-<!-- GILLIGAN (text left, image right) -->
-<section class="entry" id="gilligan">
-  <div class="row reverse">
-    <article class="copy reveal-up">
-      <div class="kicker">Pelican · Gratitude & Memories</div>
-      <h2>Gilligan: Gratitude & Memories</h2>
-      <p>Gilligan is a pelican for my mother-in-law, who became my family when my own mother couldn’t. He carries with him years of Florida beaches, dolphins, and seabird sightings — stitched memories of vacations and love. Gilligan isn’t just a bird; he’s a bond.</p>
-      <div class="caption">
-        <p><em>Gilligan the pelican amigurumi.</em></p>
-        <p><em>Gilligan — sun, salt, and family stitched into a companion.</em></p>
-      </div>
-    </article>
-    <figure class="media reveal-up">
-      <img src="/img/Gilligan.jpg" alt="Gilligan the pelican amigurumi" />
-    </figure>
-  </div>
-</section>
-<div class="thread" aria-hidden="true"></div>
-
-<!-- JADE (image left, text right) -->
-<section class="entry" id="jade">
-  <div class="row">
-    <figure class="media reveal-up">
-      <img src="/img/Jade.jpg" alt="Jade succulent planter amigurumi" />
-    </figure>
-    <article class="copy reveal-up">
-      <div class="kicker">Succulent Planter · Steadfast & Patience</div>
-      <h2>Jade: Steadfast & Patience</h2>
-      <p>Jade is a planter for my husband, whose love is steady even when my energy is chaos. He’s the soil to my swirl, the anchor that lets me grow wild. Succulents bloom in unlikely places — so does love, so does resilience. Jade is a reminder of that.</p>
-      <div class="caption">
-        <p><em>Jade succulent planter amigurumi.</em></p>
-        <p><em>Jade — a stitched planter for the anchor who lets me grow wild.</em></p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- Outro -->
-<footer class="hero-wrap" style="padding-bottom:48px">
-  <div class="hero" style="grid-template-columns:1fr">
-    <div style="text-align:center">
-      <p style="color:#5f5474">If one of these speaks to you, I take limited commissions.</p>
-      <a class="btn" href="/parkerpixiepaws/request/">Inquire about a custom</a>
     </div>
   </div>
+
+  <!-- FORMS -->
+  <h2 class="section-title" id="song-request">Song Request</h2>
+  <iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?embedded=true"
+    height="1200" title="Song Request Form">Loading…</iframe>
+
+  <h2 class="section-title" id="potluck-form">Potluck Signup</h2>
+  <iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLSdyY6INMq7nn3CMDpdhASnWhrLBYsbQR7wVgfUMAlijhHStyQ/viewform?embedded=true"
+    height="1200" title="Potluck Signup Form">Loading…</iframe>
+
+  <h2 class="section-title" id="memory-form">Memory Book</h2>
+  <iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLScfxcs5NlhwZj4ubDjAyucv4EmTzeWQ_Jy5hb45nlXLqTqaKA/viewform?embedded=true"
+    height="1200" title="Memory Book Form">Loading…</iframe>
+
+  <h2 class="section-title" id="potluck-live">Potluck Live List</h2>
+  <!-- Uses the published view of your sheet for a clean, read-only embed -->
+  <iframe
+    src="https://docs.google.com/spreadsheets/d/162NEHZISOKkEabbKN5BXyG8hSPlyncOvrTKSdoc33pM/pubhtml?widget=true&headers=false"
+    height="900" title="Potluck Live Responses">Loading…</iframe>
+
+  <!-- RSVP again -->
+  <div style="text-align:center;margin-top:24px">
+    <a class="button" href="https://partiful.com/e/EmIKXxYZnURVBINcjhqN" target="_blank" rel="noopener">RSVP Now</a>
+  </div>
+
+</div>
+
+<footer class="wrap">
+  <p><strong>Event Details</strong><br/>
+  7133 Gladstone Drive, Madison, WI 53719 • Phone: 608-514-4835</p>
+
+  <div class="links" style="display:flex;gap:18px;flex-wrap:wrap">
+    <a href="https://partiful.com/e/EmIKXxYZnURVBINcjhqN" target="_blank" rel="noopener">RSVP</a>
+    <a href="#song-request">Song Request</a>
+    <a href="#potluck-form">Potluck Signup</a>
+    <a href="#potluck-live">Potluck Live List</a>
+    <a href="#memory-form">Memory Book</a>
+  </div>
+
+  <p class="note" style="margin-top:16px">© ParkerPixie — One-Year Sobriety Celebration</p>
 </footer>
 
-<script>
-  // Simple reveal-in
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
-  },{threshold:.2});
-  document.querySelectorAll('.reveal-up').forEach(el=>io.observe(el));
-</script>
 </body>
 </html>
-
