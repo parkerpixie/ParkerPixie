@@ -7,104 +7,98 @@
 <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0b12;
-    --panel:#121327;
-    --panel2:#171836;
-    --line:#262a55;
-    --ink:#fff;
-    --muted:#cfd2e6;
-    --neon:#C98CFF;      /* lilac neon */
-    --neon2:#7CF2FF;     /* aqua neon */
-    --accent:#FFD166;    /* warm bulbs */
+    --bg:#0a0b12; --panel:#121327; --panel2:#171836; --line:#262a55;
+    --ink:#fff; --muted:#cfd2e6; --neon:#C98CFF; --neon2:#7CF2FF; --accent:#FFD166;
   }
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Rubik,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Rubik,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
   img{max-width:100%;display:block}
   a{color:var(--neon2);text-decoration:none}
   .wrap{max-width:1180px;margin:0 auto;padding:48px 20px}
   .button{display:inline-block;padding:12px 18px;border-radius:999px;border:1px solid var(--neon2);color:var(--ink);
     box-shadow:0 0 12px rgba(124,242,255,.35), inset 0 0 8px rgba(124,242,255,.15);
-    transition:transform .12s ease, box-shadow .12s ease}
+    transition:transform .12s, box-shadow .12s}
   .button:hover{transform:translateY(-2px);box-shadow:0 0 18px rgba(124,242,255,.6), inset 0 0 10px rgba(124,242,255,.25)}
-  /* ===== Password Gate (overlay) ===== */
-  #gate{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(1200px 600px at 50% 40%, rgba(25,27,60,.95), rgba(10,11,18,.98));z-index:9999}
-  #gate .card{background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:16px;max-width:440px;width:92%;
-    box-shadow:0 0 24px rgba(201,140,255,.2)}
-  #gate h2{margin:0 0 10px;font-weight:600}
-  #gate input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#0e1030;color:var(--ink)}
-  #gate small{color:var(--muted)}
-  /* ===== HERO MARQUEE ===== */
-  .hero{position:relative;min-height:72vh;background:url("/public/img/Nikki06.JPG") center/cover no-repeat fixed;display:grid;place-items:center}
-  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,7,14,.55),rgba(6,7,14,.8))}
+
+  /* HERO */
+  .hero{position:relative;min-height:72vh;background:url("/img/Nikki06.JPG") center/cover no-repeat fixed;display:grid;place-items:center}
+  /* lighter overlay so text is visible */
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,7,14,.35),rgba(6,7,14,.6))}
   .marquee{position:relative;z-index:1;padding:28px 22px;border-radius:22px;background:linear-gradient(180deg,#0e1030,#0a0b1a);
     border:3px solid var(--line);box-shadow:0 0 0 6px rgba(255,255,255,.03), 0 0 60px rgba(201,140,255,.25)}
-  .marquee .title{font-family:Monoton,cursive;font-size:clamp(34px,7vw,84px);line-height:1;margin:0 0 12px;
-    color:var(--neon);text-shadow:0 0 6px rgba(201,140,255,.85), 0 0 26px rgba(201,140,255,.55); animation:neonFlicker 4.5s infinite}
-  .marquee .sub{margin:0 0 18px;color:var(--muted)}
+  .title{font-family:Monoton,cursive;font-size:clamp(34px,7vw,84px);line-height:1;margin:0 0 12px;color:var(--neon);
+    text-shadow:0 0 6px rgba(201,140,255,.9), 0 0 26px rgba(201,140,255,.55);animation:neonFlicker 4.5s infinite}
+  .sub{margin:0 0 18px;color:var(--muted)}
   .bulbs{display:grid;grid-auto-flow:column;gap:8px;justify-content:center;margin-top:12px}
   .bulb{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:
     0 0 8px rgba(255,209,102,.9), 0 0 14px rgba(255,209,102,.6)}
-  /* ===== SECTION TITLES ===== */
+
+  /* QUOTES */
+  .q{margin:18px 0 6px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;
+     background:linear-gradient(180deg, rgba(201,140,255,.06), rgba(124,242,255,.06));
+     box-shadow:0 0 18px rgba(201,140,255,.12) inset;font-size:18px;line-height:1.6}
+  .q em{font-style:normal;color:var(--neon)}
+  .q .by{display:block;margin-top:8px;color:var(--muted);font-size:14px}
+
+  /* SECTION TITLES + LAYOUT */
   .section-title{font-size:28px;margin:0 0 14px;text-shadow:0 0 18px rgba(201,140,255,.25)}
-  /* ===== NOW SHOWING CARDS ===== */
   .grid{display:grid;gap:22px}
   @media(min-width:860px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+  /* CARDS */
   .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:18px;overflow:hidden;
-    transform:translateY(16px);opacity:0;transition:transform .5s ease, opacity .5s ease; }
+    transform:translateY(16px);opacity:0;transition:transform .5s ease, opacity .5s ease}
   .card.pop{transform:translateY(0);opacity:1}
   .card .img{aspect-ratio:4/3;object-fit:cover;width:100%}
   .card .body{padding:16px 16px 20px}
   .card h3{margin:0 0 8px}
   .card p{margin:0 0 12px;color:var(--muted)}
-  /* ===== FEATURE (SPLIT) ===== */
+
+  /* FEATURE SPLIT */
   .feature{display:grid;gap:24px;align-items:center}
   @media(min-width:980px){ .feature{grid-template-columns:1.15fr .85fr} }
   .feature img{border-radius:18px;border:1px solid var(--line)}
   .quote{font-size:20px;line-height:1.6;margin:0 0 14px;position:relative}
-  .quote::after{content:"";position:absolute;inset:auto 0 -2px 0;height:2px;background:linear-gradient(90deg,transparent, var(--neon), transparent)}
-  /* ===== BIOS ===== */
+  .quote::after{content:"";position:absolute;inset:auto 0 -2px 0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--neon),transparent)}
+
+  /* BIOS */
   .bios{display:grid;gap:22px}
   @media(min-width:780px){ .bios{grid-template-columns:1fr 1fr} }
-  .bio{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;background:linear-gradient(180deg,var(--panel),#141638);
-    border:1px solid var(--line);border-radius:16px;padding:14px}
+  .bio{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;
+    background:linear-gradient(180deg,var(--panel),#141638);border:1px solid var(--line);border-radius:16px;padding:14px}
   .bio img{width:96px;height:96px;border-radius:14px;object-fit:cover}
-  .note{color:var(--muted)}
-  iframe{border:0;width:100%}
+  .note{color:var(--muted)} iframe{border:0;width:100%}
   footer{border-top:1px solid var(--line);margin-top:48px}
   .links a:hover{text-decoration:underline}
-  /* ===== Animations ===== */
+
+  /* ANIMATIONS */
   @keyframes neonFlicker{
-    0%,18%,22%,25%,53%,57%,100% {opacity:1}
-    20%,24%,55% {opacity:.5}
+    0%,18%,22%,25%,53%,57%,100%{opacity:1}
+    20%,24%,55%{opacity:.5}
   }
 </style>
 </head>
 <body>
 
-<!-- ===== PASSWORD GATE (client-side) ===== -->
-<div id="gate">
-  <div class="card">
-    <h2>Welcome!</h2>
-    <p class="note">This page is for friends & family. Enter the password to continue.</p>
-    <form id="pwForm">
-      <input id="pw" type="password" placeholder="Password" autocomplete="current-password" />
-      <div style="display:flex;gap:10px;margin-top:12px">
-        <button class="button" type="submit">Enter</button>
-        <small>Hint: Capybara… 🧘‍♀️</small>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- ===== HERO / MARQUEE ===== -->
+<!-- HERO -->
 <header class="hero" id="top" aria-label="Hero">
   <div class="wrap">
     <div class="marquee">
       <h1 class="title">Parker’s One-Year<br/>Sobriety Celebration</h1>
       <p class="sub">Saturday, Feb 8, 2026 • 6:00 PM • Madison, WI</p>
+
       <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
         <a class="button" href="https://partiful.com/e/EmIKXxYZnURVBINcjhqN" target="_blank" rel="noopener">RSVP Now</a>
         <a class="button" href="#song-request">Request a Song</a>
       </div>
+
+      <!-- Hero quote (Emerson) -->
+      <div class="q" style="max-width:720px;margin:16px auto 0">
+        <em>“The only person you are destined to become is the person you decide to be.”</em>
+        <span class="by">— Ralph Waldo Emerson</span>
+      </div>
+
       <div class="bulbs" aria-hidden="true">
         <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
         <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
@@ -115,25 +109,34 @@
 
 <main class="wrap">
 
-  <!-- ===== NOW SHOWING ===== -->
+  <!-- NOW SHOWING -->
   <h2 class="section-title">Now Showing</h2>
   <section class="grid" id="now-showing">
+
     <!-- DJ CARD (uses dj-steele.png) -->
     <article class="card">
-      <img class="img" src="/public/img/dj-steele.png" alt="DJ Steele at the booth">
+      <img class="img" src="/img/dj-steele.png" alt="DJ Steele at the booth">
       <div class="body">
         <h3>🎧 DJ Steele — All Night</h3>
         <p>Classics, throwbacks, Parker-core anthems—and your requests.</p>
+        <div class="q">
+          <em>“I’m good at being uncomfortable, so I can’t stop changing all the time.”</em>
+          <span class="by">— Fiona Apple</span>
+        </div>
         <a class="button" href="#song-request">Request a Song</a>
       </div>
     </article>
 
     <!-- POTLUCK CARD -->
     <article class="card">
-      <img class="img" src="/public/img/potluck.png" alt="Potluck dishes and serving table">
+      <img class="img" src="/img/potluck.png" alt="Potluck dishes and serving table">
       <div class="body">
         <h3>🍽 Potluck Feast</h3>
         <p>Bring a favorite snack or dish—add yours, then peek at the live list.</p>
+        <div class="q">
+          <em>“I had the time of my life fighting dragons with you.”</em>
+          <span class="by">— Taylor Swift</span>
+        </div>
         <a class="button" href="#potluck-form">Add Your Dish</a>
         <a class="button" href="#potluck-live">See Live List</a>
       </div>
@@ -141,7 +144,7 @@
 
     <!-- MEMORY WALL CARD -->
     <article class="card">
-      <img class="img" src="/public/img/memory-wall.png" alt="Glitter memory book and notes">
+      <img class="img" src="/img/memory-wall.png" alt="Glitter memory book and notes">
       <div class="body">
         <h3>💌 Memory Wall + Glitter Book</h3>
         <p>Leave a note, a lyric, a doodle, a wish. Let’s fill the night with sparkles and love.</p>
@@ -150,22 +153,35 @@
     </article>
   </section>
 
-  <!-- ===== FEATURE PRESENTATION (TEASER) ===== -->
+  <!-- FEATURE PRESENTATION (teaser 1) -->
   <section class="feature" id="journey" style="margin-top:40px">
-    <img src="/public/img/journey-highlight.png" alt="Hopeful portrait/sparkle motif">
+    <img src="/img/journey-highlight.png" alt="Hopeful portrait/sparkle motif">
     <div>
       <h2 class="section-title">Feature Presentation: The Why</h2>
       <p class="quote">“One year ago, I chose to change everything. Today we celebrate not just sobriety—but joy, community, and the glitter we found along the way.”</p>
       <a class="button" href="#story-coming-soon">Read My Story (Jan 1)</a>
-      <p class="note" id="story-coming-soon">Full journey page goes live January 1.</p>
+      <p class="sub" id="story-coming-soon">Full journey page goes live January 1.</p>
     </div>
   </section>
 
-  <!-- ===== CAST & CREW ===== -->
+  <!-- FEATURE PRESENTATION (teaser 2 with Brené) -->
+  <section class="feature" id="journey-quote" style="margin-top:28px">
+    <img src="/img/journey-highlight.png" alt="Soft light and sparkles">
+    <div>
+      <h2 class="section-title">A Note From My Heart</h2>
+      <div class="q">
+        <em>“Only when we are brave enough to explore the darkness will we discover the infinite power of our light.”</em>
+        <span class="by">— Brené Brown</span>
+      </div>
+      <p class="note">Thanks for being part of the light.</p>
+    </div>
+  </section>
+
+  <!-- CAST & CREW -->
   <h2 class="section-title" style="margin-top:40px">Cast &amp; Crew</h2>
   <section class="bios">
     <article class="bio">
-      <img src="/public/img/host-parker.png" alt="Parker smiling">
+      <img src="/img/host-parker.png" alt="Parker smiling">
       <div>
         <strong>Parker (Host)</strong>
         <p class="note">I’m here because of community, recovery, and a stubborn belief in sparkly second chances. Thanks for being part of this joy.</p>
@@ -173,7 +189,7 @@
     </article>
     <article class="bio">
       <!-- Steele bio uses djsteele.png (square) -->
-      <img src="/public/img/djsteele.png" alt="DJ Steele portrait">
+      <img src="/img/djsteele.png" alt="DJ Steele portrait">
       <div>
         <strong>DJ Steele</strong>
         <p class="note">Spinning 90s vibes, pop bangers, hip-hop, and musical-theater gems—the soundtrack to a glow-up.</p>
@@ -181,7 +197,7 @@
     </article>
   </section>
 
-  <!-- ===== FORMS ===== -->
+  <!-- FORMS -->
   <h2 class="section-title" id="song-request" style="margin-top:40px">Song Request</h2>
   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?embedded=true"
           height="1200" title="Song Request Form">Loading…</iframe>
@@ -195,49 +211,39 @@
           height="1200" title="Memory Book Form">Loading…</iframe>
 
   <h2 class="section-title" id="potluck-live" style="margin-top:40px">Potluck Live List</h2>
+  <!-- Published web view for clean, read-only embed -->
   <iframe src="https://docs.google.com/spreadsheets/d/162NEHZISOKkEabbKN5BXyG8hSPlyncOvrTKSdoc33pM/pubhtml?widget=true&headers=false"
           height="900" title="Potluck Live Responses">Loading…</iframe>
 
   <div style="text-align:center;margin-top:28px">
     <a class="button" href="https://partiful.com/e/EmIKXxYZnURVBINcjhqN" target="_blank" rel="noopener">RSVP Now</a>
   </div>
-
 </main>
 
 <footer class="wrap">
   <p><strong>Event Details</strong><br/>7133 Gladstone Drive, Madison, WI 53719 • Phone: 608-514-4835</p>
-  <div class="links" style="display:flex;gap:18px;flex-wrap:wrap">
+
+  <div class="q" style="margin-top:16px">
+    <em>“One day you will tell your story of how you overcame what you went through and it will be someone else’s survival guide.”</em>
+    <span class="by">— Brené Brown</span>
+  </div>
+
+  <div class="links" style="display:flex;gap:18px;flex-wrap:wrap;margin-top:12px">
     <a href="https://partiful.com/e/EmIKXxYZnURVBINcjhqN" target="_blank" rel="noopener">RSVP</a>
     <a href="#song-request">Song Request</a>
     <a href="#potluck-form">Potluck Signup</a>
     <a href="#potluck-live">Potluck Live List</a>
     <a href="#memory-form">Memory Book</a>
   </div>
-  <p class="note" style="margin-top:16px">© ParkerPixie — One-Year Sobriety Celebration</p>
+
+  <p class="sub" style="margin-top:16px">© ParkerPixie — One-Year Sobriety Celebration</p>
 </footer>
 
 <script>
-  // ===== Simple client-side password gate (use Wix Page Password for real security) =====
-  (function(){
-    const form = document.getElementById('pwForm');
-    const input = document.getElementById('pw');
-    const gate  = document.getElementById('gate');
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      if ((input.value || "").trim() === "CapybaraCalm") {
-        gate.style.display = 'none';
-        observeCards();
-      } else {
-        input.value = "";
-        input.placeholder = "Try again ✨";
-      }
-    });
-  })();
-
-  // ===== Pop-in animation on scroll (cards) =====
-  function observeCards(){
-    const cards = document.querySelectorAll('.card');
-    if (!('IntersectionObserver' in window)){ cards.forEach(c=>c.classList.add('pop')); return; }
+  // Pop-in animation on scroll (no password gate)
+  const cards = document.querySelectorAll('.card');
+  if (!('IntersectionObserver' in window)){ cards.forEach(c=>c.classList.add('pop')); }
+  else{
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(({isIntersecting,target})=>{
         if(isIntersecting){ target.classList.add('pop'); io.unobserve(target); }
