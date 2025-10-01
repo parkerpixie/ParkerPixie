@@ -8,7 +8,6 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Headline vibe + body + quote script -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
   <style>
@@ -29,6 +28,8 @@
     html,body{background:var(--bg);color:var(--ink);margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:var(--accent);text-decoration:none}
     img{max-width:100%;border-radius:16px}
+
+    /* Standard page container */
     .wrap{max-width:1150px;margin:0 auto;padding:28px 20px 80px}
 
     /* Utility */
@@ -60,36 +61,50 @@
     .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.4);box-shadow:var(--ring)}
     .btn-pill{min-width:170px}
 
-    /* HERO — Section 1 (video background, no overlay) */
-    .hero{
+    /* ========== HERO FULL-BLEED VIDEO FRAME ========== */
+    /* This container breaks out of the centered wrap so video fills the page width
+       but only behind the hero area. */
+    .fullbleed-hero{
       position:relative;
-      padding:60px 20px 70px;
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      /* gentle fallback bg if video can't play */
-      background:
-        radial-gradient(1200px 400px at 50% -10%, rgba(158,123,255,.10), transparent 60%),
-        radial-gradient(1100px 360px at 50% 110%, rgba(92,240,209,.08), transparent 60%),
-        linear-gradient(180deg, #0b0e17, #0b0e1700 40%, #0b0e17 100%);
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      /* vertical spacing of the hero area is driven by the inner bubble */
+      padding: 34px 0 46px; /* space above/below the bubble */
     }
-    .hero-video{
+
+    /* Background video lives only inside this hero frame */
+    .hero-bg{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:cover;
-      z-index:-1;      /* sits behind content */
-      filter:none;     /* no darkening */
+      z-index:0;         /* behind the bubble */
+      filter:none;       /* no darkening */
+      pointer-events:none;
     }
-    .hero .title{font-size:62px;text-align:center;
-      text-shadow:0 0 10px rgba(158,123,255,.25)}
-    .hero .subtitle{margin-top:10px;text-align:center}
-    .hero .cta{margin-top:22px}
-
-    /* Reduced motion: simply hide the video */
     @media (prefers-reduced-motion: reduce){
-      .hero-video{display:none}
+      .hero-bg{display:none}
     }
+
+    /* Inner container to match the page width */
+    .hero-inner{max-width:1150px;margin:0 auto;padding:0 20px}
+
+    /* The translucent "bubble" that holds title, buttons, quote */
+    .hero-bubble{
+      position:relative;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(15,19,35,.35);      /* translucent */
+      backdrop-filter: blur(8px) saturate(1.05);
+      box-shadow:var(--shadow);
+      padding:60px 20px 70px;
+      z-index:1;                           /* above the video */
+    }
+    .hero-bubble .title{
+      font-size:62px;text-align:center;
+      text-shadow:0 0 10px rgba(158,123,255,.25)
+    }
+    .hero-bubble .subtitle{margin-top:10px;text-align:center}
+    .hero-bubble .cta{margin-top:22px}
 
     /* Section 2 — Celebration Details */
     .cards.three .card-img{height:210px;object-fit:cover;width:100%}
@@ -133,10 +148,7 @@
       animation:slideQuote 16s linear 1 both;
     }
     .qattrib{margin-top:10px;text-align:center;color:var(--muted);font-weight:600}
-    @keyframes slideQuote{
-      0%{transform:translateX(6%)}
-      100%{transform:translateX(-6%)}
-    }
+    @keyframes slideQuote{ 0%{transform:translateX(6%)} 100%{transform:translateX(-6%)} }
     @media (max-width:700px){ .qtext{animation:none} }
     @media (prefers-reduced-motion: reduce){ .qtext{animation:none} }
 
@@ -148,33 +160,40 @@
   </style>
 </head>
 <body>
-  <main class="wrap">
 
-    <!-- SECTION 1: HERO with video background -->
-    <section class="hero card">
-      <video class="hero-video" autoplay loop muted playsinline preload="metadata" poster="">
-        <source src="/videos/Header.mp4" type="video/mp4">
-        <!-- If you add a WEBM later, list it first for better compression:
-        <source src="/videos/Header.webm" type="video/webm">
-        -->
-      </video>
+  <!-- FULL-BLEED HERO with video background (only here) -->
+  <div class="fullbleed-hero">
+    <video class="hero-bg" autoplay loop muted playsinline preload="metadata" poster="">
+      <source src="/videos/Header.mp4" type="video/mp4">
+      <!-- Add WEBM here later for better compression:
+      <source src="/videos/Header.webm" type="video/webm">
+      -->
+    </video>
 
-      <h1 class="title">Parker’s One-Year Sobriety Celebration</h1>
-      <p class="subtitle">Saturday, Feb 8, 2026 • 6:00 PM • Madison, WI</p>
-      <div class="row cta">
-        <a class="btn btn-pill" href="#rsvp">RSVP Now</a>
-        <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header">Request a Song</a>
-      </div>
-
-      <div class="pad center" style="margin-top:22px">
-        <div class="quote-block">
-          <div class="muted" style="font-style:italic;">
-            “The only person you are destined to become is the person you decide to be.”
-          </div>
-          <div class="muted" style="margin-top:6px">— Ralph Waldo Emerson</div>
+    <div class="hero-inner">
+      <section class="hero-bubble">
+        <h1 class="title">Parker’s One-Year Sobriety Celebration</h1>
+        <p class="subtitle">Saturday, Feb 8, 2026 • 6:00 PM • Madison, WI</p>
+        <div class="row cta">
+          <a class="btn btn-pill" href="#rsvp">RSVP Now</a>
+          <a class="btn btn-pill" target="_blank" rel="noopener"
+             href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header">Request a Song</a>
         </div>
-      </div>
-    </section>
+
+        <div class="pad center" style="margin-top:22px">
+          <div class="quote-block">
+            <div class="muted" style="font-style:italic;">
+              “The only person you are destined to become is the person you decide to be.”
+            </div>
+            <div class="muted" style="margin-top:6px">— Ralph Waldo Emerson</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- The rest of the page returns to the normal dark background -->
+  <main class="wrap">
 
     <!-- SECTION 2: Celebration Details -->
     <section class="pad">
@@ -198,7 +217,7 @@
           <img class="card-img" src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?q=80&w=1200&auto=format&fit=crop" alt="Colorful feast table">
           <div class="pad">
             <h3 class="h3">🍽️ Bring-A-Dish, Bring-the-Glow</h3>
-            <p class="muted">Bring a favorite snack or dish—add yours, then come hungry.</p>
+            <p class="muted">Bring a favorite snack or dish. COME HUNGRY!</p>
             <div class="row cta">
               <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSdyY6INMq7nn3CMDpdhASnWhrLBYsbQR7wVgfUMAlijhHStyQ/viewform?usp=header">Add Your Dish</a>
             </div>
