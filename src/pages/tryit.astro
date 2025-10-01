@@ -62,42 +62,33 @@
     .btn-pill{min-width:170px}
 
     /* ========== HERO FULL-BLEED VIDEO FRAME ========== */
-    /* This container breaks out of the centered wrap so video fills the page width
-       but only behind the hero area. */
     .fullbleed-hero{
       position:relative;
       margin-left:calc(50% - 50vw);
       margin-right:calc(50% - 50vw);
-      /* vertical spacing of the hero area is driven by the inner bubble */
-      padding: 34px 0 46px; /* space above/below the bubble */
+      padding: 34px 0 46px;
     }
-
-    /* Background video lives only inside this hero frame */
     .hero-bg{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:cover;
-      z-index:0;         /* behind the bubble */
-      filter:none;       /* no darkening */
+      z-index:0;
+      filter:none;
       pointer-events:none;
     }
     @media (prefers-reduced-motion: reduce){
       .hero-bg{display:none}
     }
-
-    /* Inner container to match the page width */
     .hero-inner{max-width:1150px;margin:0 auto;padding:0 20px}
-
-    /* The translucent "bubble" that holds title, buttons, quote */
     .hero-bubble{
       position:relative;
       border-radius:28px;
       border:1px solid rgba(255,255,255,.22);
-      background:rgba(15,19,35,.35);      /* translucent */
+      background:rgba(15,19,35,.35);
       backdrop-filter: blur(8px) saturate(1.05);
       box-shadow:var(--shadow);
       padding:60px 20px 70px;
-      z-index:1;                           /* above the video */
+      z-index:1;
     }
     .hero-bubble .title{
       font-size:62px;text-align:center;
@@ -108,6 +99,22 @@
 
     /* Section 2 — Celebration Details */
     .cards.three .card-img{height:210px;object-fit:cover;width:100%}
+
+    /* NEW: Card video to match the same sizing as card images */
+    .card-video{
+      display:block;
+      width:100%;
+      height:210px;           /* match .card-img height */
+      object-fit:cover;       /* crop nicely */
+      background:#000;        /* avoids flash on load */
+    }
+    /* Reduced motion: hide video and show the fallback image */
+    .card-video-fallback{display:none}
+    @media (prefers-reduced-motion: reduce){
+      .card-video{display:none}
+      .card-video-fallback{display:block}
+    }
+
     .cards .quote{margin:14px 0 0;color:var(--muted);font-style:italic}
     .cards .cta{margin:16px 0 6px}
 
@@ -200,9 +207,18 @@
       <h2 class="h2">Celebration Details</h2>
 
       <div class="grid three cards">
-        <!-- Card: DJ Steele -->
+        <!-- Card: DJ Steele (VIDEO) -->
         <article class="card">
-          <img class="card-img" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop" alt="DJ setup under lights">
+          <video class="card-video" autoplay loop muted playsinline preload="metadata" poster="">
+            <source src="/videos/djsteelevid.mp4" type="video/mp4">
+            <!-- Optional: add WEBM for better compression
+            <source src="/videos/djsteelevid.webm" type="video/webm">
+            -->
+          </video>
+          <!-- Reduced-motion/static fallback -->
+          <img class="card-video-fallback card-img"
+               src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop"
+               alt="DJ setup under lights (static fallback)">
           <div class="pad">
             <h3 class="h3">🎧 DJ Steele — All Day</h3>
             <p class="muted">Classics, throwbacks, Parker-core anthems—and your requests.</p>
@@ -348,3 +364,4 @@
   </script>
 </body>
 </html>
+
