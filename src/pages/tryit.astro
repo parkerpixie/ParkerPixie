@@ -60,7 +60,7 @@
     .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.4);box-shadow:var(--ring)}
     .btn-pill{min-width:170px}
 
-    /* HERO — Section 1 (video background) */
+    /* HERO — Section 1 (video background, no overlay) */
     .hero{
       position:relative;
       padding:60px 20px 70px;
@@ -68,43 +68,27 @@
       border:1px solid rgba(255,255,255,.08);
       box-shadow:var(--shadow);
       overflow:hidden;
-      /* fallback bg when video not playing */
+      /* gentle fallback bg if video can't play */
       background:
-        radial-gradient(1200px 400px at 50% -10%, rgba(158,123,255,.22), transparent 60%),
-        radial-gradient(1100px 360px at 50% 110%, rgba(92,240,209,.12), transparent 60%),
+        radial-gradient(1200px 400px at 50% -10%, rgba(158,123,255,.10), transparent 60%),
+        radial-gradient(1100px 360px at 50% 110%, rgba(92,240,209,.08), transparent 60%),
         linear-gradient(180deg, #0b0e17, #0b0e1700 40%, #0b0e17 100%);
-      isolation:isolate;
     }
     .hero-video{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:cover;
-      filter:saturate(1.1);
-      z-index:-2;
-    }
-    /* soft readable overlay */
-    .hero::after{
-      content:"";
-      position:absolute; inset:0; z-index:-1;
-      background:
-        radial-gradient(600px 240px at 50% 30%, rgba(0,0,0,.35), rgba(0,0,0,.55) 60%),
-        linear-gradient(0deg, rgba(0,0,0,.45), rgba(0,0,0,.15) 40%, rgba(0,0,0,.45));
-      pointer-events:none;
-      backdrop-filter: blur(0.2px);
+      z-index:-1;      /* sits behind content */
+      filter:none;     /* no darkening */
     }
     .hero .title{font-size:62px;text-align:center;
-      text-shadow:0 0 18px rgba(158,123,255,.35), 0 0 50px rgba(158,123,255,.15)}
+      text-shadow:0 0 10px rgba(158,123,255,.25)}
     .hero .subtitle{margin-top:10px;text-align:center}
     .hero .cta{margin-top:22px}
 
-    /* Respect reduced motion: pause video */
+    /* Reduced motion: simply hide the video */
     @media (prefers-reduced-motion: reduce){
       .hero-video{display:none}
-      .hero::after{
-        background:
-          radial-gradient(600px 240px at 50% 30%, rgba(0,0,0,.45), rgba(0,0,0,.65) 60%),
-          linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,.25) 40%, rgba(0,0,0,.55));
-      }
     }
 
     /* Section 2 — Celebration Details */
@@ -168,10 +152,9 @@
 
     <!-- SECTION 1: HERO with video background -->
     <section class="hero card">
-      <!-- Video (muted + autoplay + loop + inline) -->
       <video class="hero-video" autoplay loop muted playsinline preload="metadata" poster="">
         <source src="/videos/Header.mp4" type="video/mp4">
-        <!-- If you later add a WEBM, list it first for better compression:
+        <!-- If you add a WEBM later, list it first for better compression:
         <source src="/videos/Header.webm" type="video/webm">
         -->
       </video>
