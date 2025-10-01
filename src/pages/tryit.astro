@@ -60,22 +60,52 @@
     .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.4);box-shadow:var(--ring)}
     .btn-pill{min-width:170px}
 
-    /* HERO — Section 1 (as-is) */
+    /* HERO — Section 1 (video background) */
     .hero{
       position:relative;
       padding:60px 20px 70px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      /* fallback bg when video not playing */
       background:
         radial-gradient(1200px 400px at 50% -10%, rgba(158,123,255,.22), transparent 60%),
         radial-gradient(1100px 360px at 50% 110%, rgba(92,240,209,.12), transparent 60%),
         linear-gradient(180deg, #0b0e17, #0b0e1700 40%, #0b0e17 100%);
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:var(--shadow);
+      isolation:isolate;
+    }
+    .hero-video{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      filter:saturate(1.1);
+      z-index:-2;
+    }
+    /* soft readable overlay */
+    .hero::after{
+      content:"";
+      position:absolute; inset:0; z-index:-1;
+      background:
+        radial-gradient(600px 240px at 50% 30%, rgba(0,0,0,.35), rgba(0,0,0,.55) 60%),
+        linear-gradient(0deg, rgba(0,0,0,.45), rgba(0,0,0,.15) 40%, rgba(0,0,0,.45));
+      pointer-events:none;
+      backdrop-filter: blur(0.2px);
     }
     .hero .title{font-size:62px;text-align:center;
       text-shadow:0 0 18px rgba(158,123,255,.35), 0 0 50px rgba(158,123,255,.15)}
     .hero .subtitle{margin-top:10px;text-align:center}
     .hero .cta{margin-top:22px}
+
+    /* Respect reduced motion: pause video */
+    @media (prefers-reduced-motion: reduce){
+      .hero-video{display:none}
+      .hero::after{
+        background:
+          radial-gradient(600px 240px at 50% 30%, rgba(0,0,0,.45), rgba(0,0,0,.65) 60%),
+          linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,.25) 40%, rgba(0,0,0,.55));
+      }
+    }
 
     /* Section 2 — Celebration Details */
     .cards.three .card-img{height:210px;object-fit:cover;width:100%}
@@ -113,10 +143,9 @@
     .qtext{
       font-family:"Dancing Script", cursive;
       font-size:38px;line-height:1.25;text-align:center;
-      white-space:normal; /* allow wrapping */
+      white-space:normal;
       margin:0 auto;color:#f4edff;
       text-shadow:0 2px 12px rgba(158,123,255,.35);
-      /* start slightly right, slide left */
       animation:slideQuote 16s linear 1 both;
     }
     .qattrib{margin-top:10px;text-align:center;color:var(--muted);font-weight:600}
@@ -124,7 +153,6 @@
       0%{transform:translateX(6%)}
       100%{transform:translateX(-6%)}
     }
-    /* Reduce motion + small screens = no animation */
     @media (max-width:700px){ .qtext{animation:none} }
     @media (prefers-reduced-motion: reduce){ .qtext{animation:none} }
 
@@ -138,8 +166,16 @@
 <body>
   <main class="wrap">
 
-    <!-- SECTION 1: HERO (kept as-is) -->
+    <!-- SECTION 1: HERO with video background -->
     <section class="hero card">
+      <!-- Video (muted + autoplay + loop + inline) -->
+      <video class="hero-video" autoplay loop muted playsinline preload="metadata" poster="">
+        <source src="/videos/Header.mp4" type="video/mp4">
+        <!-- If you later add a WEBM, list it first for better compression:
+        <source src="/videos/Header.webm" type="video/webm">
+        -->
+      </video>
+
       <h1 class="title">Parker’s One-Year Sobriety Celebration</h1>
       <p class="subtitle">Saturday, Feb 8, 2026 • 6:00 PM • Madison, WI</p>
       <div class="row cta">
@@ -265,7 +301,6 @@
       <p class="muted">Tap the map for directions—see you where the glitter lives.</p>
 
       <div class="map-embed">
-        <!-- Google Maps Embed - default style -->
         <iframe
           loading="lazy"
           allowfullscreen
