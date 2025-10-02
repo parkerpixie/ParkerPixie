@@ -8,7 +8,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;500;700&family=Dancing+Script:wght@700&family=Permanent+Marker&family=Special+Elite&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -119,44 +119,42 @@
       padding:18px 22px;
     }
 
-    /* ===== Section 5 — The Story & The Soundtrack (Polaroid style) ===== */
-    .polaroid-card{display:flex;flex-direction:column}
-    .polaroid-wrap{
-      position:relative;
-      display:flex;align-items:center;justify-content:center;
-      padding:26px 26px 0;
-      min-height:420px;
-      background:
-        radial-gradient(600px 220px at 50% 0%, rgba(158,123,255,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
-      border-bottom:1px solid rgba(255,255,255,.06);
+    /* ===== Section 5 — Story & Soundtrack (Dual Polaroid image + two cards) ===== */
+    .duet-title{display:flex;gap:.5ch;flex-wrap:wrap;align-items:baseline}
+    .duet-title .story{
+      font-family:"Special Elite", cursive;
+      color:#F4EDFF;
+      text-shadow:0 1px 0 rgba(0,0,0,.35);
+      font-weight:400;
     }
-    .polaroid{
-      display:block; width:100%; max-width:520px; height:auto;
-      border-radius:10px; /* image already has white frame baked in */
-      box-shadow:0 18px 30px rgba(0,0,0,.45);
-      transform-origin:center;
-      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
-      will-change: transform;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,.45));
+    .duet-title .amp{
+      font-weight:800;
+      background:linear-gradient(135deg,#f8e7a5 0%,#f1c15a 40%,#ffe9b8 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 0 10px rgba(158,123,255,.25);
     }
-    .left-tilt .polaroid{transform:rotate(-4deg)}
-    .right-tilt .polaroid{transform:rotate(3deg)}
-    .polaroid-wrap:hover .polaroid{transform:rotate(0deg) scale(1.01)}
+    .duet-title .soundtrack{
+      font-family:"Permanent Marker", cursive;
+      color:#FF59D6; /* base neon */
+      text-shadow:
+        0 0 .12em #FFD1F5,
+        0 0 .35em rgba(255,89,214,.95),
+        0 0 .75em rgba(158,123,255,.65);
+      font-weight:400;
+    }
 
-    /* Vinyl accent behind Steele */
-    .vinyl::after{
-      content:"";
-      position:absolute;
-      right:-26px; top:42px;
-      width:240px; height:240px; border-radius:50%;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,.08) 0 6px, rgba(0,0,0,.0) 7px),
-        repeating-radial-gradient(circle at 50% 50%, #0e0f14 0 3px, #12141b 3px 6px, #0e0f14 6px 9px);
-      box-shadow:inset 0 0 0 2px rgba(255,255,255,.06), 0 8px 18px rgba(0,0,0,.35);
-      z-index:0;
+    .duo-grid{display:grid;gap:28px;grid-template-columns:repeat(2,1fr)}
+    .duo-img{
+      grid-column:1 / -1;
+      display:block;
+      width:100%;
+      height:auto;
+      max-width:1110px; /* keep within section width (not full-bleed) */
+      margin:0 auto;
+      border-radius:0;
+      filter:drop-shadow(0 14px 28px rgba(0,0,0,.45));
     }
-    .vinyl .polaroid{z-index:1}
+    @media (max-width:980px){ .duo-grid{grid-template-columns:1fr} }
 
     /* Section 6 — Quote Showcase (animated once) */
     .showcase{
@@ -308,48 +306,40 @@
       </div>
     </section>
 
-    <!-- SECTION 5: The Story & The Soundtrack (POLAROID) -->
+    <!-- SECTION 5: The Story & The Soundtrack (DUAL IMAGE + TWO CARDS) -->
     <section class="pad" id="story-soundtrack">
-      <h2 class="h2">The Story &amp; The Soundtrack</h2>
+      <h2 class="h2 duet-title">
+        <span class="story">The Story</span>
+        <span class="amp">&amp;</span>
+        <span class="soundtrack">The Soundtrack</span>
+      </h2>
 
-      <div class="grid two-eq">
-        <!-- Parker -->
-        <article class="card polaroid-card">
-          <div class="polaroid-wrap left-tilt">
-            <img
-              class="polaroid"
-              src="/img/parker-1200x1500-polaroid.png"
-              alt="Polaroid of Parker — The Story"
-              width="1200" height="1500" loading="lazy"
-              sizes="(max-width:980px) 92vw, 520px">
-          </div>
-          <div class="pad">
-            <h3 class="h3">Parker (The Story)</h3>
-            <p>I’m not the host, I’m the <em>reason</em>. I got here with a stubborn refusal to quit and an even more stubborn need to live <strong>furiously happy</strong>. Recovery, community, and a whole lot of glitter got me this far — and I’m dragging joy along with me out of sheer spite. Thanks for showing up to sparkle with me. ✨</p>
-            <div class="row cta">
-              <a class="btn btn-pill" href="#journey" aria-label="Read My Journey">My Journey</a>
-            </div>
+      <div class="duo-grid">
+        <!-- The dual polaroid image spanning the section width -->
+        <img
+          class="duo-img"
+          src="/img/storyandsoundtrack-2200x1311.png"
+          alt="Two tilted Polaroids labeled The Story and The Soundtrack with Parker and DJ Steele"
+          width="2200" height="1311"
+          loading="lazy"
+          sizes="(max-width:980px) 92vw, 1110px">
+
+        <!-- Two text cards below (exact content preserved) -->
+        <article class="card pad">
+          <h3 class="h3">Parker (The Story)</h3>
+          <p>I’m not the host, I’m the <em>reason</em>. I got here with a stubborn refusal to quit and an even more stubborn need to live <strong>furiously happy</strong>. Recovery, community, and a whole lot of glitter got me this far — and I’m dragging joy along with me out of sheer spite. Thanks for showing up to sparkle with me. ✨</p>
+          <div class="row cta">
+            <a class="btn btn-pill" href="#journey" aria-label="Read My Journey">My Journey</a>
           </div>
         </article>
 
-        <!-- DJ Steele -->
-        <article class="card polaroid-card">
-          <div class="polaroid-wrap right-tilt vinyl">
-            <img
-              class="polaroid"
-              src="/img/steele-1200x1500-polaroid.png"
-              alt="Polaroid of DJ Steele — The Soundtrack"
-              width="1200" height="1500" loading="lazy"
-              sizes="(max-width:980px) 92vw, 520px">
-          </div>
-          <div class="pad">
-            <h3 class="h3">DJ Steele (The Soundtrack)</h3>
-            <p>One of my closest friends who agreed (without too much bribery) to put up with my wildly expansive, glitter-splattered, and occasionally questionable taste in music. He’s happily spinning it all so I can celebrate with one of the things that saved me and carried me through healing: <strong>MUSIC</strong>.</p>
-            <div class="row cta">
-              <a class="btn btn-pill" target="_blank" rel="noopener"
-                 href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header"
-                 aria-label="Request a Song for DJ Steele">Request a Song</a>
-            </div>
+        <article class="card pad">
+          <h3 class="h3">DJ Steele (The Soundtrack)</h3>
+          <p>One of my closest friends who agreed (without too much bribery) to put up with my wildly expansive, glitter-splattered, and occasionally questionable taste in music. He’s happily spinning it all so I can celebrate with one of the things that saved me and carried me through healing: <strong>MUSIC</strong>.</p>
+          <div class="row cta">
+            <a class="btn btn-pill" target="_blank" rel="noopener"
+               href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header"
+               aria-label="Request a Song for DJ Steele">Request a Song</a>
           </div>
         </article>
       </div>
