@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parker’s One-Year Sobriety Celebration</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;500;700&family=Dancing+Script:wght@700&family=Permanent+Marker&family=Special+Elite&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0e17;
+      --card:#0f1323;
+      --ink:#e9e8ff;
+      --muted:#a9b0d9;
+      --glow:#9e7bff;
+      --glow-2:#5cf0d1;
+      --accent:#3be1c0;
+      --ring: 0 0 0 2px var(--glow-2), 0 0 32px -6px var(--glow);
+      --radius:22px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{background:var(--bg);color:var(--ink);margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    img{max-width:100%;border-radius:16px}
+
+    /* Standard page container */
+    .wrap{max-width:1150px;margin:0 auto;padding:28px 20px 80px}
+
+    /* Utility */
+    .grid{display:grid;gap:28px}
+    .two{grid-template-columns:1.2fr 1fr}
+    .two-eq{grid-template-columns:repeat(2,1fr)}
+    .three{grid-template-columns:repeat(3,1fr)}
+    @media (max-width:980px){.two,.three,.two-eq{grid-template-columns:1fr}}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden
+    }
+    .pad{padding:22px}
+    .title{font:800 56px/1 Poppins,Inter,sans-serif;letter-spacing:.5px}
+    .subtitle{color:var(--muted);font-weight:500}
+    .h2{font:800 32px/1.2 Poppins,Inter,sans-serif;margin:0 0 14px}
+    .h3{font:800 22px/1.2 Poppins,Inter,sans-serif;margin:0 0 10px}
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 20px;border-radius:999px;font-weight:700;
+      border:1.5px solid rgba(255,255,255,.25);
+      color:var(--ink);background:rgba(255,255,255,.03);
+      box-shadow:0 0 0 0 rgba(0,0,0,0);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.4);box-shadow:var(--ring)}
+    .btn-pill{min-width:170px}
+
+    /* ========== HERO FULL-BLEED VIDEO FRAME ========== */
+    .fullbleed-hero{
+      position:relative;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      padding: 34px 0 46px;
+    }
+    .hero-bg{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      z-index:0;
+      filter:none;
+      pointer-events:none;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hero-bg{display:none}
+    }
+    .hero-inner{max-width:1150px;margin:0 auto;padding:0 20px}
+    .hero-bubble{
+      position:relative;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(15,19,35,.35);
+      backdrop-filter: blur(8px) saturate(1.05);
+      box-shadow:var(--shadow);
+      padding:60px 20px 70px;
+      z-index:1;
+    }
+    .hero-bubble .title{
+      font-size:62px;text-align:center;
+      text-shadow:0 0 10px rgba(158,123,255,.25)
+    }
+    .hero-bubble .subtitle{margin-top:10px;text-align:center}
+    .hero-bubble .cta{margin-top:22px}
+
+    /* Section 2 — Celebration Details */
+    .cards.three .card-img{height:210px;object-fit:cover;width:100%}
+    .card-video{display:block;width:100%;height:210px;object-fit:cover;background:#000}
+    .card-video-fallback{display:none}
+    @media (prefers-reduced-motion: reduce){
+      .card-video{display:none}
+      .card-video-fallback{display:block}
+    }
+    .cards .quote{margin:14px 0 0;color:var(--muted);font-style:italic}
+    .cards .cta{margin:16px 0 6px}
+
+    /* Section 3 — Finding My Light */
+    .quote-block{
+      background:linear-gradient(180deg, rgba(158,123,255,.14), rgba(92,240,209,.10) 60%, rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:18px 22px;
+    }
+    /* ensure the journey image always fits the card nicely */
+    .journey-img{
+      display:block;
+      width:100%;
+      height:auto;
+      aspect-ratio:4/3;        /* keeps your 1200x900 proportion */
+      object-fit:cover;
+      border-radius:16px;
+    }
+
+    /* ===== Section 5 — Story & Soundtrack (Dual Polaroid image + two cards) ===== */
+    .duet-title{display:flex;gap:.5ch;flex-wrap:wrap;align-items:baseline}
+    .duet-title .story{
+      font-family:"Special Elite", cursive;
+      color:#F4EDFF;
+      text-shadow:0 1px 0 rgba(0,0,0,.35);
+      font-weight:400;
+    }
+    .duet-title .amp{
+      font-weight:800;
+      background:linear-gradient(135deg,#f8e7a5 0%,#f1c15a 40%,#ffe9b8 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      text-shadow:0 0 10px rgba(158,123,255,.25);
+    }
+    .duet-title .soundtrack{
+      font-family:"Permanent Marker", cursive;
+      color:#FF59D6; /* base neon */
+      text-shadow:
+        0 0 .12em #FFD1F5,
+        0 0 .35em rgba(255,89,214,.95),
+        0 0 .75em rgba(158,123,255,.65);
+      font-weight:400;
+    }
+
+    .duo-grid{display:grid;gap:28px;grid-template-columns:repeat(2,1fr)}
+    .duo-img{
+      grid-column:1 / -1;
+      display:block;
+      width:100%;
+      height:auto;
+      max-width:1110px; /* keep within section width (not full-bleed) */
+      margin:0 auto;
+      border-radius:0;
+      filter:drop-shadow(0 14px 28px rgba(0,0,0,.45));
+    }
+    @media (max-width:980px){ .duo-grid{grid-template-columns:1fr} }
+
+    /* Section 6 — Quote Showcase (animated once) */
+    .showcase{
+      position:relative;overflow:hidden;border-radius:22px;
+      border:1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(600px 220px at 50% 0%, rgba(158,123,255,.12), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      padding:38px 18px;
+    }
+    .showcase .qwrap{
+      max-width:1000px;margin:0 auto;position:relative;
+      padding:18px 16px;border-radius:18px;
+      background:linear-gradient(180deg, rgba(0,0,0,.12), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(6px);
+    }
+    .qtext{
+      font-family:"Dancing Script", cursive;
+      font-size:38px;line-height:1.25;text-align:center;
+      white-space:normal;
+      margin:0 auto;color:#f4edff;
+      text-shadow:0 2px 12px rgba(158,123,255,.35);
+      animation:slideQuote 16s linear 1 both;
+    }
+    .qattrib{margin-top:10px;text-align:center;color:var(--muted);font-weight:600}
+    @keyframes slideQuote{ 0%{transform:translateX(6%)} 100%{transform:translateX(-6%)} }
+    @media (max-width:700px){ .qtext{animation:none} }
+    @media (prefers-reduced-motion: reduce){ .qtext{animation:none} }
+
+    /* Section 7 — Map */
+    .map-embed{position:relative;overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.08)}
+    .map-embed iframe{display:block;width:100%;height:380px;border:0}
+
+    footer{margin-top:50px;color:var(--muted);text-align:center;font-size:14px}
+  </style>
+</head>
+<body>
+
+  <!-- FULL-BLEED HERO with video background (only here) -->
+  <div class="fullbleed-hero">
+    <video class="hero-bg" autoplay loop muted playsinline preload="metadata" poster="">
+      <source src="/videos/Header.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-inner">
+      <section class="hero-bubble">
+        <h1 class="title">Parker’s One-Year Sobriety Celebration</h1>
+        <p class="subtitle">Saturday, Feb 8, 2026 • 12:00 PM • Madison, WI</p>
+        <div class="row cta">
+          <a class="btn btn-pill" href="#rsvp">RSVP Now</a>
+          <a class="btn btn-pill" target="_blank" rel="noopener"
+             href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header">Request a Song</a>
+        </div>
+
+        <div class="pad center" style="margin-top:22px">
+          <div class="quote-block">
+            <div class="muted" style="font-style:italic;">
+              “The only person you are destined to become is the person you decide to be.”
+            </div>
+            <div class="muted" style="margin-top:6px">— Ralph Waldo Emerson</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- The rest of the page returns to the normal dark background -->
+  <main class="wrap">
+
+    <!-- SECTION 2: Celebration Details -->
+    <section class="pad">
+      <h2 class="h2">Celebration Details</h2>
+
+      <div class="grid three cards">
+        <!-- Card: DJ Steele (VIDEO) -->
+        <article class="card">
+          <video class="card-video" autoplay loop muted playsinline preload="metadata" poster="">
+            <source src="/videos/djsteelevid.mp4" type="video/mp4">
+          </video>
+          <img class="card-video-fallback card-img"
+               src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop"
+               alt="DJ setup under lights (static fallback)">
+          <div class="pad">
+            <h3 class="h3">🎧 DJ Steele — All Day</h3>
+            <p class="muted">Classics, throwbacks, Parker-core anthems—and your requests.</p>
+            <div class="row cta">
+              <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header">Request a Song</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card: Potluck (VIDEO) -->
+        <article class="card">
+          <video class="card-video" autoplay loop muted playsinline preload="metadata" poster="">
+            <source src="/videos/potluck.mp4" type="video/mp4">
+          </video>
+          <img class="card-video-fallback card-img"
+               src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?q=80&w=1200&auto=format&fit=crop"
+               alt="Colorful feast table (static fallback)">
+          <div class="pad">
+            <h3 class="h3">🍽️ Bring-A-Dish, Bring-the-Glow</h3>
+            <p class="muted">Bring a favorite snack or dish. COME HUNGRY!</p>
+            <div class="row cta">
+              <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSdyY6INMq7nn3CMDpdhASnWhrLBYsbQR7wVgfUMAlijhHStyQ/viewform?usp=header">Add Your Dish</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card: Memory Book (VIDEO) -->
+        <article class="card">
+          <video class="card-video" autoplay loop muted playsinline preload="metadata" poster="">
+            <source src="/videos/shareamemory.mp4" type="video/mp4">
+          </video>
+          <img class="card-video-fallback card-img"
+               src="https://images.unsplash.com/photo-1516245834210-c4c142787335?q=80&w=1200&auto=format&fit=crop"
+               alt="Memories scrapbook (static fallback)">
+          <div class="pad">
+            <h3 class="h3">💜 Memory Book</h3>
+            <p class="muted">I want to build a story of my journey by the friends who walked it with me.</p>
+            <div class="row cta">
+              <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLScfxcs5NlhwZj4ubDjAyucv4EmTzeWQ_Jy5hb45nlXLqTqaKA/viewform?usp=header">Leave a Message</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Finding My Light -->
+    <section class="grid two" id="journey">
+      <div class="card" style="min-height:320px;">
+        <!-- UPDATED IMAGE -->
+        <img
+          class="journey-img"
+          src="/img/myjourneynew.png"
+          alt="Clementine grounded in starlight with Bejeweled in vibrant cosmic motion"
+          width="1200" height="900"
+          loading="lazy" decoding="async"
+          sizes="(max-width:980px) 92vw, 640px">
+      </div>
+
+      <div class="pad">
+        <h2 class="h2">Finding My Light</h2>
+
+        <div class="quote-block">
+          <div style="font-style:italic">
+            “Only when we are brave enough to explore the darkness will we discover the infinite power of our light.”
+          </div>
+          <div class="muted" style="margin-top:6px">— Brené Brown</div>
+        </div>
+
+        <div class="row" style="margin-top:18px">
+          <a class="btn btn-pill" href="#journey">Follow My Journey</a>
+        </div>
+        <p class="center muted" style="margin-top:8px">Coming soon…</p>
+      </div>
+    </section>
+
+    <!-- SECTION 5: The Story & The Soundtrack (DUAL IMAGE + TWO CARDS) -->
+    <section class="pad" id="story-soundtrack">
+      <h2 class="h2 duet-title">
+        <span class="story">The Story</span>
+        <span class="amp">&amp;</span>
+        <span class="soundtrack">The Soundtrack</span>
+      </h2>
+
+      <div class="duo-grid">
+        <!-- The dual polaroid image spanning the section width -->
+        <img
+          class="duo-img"
+          src="/img/storyandsoundtrack-2200x1311.png"
+          alt="Two tilted Polaroids labeled The Story and The Soundtrack with Parker and DJ Steele"
+          width="2200" height="1311"
+          loading="lazy"
+          sizes="(max-width:980px) 92vw, 1110px">
+
+        <!-- Two text cards below (exact content preserved) -->
+        <article class="card pad">
+          <h3 class="h3">Parker (The Story)</h3>
+          <p>I’m not the host, I’m the <em>reason</em>. I got here with a stubborn refusal to quit and an even more stubborn need to live <strong>furiously happy</strong>. Recovery, community, and a whole lot of glitter got me this far — and I’m dragging joy along with me out of sheer spite. Thanks for showing up to sparkle with me. ✨</p>
+          <div class="row cta">
+            <a class="btn btn-pill" href="#journey" aria-label="Read My Journey">My Journey</a>
+          </div>
+        </article>
+
+        <article class="card pad">
+          <h3 class="h3">DJ Steele (The Soundtrack)</h3>
+          <p>One of my closest friends who agreed (without too much bribery) to put up with my wildly expansive, glitter-splattered, and occasionally questionable taste in music. He’s happily spinning it all so I can celebrate with one of the things that saved me and carried me through healing: <strong>MUSIC</strong>.</p>
+          <div class="row cta">
+            <a class="btn btn-pill" target="_blank" rel="noopener"
+               href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header"
+               aria-label="Request a Song for DJ Steele">Request a Song</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Quote Showcase (animated once) -->
+    <section class="showcase">
+      <div class="qwrap">
+        <p id="qtext" class="qtext">
+          “One day you will tell your story of how you overcame what you went through and it will be someone else’s survival guide.”
+        </p>
+        <div class="qattrib">— Brené Brown</div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: Where to Find the Party -->
+    <section class="pad" id="map">
+      <h2 class="h2">Where to Find the Party</h2>
+      <p class="muted">Tap the map for directions—see you where the glitter lives.</p>
+
+      <div class="map-embed">
+        <iframe
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=7133%20Gladstone%20Drive%2C%20Madison%2C%20WI%2053719&output=embed">
+        </iframe>
+      </div>
+
+      <div class="row" style="margin-top:14px">
+        <a class="btn btn-pill" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/dir/?api=1&destination=7133+Gladstone+Drive,+Madison,+WI+53719">Open Directions</a>
+        <a class="btn btn-pill" href="mailto:parkerfur@gmail.com">Email Parker</a>
+      </div>
+
+      <ul class="muted" style="margin-top:10px;line-height:1.7">
+        <li>Heads up: No parking on the <strong>right-hand side</strong> of Gladstone Drive.</li>
+        <li>Pop in anytime between <strong>11:30 AM and 5:00 PM</strong>—come when it’s comfy.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p id="rsvp" class="muted">© ParkerPixie • Made with glitter and love.</p>
+    </footer>
+  </main>
+
+  <script>
+    // SECTION 6: Stop the quote animation after one pass (desktop / when motion allowed)
+    (function(){
+      const el = document.getElementById('qtext');
+      if(!el) return;
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const small = window.matchMedia('(max-width: 700px)').matches;
+
+      if (reduce || small) { el.style.animation = 'none'; return; }
+
+      function stopOnce(){
+        el.style.animation = 'none';
+        el.removeEventListener('animationend', stopOnce);
+      }
+      el.addEventListener('animationend', stopOnce, { once:true });
+    })();
+  </script>
+</body>
+</html>
