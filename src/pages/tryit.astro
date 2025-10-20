@@ -1,425 +1,362 @@
+---
+// src/pages/blog/lifes-gonna-life.astro
+const title = "Life’s Gonna Life";
+const subtitle = "Chaos happens. I name it, then move anyway.";
+const date = "October 20, 2025";
+const tags = ["resilience", "ADHD", "family", "recovery", "Taylor Swift"];
+
+/* Hero image */
+const cover = "/img/opalite.png";
+const coverAbs = "https://parkerpixie.netlify.app/img/opalite.png";
+
+/* Absolute URL for this page (under /blog/) */
+const pageUrl = "https://parkerpixie.netlify.app/blog/lifes-gonna-life/";
+---
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Parker’s One-Year Sobriety Celebration</title>
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Life keeps lifing: work upheaval, family swirl, dog ACLs, dead trucks—so I’m practicing naming the chaos, finding the opalite sky, and moving anyway."
+    />
+    <link rel="icon" href="/CapyGoldIcon.png" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;500;700&family=Dancing+Script:wght@700&family=Permanent+Marker&family=Special+Elite&display=swap" rel="stylesheet">
+    <!-- ✅ Absolute canonical under /blog/ -->
+    <link rel="canonical" href={pageUrl} />
 
-  <style>
-    :root{
-      --bg:#0b0e17;
-      --card:#0f1323;
-      --ink:#e9e8ff;
-      --muted:#a9b0d9;
-      --glow:#9e7bff;
-      --glow-2:#5cf0d1;
-      --accent:#3be1c0;
-      --ring: 0 0 0 2px var(--glow-2), 0 0 32px -6px var(--glow);
-      --radius:22px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
+    <!-- ✅ Social preview (absolute URLs) -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title + " • ParkerPixie Blog"} />
+    <meta property="og:description" content={subtitle} />
+    <meta property="og:image" content={coverAbs} />
+    <meta property="og:image:alt" content="Opalite sky–inspired hero image" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={subtitle} />
+    <meta name="twitter:image" content={coverAbs} />
 
-    *{box-sizing:border-box}
-    html,body{background:var(--bg);color:var(--ink);margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    a{color:var(--accent);text-decoration:none}
-    img{max-width:100%;border-radius:16px}
-
-    /* Standard page container */
-    .wrap{max-width:1150px;margin:0 auto;padding:28px 20px 80px}
-
-    /* Utility */
-    .grid{display:grid;gap:28px}
-    .two{grid-template-columns:1.2fr 1fr}
-    .two-eq{grid-template-columns:repeat(2,1fr)}
-    .three{grid-template-columns:repeat(3,1fr)}
-    @media (max-width:980px){.two,.three,.two-eq{grid-template-columns:1fr}}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden
-    }
-    .pad{padding:22px}
-    .title{font:800 56px/1 Poppins,Inter,sans-serif;letter-spacing:.5px}
-    .subtitle{color:var(--muted);font-weight:500}
-    .h2{font:800 32px/1.2 Poppins,Inter,sans-serif;margin:0 0 14px}
-    .h3{font:800 22px/1.2 Poppins,Inter,sans-serif;margin:0 0 10px}
-    .muted{color:var(--muted)}
-    .center{text-align:center}
-    .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:12px 20px;border-radius:999px;font-weight:700;
-      border:1.5px solid rgba(255,255,255,.25);
-      color:var(--ink);background:rgba(255,255,255,.03);
-      box-shadow:0 0 0 0 rgba(0,0,0,0);
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.4);box-shadow:var(--ring)}
-    .btn-pill{min-width:170px}
-
-    /* ========== HERO FULL-BLEED VIDEO FRAME ========== */
-    .fullbleed-hero{
-      position:relative;
-      margin-left:calc(50% - 50vw);
-      margin-right:calc(50% - 50vw);
-      padding: 34px 0 46px;
-    }
-    .hero-bg{
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      object-fit:cover;
-      z-index:0;
-      filter:none;
-      pointer-events:none;
-    }
-    @media (prefers-reduced-motion: reduce){
-      .hero-bg{display:none}
-    }
-    .hero-inner{max-width:1150px;margin:0 auto;padding:0 20px}
-    .hero-bubble{
-      position:relative;
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.22);
-      background:rgba(15,19,35,.35);
-      backdrop-filter: blur(8px) saturate(1.05);
-      box-shadow:var(--shadow);
-      padding:60px 20px 70px;
-      z-index:1;
-    }
-    .hero-bubble .title{
-      font-size:62px;text-align:center;
-      text-shadow:0 0 10px rgba(158,123,255,.25)
-    }
-    .hero-bubble .subtitle{margin-top:10px;text-align:center}
-    .hero-bubble .cta{margin-top:22px}
-
-    /* Section 2 — Celebration Details */
-    .cards.three .card-img{height:210px;object-fit:cover;width:100%}
-    .card-video{display:block;width:100%;height:210px;object-fit:cover;background:#000}
-    .card-video-fallback{display:none}
-    @media (prefers-reduced-motion: reduce){
-      .card-video{display:none}
-      .card-video-fallback{display:block}
-    }
-    .cards .quote{margin:14px 0 0;color:var(--muted);font-style:italic}
-    .cards .cta{margin:16px 0 6px}
-
-    /* Section 3 — Finding My Light */
-    .quote-block{
-      background:linear-gradient(180deg, rgba(158,123,255,.14), rgba(92,240,209,.10) 60%, rgba(255,255,255,0));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      padding:18px 22px;
-    }
-    /* ensure the journey image always fits the card nicely */
-    .journey-img{
-      display:block;
-      width:100%;
-      height:auto;
-      aspect-ratio:4/3;        /* keeps your 1200x900 proportion */
-      object-fit:cover;
-      border-radius:16px;
-    }
-
-    /* ===== Section 5 — Story & Soundtrack (Dual Polaroid image + two cards) ===== */
-    .duet-title{display:flex;gap:.5ch;flex-wrap:wrap;align-items:baseline}
-    .duet-title .story{
-      font-family:"Special Elite", cursive;
-      color:#F4EDFF;
-      text-shadow:0 1px 0 rgba(0,0,0,.35);
-      font-weight:400;
-    }
-    .duet-title .amp{
-      font-weight:800;
-      background:linear-gradient(135deg,#f8e7a5 0%,#f1c15a 40%,#ffe9b8 100%);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      text-shadow:0 0 10px rgba(158,123,255,.25);
-    }
-    .duet-title .soundtrack{
-      font-family:"Permanent Marker", cursive;
-      color:#FF59D6; /* base neon */
-      text-shadow:
-        0 0 .12em #FFD1F5,
-        0 0 .35em rgba(255,89,214,.95),
-        0 0 .75em rgba(158,123,255,.65);
-      font-weight:400;
-    }
-
-    .duo-grid{display:grid;gap:28px;grid-template-columns:repeat(2,1fr)}
-    .duo-img{
-      grid-column:1 / -1;
-      display:block;
-      width:100%;
-      height:auto;
-      max-width:1110px; /* keep within section width (not full-bleed) */
-      margin:0 auto;
-      border-radius:0;
-      filter:drop-shadow(0 14px 28px rgba(0,0,0,.45));
-    }
-    @media (max-width:980px){ .duo-grid{grid-template-columns:1fr} }
-
-    /* Section 6 — Quote Showcase (animated once) */
-    .showcase{
-      position:relative;overflow:hidden;border-radius:22px;
-      border:1px solid rgba(255,255,255,.08);
-      background:
-        radial-gradient(600px 220px at 50% 0%, rgba(158,123,255,.12), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
-      padding:38px 18px;
-    }
-    .showcase .qwrap{
-      max-width:1000px;margin:0 auto;position:relative;
-      padding:18px 16px;border-radius:18px;
-      background:linear-gradient(180deg, rgba(0,0,0,.12), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(6px);
-    }
-    .qtext{
-      font-family:"Dancing Script", cursive;
-      font-size:38px;line-height:1.25;text-align:center;
-      white-space:normal;
-      margin:0 auto;color:#f4edff;
-      text-shadow:0 2px 12px rgba(158,123,255,.35);
-      animation:slideQuote 16s linear 1 both;
-    }
-    .qattrib{margin-top:10px;text-align:center;color:var(--muted);font-weight:600}
-    @keyframes slideQuote{ 0%{transform:translateX(6%)} 100%{transform:translateX(-6%)} }
-    @media (max-width:700px){ .qtext{animation:none} }
-    @media (prefers-reduced-motion: reduce){ .qtext{animation:none} }
-
-    /* Section 7 — Map */
-    .map-embed{position:relative;overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.08)}
-    .map-embed iframe{display:block;width:100%;height:380px;border:0}
-
-    footer{margin-top:50px;color:var(--muted);text-align:center;font-size:14px}
-  </style>
-</head>
-<body>
-
-  <!-- FULL-BLEED HERO with video background (only here) -->
-  <div class="fullbleed-hero">
-    <video class="hero-bg" autoplay loop muted playsinline preload="metadata" poster="">
-      <source src="/videos/Header.mp4" type="video/mp4">
-    </video>
-
-    <div class="hero-inner">
-      <section class="hero-bubble">
-        <h1 class="title">Parker’s One-Year Sobriety Celebration</h1>
-        <p class="subtitle">Saturday, Feb 8, 2026 • 12:00 PM • Madison, WI</p>
-        <div class="row cta">
-          <a class="btn btn-pill" href="#rsvp">RSVP Now</a>
-          <a class="btn btn-pill" target="_blank" rel="noopener"
-             href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header">Request a Song</a>
-        </div>
-
-        <div class="pad center" style="margin-top:22px">
-          <div class="quote-block">
-            <div class="muted" style="font-style:italic;">
-              “The only person you are destined to become is the person you decide to be.”
-            </div>
-            <div class="muted" style="margin-top:6px">— Ralph Waldo Emerson</div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- The rest of the page returns to the normal dark background -->
-  <main class="wrap">
-
-    <!-- SECTION 2: Celebration Details -->
-    <section class="pad">
-      <h2 class="h2">Celebration Details</h2>
-
-      <div class="grid three cards">
-        <!-- Card: DJ Steele (VIDEO) -->
-        <article class="card">
-          <video class="card-video" autoplay loop muted playsinline preload="metadata" poster="">
-            <source src="/videos/djsteelevid.mp4" type="video/mp4">
-          </video>
-          <img class="card-video-fallback card-img"
-               src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop"
-               alt="DJ setup under lights (static fallback)">
-          <div class="pad">
-            <h3 class="h3">🎧 DJ Steele — All Day</h3>
-            <p class="muted">Classics, throwbacks, Parker-core anthems—and your requests.</p>
-            <div class="row cta">
-              <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header">Request a Song</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card: Potluck (VIDEO) -->
-        <article class="card">
-          <video class="card-video" autoplay loop muted playsinline preload="metadata" poster="">
-            <source src="/videos/potluck.mp4" type="video/mp4">
-          </video>
-          <img class="card-video-fallback card-img"
-               src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?q=80&w=1200&auto=format&fit=crop"
-               alt="Colorful feast table (static fallback)">
-          <div class="pad">
-            <h3 class="h3">🍽️ Bring-A-Dish, Bring-the-Glow</h3>
-            <p class="muted">Bring a favorite snack or dish. COME HUNGRY!</p>
-            <div class="row cta">
-              <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSdyY6INMq7nn3CMDpdhASnWhrLBYsbQR7wVgfUMAlijhHStyQ/viewform?usp=header">Add Your Dish</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card: Memory Book (VIDEO) -->
-        <article class="card">
-          <video class="card-video" autoplay loop muted playsinline preload="metadata" poster="">
-            <source src="/videos/shareamemory.mp4" type="video/mp4">
-          </video>
-          <img class="card-video-fallback card-img"
-               src="https://images.unsplash.com/photo-1516245834210-c4c142787335?q=80&w=1200&auto=format&fit=crop"
-               alt="Memories scrapbook (static fallback)">
-          <div class="pad">
-            <h3 class="h3">💜 Memory Book</h3>
-            <p class="muted">I want to build a story of my journey by the friends who walked it with me.</p>
-            <div class="row cta">
-              <a class="btn btn-pill" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLScfxcs5NlhwZj4ubDjAyucv4EmTzeWQ_Jy5hb45nlXLqTqaKA/viewform?usp=header">Leave a Message</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- SECTION 3: Finding My Light -->
-    <section class="grid two" id="journey">
-      <div class="card" style="min-height:320px;">
-        <!-- UPDATED IMAGE -->
-        <img
-          class="journey-img"
-          src="/img/myjourneynew.png"
-          alt="Clementine grounded in starlight with Bejeweled in vibrant cosmic motion"
-          width="1200" height="900"
-          loading="lazy" decoding="async"
-          sizes="(max-width:980px) 92vw, 640px">
-      </div>
-
-      <div class="pad">
-        <h2 class="h2">Finding My Light</h2>
-
-        <div class="quote-block">
-          <div style="font-style:italic">
-            “Only when we are brave enough to explore the darkness will we discover the infinite power of our light.”
-          </div>
-          <div class="muted" style="margin-top:6px">— Brené Brown</div>
-        </div>
-
-        <div class="row" style="margin-top:18px">
-          <a class="btn btn-pill" href="#journey">Follow My Journey</a>
-        </div>
-        <p class="center muted" style="margin-top:8px">Coming soon…</p>
-      </div>
-    </section>
-
-    <!-- SECTION 5: The Story & The Soundtrack (DUAL IMAGE + TWO CARDS) -->
-    <section class="pad" id="story-soundtrack">
-      <h2 class="h2 duet-title">
-        <span class="story">The Story</span>
-        <span class="amp">&amp;</span>
-        <span class="soundtrack">The Soundtrack</span>
-      </h2>
-
-      <div class="duo-grid">
-        <!-- The dual polaroid image spanning the section width -->
-        <img
-          class="duo-img"
-          src="/img/storyandsoundtrack-2200x1311.png"
-          alt="Two tilted Polaroids labeled The Story and The Soundtrack with Parker and DJ Steele"
-          width="2200" height="1311"
-          loading="lazy"
-          sizes="(max-width:980px) 92vw, 1110px">
-
-        <!-- Two text cards below (exact content preserved) -->
-        <article class="card pad">
-          <h3 class="h3">Parker (The Story)</h3>
-          <p>I’m not the host, I’m the <em>reason</em>. I got here with a stubborn refusal to quit and an even more stubborn need to live <strong>furiously happy</strong>. Recovery, community, and a whole lot of glitter got me this far — and I’m dragging joy along with me out of sheer spite. Thanks for showing up to sparkle with me. ✨</p>
-          <div class="row cta">
-            <a class="btn btn-pill" href="#journey" aria-label="Read My Journey">My Journey</a>
-          </div>
-        </article>
-
-        <article class="card pad">
-          <h3 class="h3">DJ Steele (The Soundtrack)</h3>
-          <p>One of my closest friends who agreed (without too much bribery) to put up with my wildly expansive, glitter-splattered, and occasionally questionable taste in music. He’s happily spinning it all so I can celebrate with one of the things that saved me and carried me through healing: <strong>MUSIC</strong>.</p>
-          <div class="row cta">
-            <a class="btn btn-pill" target="_blank" rel="noopener"
-               href="https://docs.google.com/forms/d/e/1FAIpQLScZyxxmGAxTptYY64fR-mTUNmdwYFpc4PwY9zl5_naHGq2kIA/viewform?usp=header"
-               aria-label="Request a Song for DJ Steele">Request a Song</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- SECTION 6: Quote Showcase (animated once) -->
-    <section class="showcase">
-      <div class="qwrap">
-        <p id="qtext" class="qtext">
-          “One day you will tell your story of how you overcame what you went through and it will be someone else’s survival guide.”
-        </p>
-        <div class="qattrib">— Brené Brown</div>
-      </div>
-    </section>
-
-    <!-- SECTION 7: Where to Find the Party -->
-    <section class="pad" id="map">
-      <h2 class="h2">Where to Find the Party</h2>
-      <p class="muted">Tap the map for directions—see you where the glitter lives.</p>
-
-      <div class="map-embed">
-        <iframe
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=7133%20Gladstone%20Drive%2C%20Madison%2C%20WI%2053719&output=embed">
-        </iframe>
-      </div>
-
-      <div class="row" style="margin-top:14px">
-        <a class="btn btn-pill" target="_blank" rel="noopener"
-           href="https://www.google.com/maps/dir/?api=1&destination=7133+Gladstone+Drive,+Madison,+WI+53719">Open Directions</a>
-        <a class="btn btn-pill" href="mailto:parkerfur@gmail.com">Email Parker</a>
-      </div>
-
-      <ul class="muted" style="margin-top:10px;line-height:1.7">
-        <li>Heads up: No parking on the <strong>right-hand side</strong> of Gladstone Drive.</li>
-        <li>Pop in anytime between <strong>11:30 AM and 5:00 PM</strong>—come when it’s comfy.</li>
-      </ul>
-    </section>
-
-    <footer>
-      <p id="rsvp" class="muted">© ParkerPixie • Made with glitter and love.</p>
-    </footer>
-  </main>
-
-  <script>
-    // SECTION 6: Stop the quote animation after one pass (desktop / when motion allowed)
-    (function(){
-      const el = document.getElementById('qtext');
-      if(!el) return;
-
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const small = window.matchMedia('(max-width: 700px)').matches;
-
-      if (reduce || small) { el.style.animation = 'none'; return; }
-
-      function stopOnce(){
-        el.style.animation = 'none';
-        el.removeEventListener('animationend', stopOnce);
+    <style>
+      :root{
+        --brand:#8a5dff; --brand-deep:#5a39d9;
+        --ink:#f6f1ff; --muted:#cfc7e6;
+        --bg:#0e0a16; --card:#151025f2;
+        --gold:#f2c98b; --glow:0 0 30px rgba(138,93,255,.35);
+        --radius:18px;
       }
-      el.addEventListener('animationend', stopOnce, { once:true });
-    })();
-  </script>
-</body>
-</html>
+      *{box-sizing:border-box}
+      html,body{
+        margin:0; padding:0; line-height:1.6; color:var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+        background:
+          radial-gradient(1200px 800px at 10% -10%, rgba(138,93,255,.16), transparent 60%),
+          radial-gradient(900px 600px at 90% 0%, rgba(255,214,232,.14), transparent 58%),
+          url('/bg/cotton-candy.jpg') center/cover no-repeat fixed,
+          var(--bg);
+      }
+      a{ color:var(--gold); text-decoration:none }
+      a:hover{ text-decoration:underline }
+      .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+      header.site{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(15,11,20,.86), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+      .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+      .brand img{width:28px; height:28px; filter:drop-shadow(0 0 8px rgba(242,201,139,.45))}
+      .brand span{font-size:18px; color:var(--gold)}
+      .nav-right{display:flex; align-items:center; gap:14px}
+      .nav-link{
+        padding:.55rem .2rem; border-radius:8px; opacity:.92;
+        transition:opacity .15s ease, color .15s ease, background .15s ease;
+        color:#fff; text-decoration:none;
+      }
+      .nav-link:hover{opacity:1; color:var(--gold)}
+      .nav-btn{
+        padding:.6rem .9rem; border-radius:999px; font-weight:600;
+        border:1px solid rgba(255,255,255,.18);
+        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+        box-shadow:0 8px 24px rgba(90,57,217,.35);
+        color:#fff; text-decoration:none;
+      }
+      .nav-btn:hover{filter:brightness(1.06)}
+      @media (max-width:900px){
+        .nav-right{gap:10px}
+        .nav-link{padding:.5rem .1rem}
+      }
+      .shell{ max-width:820px; margin:40px auto 100px; padding:0 20px }
+      header.post{
+        background: linear-gradient(180deg, rgba(138,93,255,.18), transparent 55%), var(--card);
+        border:1px solid rgba(255,255,255,.10); border-radius:var(--radius);
+        box-shadow:var(--glow); padding:28px; position:relative; overflow:hidden;
+      }
+      .sparkles{
+        position:absolute; inset:-2px; pointer-events:none; opacity:.5; filter:blur(.2px);
+        background:
+          radial-gradient(8px 8px at 20% 30%, rgba(242,201,139,.8), transparent 60%),
+          radial-gradient(6px 6px at 70% 20%, rgba(138,93,255,.65), transparent 60%),
+          radial-gradient(5px 5px at 85% 65%, rgba(242,201,139,.7), transparent 60%),
+          radial-gradient(7px 7px at 35% 80%, rgba(138,93,255,.45), transparent 60%);
+      }
+      .kicker{ color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.78rem }
+      h1{ font-size:clamp(1.8rem, 4vw, 2.6rem); line-height:1.12; margin:8px 0 6px; color:#fff }
+      .sub{ color:#e8e0ff; font-size:clamp(1rem, 2.2vw, 1.15rem); margin:0 0 14px }
+      .meta{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--muted); font-size:.92rem }
+      .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-left:auto }
+      .tag{ background:rgba(242,201,139,.12); border:1px solid rgba(242,201,139,.35);
+            color:#ffeecf; padding:4px 10px; border-radius:999px; font-size:.78rem }
+      .cover{ margin:18px 0 0; border-radius:calc(var(--radius) - 6px); overflow:hidden; border:1px solid rgba(255,255,255,.12) }
+      .cover img{ width:100%; display:block }
+      .content{
+        margin-top:26px; padding:26px; border-radius:var(--radius);
+        background: rgba(9,7,15,.55); backdrop-filter: blur(4px);
+        border:1px solid rgba(255,255,255,.10);
+      }
+      .insight{
+        display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:center;
+        background: linear-gradient(180deg, rgba(242,201,139,.12), rgba(138,93,255,.10));
+        border:1px dashed rgba(242,201,139,.45); padding:14px 16px; border-radius:14px; margin:8px 0 22px;
+      }
+      .insight .badge{
+        width:48px; height:48px; border-radius:12px; display:grid; place-items:center;
+        background: radial-gradient(circle at 30% 25%, #fff7, transparent 40%), #2a2141;
+        color:#ffe8bd; font-weight:700; font-size:.68rem; text-align:center; line-height:1.1;
+        border:1px solid rgba(255,255,255,.18);
+      }
+      .pull{
+        font-size:clamp(1.05rem, 2.2vw, 1.25rem);
+        color:#fff; background:rgba(138,93,255,.16);
+        border-left:3px solid var(--brand); padding:14px 16px; border-radius:12px; margin:20px 0;
+      }
+      .hr{ height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); margin:22px 0 }
+      .mantra{
+        display:flex; gap:10px; align-items:center; color:#fff; font-weight:600;
+        background:#1c1530; border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:12px 14px; margin-top:18px;
+      }
+      .mantra .dot{ width:9px; height:9px; border-radius:99px; background:var(--gold); box-shadow:0 0 10px rgba(242,201,139,.9) }
+      .foot{ color:var(--muted); font-size:.9rem; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:18px }
+      .share{ display:flex; gap:10px; flex-wrap:wrap }
+      .btn{
+        padding:7px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+        background:#1b132e; color:#f3ecff; font-size:.85rem; cursor:pointer; text-decoration:none;
+        transition: transform .06s ease, border-color .18s ease;
+      }
+      .btn:hover{ border-color:rgba(242,201,139,.6) }
+      .btn:active{ transform: translateY(1px); }
+      #toast{
+        position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+        background: rgba(28, 21, 48, .95);
+        color: #f6f1ff; border: 1px solid rgba(255,255,255,.18);
+        padding: 10px 14px; border-radius: 999px; opacity: 0; pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease; box-shadow: 0 10px 30px #0007;
+        font-size: .92rem;
+      }
+      #toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="nav-right" aria-label="Primary">
+          <a class="nav-link" href="/about/">About</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-btn" href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
 
+    <main class="shell">
+      <header class="post">
+        <div class="sparkles" aria-hidden="true"></div>
+        <div class="kicker">ParkerPixie Blog</div>
+        <h1>{title} ✨</h1>
+        <p class="sub">{subtitle}</p>
+        <div class="meta">
+          <span>{date}</span>
+          <div class="tags">
+            {tags.map((t) => <span class="tag">{t}</span>)}
+          </div>
+        </div>
+        {cover && (
+          <figure class="cover">
+            <img src={cover} alt="Opalite sky–inspired hero image" loading="eager" />
+          </figure>
+        )}
+      </header>
+
+      <article class="content">
+        <section class="insight" role="note" aria-label="Pixie Insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p style="margin:0;">Sometimes the bravest thing you can do is look at the chaos, shrug, and whisper: “Welp, this sucks,” before taking the next tiny step anyway.</p>
+        </section>
+
+        <p>Lately, I’ve been dodging life’s curveballs like it’s a competitive sport.</p>
+
+        <p>
+          Work has been a revolving door of change — my boss left, new projects keep dropping in my lap, and the deadlines multiply faster than
+          laundry on a Sunday. Meanwhile, home looks like a sitcom written by Mercury in retrograde: parenting a neurodivergent teen who reminds me
+          how irritating I must have been as a kid, a dog with a torn ACL, and a truck that decided it no longer believes in starting.
+        </p>
+
+        <p>
+          Somewhere in the chaos, I was reminded of an old Talbot family story. Supposedly, my husband’s ancestor Peter Talbot was shanghaied to the
+          “New World,” missed his boat back, caught the next one, and then the ship sank. The family legend goes that bad luck runs deep in Talbot blood — not in
+          neat little threes like everyone else’s misfortunes, but in never-ending loops.
+        </p>
+
+        <p>Honestly, it tracks.</p>
+
+        <p>
+          But here’s the thing I’m learning: <strong>life is going to life.</strong> Whether I like it or not. Whether it’s convenient, kind, or emotionally affordable — life will keep lifing.
+          Change is inevitable. Always. Forever. Amen.
+        </p>
+
+        <p>
+          And yeah, it sucks. Sometimes I cry. Sometimes I swear. Sometimes I spiral and then remember I’m too tired to spiral. But once I burn through the frustration,
+          I’m left with the one thing I can actually control: <strong>my reaction.</strong>
+        </p>
+
+        <h2>What I Can Control</h2>
+        <p>When chaos hits, I have to pause long enough to ask:</p>
+        <ul>
+          <li>What’s actually within my control?</li>
+          <li>What can I let go of, because fighting it won’t fix it?</li>
+          <li>What really matters today — what are my “big rocks”?</li>
+        </ul>
+
+        <p>Sometimes it’s a thought like, <em>“OMG, stop talking, you’re digging a hole.”</em><br/>
+           Sometimes it’s, <em>“What positive can I pull from this?”</em><br/>
+           Sometimes it’s just taking a breath long enough to remember I’m not actually on fire.</p>
+
+        <h2>Case Study: This Morning</h2>
+        <p>When I woke up today, my brain sounded like a squirrel on Red Bull:</p>
+        <ul>
+          <li>Porter had no lunch for school.</li>
+          <li>Blake’s truck wouldn’t start.</li>
+          <li>Two high-profile work emails due, zero assets to work with.</li>
+          <li>Counseling appointment at 8:15 AM.</li>
+          <li>Vet visit for Ozzy’s maybe-torn ACL (confirmed later: yep).</li>
+          <li>No groceries. No plan for dinner.</li>
+          <li>Need to get to the DMV for Porter’s learner’s permit (God help Wisconsin).</li>
+        </ul>
+
+        <p>It was chaos before coffee.</p>
+
+        <p>But after a few deep breaths, I realized:</p>
+        <ol type="A">
+          <li>I can’t send those emails without assets, so stop panicking.</li>
+          <li>I <em>can</em> grocery shop and get Ozzy to the vet. <strong>(Done — Ozzy’s got a torn ACL, but at least it won’t cost us an arm and a leg.)</strong></li>
+          <li>Counseling was right on time — not an inconvenience, a lifeline.</li>
+          <li>Blake found a frozen pizza. (Dinner: handled.)</li>
+          <li>The rest will fall into place. It always does.</li>
+        </ol>
+
+        <h2>The Epiphany</h2>
+        <p>Here’s what I came to today:</p>
+        <p>
+          Talbot family lore or not, work change or not, all the neurodivergence you can pack into a three-person household or not —
+          <strong>change is going to happen.</strong> Curveballs are going to come.
+        </p>
+
+        <p>
+          Life was never meant to be a constant. Like biology, it evolves. Things shift. Species adapt. Habits dissolve and reform. Some days it’s easy
+          to flow with it; other days it’s brutally hard — especially when your ADHD-brain clings to cozy routines like they’re life rafts. But that’s the deal.
+          That’s the dance.
+        </p>
+
+        <section class="insight" role="note" aria-label="Pixie Insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p style="margin:0;">“We are not thinking machines that feel — we are feeling machines that think.”<br/><em>— Brené Brown, <cite>Atlas of the Heart</cite></em></p>
+        </section>
+
+        <p>
+          That line stopped me cold. Because that’s it, isn’t it? We keep trying to <em>think</em> our way through the mess, but maybe the trick is to <em>feel</em> our way
+          through it — to let emotion guide the logic instead of apologizing for it.
+        </p>
+
+        <p><strong>Life is going to life.</strong></p>
+
+        <p>
+          I can’t stop the chaos, but I can name it.<br/>
+          I can’t control the lightning, but I can look for the opalite sky it leaves behind.<br/>
+          And if you caught that Taylor Swift reference — you know why her lyrics cut deeper than anyone gives her credit for.
+        </p>
+
+        <div class="hr"></div>
+
+        <p class="mantra">
+          <span class="dot" aria-hidden="true"></span>
+          <span><strong>Mantra:</strong> Life’s gonna life. I’m gonna live anyway.</span>
+        </p>
+
+        <footer class="foot">
+          <div>— Parker</div>
+          <nav class="share" aria-label="Share this post">
+            <button class="btn" id="copyLinkBtn" type="button">Copy Link</button>
+            <a class="btn" id="fbShare" href="#" rel="noopener">Share on Facebook</a>
+            <button class="btn" id="nativeShareBtn" type="button" hidden>Share…</button>
+            <a class="btn" href="/blog/">Back to Blog</a>
+          </nav>
+        </footer>
+      </article>
+    </main>
+
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
+
+    <script type="module">
+      const url = new URL(window.location.href);
+      const titleMeta = document.title || "ParkerPixie Blog";
+
+      const copyBtn = document.getElementById("copyLinkBtn");
+      const fbA = document.getElementById("fbShare");
+      const nativeBtn = document.getElementById("nativeShareBtn");
+      const toast = document.getElementById("toast");
+
+      const fbShareUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+      fbShareUrl.searchParams.set("u", url.href);
+      fbA.href = fbShareUrl.toString();
+
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url.href);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = url.href;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          showToast();
+        } catch {
+          window.prompt("Copy this URL:", url.href);
+        }
+      });
+
+      if (navigator.share) {
+        nativeBtn.hidden = false;
+        nativeBtn.addEventListener("click", () => {
+          navigator.share({ title: titleMeta, url: url.href }).catch(() => {});
+        });
+      }
+
+      let toastTimer;
+      function showToast() {
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+    </script>
+  </body>
+</html>
