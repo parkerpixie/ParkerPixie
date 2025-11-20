@@ -1,1 +1,505 @@
+---
+const title = "The ADHD Friendship Loop";
+const subtitle = "Why I disappear, what it really means, and how I’m trying to come back.";
+const date = "November 20, 2025";
+const tags = ["ADHD", "friendship", "healing", "trauma"];
+
+/* Image lives at /public/img/ADHDFriendShipLoop.png */
+const cover = "/img/ADHDFriendShipLoop.png";
+const coverAbs = "https://parkerpixie.netlify.app/img/ADHDFriendShipLoop.png";
+
+/* ✅ Absolute URL for this page (under /blog/) */
+const pageUrl = "https://parkerpixie.netlify.app/blog/adhd-friendship-loop/";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Parker writes about the ADHD Friendship Loop: why she goes quiet, how shame and overwhelm shut her down, and what she’s practicing to rebuild connection without hating herself."
+    />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- ✅ Absolute canonical under /blog/ -->
+    <link rel="canonical" href={pageUrl} />
+
+    <!-- ✅ Social preview (absolute URLs) -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title + " • ParkerPixie Blog"} />
+    <meta property="og:description" content={subtitle} />
+    <meta property="og:image" content={coverAbs} />
+    <meta property="og:image:alt" content="The ADHD Friendship Loop illustration" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={subtitle} />
+    <meta name="twitter:image" content={coverAbs} />
+
+    <style>
+      :root{
+        --brand:#8a5dff; --brand-deep:#5a39d9;
+        --ink:#f6f1ff; --muted:#cfc7e6;
+        --bg:#0e0a16; --card:#151025f2;
+        --gold:#f2c98b; --glow:0 0 30px rgba(138,93,255,.35);
+        --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{
+        margin:0; padding:0; line-height:1.6; color:var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+        background:
+          radial-gradient(1200px 800px at 10% -10%, rgba(138,93,255,.16), transparent 60%),
+          radial-gradient(900px 600px at 90% 0%, rgba(255,214,232,.14), transparent 58%),
+          url('/bg/cotton-candy.jpg') center/cover no-repeat fixed,
+          var(--bg);
+      }
+      a{ color:var(--gold); text-decoration:none }
+      a:hover{ text-decoration:underline }
+      .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+      header.site{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(15,11,20,.86), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+      .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+      .brand img{width:28px; height:28px; filter:drop-shadow(0 0 8px rgba(242,201,139,.45))}
+      .brand span{font-size:18px; color:var(--gold)}
+      .nav-right{display:flex; align-items:center; gap:14px}
+      .nav-link{
+        padding:.55rem .2rem; border-radius:8px; opacity:.92;
+        transition:opacity .15s ease, color .15s ease, background .15s ease;
+        color:#fff; text-decoration:none;
+      }
+      .nav-link:hover{opacity:1; color:var(--gold)}
+      .nav-btn{
+        padding:.6rem .9rem; border-radius:999px; font-weight:600;
+        border:1px solid rgba(255,255,255,.18);
+        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+        box-shadow:0 8px 24px rgba(90,57,217,.35);
+        color:#fff; text-decoration:none;
+      }
+      .nav-btn:hover{filter:brightness(1.06)}
+      @media (max-width:900px){
+        .nav-right{gap:10px}
+        .nav-link{padding:.5rem .1rem}
+      }
+      .shell{ max-width:820px; margin:40px auto 100px; padding:0 20px }
+      header.post{
+        background: linear-gradient(180deg, rgba(138,93,255,.18), transparent 55%), var(--card);
+        border:1px solid rgba(255,255,255,.10); border-radius:var(--radius);
+        box-shadow:var(--glow); padding:28px; position:relative; overflow:hidden;
+      }
+      .sparkles{
+        position:absolute; inset:-2px; pointer-events:none; opacity:.5; filter:blur(.2px);
+        background:
+          radial-gradient(8px 8px at 20% 30%, rgba(242,201,139,.8), transparent 60%),
+          radial-gradient(6px 6px at 70% 20%, rgba(138,93,255,.65), transparent 60%),
+          radial-gradient(5px 5px at 85% 65%, rgba(242,201,139,.7), transparent 60%),
+          radial-gradient(7px 7px at 35% 80%, rgba(138,93,255,.45), transparent 60%);
+      }
+      .kicker{ color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.78rem }
+      h1{ font-size:clamp(1.8rem, 4vw, 2.6rem); line-height:1.12; margin:8px 0 6px; color:#fff }
+      .sub{ color:#e8e0ff; font-size:clamp(1rem, 2.2vw, 1.15rem); margin:0 0 14px }
+      .meta{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--muted); font-size:.92rem }
+      .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-left:auto }
+      .tag{ background:rgba(242,201,139,.12); border:1px solid rgba(242,201,139,.35);
+            color:#ffeecf; padding:4px 10px; border-radius:999px; font-size:.78rem }
+      .cover{ margin:18px 0 0; border-radius:calc(var(--radius) - 6px); overflow:hidden; border:1px solid rgba(255,255,255,.12) }
+      .cover img{ width:100%; display:block }
+      .content{
+        margin-top:26px; padding:26px; border-radius:var(--radius);
+        background: rgba(9,7,15,.55); backdrop-filter: blur(4px);
+        border:1px solid rgba(255,255,255,.10);
+      }
+      .insight{
+        display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:center;
+        background: linear-gradient(180deg, rgba(242,201,139,.12), rgba(138,93,255,.10));
+        border:1px dashed rgba(242,201,139,.45); padding:14px 16px; border-radius:14px; margin:8px 0 22px;
+      }
+      .insight .badge{
+        width:48px; height:48px; border-radius:12px; display:grid; place-items:center;
+        background: radial-gradient(circle at 30% 25%, #fff7, transparent 40%), #2a2141;
+        color:#ffe8bd; font-weight:700; font-size:.68rem; text-align:center; line-height:1.1;
+        border:1px solid rgba(255,255,255,.18);
+      }
+      .pull{
+        font-size:clamp(1.05rem, 2.2vw, 1.25rem);
+        color:#fff; background:rgba(138,93,255,.16);
+        border-left:3px solid var(--brand); padding:14px 16px; border-radius:12px; margin:20px 0;
+      }
+      .hr{ height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); margin:22px 0 }
+      .mantra{
+        display:flex; gap:10px; align-items:center; color:#fff; font-weight:600;
+        background:#1c1530; border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:12px 14px; margin-top:18px;
+      }
+      .mantra .dot{ width:9px; height:9px; border-radius:99px; background:var(--gold); box-shadow:0 0 10px rgba(242,201,139,.9) }
+      .foot{ color:var(--muted); font-size:.9rem; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:18px }
+      .share{ display:flex; gap:10px; flex-wrap:wrap }
+      .btn{
+        padding:7px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+        background:#1b132e; color:#f3ecff; font-size:.85rem; cursor:pointer; text-decoration:none;
+        transition: transform .06s ease, border-color .18s ease;
+      }
+      .btn:hover{ border-color:rgba(242,201,139,.6) }
+      .btn:active{ transform: translateY(1px); }
+      .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+      #toast{
+        position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+        background: rgba(28, 21, 48, .95);
+        color: #f6f1ff; border: 1px solid rgba(255,255,255,.18);
+        padding: 10px 14px; border-radius: 999px; opacity: 0; pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease; box-shadow: 0 10px 30px #0007;
+        font-size: .92rem;
+      }
+      #toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="nav-right" aria-label="Primary">
+          <a class="nav-link" href="/about/">About</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-btn" href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <header class="post">
+        <div class="sparkles" aria-hidden="true"></div>
+        <div class="kicker">ParkerPixie Blog</div>
+        <h1>{title} ✨</h1>
+        <p class="sub">{subtitle}</p>
+        <div class="meta">
+          <span>{date}</span>
+          <div class="tags">
+            {tags.map((t) => <span class="tag">{t}</span>)}
+          </div>
+        </div>
+        {cover && (
+          <figure class="cover">
+            <img src={cover} alt="The ADHD Friendship Loop illustration" loading="eager" />
+          </figure>
+        )}
+      </header>
+
+      <article class="content">
+        <section class="insight" role="note" aria-label="Pixie Insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p style="margin:0;">
+            My silence has never been proof I don’t care—it’s just the part of the story where my brain pulls the fire alarm and hides in the bathroom.
+          </p>
+        </section>
+
+        <p>
+          I’ve been thinking a lot about friendships lately—especially the part where I’m
+          <em>really</em> good at starting them and then somehow vanish like a mythical woodland creature
+          the moment life throws me a mild inconvenience.
+        </p>
+
+        <p>
+          So, hi. It’s me. The problem is (sometimes) me. But not for the reasons people assume.
+        </p>
+
+        <p>
+          I know I go quiet. I know I disappear. I know I leave messages sitting there like sad little
+          orphans in my notification center. And I also know it probably looks like I don’t care…
+          when the truth is actually the exact opposite.
+        </p>
+
+        <p>
+          If anything, I care so much it paralyzes me.
+        </p>
+
+        <p>
+          After a lot of therapy, trauma recovery, and realizing I’m basically a walking Venn diagram of
+          “ADHD but make it emotional,” I finally have language for the friendship pattern that has ruled
+          my life without my consent:
+          <strong>the ADHD Friendship Loop.</strong>
+        </p>
+
+        <div class="pull">
+          I don’t lose people because I stop caring. I lose people because my brain glitches, shame piles on,
+          and I feel too awkward to hit “send.”
+        </div>
+
+        <h2>The ADHD Friendship Loop (play-by-play)</h2>
+
+        <h3 style="margin-top:1.4rem;">1. The Connection Surge</h3>
+        <p>
+          This is my Olympic event. I meet someone and <strong>BOOM</strong>—fireworks, serotonin, the whole
+          “OMG you’re my people” montage starts playing.
+        </p>
+        <p>
+          I’m replying instantly. I’m sending memes. I’m making plans. I’m voice-noting like we’ve known each
+          other for ten years. My phone lights up and so do I.
+        </p>
+        <p>
+          If dopamine were a drug, this would be the dealer.
+        </p>
+
+        <h3 style="margin-top:1.4rem;">2. The Life-Load Pile-On</h3>
+        <p>
+          Then we hit the part of the movie where everything gets… a lot.
+        </p>
+        <p>
+          Work stress. Parenting chaos. Executive dysfunction. My nervous system deciding to schedule a mental
+          breakdown on a random Tuesday. Add a pinch of childhood trauma. You know, the usual seasoning.
+        </p>
+        <p>
+          And just like that, the social battery isn’t “low”—it’s <em>dead-dead</em>. Not “needs charging.”
+          I mean <strong>gone</strong>. Zero percent. Needs a tow truck.
+        </p>
+
+        <h3 style="margin-top:1.4rem;">3. The Shutdown Mode</h3>
+        <p>
+          This is where my brain gently (rudely) announces:
+          <em>“Hey girl, no more humans. Crawl into your emotional cave immediately.”</em>
+        </p>
+        <p>
+          It’s not that I <em>want</em> to hide from people. It’s that my nervous system is basically
+          a chihuahua in a thunderstorm: trembling, wide-eyed, and convinced that one more notification
+          might actually kill me.
+        </p>
+
+        <h3 style="margin-top:1.4rem;">4. The Shame Spiral</h3>
+        <p>
+          Here’s the fun part. (Said with the heaviest sarcasm.)
+        </p>
+        <p>
+          Now I feel guilty for disappearing. So instead of just… answering the text like a normal mammal,
+          I stare at it like it’s a final exam I forgot to study for.
+        </p>
+        <p>My thoughts go something like:</p>
+        <ul>
+          <li>“They think I’m a flaky jerk.”</li>
+          <li>“I ruined the friendship.”</li>
+          <li>“I didn’t reply for too long.”</li>
+          <li>“This is why I can’t have nice things.”</li>
+        </ul>
+        <p>
+          Meanwhile, the friend probably just thinks I’m busy making dinner.
+        </p>
+
+        <h3 style="margin-top:1.4rem;">5. The Re-Entry Paralysis</h3>
+        <p>
+          <strong>THIS. IS. MY. VILLAIN. ORIGIN. STORY.</strong>
+        </p>
+        <p>
+          At this point, so much time has passed that replying feels like showing up to a party after everyone
+          already went home and the host is in pajamas doing dishes.
+        </p>
+        <p>
+          I don’t want to seem dramatic or weird. So I wait for the “right moment” to respond:
+          the mythical, perfectly calm afternoon where I can craft the perfect message that explains everything.
+        </p>
+        <p>
+          Spoiler alert: that moment never arrives.
+        </p>
+        <p>
+          This is where friendships quietly die—not because anything went
+          wrong, but because my brain hit a glitch and I felt too awkward to reboot.
+        </p>
+
+        <h3 style="margin-top:1.4rem;">6. The Lonely Loop</h3>
+        <p>
+          Now I miss people. I want connection. I scroll through old messages and feel the ache of “I really
+          liked them… I hope they’re okay.”
+        </p>
+        <p>
+          But the shame trap is locked, and my brain needs the emotional equivalent of a SWAT team to break in.
+        </p>
+        <p>
+          So what do I do? The most ADHD thing ever:
+          <strong>I make new friends and repeat the exact same pattern.</strong>
+        </p>
+
+        <div class="pull">
+          I am nothing if not consistent in my chaos. But consistency is not the same as doom—especially
+          once I can name the pattern.
+        </div>
+
+        <h2>What my silence is <em>not</em></h2>
+
+        <p>If you’re one of my friends, here’s the part I need you to know the most:</p>
+
+        <ul>
+          <li>It is <strong>never</strong> because I don’t care.</li>
+          <li>It is <strong>never</strong> because I’m mad at you.</li>
+          <li>It is <strong>never</strong> because I’ve “moved on.”</li>
+        </ul>
+
+        <p>
+          When I go quiet, it’s almost always one (or more) of these:
+        </p>
+
+        <ul>
+          <li>
+            <strong>A) ADHD brain did the “later” thing.</strong><br />
+            I saw your message at a bad moment → meant to come back → forgot →
+            remembered at 2:07 a.m. → panicked.
+          </li>
+          <li>
+            <strong>B) Trauma brain hit the eject button.</strong><br />
+            A tiny, innocent message somehow set off an old alarm, and my system went
+            straight to <em>“We’ve upset them. All is lost. FLEE.”</em>
+          </li>
+          <li>
+            <strong>C) My personal life is on metaphorical fire.</strong><br />
+            Parenting, work, home life, recovery, my own healing journey—sometimes it’s
+            all burning at once and the only thing I can manage is “keep everyone alive and
+            vaguely fed.”
+          </li>
+        </ul>
+
+        <p>
+          None of this is personal. None of this is a reflection of how much I love you.
+          None of this means I don’t want connection.
+        </p>
+
+        <h2>What I’m trying to practice now</h2>
+
+        <p>
+          I’m not writing this to make excuses. I’m writing it because I want to understand
+          myself instead of hating myself—and because I want to do better.
+        </p>
+
+        <ul>
+          <li>
+            <strong>Micro-responses.</strong>
+            Letting “I saw this and I love you, more later 💜” be enough instead of waiting
+            until I can write a dissertation.
+          </li>
+          <li>
+            <strong>Messy re-entry.</strong>
+            Sending the text even when it’s been “too long,” and trusting that the people
+            who are my people will be glad I showed up, period.
+          </li>
+          <li>
+            <strong>Reality checks.</strong>
+            Reminding myself: “They probably think you’re busy, not evil” instead of letting
+            my inner troll run the commentary.
+          </li>
+          <li>
+            <strong>Trauma-aware boundaries.</strong>
+            Not forcing myself into constant availability, but also not letting fear
+            drive the car every time connection feels vulnerable.
+          </li>
+        </ul>
+
+        <div class="pull">
+          I want to show up—consistently, honestly, and without drowning in guilt.
+          I want to let people back in without feeling like I’m crawling out of the grave
+          of every unanswered text.
+        </div>
+
+        <h2>If you relate…</h2>
+
+        <p>
+          If you see yourself in this loop, I hope you feel a little less alone. You’re not
+          broken. Your brain is just running a very specific, very dramatic script it has
+          rehearsed for years.
+        </p>
+
+        <p>
+          You’re allowed to pause the script. You’re allowed to write a new scene where you
+          send the “hey, I disappeared, I’m sorry, I still care about you” message and let
+          that be enough.
+        </p>
+
+        <h2>If you’re my friend…</h2>
+
+        <p>
+          Thank you for sticking around while I figure this out. Thank you for letting me
+          be human and glitchy and late and “oops I thought about replying a thousand times
+          in my head” and still worthy of connection.
+        </p>
+
+        <p>
+          I’m not perfect. I never will be. But I’m trying—intentionally, awkwardly, and
+          with as much honesty as I can give.
+        </p>
+
+        <div class="hr"></div>
+
+        <p class="mantra">
+          <span class="dot" aria-hidden="true"></span>
+          <span>
+            <strong>Mantra:</strong>
+            My silence is not my truth. I can always come back, even late.
+          </span>
+        </p>
+
+        <footer class="foot">
+          <div>— Parker</div>
+          <nav class="share" aria-label="Share this post">
+            <button class="btn" id="copyLinkBtn" type="button">Copy Link</button>
+            <a class="btn" id="fbShare" href="#" rel="noopener">Share on Facebook</a>
+            <button class="btn" id="nativeShareBtn" type="button" hidden>Share…</button>
+            <a class="btn" href="/blog/">Back to Blog</a>
+          </nav>
+        </footer>
+      </article>
+    </main>
+
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
+
+    <script type="module">
+      const url = new URL(window.location.href);
+      const titleMeta = document.title || "ParkerPixie Blog";
+
+      const copyBtn = document.getElementById("copyLinkBtn");
+      const fbA = document.getElementById("fbShare");
+      const nativeBtn = document.getElementById("nativeShareBtn");
+      const toast = document.getElementById("toast");
+
+      const fbShareUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+      fbShareUrl.searchParams.set("u", url.href);
+      fbA.href = fbShareUrl.toString();
+
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url.href);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = url.href;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          showToast();
+        } catch {
+          window.prompt("Copy this URL:", url.href);
+        }
+      });
+
+      if (navigator.share) {
+        nativeBtn.hidden = false;
+        nativeBtn.addEventListener("click", () => {
+          navigator.share({ title: titleMeta, url: url.href }).catch(() => {});
+        });
+      }
+
+      let toastTimer;
+      function showToast() {
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+    </script>
+  </body>
+</html>
 
