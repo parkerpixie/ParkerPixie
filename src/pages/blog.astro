@@ -12,7 +12,10 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ParkerPixie · Blog</title>
-    <meta name="description" content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates." />
+    <meta
+      name="description"
+      content="The ParkerPixie blog — cozy crafts, capybara lore, gaming, and glittery life updates."
+    />
     <link rel="icon" href="/CapyGoldIcon.png" />
     <link rel="canonical" href={pageUrl} />
 
@@ -20,82 +23,232 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
     <meta property="og:type" content="website" />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content="ParkerPixie · Blog" />
-    <meta property="og:description" content="Cozy crafts, capybara lore, gaming, life & sparkle ✨" />
+    <meta
+      property="og:description"
+      content="Cozy crafts, capybara lore, gaming, life & sparkle ✨"
+    />
     <meta property="og:image" content={shareImage} />
     <meta property="og:image:alt" content="ParkerPixie hero image" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="ParkerPixie · Blog" />
-    <meta name="twitter:description" content="Cozy crafts, capybara lore, gaming, life & sparkle ✨" />
+    <meta
+      name="twitter:description"
+      content="Cozy crafts, capybara lore, gaming, life & sparkle ✨"
+    />
     <meta name="twitter:image" content={shareImage} />
 
     <style>
-      :root{
-        --brand:#8a5dff; --brand-deep:#4b2fb5; --gold:#D8AA3B;
-        --ink:#f7f3ff; --muted:#bdb5d9;
-        --bg1:#0f0b14; --bg2:#130e1f; --bg3:#100b1a;
-        --card:#171220; --radius:18px;
+      :root {
+        --brand: #8a5dff;
+        --brand-deep: #4b2fb5;
+        --gold: #d8aa3b;
+        --ink: #f7f3ff;
+        --muted: #bdb5d9;
+        --bg1: #0f0b14;
+        --bg2: #130e1f;
+        --bg3: #100b1a;
+        --card: #171220;
+        --radius: 18px;
       }
-      *{box-sizing:border-box}
-      html,body{
-        margin:0;padding:0;color:var(--ink);
-        background:linear-gradient(180deg,var(--bg1),var(--bg2) 40%,var(--bg3));
-        font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial
+      * {
+        box-sizing: border-box;
       }
-      a{color:inherit;text-decoration:none}
-      img{max-width:100%;height:auto;display:block}
-      .wrap{max-width:1080px;margin:0 auto;padding:20px 20px 56px}
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        color: var(--ink);
+        background: linear-gradient(180deg, var(--bg1), var(--bg2) 40%, var(--bg3));
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter,
+          Arial;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 20px 56px;
+      }
 
       /* HEADER */
-      header.site{
-        position:sticky;top:0;z-index:50;
-        backdrop-filter:blur(10px);
-        background:linear-gradient(to bottom, rgba(15,11,20,.85), rgba(15,11,20,.55));
-        border-bottom:1px solid rgba(255,255,255,.06)
+      header.site {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(
+          to bottom,
+          rgba(15, 11, 20, 0.85),
+          rgba(15, 11, 20, 0.55)
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
-      .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-      .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.3px}
-      .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px rgba(216,170,59,.45))}
-      .brand span{font-size:18px;color:var(--gold)}
-      .nav-right{display:flex;align-items:center;gap:14px}
-      .nav-link{
-        padding:.55rem .2rem;border-radius:8px;opacity:.92;
-        transition:opacity .15s ease,color .15s ease,background .15s ease
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 0;
       }
-      .nav-link:hover{opacity:1;color:var(--gold)}
-      .nav-link[aria-current="page"]{color:var(--gold);opacity:1}
-      .nav-btn{
-        padding:.6rem .9rem;border-radius:999px;font-weight:600;
-        border:1px solid rgba(255,255,255,.18);
-        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
-        box-shadow:0 8px 24px rgba(75,47,181,.35)
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
       }
-      .nav-btn:hover{filter:brightness(1.06)}
+      .brand img {
+        width: 28px;
+        height: 28px;
+        filter: drop-shadow(0 0 8px rgba(216, 170, 59, 0.45));
+      }
+      .brand span {
+        font-size: 18px;
+        color: var(--gold);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .nav-link {
+        padding: 0.55rem 0.2rem;
+        border-radius: 8px;
+        opacity: 0.92;
+        transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+      }
+      .nav-link:hover {
+        opacity: 1;
+        color: var(--gold);
+      }
+      .nav-link[aria-current='page'] {
+        color: var(--gold);
+        opacity: 1;
+      }
+      .nav-btn {
+        padding: 0.6rem 0.9rem;
+        border-radius: 999px;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+        box-shadow: 0 8px 24px rgba(75, 47, 181, 0.35);
+      }
+      .nav-btn:hover {
+        filter: brightness(1.06);
+      }
 
       /* PAGE */
-      .hero{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-      .hero h1{font-size:clamp(28px,5vw,44px);margin:0}
-      .hero p{color:var(--muted);margin:8px 0 0}
+      .hero {
+        margin-top: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .hero h1 {
+        font-size: clamp(28px, 5vw, 44px);
+        margin: 0;
+      }
+      .hero p {
+        color: var(--muted);
+        margin: 8px 0 0;
+      }
 
-      .grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-      @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
-      @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+      .grid {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      @media (max-width: 1000px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 640px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
 
-      .card{display:flex;flex-direction:column;overflow:hidden;border-radius:var(--radius);
-        background:linear-gradient(180deg,#1c152d,#181126);
-        border:1px solid rgba(255,255,255,.08);
-        box-shadow:0 20px 60px rgba(0,0,0,.35);min-height:280px;transition:transform .12s ease}
-      .card:hover{transform:translateY(-1px)}
-      .thumb{aspect-ratio:16/9;background:#120d1b;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
-      .thumb img{width:100%;height:100%;object-fit:cover;opacity:.95;transition:transform .25s ease}
-      .card:hover .thumb img{transform:scale(1.03)}
-      .body{padding:16px}
-      .title{margin:0 0 6px;font-size:18px;line-height:1.25}
-      .meta{color:var(--muted);font-size:13px;margin:0 0 8px}
-      .excerpt{color:#eae6ff;font-size:14px;margin:0}
-      .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-      .tag{font-size:12px;background:rgba(216,170,59,.15);border:1px solid rgba(216,170,59,.35);color:#ffefb7;padding:4px 8px;border-radius:999px}
+      .card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, #1c152d, #181126);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        min-height: 280px;
+        transition: transform 0.12s ease;
+      }
+      .card:hover {
+        transform: translateY(-1px);
+      }
+      .thumb {
+        aspect-ratio: 16 / 9;
+        background: #120d1b;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.95;
+        transition: transform 0.25s ease;
+      }
+      .card:hover .thumb img {
+        transform: scale(1.03);
+      }
+      .body {
+        padding: 16px;
+      }
+      .title {
+        margin: 0 0 6px;
+        font-size: 18px;
+        line-height: 1.25;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 0 0 8px;
+      }
+      .excerpt {
+        color: #eae6ff;
+        font-size: 14px;
+        margin: 0;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .tag {
+        font-size: 12px;
+        background: rgba(216, 170, 59, 0.15);
+        border: 1px solid rgba(216, 170, 59, 0.35);
+        color: #ffefb7;
+        padding: 4px 8px;
+        border-radius: 999px;
+      }
 
-      footer{margin-top:42px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);color:#9b93b9;font-size:13px}
+      footer {
+        margin-top: 42px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        color: #9b93b9;
+        font-size: 13px;
+      }
     </style>
   </head>
 
@@ -124,6 +277,29 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
 
       <section class="grid" aria-label="Magazine posts">
         <!-- Post 0 (NEWEST) -->
+        <a class="card" href="/blog/adhd-friendship-loop/">
+          <div class="thumb">
+            <img
+              src="/img/ADHDFriendShipLoop.png"
+              alt="The ADHD Friendship Loop cover"
+            />
+          </div>
+          <div class="body">
+            <h2 class="title">The ADHD Friendship Loop</h2>
+            <p class="meta">November 20, 2025</p>
+            <p class="excerpt">
+              Why I disappear, what it really means, and how I’m trying to come back without drowning in guilt.
+            </p>
+            <div class="tags">
+              <span class="tag">ADHD</span>
+              <span class="tag">friendship</span>
+              <span class="tag">trauma</span>
+              <span class="tag">healing</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post 1 -->
         <a class="card" href="/blog/lifes-gonna-life/">
           <div class="thumb">
             <img src="/img/opalite.png" alt="Life’s Gonna Life cover (opalite sky)" />
@@ -142,16 +318,20 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           </div>
         </a>
 
-        <!-- Post 1 -->
+        <!-- Post 2 -->
         <a class="card" href="/blog/supercommunicator/">
           <div class="thumb">
-            <img src="/img/supercommunicators.png" alt="Supercommunicators cover image" />
+            <img
+              src="/img/supercommunicators.png"
+              alt="Supercommunicators cover image"
+            />
           </div>
           <div class="body">
             <h2 class="title">Why We’re All So Damn Angry</h2>
             <p class="meta">September 23, 2025</p>
             <p class="excerpt">
-              Anger is fast; empathy is slow. Why a culture of speed kills connection — and how pausing helps us become supercommunicators.
+              Anger is fast; empathy is slow. Why a culture of speed kills connection — and how pausing helps us
+              become supercommunicators.
             </p>
             <div class="tags">
               <span class="tag">communication</span>
@@ -162,16 +342,20 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           </div>
         </a>
 
-        <!-- Post 2 -->
+        <!-- Post 3 -->
         <a class="card" href="/blog/artfairfinalists/">
           <div class="thumb">
-            <img src="/img/finalists.png" alt="Stitched Souls, Healing Hands cover image showing five amigurumi in a blue Equinox trunk" />
+            <img
+              src="/img/finalists.png"
+              alt="Stitched Souls, Healing Hands cover image showing five amigurumi in a blue Equinox trunk"
+            />
           </div>
           <div class="body">
             <h2 class="title">Stitched Souls, Healing Hands</h2>
             <p class="meta">September 19, 2025</p>
             <p class="excerpt">
-              Finalists in the Lands’ End Multicultural Art Showcase. How amigurumi’s Japanese roots, a healing journey, and five stitched stories helped me finally claim “artist.”
+              Finalists in the Lands’ End Multicultural Art Showcase. How amigurumi’s Japanese roots, a healing
+              journey, and five stitched stories helped me finally claim “artist.”
             </p>
             <div class="tags">
               <span class="tag">amigurumi</span>
@@ -182,7 +366,7 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           </div>
         </a>
 
-        <!-- Post 3 -->
+        <!-- Post 4 -->
         <a class="card" href="/blog/angeralignment/">
           <div class="thumb">
             <img src="/img/values.png" alt="From Anger to Alignment cover" />
@@ -202,10 +386,13 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           </div>
         </a>
 
-        <!-- Post 4 -->
+        <!-- Post 5 -->
         <a class="card" href="/blog/weirdal/">
           <div class="thumb">
-            <img src="/img/weirdal.jpg" alt="Two Concerts, One Week — Weird Al Tonight! cover" />
+            <img
+              src="/img/weirdal.jpg"
+              alt="Two Concerts, One Week — Weird Al Tonight! cover"
+            />
           </div>
           <div class="body">
             <h2 class="title">Two Concerts, One Week — Weird Al Tonight!</h2>
@@ -220,10 +407,13 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           </div>
         </a>
 
-        <!-- Post 5 -->
+        <!-- Post 6 -->
         <a class="card" href="/blog/feelings-emotions/">
           <div class="thumb">
-            <img src="/img/FeelingsEmotions.png" alt="When the Loudest Voice Is in My Head cover" />
+            <img
+              src="/img/FeelingsEmotions.png"
+              alt="When the Loudest Voice Is in My Head cover"
+            />
           </div>
           <div class="body">
             <h2 class="title">When the Loudest Voice Is in My Head</h2>
@@ -238,7 +428,7 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           </div>
         </a>
 
-        <!-- Post 6 -->
+        <!-- Post 7 -->
         <a class="card" href="/blog/mysoundtrack/">
           <div class="thumb">
             <img src="/img/Anipic.jpg" alt="The Soundtrack of My Life cover" />
@@ -246,7 +436,9 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           <div class="body">
             <h2 class="title">The Soundtrack of My Life 🎶</h2>
             <p class="meta">September 6, 2025</p>
-            <p class="excerpt">How music became my refuge, rebellion, and rhythm of healing.</p>
+            <p class="excerpt">
+              How music became my refuge, rebellion, and rhythm of healing.
+            </p>
             <div class="tags">
               <span class="tag">music</span>
               <span class="tag">healing</span>
@@ -256,15 +448,20 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
           </div>
         </a>
 
-        <!-- Post 7 -->
+        <!-- Post 8 -->
         <a class="card" href="/blog/helloworld/">
           <div class="thumb">
-            <img src="/img/helloworld-cover.png" alt="Open Doors, Quiet Halls cover" />
+            <img
+              src="/img/helloworld-cover.png"
+              alt="Open Doors, Quiet Halls cover"
+            />
           </div>
           <div class="body">
             <h2 class="title">Open Doors, Quiet Halls</h2>
             <p class="meta">September 3, 2025</p>
-            <p class="excerpt">Expectations, boundaries, and the echo that follows.</p>
+            <p class="excerpt">
+              Expectations, boundaries, and the echo that follows.
+            </p>
             <div class="tags">
               <span class="tag">healing</span>
               <span class="tag">boundaries</span>
@@ -276,12 +473,13 @@ const shareImage = `${site}/hero.jpg`; // file is /public/hero.jpg
       </section>
 
       <footer>
-        © <span id="y"></span> ParkerPixie · Made with ✨ glitter ✨, 💃 sass 💃, and 💖 love 💖 from Madison, WI
+        © <span id="y"></span> ParkerPixie · Made with ✨ glitter ✨, 💃 sass 💃, and 💖 love 💖
+        from Madison, WI
       </footer>
     </main>
 
     <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
+      document.getElementById("y").textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
