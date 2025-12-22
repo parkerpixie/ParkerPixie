@@ -1,48 +1,206 @@
 ---
+// src/pages/blog/reason-for-the-season.astro
 const title = "The Reason for the Season (Is Still Kindness)";
 const subtitle = "Choosing humanity when the holidays get complicated.";
 const date = "December 22, 2025";
-const tags = ["holidays", "kindness", "boundaries", "family", "empathy"];
+const tags = ["holidays", "kindness", "boundaries", "empathy"];
 
+/* Image lives at /public/img/BlueChristmas.png */
+const cover = "/img/BlueChristmas.png";
+const coverAbs = "https://parkerpixie.netlify.app/img/BlueChristmas.png";
+
+/* ✅ Absolute URL for this page (under /blog/) */
 const pageUrl = "https://parkerpixie.netlify.app/blog/reason-for-the-season/";
 ---
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>{title} • ParkerPixie Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={subtitle} />
+    <meta
+      name="description"
+      content="When the holidays come with unspoken rules, silence, and tension—choosing empathy, boundaries, and kindness is the bravest thing at the table."
+    />
     <link rel="icon" href="/CapyGoldIcon.png" />
+
+    <!-- ✅ Absolute canonical under /blog/ -->
     <link rel="canonical" href={pageUrl} />
 
+    <!-- ✅ Social preview (absolute URLs) -->
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="ParkerPixie" />
     <meta property="og:url" content={pageUrl} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={title + " • ParkerPixie Blog"} />
     <meta property="og:description" content={subtitle} />
-
+    <meta property="og:image" content={coverAbs} />
+    <meta property="og:image:alt" content="Blue Christmas cover image" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={subtitle} />
-  </head>
+    <meta name="twitter:image" content={coverAbs} />
 
+    <style>
+      :root{
+        --brand:#8a5dff; --brand-deep:#5a39d9;
+        --ink:#f6f1ff; --muted:#cfc7e6;
+        --bg:#0e0a16; --card:#151025f2;
+        --gold:#f2c98b; --glow:0 0 30px rgba(138,93,255,.35);
+        --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{
+        margin:0; padding:0; line-height:1.6; color:var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+        background:
+          radial-gradient(1200px 800px at 10% -10%, rgba(138,93,255,.16), transparent 60%),
+          radial-gradient(900px 600px at 90% 0%, rgba(255,214,232,.14), transparent 58%),
+          url('/bg/cotton-candy.jpg') center/cover no-repeat fixed,
+          var(--bg);
+      }
+      a{ color:var(--gold); text-decoration:none }
+      a:hover{ text-decoration:underline }
+      .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+      header.site{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(15,11,20,.86), rgba(15,11,20,.55));
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+      .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+      .brand img{width:28px; height:28px; filter:drop-shadow(0 0 8px rgba(242,201,139,.45))}
+      .brand span{font-size:18px; color:var(--gold)}
+      .nav-right{display:flex; align-items:center; gap:14px}
+      .nav-link{
+        padding:.55rem .2rem; border-radius:8px; opacity:.92;
+        transition:opacity .15s ease, color .15s ease, background .15s ease;
+        color:#fff; text-decoration:none;
+      }
+      .nav-link:hover{opacity:1; color:var(--gold)}
+      .nav-btn{
+        padding:.6rem .9rem; border-radius:999px; font-weight:600;
+        border:1px solid rgba(255,255,255,.18);
+        background:linear-gradient(135deg,var(--brand),var(--brand-deep));
+        box-shadow:0 8px 24px rgba(90,57,217,.35);
+        color:#fff; text-decoration:none;
+      }
+      .nav-btn:hover{filter:brightness(1.06)}
+      @media (max-width:900px){
+        .nav-right{gap:10px}
+        .nav-link{padding:.5rem .1rem}
+      }
+      .shell{ max-width:820px; margin:40px auto 100px; padding:0 20px }
+      header.post{
+        background: linear-gradient(180deg, rgba(138,93,255,.18), transparent 55%), var(--card);
+        border:1px solid rgba(255,255,255,.10); border-radius:var(--radius);
+        box-shadow:var(--glow); padding:28px; position:relative; overflow:hidden;
+      }
+      .sparkles{
+        position:absolute; inset:-2px; pointer-events:none; opacity:.5; filter:blur(.2px);
+        background:
+          radial-gradient(8px 8px at 20% 30%, rgba(242,201,139,.8), transparent 60%),
+          radial-gradient(6px 6px at 70% 20%, rgba(138,93,255,.65), transparent 60%),
+          radial-gradient(5px 5px at 85% 65%, rgba(242,201,139,.7), transparent 60%),
+          radial-gradient(7px 7px at 35% 80%, rgba(138,93,255,.45), transparent 60%);
+      }
+      .kicker{ color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.78rem }
+      h1{ font-size:clamp(1.8rem, 4vw, 2.6rem); line-height:1.12; margin:8px 0 6px; color:#fff }
+      .sub{ color:#e8e0ff; font-size:clamp(1rem, 2.2vw, 1.15rem); margin:0 0 14px }
+      .meta{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--muted); font-size:.92rem }
+      .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-left:auto }
+      .tag{ background:rgba(242,201,139,.12); border:1px solid rgba(242,201,139,.35);
+            color:#ffeecf; padding:4px 10px; border-radius:999px; font-size:.78rem }
+      .cover{ margin:18px 0 0; border-radius:calc(var(--radius) - 6px); overflow:hidden; border:1px solid rgba(255,255,255,.12) }
+      .cover img{ width:100%; display:block }
+      .content{
+        margin-top:26px; padding:26px; border-radius:var(--radius);
+        background: rgba(9,7,15,.55); backdrop-filter: blur(4px);
+        border:1px solid rgba(255,255,255,.10);
+      }
+      .insight{
+        display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:center;
+        background: linear-gradient(180deg, rgba(242,201,139,.12), rgba(138,93,255,.10));
+        border:1px dashed rgba(242,201,139,.45); padding:14px 16px; border-radius:14px; margin:8px 0 22px;
+      }
+      .insight .badge{
+        width:48px; height:48px; border-radius:12px; display:grid; place-items:center;
+        background: radial-gradient(circle at 30% 25%, #fff7, transparent 40%), #2a2141;
+        color:#ffe8bd; font-weight:700; font-size:.68rem; text-align:center; line-height:1.1;
+        border:1px solid rgba(255,255,255,.18);
+      }
+      .pull{
+        font-size:clamp(1.05rem, 2.2vw, 1.25rem);
+        color:#fff; background:rgba(138,93,255,.16);
+        border-left:3px solid var(--brand); padding:14px 16px; border-radius:12px; margin:20px 0;
+      }
+      .hr{ height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); margin:22px 0 }
+      .mantra{
+        display:flex; gap:10px; align-items:flex-start; color:#fff; font-weight:600;
+        background:#1c1530; border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:12px 14px; margin-top:18px;
+      }
+      .mantra .dot{ width:9px; height:9px; margin-top:7px; border-radius:99px; background:var(--gold); box-shadow:0 0 10px rgba(242,201,139,.9) }
+      .foot{ color:var(--muted); font-size:.9rem; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:18px }
+      .share{ display:flex; gap:10px; flex-wrap:wrap }
+      .btn{
+        padding:7px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+        background:#1b132e; color:#f3ecff; font-size:.85rem; cursor:pointer; text-decoration:none;
+        transition: transform .06s ease, border-color .18s ease;
+      }
+      .btn:hover{ border-color:rgba(242,201,139,.6) }
+      .btn:active{ transform: translateY(1px); }
+      .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+      #toast{
+        position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(10px);
+        background: rgba(28, 21, 48, .95);
+        color: #f6f1ff; border: 1px solid rgba(255,255,255,.18);
+        padding: 10px 14px; border-radius: 999px; opacity: 0; pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease; box-shadow: 0 10px 30px #0007;
+        font-size: .92rem;
+      }
+      #toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+      h2{ margin-top:22px }
+      ul{ padding-left: 1.1rem }
+      li{ margin: .35rem 0 }
+    </style>
+  </head>
   <body>
+    <header class="site">
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <img src="/CapyGoldIcon.png" alt="ParkerPixie gold capybara icon" />
+          <span>ParkerPixie</span>
+        </a>
+        <nav class="nav-right" aria-label="Primary">
+          <a class="nav-link" href="/about/">About</a>
+          <a class="nav-link" href="/blog/">Blog</a>
+          <a class="nav-btn" href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+
     <main class="shell">
       <header class="post">
+        <div class="sparkles" aria-hidden="true"></div>
         <div class="kicker">ParkerPixie Blog</div>
         <h1>{title} ✨</h1>
         <p class="sub">{subtitle}</p>
         <div class="meta">
           <span>{date}</span>
           <div class="tags">
-            {tags.map(t => <span class="tag">{t}</span>)}
+            {tags.map((t) => <span class="tag">{t}</span>)}
           </div>
         </div>
+        {cover && (
+          <figure class="cover">
+            <img src={cover} alt="Blue Christmas cover image" loading="eager" />
+          </figure>
+        )}
       </header>
 
       <article class="content">
+        <p><strong>The Reason for the Season (Is Still Kindness)</strong></p>
+
         <p>As families gather for Christmas, there’s an unspoken negotiation that happens in many living rooms.</p>
 
         <p>In some homes, conversation flows easily. There’s an echo chamber of shared values—agreement about what’s right and wrong, about where our country should be putting its attention. Feelings can be shared freely because they’re safe there.</p>
@@ -57,64 +215,186 @@ const pageUrl = "https://parkerpixie.netlify.app/blog/reason-for-the-season/";
           Don’t get your uncle started.
         </p>
 
-        <p>We all know the dance. The careful wording. The polite deflections. The way “the news” becomes dangerous territory—despite the fact that the news is, quite literally, about our lives.</p>
+        <p>We all know the dance. The careful wording. The polite deflections. The way “the news” becomes dangerous territory—despite the fact that the news is, quite literally, about our lives. About policies that affect whether people can eat, get healthcare, feel safe, or stay housed.</p>
 
         <p>So we tiptoe. We make small talk. We swallow words. We hope no one says the wrong thing after their second drink.</p>
 
-        <section class="insight">
+        <section class="insight" role="note" aria-label="Pixie Insight">
           <div class="badge">Pixie<br/>Insight</div>
-          <p>Silence can keep the peace — but it can also keep harm comfortable.</p>
+          <p style="margin:0;">
+            Silence can keep the peace — but it can also keep harm comfortable.
+          </p>
         </section>
 
-        <p>If you grew up Christian, you were likely taught the “true meaning of Christmas” early on. <em>Jesus is the reason for the season.</em></p>
+        <p>And all of this happens under the banner of Christmas.</p>
+
+        <p>If you grew up Christian, you were likely taught the “true meaning of Christmas” early on.<br/>
+        Jesus is the reason for the season.<br/>
+        I remember hearing that phrase as a child, repeated until it became unquestioned truth.</p>
 
         <p>But many of us don’t follow a god or deity—and we still celebrate Christmas.</p>
 
-        <p>We celebrate it for tradition. For connection. For the ritual of gathering. For the spreading of kindness in a world that feels increasingly heavy.</p>
+        <p>We celebrate it for tradition.<br/>
+        For connection.<br/>
+        For the ritual of gathering.<br/>
+        For the spreading of kindness in a world that feels increasingly heavy.</p>
 
-        <p><strong>But here’s the part we don’t say out loud often enough:</strong></p>
+        <p>Christmas, at its best, is about reminding each other that hope still exists.</p>
+
+        <p>But here’s the part we don’t say out loud often enough:</p>
 
         <p><strong>It isn’t joyful for everyone.</strong></p>
 
-        <section class="insight">
+        <section class="insight" role="note" aria-label="Pixie Insight">
           <div class="badge">Pixie<br/>Insight</div>
-          <p>Holiday cheer is not a requirement. Survival is enough.</p>
+          <p style="margin:0;">
+            Holiday cheer is not a requirement. Survival is enough.
+          </p>
         </section>
 
-        <p>[your full grief list remains unchanged here]</p>
+        <p>It isn’t joyful for the parent who was just laid off and is desperately trying to make this Christmas feel “normal” for their kids.</p>
 
-        <p>Here in Wisconsin, we’re probably not getting a white Christmas this year. But for many people, this will be a blue Christmas.</p>
+        <p>It isn’t joyful for the family struggling to afford groceries—who are stretching an already impossible budget just to make one day feel special.</p>
 
-        <section class="insight">
+        <p>It isn’t joyful for the addict or alcoholic who is fighting the urge to numb themselves in a world where vulnerability is treated like weakness, and substances promise quiet from the voices saying you’re broken beyond repair.</p>
+
+        <p>It isn’t joyful for the divorced person who lost not just a marriage, but a support system—and now has nowhere to go.</p>
+
+        <p>It isn’t joyful for the person carrying a terrifying health diagnosis who doesn’t want to “ruin the mood,” so they suffer silently while smiling over dinner.</p>
+
+        <p>There is so much hurt in this world.</p>
+
+        <p>And for many people, Christmas—this season that’s supposed to be filled with light—is actually one of the darkest and most stressful times of the year.</p>
+
+        <p>Here in Wisconsin, we’re probably not getting a white Christmas this year. It looks like another brown, unseasonably warm one.</p>
+
+        <p>But for far more people than usual, this will be a blue Christmas.</p>
+
+        <p>And those who are struggling most are not being helped by the people in red suits in Congress.</p>
+
+        <section class="insight" role="note" aria-label="Pixie Insight">
           <div class="badge">Pixie<br/>Insight</div>
-          <p>Systems fail people quietly. Kindness is how we notice.</p>
+          <p style="margin:0;">
+            Systems fail people quietly. Kindness is how we notice.
+          </p>
         </section>
 
         <p>So who do we choose to be this Christmas?</p>
 
-        <section class="insight">
+        <p>Some people will choose peacekeeping. Avoiding politics entirely. Keeping conversations shallow so the day can survive. If that’s you, I genuinely hope you’re in a space where that’s possible—and where it doesn’t cost you your dignity or safety.</p>
+
+        <p>Some people will choose judgment. They’ll echo misinformation, mock others, and mistake cruelty for conviction. That is a choice too. In those cases, I hope no one at the table is forced to endure that energy alone.</p>
+
+        <p>And then there are those who choose something harder.</p>
+
+        <p>
+          Empathy.<br/>
+          Grace.<br/>
+          Curiosity.<br/>
+          Kindness.
+        </p>
+
+        <p>The people who say, “Tell me more about why you think that.”</p>
+
+        <p>The people who respectfully challenge false information.</p>
+
+        <p>The people who pause to find words that don’t inflame—but also don’t excuse harm.</p>
+
+        <p>Planting seeds is slow, uncomfortable work. But it matters.</p>
+
+        <section class="insight" role="note" aria-label="Pixie Insight">
           <div class="badge">Pixie<br/>Insight</div>
-          <p>Avoidance, cruelty, and compassion are all choices — only one builds a future.</p>
+          <p style="margin:0;">
+            Avoidance, cruelty, and compassion are all choices — only one builds a future.
+          </p>
         </section>
 
-        <p>[your closing paragraphs unchanged]</p>
+        <p>Which group am I in?</p>
+
+        <p>I won’t label myself—but I do have boundaries. I won’t allow unkindness. I won’t let misinformation go unchallenged. And I won’t pretend things are okay when they aren’t.</p>
+
+        <p>For me, the reason for the season is this:</p>
+
+        <p>
+          Spending time with people I love.<br/>
+          Sharing food.<br/>
+          Sharing warmth.<br/>
+          Sharing presence.<br/>
+          Yes—even presents.
+        </p>
+
+        <p>But above all, choosing to show humanity in a world that desperately needs more of it.</p>
+
+        <p>That’s the Christmas I believe in.</p>
+
+        <div class="hr"></div>
 
         <p class="mantra">
-          <span class="dot"></span>
+          <span class="dot" aria-hidden="true"></span>
           <span>
-            <strong>Mantra:</strong><br />
-            I can hold truth without becoming unkind.<br />
-            I can love people without excusing harm.<br />
-            I choose humanity — especially when it’s hard.
+            <strong>Mantra:</strong>
+            I can hold truth without becoming unkind. I can love people without excusing harm. I choose humanity — especially when it’s hard.
           </span>
         </p>
 
         <footer class="foot">
           <div>— Parker</div>
-          <a class="btn" href="/blog/">Back to Blog</a>
+          <nav class="share" aria-label="Share this post">
+            <button class="btn" id="copyLinkBtn" type="button">Copy Link</button>
+            <a class="btn" id="fbShare" href="#" rel="noopener">Share on Facebook</a>
+            <button class="btn" id="nativeShareBtn" type="button" hidden>Share…</button>
+            <a class="btn" href="/blog/">Back to Blog</a>
+          </nav>
         </footer>
       </article>
     </main>
+
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">Link copied ✨</div>
+
+    <script type="module">
+      const url = new URL(window.location.href);
+      const titleMeta = document.title || "ParkerPixie Blog";
+
+      const copyBtn = document.getElementById("copyLinkBtn");
+      const fbA = document.getElementById("fbShare");
+      const nativeBtn = document.getElementById("nativeShareBtn");
+      const toast = document.getElementById("toast");
+
+      const fbShareUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+      fbShareUrl.searchParams.set("u", url.href);
+      fbA.href = fbShareUrl.toString();
+
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url.href);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = url.href;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          showToast();
+        } catch {
+          window.prompt("Copy this URL:", url.href);
+        }
+      });
+
+      if (navigator.share) {
+        nativeBtn.hidden = false;
+        nativeBtn.addEventListener("click", () => {
+          navigator.share({ title: titleMeta, url: url.href }).catch(() => {});
+        });
+      }
+
+      let toastTimer;
+      function showToast() {
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+    </script>
   </body>
 </html>
-
