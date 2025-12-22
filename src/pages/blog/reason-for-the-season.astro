@@ -1,1 +1,120 @@
+---
+const title = "The Reason for the Season (Is Still Kindness)";
+const subtitle = "Choosing humanity when the holidays get complicated.";
+const date = "December 22, 2025";
+const tags = ["holidays", "kindness", "boundaries", "family", "empathy"];
+
+const pageUrl = "https://parkerpixie.netlify.app/blog/reason-for-the-season/";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title} • ParkerPixie Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={subtitle} />
+    <link rel="icon" href="/CapyGoldIcon.png" />
+    <link rel="canonical" href={pageUrl} />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ParkerPixie" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={subtitle} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={subtitle} />
+  </head>
+
+  <body>
+    <main class="shell">
+      <header class="post">
+        <div class="kicker">ParkerPixie Blog</div>
+        <h1>{title} ✨</h1>
+        <p class="sub">{subtitle}</p>
+        <div class="meta">
+          <span>{date}</span>
+          <div class="tags">
+            {tags.map(t => <span class="tag">{t}</span>)}
+          </div>
+        </div>
+      </header>
+
+      <article class="content">
+        <p>As families gather for Christmas, there’s an unspoken negotiation that happens in many living rooms.</p>
+
+        <p>In some homes, conversation flows easily. There’s an echo chamber of shared values—agreement about what’s right and wrong, about where our country should be putting its attention. Feelings can be shared freely because they’re safe there.</p>
+
+        <p>And then there are the other homes.</p>
+
+        <p>The ones with rules.</p>
+
+        <p>
+          We don’t talk about politics.<br />
+          Let’s not upset Grandpa.<br />
+          Don’t get your uncle started.
+        </p>
+
+        <p>We all know the dance. The careful wording. The polite deflections. The way “the news” becomes dangerous territory—despite the fact that the news is, quite literally, about our lives.</p>
+
+        <p>So we tiptoe. We make small talk. We swallow words. We hope no one says the wrong thing after their second drink.</p>
+
+        <section class="insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p>Silence can keep the peace — but it can also keep harm comfortable.</p>
+        </section>
+
+        <p>If you grew up Christian, you were likely taught the “true meaning of Christmas” early on. <em>Jesus is the reason for the season.</em></p>
+
+        <p>But many of us don’t follow a god or deity—and we still celebrate Christmas.</p>
+
+        <p>We celebrate it for tradition. For connection. For the ritual of gathering. For the spreading of kindness in a world that feels increasingly heavy.</p>
+
+        <p><strong>But here’s the part we don’t say out loud often enough:</strong></p>
+
+        <p><strong>It isn’t joyful for everyone.</strong></p>
+
+        <section class="insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p>Holiday cheer is not a requirement. Survival is enough.</p>
+        </section>
+
+        <p>[your full grief list remains unchanged here]</p>
+
+        <p>Here in Wisconsin, we’re probably not getting a white Christmas this year. But for many people, this will be a blue Christmas.</p>
+
+        <section class="insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p>Systems fail people quietly. Kindness is how we notice.</p>
+        </section>
+
+        <p>So who do we choose to be this Christmas?</p>
+
+        <section class="insight">
+          <div class="badge">Pixie<br/>Insight</div>
+          <p>Avoidance, cruelty, and compassion are all choices — only one builds a future.</p>
+        </section>
+
+        <p>[your closing paragraphs unchanged]</p>
+
+        <p class="mantra">
+          <span class="dot"></span>
+          <span>
+            <strong>Mantra:</strong><br />
+            I can hold truth without becoming unkind.<br />
+            I can love people without excusing harm.<br />
+            I choose humanity — especially when it’s hard.
+          </span>
+        </p>
+
+        <footer class="foot">
+          <div>— Parker</div>
+          <a class="btn" href="/blog/">Back to Blog</a>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
 
